@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="auto.bangumi.rss.mapper.RssManageMapper">
+  <resultMap id="BaseResultMap" type="auto.bangumi.rss.model.entity.RssManage">
+    <!--@mbg.generated-->
+    <!--@Table rss_manage-->
+    <id column="id" property="id" />
+    <result column="official_title" property="officialTitle" />
+    <result column="season" property="season" />
+    <result column="status" property="status" />
+    <result column="filter" property="filter" />
+    <result column="poster_link" property="posterLink" />
+    <result column="save_path" property="savePath" />
+    <result column="deleted" property="deleted" />
+    <result column="complete" property="complete" />
+    <result column="update_week" property="updateWeek" />
+    <result column="send_date" property="sendDate" />
+    <result column="rss_list" property="rssList" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, official_title, season, "status", "filter", poster_link, save_path, deleted, 
+    complete, update_week, send_date, rss_list
+  </sql>
+</mapper>

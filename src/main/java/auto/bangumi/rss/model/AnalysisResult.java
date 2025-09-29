@@ -1,0 +1,46 @@
+package auto.bangumi.rss.model;
+
+import lombok.*;
+
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class AnalysisResult {
+
+    /**
+     * 标题
+     */
+    private String title;
+
+    /**
+     * 季度
+     */
+    private String season;
+
+    /**
+     * 分组
+     */
+    private String translationGroup;
+
+    /**
+     * 番剧 - 翻译分组？
+     */
+    private String subGroupId;
+
+    /**
+     * 发布日期 yyyy-MM-dd
+     */
+    private String sendData;
+
+    /**
+     * 更新星期 1 2 3 4 5 6 7
+     */
+    private Integer updateWeek;
+
+    /**
+     * 图片路径
+     */
+    private String posterLink;
+}

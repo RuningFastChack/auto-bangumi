@@ -1,0 +1,20 @@
+server:
+  servlet:
+    context-path: /api
+  port: ${SERVER_PORT:9000}
+
+spring:
+  datasource:
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite:${user.dir}/db/app.db
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.xml
+    database-change-log-table: liquibase_changelog
+    database-change-log-lock-table: liquibase_changelog_lock
+    enabled: true
+
+auto-bangumi:
+  cors:
+    # 定义允许跨域请求的源（Origin）。可以设置为特定的域名、IP 地址或通配符。
+    allowed-origins:
+      - "*"

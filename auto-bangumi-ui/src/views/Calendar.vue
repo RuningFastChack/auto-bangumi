@@ -1,0 +1,183 @@
+<script setup lang="ts">
+import CardPanel from '@/components/CardPanel.vue';
+import { onMounted, ref } from 'vue';
+import type { RssManageCalendar } from '@/api/types/rss/rssManage.ts';
+import { findRssManageCalendar } from '@/api/modules/rssManage.ts';
+import { isEmpty, isLocalEnv } from '@/utils';
+import { EditOutlined, OrderedListOutlined } from '@ant-design/icons-vue';
+import { sleep } from '@/utils/common.ts';
+import BetweenMenus from '@/components/BetweenMenus.vue';
+import { useScreen } from '@/hooks/useScreen.ts';
+import { useRoute } from 'vue-router';
+import { WEEK_MAP } from '../types/dict.ts';
+import RssManageForm from '@/views/rss/RssManageForm.vue';
+import RssItems from '@/views/rss/RssItems.vue';
+//region type
+
+//endregion
+
+//region props & emit
+const route = useRoute();
+
+const rssManageFormRef = ref<InstanceType<typeof RssManageForm>>();
+
+const rssItemRef = ref<InstanceType<typeof RssItems>>();
+
+const { isPhone } = useScreen();
+
+const loading = ref<boolean>(false);
+
+const paramsProps = ref<Record<number, RssManageCalendar[]>>({});
+//endregion
+
+//region refs & data
+
+//endregion
+
+//region computed
+//endregion
+
+//region watch
+
+//endregion
+
+//region methods
+
+const init = async () => {
+  loading.value = true;
+  try {
+    const { data } = await findRssManageCalendar();
+    await sleep(1000);
+    paramsProps.value = data;
+  } finally {
+    loading.value = false;
+  }
+};
+
+const handlerEdit = (obj: RssManageCalendar) => {
+  rssManageFormRef.value?.acceptParams('修改', obj.id);
+};
+const handlerRssItem = (obj: RssManageCalendar) => {
+  rssItemRef.value?.acceptParams(obj.id, obj.officialTitle);
+};
+//endregion
+
+//region otherMethods
+
+defineOptions({ name: 'Calendar' });
+
+onMounted(() => init());
+//endregion
+
+</script>
+
+<template>
+  <div style="height: 100%" class="container">
+    <a-row :gutter="[24, 24]" style="height: 100%">
+      <a-col :span="24">
+        <between-menus>
+          <template v-if="!isPhone" #left>
+            <a-typography-title class="mb-0" :level="4">{{ route.meta.mainTitle }}
+            </a-typography-title>
+          </template>
+        </between-menus>
+      </a-col>
+      <a-col :span="24">
+        <a-spin tip="Loading..." :spinning="loading">
+          <card-panel class="calendar-container">
+            <template #body v-if="isEmpty(paramsProps) && !loading">
+              <a-empty description="尚未订阅番剧" />
+            </template>
+            <template #body v-else>
+              <div class="week-container"
+                   v-for="([key, item], index) in Object.entries(paramsProps)"
+                   :key="index">
+                <h2 class="week-header" title="更新星期">{{ WEEK_MAP[Number(key)].text }}</h2>
+                <a-flex class="week-item-container"
+                        :style="isPhone?{width:'100%',overflowX: 'auto',padding:'5px 0'}:{}"
+                        :wrap="isPhone?'nowrap':'wrap'"
+                        gap="large" justify="flex-start"
+                        align="center">
+                  <a-card v-if="!isEmpty(item)" hoverable class="rss-item-card"
+                          v-for="(_item, _index) in item" :key="_index">
+                    <template #cover>
+                      <img alt="海报图"
+                           class="rss-item-image"
+                           :src="`${isLocalEnv()?'':''}${_item.posterLink.startsWith('/images/') ? _item.posterLink : '/images/' + _item.posterLink}`" />
+                    </template>
+                    <a-tooltip placement="topLeft">
+                      <template #title>
+                        <span>{{ _item.officialTitle }}</span>
+                      </template>
+                      <a-card-meta :title="_item.officialTitle">
+                        <template #description>
+                          {{ _item.sendDate }}
+                        </template>
+                      </a-card-meta>
+                    </a-tooltip>
+                    <template #actions>
+                      <edit-outlined @click="handlerEdit(_item)" />
+                      <ordered-list-outlined @click="handlerRssItem(_item)" />
+                    </template>
+                  </a-card>
+                  <a-empty v-else description="尚未订阅番剧"></a-empty>
+                </a-flex>
+              </div>
+            </template>
+          </card-panel>
+        </a-spin>
+      </a-col>
+    </a-row>
+    <rss-manage-form ref="rssManageFormRef" @success="init()" />
+    <rss-items ref="rssItemRef" />
+  </div>
+</template>
+
+<style scoped lang="scss">
+.container {
+  :deep(.calendar-container) {
+    min-height: 50vh;
+
+    .week-container {
+      margin-bottom: 10px;
+      padding: 5px;
+
+      .week-item-container {
+        min-height: 20vh;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+
+      .week-header {
+        font-weight: bold;
+        padding: 5px;
+        border-left: 2px solid var(--color-blue-6);
+      }
+
+      .rss-item-card {
+        max-width: 200px;
+        min-width: 200px;
+
+
+        .ant-card-body {
+          padding: 10px;
+        }
+
+        .ant-card-actions > li {
+          margin: 5px 0;
+        }
+
+        .rss-item-image {
+          width: 100%;
+          height: auto;
+          max-width: 200px;
+          max-height: 280px;
+          object-fit: contain;
+        }
+      }
+    }
+  }
+}
+</style>

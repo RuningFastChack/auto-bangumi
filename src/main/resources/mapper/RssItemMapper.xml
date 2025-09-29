@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="auto.bangumi.rss.mapper.RssItemMapper">
+    <insert id="saveBatchList" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into rss_item
+        (torrent_code, episode_num, rss_manage_id, translation_group, torrent_name, "name",
+         url, homepage, downloaded, pushed,sub_group_id,save_path)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.torrentCode}, #{item.episodeNum}, #{item.rssManageId}, #{item.translationGroup},
+             #{item.torrentName}, #{item.name}, #{item.url}, #{item.homepage}, #{item.downloaded},
+             #{item.pushed},#{item.subGroupId},#{item.savePath})
+        </foreach>
+    </insert>
+</mapper>
