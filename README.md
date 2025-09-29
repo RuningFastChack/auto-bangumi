@@ -23,7 +23,7 @@
 
 ## 系统要求
 
-- JDK >= 21
+- JDK >= 17
 - SqlIte
 - Maven >= 3.8
 - Node >= 18.x
