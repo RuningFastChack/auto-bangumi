@@ -1,9 +1,9 @@
 <h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">AutoBangumi</h1>
 <h4 align="center">基于SpringBoot3、Vue3的Rss订阅</h4>
 <p align="center">
-<a href="https://github.com/RuningFastChack/AutoBangumi/stargazers"><img src="https://img.shields.io/github/stars/RuningFastChack/AutoBangumi?style=flat-square&logo=GitHub"></a>
-<a href="https://github.com/RuningFastChack/AutoBangumi/network/members"><img src="https://img.shields.io/github/forks/RuningFastChack/AutoBangumi?style=flat-square&logo=GitHub"></a>
-<a href="https://github.com/RuningFastChack/AutoBangumi/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache_2.0-blue.svg"></a>
+<a href="https://github.com/RuningFastChack/auto-bangumi/stargazers"><img src="https://img.shields.io/github/stars/RuningFastChack/auto-bangumi?style=flat-square&logo=GitHub"></a>
+<a href="https://github.com/RuningFastChack/auto-bangumi/network/members"><img src="https://img.shields.io/github/forks/RuningFastChack/auto-bangumi?style=flat-square&logo=GitHub"></a>
+<a href="https://github.com/RuningFastChack/auto-bangumi/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache_2.0-blue.svg"></a>
 </p>
 
 
@@ -19,7 +19,7 @@
 
 ## 在线体验
 
-- 代码仓库：https://github.com/RuningFastChack/AutoBangumi
+- 代码仓库：https://github.com/RuningFastChack/auto-bangumi
 
 ## 系统要求
 
