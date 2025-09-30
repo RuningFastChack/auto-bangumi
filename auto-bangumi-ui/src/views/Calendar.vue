@@ -104,7 +104,7 @@ onMounted(() => init());
                       <a-image alt="海报图"
                            class="rss-item-image"
                                lazy
-                           :src="`${isLocalEnv()?'https://autobangumi.yaezakuras.top/':''}${_item.posterLink.startsWith('/images/') ? _item.posterLink : '/images/' + _item.posterLink}`" />
+                           :src="`${isLocalEnv()?'':''}${_item.posterLink.startsWith('/images/') ? _item.posterLink : '/images/' + _item.posterLink}`" />
                     </template>
                     <a-tooltip placement="topLeft">
                       <template #title>
