@@ -89,13 +89,6 @@ const columns = computed(() => {
       width: 200
     },
     { align: 'center', dataIndex: 'season', key: 'season', title: '季度', width: 90 },
-    {
-      align: 'center',
-      dataIndex: 'lastEpisodeNum',
-      key: 'lastEpisodeNum',
-      title: '最新剧集',
-      width: 100
-    },
     { align: 'center', dataIndex: 'status', key: 'status', title: '是否启用', width: 90 },
     {
       align: 'left', dataIndex: 'savePath', key: 'savePath', title: '保存路径',
@@ -339,19 +332,19 @@ watch(() => SearchSelect.value,
         getTableList(queryParams.value);
         break;
       case 'COMPLETED':
-        Object.assign(queryParams.value, { page: 1, limit: 10, complete: '1' });
+        Object.assign(queryParams.value, { page: 1, limit: 10, complete: '1', status: '' });
         getTableList(queryParams.value);
         break;
       case 'UNFINISHED':
-        Object.assign(queryParams.value, { page: 1, limit: 10, complete: '0' });
+        Object.assign(queryParams.value, { page: 1, limit: 10, complete: '0', status: '' });
         getTableList(queryParams.value);
         break;
       case 'OPENED':
-        Object.assign(queryParams.value, { page: 1, limit: 10, status: '1' });
+        Object.assign(queryParams.value, { page: 1, limit: 10, complete: '', status: '1' });
         getTableList(queryParams.value);
         break;
       case 'CLOSE':
-        Object.assign(queryParams.value, { page: 1, limit: 10, status: '0' });
+        Object.assign(queryParams.value, { page: 1, limit: 10, complete: '', status: '0' });
         getTableList(queryParams.value);
         break;
     }

@@ -101,9 +101,10 @@ onMounted(() => init());
                   <a-card v-if="!isEmpty(item)" hoverable class="rss-item-card"
                           v-for="(_item, _index) in item" :key="_index">
                     <template #cover>
-                      <img alt="海报图"
+                      <a-image alt="海报图"
                            class="rss-item-image"
-                           :src="`${isLocalEnv()?'':''}${_item.posterLink.startsWith('/images/') ? _item.posterLink : '/images/' + _item.posterLink}`" />
+                               lazy
+                           :src="`${isLocalEnv()?'https://autobangumi.yaezakuras.top/':''}${_item.posterLink.startsWith('/images/') ? _item.posterLink : '/images/' + _item.posterLink}`" />
                     </template>
                     <a-tooltip placement="topLeft">
                       <template #title>
@@ -111,7 +112,10 @@ onMounted(() => init());
                       </template>
                       <a-card-meta :title="_item.officialTitle">
                         <template #description>
-                          {{ _item.sendDate }}
+                          <div class="rss-item-description">
+                            <div>{{ _item.sendDate }}</div>
+                            <a-tag color="orange">第 {{_item.season}} 季</a-tag>
+                          </div>
                         </template>
                       </a-card-meta>
                     </a-tooltip>
@@ -159,6 +163,12 @@ onMounted(() => init());
       .rss-item-card {
         max-width: 200px;
         min-width: 200px;
+
+        .rss-item-description{
+          display: flex;
+          gap: 5px;
+          justify-content: start;
+        }
 
 
         .ant-card-body {

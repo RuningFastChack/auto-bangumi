@@ -238,19 +238,19 @@ watch(() => SearchSelect.value,
         Object.assign(queryParams.value, { page: 1, limit: 10, pushed: '', downloaded: '' });
         break;
       case 'PUSH':
-        Object.assign(queryParams.value, { page: 1, limit: 10, pushed: '0' });
+        Object.assign(queryParams.value, { page: 1, limit: 10, pushed: '0', downloaded: '' });
         getTableList(queryParams.value);
         break;
       case 'PUSHED':
-        Object.assign(queryParams.value, { page: 1, limit: 10, pushed: '1' });
+        Object.assign(queryParams.value, { page: 1, limit: 10, pushed: '1', downloaded: '' });
         getTableList(queryParams.value);
         break;
       case 'DOWNLOAD':
-        Object.assign(queryParams.value, { page: 1, limit: 10, downloaded: '0' });
+        Object.assign(queryParams.value, { page: 1, limit: 10, pushed: '', downloaded: '0' });
         getTableList(queryParams.value);
         break;
       case 'DOWNLOADED':
-        Object.assign(queryParams.value, { page: 1, limit: 10, downloaded: '1' });
+        Object.assign(queryParams.value, { page: 1, limit: 10, pushed: '', downloaded: '1' });
         getTableList(queryParams.value);
         break;
     }

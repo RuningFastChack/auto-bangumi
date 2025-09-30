@@ -5,6 +5,7 @@ import { THEME, useAppStore } from '@/stores/modules/app';
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
 import { computed } from 'vue';
 import LayoutMain from '@/Layout/LayoutMain.vue';
+import { QuestionCircleOutlined } from '@ant-design/icons-vue';
 const useApp = useAppStore();
 
 const appTheme = {
