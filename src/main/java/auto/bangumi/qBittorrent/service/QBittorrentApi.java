@@ -2,20 +2,20 @@ package auto.bangumi.qBittorrent.service;
 
 import auto.bangumi.admin.model.UserConfig;
 import auto.bangumi.common.constant.AutoBangumiConstant;
-import auto.bangumi.common.model.TorrentInfo;
 import auto.bangumi.common.utils.ConfigCatch;
-import auto.bangumi.common.utils.HttpClientUtil;
 import auto.bangumi.qBittorrent.constant.QBittorrentPathConstant;
+import auto.bangumi.qBittorrent.model.Response.TorrentsInfoListResponse;
+import auto.bangumi.qBittorrent.utils.QBHttpUtil;
 import auto.bangumi.rss.model.DTO.RssItem.RssItemDTO;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.Header;
-import org.apache.http.HeaderElement;
 import org.apache.http.HttpResponse;
+import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -27,61 +27,16 @@ import java.util.*;
 @Slf4j
 @Component
 public abstract class QBittorrentApi {
-    private static String SID = "";
-    private static String URL = "";
-    private static Date EXPIRE_TIME = null;
-    // 有效时长
-    private static final long EXPIRE_DURATION = 30 * 60 * 1000;
-
-    static {
-        UserConfig.DownLoadSetting downLoadSetting = ConfigCatch.findConfig().getDownLoadSetting();
-        URL = downLoadSetting.getUrl();
-        LoginQBittorrent(downLoadSetting.getUsername(), downLoadSetting.getPassword());
-    }
-
-    /**
-     * 登录账号
-     */
-    private static void LoginQBittorrent(String username, String password) {
-        if (SID == null || SID.isEmpty() || EXPIRE_TIME == null || new Date().after(EXPIRE_TIME)) {
-            HttpResponse httpResponse = HttpClientUtil.sendFormPost(URL, QBittorrentPathConstant.LOGIN,
-                    Map.of("Referer", StrUtil.format("{}{}", URL, QBittorrentPathConstant.LOGIN)),
-                    new HashMap<>(),
-                    Map.of("username", username, "password", password));
-            if (httpResponse != null) {
-                int status = httpResponse.getStatusLine().getStatusCode();
-                if (status == 200) {
-                    for (Header header : httpResponse.getAllHeaders()) {
-                        for (HeaderElement element : header.getElements()) {
-                            boolean HAS_SID = element.getName().equals("SID");
-                            if (HAS_SID) {
-                                SID = element.getValue();
-                            }
-                        }
-                    }
-                    // 登录成功后刷新过期时间
-                    EXPIRE_TIME = new Date(System.currentTimeMillis() + EXPIRE_DURATION);
-                } else {
-                    log.error("QBittorrent登录失败，状态码：{}", status);
-                }
-            }
-        }
-    }
-
     /**
      * 创建分组
      */
     public static void CreateCategory() {
-        if (StringUtils.isBlank(SID)) {
-            log.error("QBittorrent登录失败");
-            return;
+        try {
+            QBHttpUtil.sendJSONPost(QBittorrentPathConstant.CATEGORIES_ADD, new HashMap<>(),
+                    Map.of("category", AutoBangumiConstant.TORRENT_CATEGORY));
+        } catch (Exception e) {
+            log.error("初始化QB失败，创建分组异常。{}", e.getMessage());
         }
-        HttpClientUtil.sendFormPost(
-                URL,
-                QBittorrentPathConstant.OPERATE_TORRENTS_CREATE_CATEGORY,
-                Map.of("Cookie", StrUtil.format("SID={}", SID)),
-                new HashMap<>(),
-                Map.of("category", AutoBangumiConstant.TORRENT_CATEGORY));
     }
 
     /**
@@ -91,36 +46,29 @@ public abstract class QBittorrentApi {
      * @return 推送结果
      */
     public static Boolean CreateTorrents(RssItemDTO itemDTO) {
-        if (StringUtils.isBlank(SID)) {
-            log.error("QBittorrent登录失败");
-            return false;
-        }
-
-        UserConfig.DownLoadSetting downLoadSetting = ConfigCatch.findConfig().getDownLoadSetting();
-
         try {
-            HttpResponse httpResponse = HttpClientUtil.sendFormPost(URL,
-                    QBittorrentPathConstant.OPERATE_TORRENTS_ADD,
-                    Map.of("Cookie", StrUtil.format("SID={}", SID)),
-                    new HashMap<>(),
-                    Map.of(
-                            "urls", itemDTO.getUrl(),
-                            "savepath", StrUtil.format("{}{}",
-                                    StringUtils.isNotBlank(downLoadSetting.getSavePath()) ? downLoadSetting.getSavePath() : "",
-                                    itemDTO.getSavePath()),
-                            "category", AutoBangumiConstant.TORRENT_CATEGORY,
-                            "rename", itemDTO.getTorrentName(),
-                            "seedingTimeLimit", AutoBangumiConstant.SENDING_TIME_LIMIT
-                    ));
-            if (httpResponse != null) {
-                int statusCode = httpResponse.getStatusLine().getStatusCode();
+            UserConfig.DownLoadSetting downLoadSetting = ConfigCatch.findConfig().getDownLoadSetting();
+            HttpResponse response = QBHttpUtil.sendJSONPost(QBittorrentPathConstant.TORRENTS_ADD, new HashMap<>(), Map.of(
+                    "urls", itemDTO.getUrl(),
+                    "savepath", StrUtil.format("{}{}",
+                            StringUtils.isNotBlank(downLoadSetting.getSavePath()) ? downLoadSetting.getSavePath() : "",
+                            itemDTO.getSavePath()),
+                    "category", AutoBangumiConstant.TORRENT_CATEGORY,
+                    "rename", itemDTO.getTorrentName(),
+                    "seedingTimeLimit", AutoBangumiConstant.SENDING_TIME_LIMIT
+            ));
+            if (response != null) {
+
+                String message = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
+
+                int statusCode = response.getStatusLine().getStatusCode();
                 if (statusCode == 200) {
-                    log.info("Torrent 推送成功 {}", itemDTO.getTorrentName());
+                    log.info("Torrent 推送成功：{}", itemDTO.getTorrentName());
                     return true;
                 } else if (statusCode == 405) {
-                    log.error("Torrent 推送失败 {} {}", itemDTO.getTorrentName(), "Torrent 文件无效");
+                    log.error("Torrent 推送失败：{}，{}，{}", itemDTO.getTorrentName(), "Torrent 文件无效", message);
                 } else {
-                    log.error("Torrent 推送失败 状态码：{} {} {}", statusCode, itemDTO.getTorrentName(), "What is this？");
+                    log.error("Torrent 推送失败 状态码：{}，{}，{}", statusCode, itemDTO.getTorrentName(), message);
                 }
             }
         } catch (Exception e) {
@@ -136,20 +84,15 @@ public abstract class QBittorrentApi {
      * @return
      */
     public static void RenameFile(RssItemDTO itemDTO) {
-        if (StringUtils.isBlank(SID)) {
-            log.error("QBittorrent登录失败");
-            return;
-        }
-
-        List<TorrentInfo> torrentInfos = FindTorrentList(Collections.singletonList(itemDTO.getTorrentCode()));
+        List<TorrentsInfoListResponse> torrentInfos = FindTorrentList(Collections.singletonList(itemDTO.getTorrentCode()));
         if (torrentInfos.isEmpty()) {
             log.error("文件重命名失败 {} {}", itemDTO.getTorrentName(), "无效TorrentCode");
             return;
         }
 
-        TorrentInfo torrentInfo = torrentInfos.get(0);
+        TorrentsInfoListResponse torrentInfo = torrentInfos.get(0);
 
-        String absPath = torrentInfo.getContent_path();
+        String absPath = torrentInfo.getContentPath();
         if (StringUtils.isBlank(absPath)) {
             log.error("文件重命名失败 {} {}", itemDTO.getTorrentName(), "Content path为空");
             return;
@@ -168,13 +111,10 @@ public abstract class QBittorrentApi {
                 "newPath", StrUtil.format("{}{}", itemDTO.getName(), ext));
 
         try {
-            HttpResponse httpResponse = HttpClientUtil.sendFormPost(URL,
-                    QBittorrentPathConstant.OPERATE_TORRENTS_RENAME_FILE,
-                    Map.of("Cookie", StrUtil.format("SID={}", SID)),
-                    new HashMap<>(),
-                    body);
-            if (httpResponse != null) {
-                int statusCode = httpResponse.getStatusLine().getStatusCode();
+            HttpResponse response = QBHttpUtil.sendJSONPost(QBittorrentPathConstant.FILE_RENAME, new HashMap<>(), body);
+            if (response != null) {
+                String message = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
+                int statusCode = response.getStatusLine().getStatusCode();
                 if (statusCode == 200) {
                     log.info("文件重命名成功。{} >> {}", itemDTO.getTorrentName(), itemDTO.getName());
                 } else if (statusCode == 409) {
@@ -182,7 +122,7 @@ public abstract class QBittorrentApi {
                 } else if (statusCode == 400) {
                     log.error("文件重命名失败，番剧：{}，原因：{}", itemDTO.getTorrentName(), "缺少newPath参数");
                 } else {
-                    log.error("文件重命名失败，状态码：{}，番剧：{}，原因：{}", statusCode, itemDTO.getTorrentName(), "What is this？");
+                    log.error("文件重命名失败，状态码：{}，番剧：{}，原因：{}", statusCode, itemDTO.getTorrentName(), message);
                 }
             }
         } catch (Exception e) {
@@ -197,7 +137,7 @@ public abstract class QBittorrentApi {
      * @return 返回下载成功的torrent hash
      */
     public static List<String> CheckTorrentState(List<String> torrentCodes) {
-        return Optional.of(FindTorrentList(torrentCodes).stream().filter(item -> isDownloadCompleted(item.getState())).map(TorrentInfo::getHash)
+        return Optional.of(FindTorrentList(torrentCodes).stream().filter(item -> isDownloadCompleted(item.getState())).map(TorrentsInfoListResponse::getHash)
                 .toList()).orElse(new ArrayList<>());
     }
 
@@ -207,23 +147,12 @@ public abstract class QBittorrentApi {
      * @param torrentCodes
      * @return 列表信息
      */
-    public static List<TorrentInfo> FindTorrentList(List<String> torrentCodes) {
-        if (StringUtils.isBlank(SID)) {
-            log.error("QBittorrent登录失败");
-            return Collections.emptyList();
-        }
-        String hashes = String.join("|", torrentCodes);
-        String sendGet = HttpClientUtil.sendGet(
-                StrUtil.format("{}{}?hashes={}", URL, QBittorrentPathConstant.GET_TORRENTS_LIST, hashes),
-                new HashMap<>(),
-                Map.of("Cookie", StrUtil.format("SID={}", SID))
-        );
-
+    public static List<TorrentsInfoListResponse> FindTorrentList(List<String> torrentCodes) {
+        String sendGet = QBHttpUtil.sendGet(QBittorrentPathConstant.TORRENTS_LIST, Map.of("hashes", String.join("|", torrentCodes)));
         if (StringUtils.isBlank(sendGet)) {
             return Collections.emptyList();
         }
-
-        return Optional.ofNullable(JSON.parseArray(sendGet, TorrentInfo.class)).orElse(new ArrayList<>());
+        return Optional.ofNullable(JSON.parseArray(sendGet, TorrentsInfoListResponse.class)).orElse(new ArrayList<>());
     }
 
     /**
@@ -233,26 +162,19 @@ public abstract class QBittorrentApi {
      * @return
      */
     public static Boolean RemoveTorrents(List<String> torrentCodes) {
-        if (StringUtils.isBlank(SID)) {
-            log.error("QBittorrent登录失败");
-            return false;
-        }
         if (Objects.isNull(torrentCodes) || torrentCodes.isEmpty()) {
             return false;
         }
         String hashes = String.join("|", torrentCodes);
-        HttpResponse httpResponse = HttpClientUtil.sendFormPost(
-                URL,
-                QBittorrentPathConstant.OPERATE_TORRENTS_DELETE,
-                Map.of("Cookie", StrUtil.format("SID={}", SID)),
+        HttpResponse response = QBHttpUtil.sendJSONPost(
+                QBittorrentPathConstant.TORRENTS_DELETE,
                 new HashMap<>(),
                 Map.of("hashes", hashes, "deleteFiles", "false")
         );
-        if (httpResponse != null) {
-            int statusCode = httpResponse.getStatusLine().getStatusCode();
-            if (statusCode == 200) {
-                return true;
-            }
+
+        if (response != null) {
+            int statusCode = response.getStatusLine().getStatusCode();
+            return statusCode == 200;
         }
         return false;
     }

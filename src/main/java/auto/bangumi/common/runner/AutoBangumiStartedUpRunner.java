@@ -2,6 +2,7 @@ package auto.bangumi.common.runner;
 
 import auto.bangumi.admin.service.IUserService;
 import auto.bangumi.common.utils.ConfigCatch;
+import auto.bangumi.qBittorrent.service.ICategoriesService;
 import auto.bangumi.qBittorrent.service.QBittorrentApi;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,8 @@ public class AutoBangumiStartedUpRunner implements ApplicationRunner {
 
     @Resource
     private IUserService iUserService;
+    @Resource
+    private ICategoriesService iCategoriesService;
 
     @Resource
     private ConfigurableApplicationContext context;

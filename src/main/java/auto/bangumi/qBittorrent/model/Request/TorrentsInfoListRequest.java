@@ -1,9 +1,12 @@
 package auto.bangumi.qBittorrent.model.Request;
 
-import auto.bangumi.common.model.dto.PageQuery;
 import auto.bangumi.qBittorrent.enums.TorrentsStatusEnum;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * TorrentsInfoListRequest
@@ -12,10 +15,10 @@ import lombok.experimental.SuperBuilder;
  */
 @Getter
 @Setter
-@SuperBuilder
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TorrentsInfoListRequest extends PageQuery {
+public class TorrentsInfoListRequest {
     /**
      * 过滤状态
      * all, downloading, seeding, completed, paused,
@@ -49,5 +52,18 @@ public class TorrentsInfoListRequest extends PageQuery {
      * 指定种子 Hash
      * 多个 hash 用 | 分隔
      */
-    private String hashes;
+    private List<String> hashes;
+
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("filter", this.getFilter());
+        result.put("category", this.getCategory());
+        result.put("tag", this.getTag());
+        result.put("sort", this.getSort());
+        result.put("reverse", this.getReverse());
+        if (Objects.nonNull(this.getHashes()) && !this.getHashes().isEmpty()) {
+            result.put("hashes", String.join("|", this.getHashes()));
+        }
+        return result;
+    }
 }

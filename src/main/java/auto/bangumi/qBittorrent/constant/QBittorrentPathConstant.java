@@ -8,38 +8,65 @@ package auto.bangumi.qBittorrent.constant;
  */
 public interface QBittorrentPathConstant {
 
-    /**
-     * 登录接口
-     */
+    ///登录接口
     String LOGIN = "/api/v2/auth/login";
 
-    /**
-     * 获取API版本号
-     */
-    String GET_API_VERSION = "/api/v2/app/webapiVersion";
+    //region 分类
 
     /**
-     * 获取种子列表
+     * 获取所有分类
      */
-    String GET_TORRENTS_LIST = "/api/v2/torrents/info";
+    String CATEGORIES_GET_ALL = "/api/v2/torrents/categories";
 
     /**
-     * 操作 - 删除种子
+     * 新增分类
      */
-    String OPERATE_TORRENTS_DELETE = "/api/v2/torrents/delete";
+    String CATEGORIES_ADD = "/api/v2/torrents/createCategory";
 
     /**
-     * 操作 - 创建分组
+     * 编辑分类
      */
-    String OPERATE_TORRENTS_CREATE_CATEGORY = "/api/v2/torrents/createCategory";
+    String CATEGORIES_EDIT = "/api/v2/torrents/editCategory";
+
+    /**
+     * 删除分类
+     */
+    String CATEGORIES_REMOVE = "/api/v2/torrents/removeCategories";
+
+    //endregion
+
+    //region torrent
+
+    /**
+     * 种子列表
+     */
+    String TORRENTS_LIST = "/api/v2/torrents/info";
+
+    /**
+     * 暂停种子
+     */
+    String TORRENTS_PAUSE = "/api/v2/torrents/pause";
+
+    /**
+     * 恢复种子
+     */
+    String TORRENTS_RESUME = "/api/v2/torrents/resume";
+
+    /**
+     * 删除种子
+     */
+    String TORRENTS_DELETE = "/api/v2/torrents/delete";
 
     /**
      * 添加种子
      */
-    String OPERATE_TORRENTS_ADD = "/api/v2/torrents/add";
+    String TORRENTS_ADD = "/api/v2/torrents/add";
+    //endregion
 
-    /**
-     * 文件重命名
-     */
-    String OPERATE_TORRENTS_RENAME_FILE = "/api/v2/torrents/renameFile";
+    //region FILE
+
+    String FILE_RENAME = "/api/v2/torrents/renameFile";
+
+    //endregion
+
 }

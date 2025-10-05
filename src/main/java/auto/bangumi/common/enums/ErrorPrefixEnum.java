@@ -16,6 +16,8 @@ public enum ErrorPrefixEnum {
 
     MCS("M", "MCS异常"),
 
+    QB("Q", "QB异常"),
+
     // ...其他业务模块的异常前缀
     ;
     // @formatter:on
