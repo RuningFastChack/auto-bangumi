@@ -5,6 +5,7 @@ import auto.bangumi.common.constant.AutoBangumiConstant;
 import auto.bangumi.common.utils.ConfigCatch;
 import auto.bangumi.qBittorrent.constant.QBittorrentPathConstant;
 import auto.bangumi.qBittorrent.model.Response.TorrentsInfoListResponse;
+import auto.bangumi.qBittorrent.model.Response.TorrentsInfoRawResponse;
 import auto.bangumi.qBittorrent.utils.QBHttpUtil;
 import auto.bangumi.rss.model.DTO.RssItem.RssItemDTO;
 import cn.hutool.core.util.StrUtil;
@@ -152,7 +153,9 @@ public abstract class QBittorrentApi {
         if (StringUtils.isBlank(sendGet)) {
             return Collections.emptyList();
         }
-        return Optional.ofNullable(JSON.parseArray(sendGet, TorrentsInfoListResponse.class)).orElse(new ArrayList<>());
+        return Optional.ofNullable(JSON.parseArray(sendGet, TorrentsInfoRawResponse.class))
+                .orElse(new ArrayList<>()).stream()
+                .map(TorrentsInfoListResponse::copy).toList();
     }
 
     /**

@@ -38,7 +38,7 @@ public class CategoriesServiceImpl implements ICategoriesService {
     @Override
     public List<CategoriesListResponse> findCategoriesList() {
         String sendGet = QBHttpUtil.sendGet(QBittorrentPathConstant.CATEGORIES_GET_ALL, new HashMap<>());
-        Map<String, CategoriesListResponse> parsed = JSON.parseObject(sendGet, new TypeReference<Map<String, CategoriesListResponse>>() {
+        Map<String, CategoriesListResponse> parsed = JSON.parseObject(sendGet, new TypeReference<>() {
         });
         return new ArrayList<>(parsed.values());
     }

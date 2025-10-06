@@ -1,7 +1,7 @@
-import type { RouteRecordRaw } from 'vue-router';
-import { createRouter, createWebHashHistory } from 'vue-router';
-import { useUserStore } from '@/stores/modules/user';
-import { HOME_URL, IS_PREVIEW, LOGIN_URL, ROUTER_ERROR_LIST, ROUTER_WHITE_LIST } from '@/config';
+import type {RouteRecordRaw} from 'vue-router';
+import {createRouter, createWebHashHistory} from 'vue-router';
+import {useUserStore} from '@/stores/modules/user';
+import {HOME_URL, IS_PREVIEW, LOGIN_URL, ROUTER_ERROR_LIST, ROUTER_WHITE_LIST} from '@/config';
 
 
 export const AutoBangumiRouter: Menu.MenuOptions[] = [
@@ -81,6 +81,21 @@ export const AutoBangumiRouter: Menu.MenuOptions[] = [
     meta: {
       title: '文件管理',
       mainTitle: '文件管理',
+      mainMenu: true,
+      viewConfig: {
+        height: 'unset',
+        width: 12,
+        margin: 'auto'
+      }
+    }
+  },
+  {
+    name: 'QBService',
+    path: '/qbService',
+    component: () => import('@/views/QBService.vue'),
+    meta: {
+      title: 'QB服务',
+      mainTitle: 'QB服务',
       mainMenu: true,
       viewConfig: {
         height: 'unset',

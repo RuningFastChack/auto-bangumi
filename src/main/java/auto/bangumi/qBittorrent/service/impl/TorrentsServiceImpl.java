@@ -7,6 +7,7 @@ import auto.bangumi.qBittorrent.constant.QBittorrentPathConstant;
 import auto.bangumi.qBittorrent.model.Request.TorrentsInfoAddRequest;
 import auto.bangumi.qBittorrent.model.Request.TorrentsInfoListRequest;
 import auto.bangumi.qBittorrent.model.Response.TorrentsInfoListResponse;
+import auto.bangumi.qBittorrent.model.Response.TorrentsInfoRawResponse;
 import auto.bangumi.qBittorrent.service.ITorrentsService;
 import auto.bangumi.qBittorrent.utils.QBHttpUtil;
 import com.alibaba.fastjson.JSON;
@@ -40,7 +41,10 @@ public class TorrentsServiceImpl implements ITorrentsService {
         if (StringUtils.isBlank(sendGet)) {
             return Collections.emptyList();
         }
-        return Optional.ofNullable(JSON.parseArray(sendGet, TorrentsInfoListResponse.class)).orElse(new ArrayList<>());
+
+        return Optional.ofNullable(JSON.parseArray(sendGet, TorrentsInfoRawResponse.class))
+                .orElse(new ArrayList<>()).stream()
+                .map(TorrentsInfoListResponse::copy).toList();
     }
 
     /**

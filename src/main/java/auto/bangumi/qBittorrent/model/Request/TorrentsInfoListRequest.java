@@ -2,7 +2,10 @@ package auto.bangumi.qBittorrent.model.Request;
 
 import auto.bangumi.qBittorrent.enums.TorrentsStatusEnum;
 import lombok.*;
+import org.apache.commons.lang3.StringUtils;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,11 +59,21 @@ public class TorrentsInfoListRequest {
 
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("filter", this.getFilter());
-        result.put("category", this.getCategory());
-        result.put("tag", this.getTag());
-        result.put("sort", this.getSort());
-        result.put("reverse", this.getReverse());
+        if (Objects.nonNull(this.getFilter())) {
+            result.put("filter", URLEncoder.encode(this.getFilter().name(), StandardCharsets.UTF_8));
+        }
+        if (StringUtils.isNotBlank(this.getCategory())) {
+            result.put("category", URLEncoder.encode(this.getCategory(), StandardCharsets.UTF_8));
+        }
+        if (StringUtils.isNotBlank(this.getTag())) {
+            result.put("tag", this.getTag());
+        }
+        if (StringUtils.isNotBlank(this.getSort())) {
+            result.put("sort", this.getSort());
+        }
+        if (StringUtils.isNotBlank(this.getReverse())) {
+            result.put("reverse", this.getReverse());
+        }
         if (Objects.nonNull(this.getHashes()) && !this.getHashes().isEmpty()) {
             result.put("hashes", String.join("|", this.getHashes()));
         }

@@ -25,3 +25,40 @@ export const RSS_TYPE_MAP: Record<string, DictOptions> = {
 export const DOWN_UTIL_MAP: Record<string, DictOptions> = {
   'QB': { text: 'QB', color: 'blue' }
 };
+
+export const QB_STATUS_MAP: Record<string, DictOptions> = {
+  'all': {text: '全部', color: ''},
+  'downloading': {text: '下载', color: ''},
+  'seeding': {text: '做种', color: ''},
+  'completed': {text: '完成', color: ''},
+  'paused': {text: '暂停', color: ''},
+  'active': {text: '活跃', color: ''},
+  'inactive': {text: '空闲', color: ''},
+  'resumed': {text: '恢复', color: ''},
+  'stalled': {text: '正在检查', color: ''},
+  'stalled_uploading': {text: '上传已暂停', color: ''},
+  'stalled_downloading': {text: '下载已暂停', color: ''},
+  'errored': {text: '错误', color: ''},
+}
+
+export const QB_TORRENTS_STATUS_MAP: Record<string, DictOptions> = {
+  'error': { text: '错误', color: '' },
+  'missingFiles': { text: '文件缺失', color: '' },
+  'uploading': { text: '上传中', color: '' },
+  'pausedUP': { text: '已完成暂停', color: '' },
+  'queuedUP': { text: '排队上传', color: '' },
+  'stalledUP': { text: '上传停滞', color: '' },
+  'checkingUP': { text: '校验中(已完成)', color: '' },
+  'forcedUP': { text: '强制上传', color: '' },
+  'allocating': { text: '分配空间', color: '' },
+  'downloading': { text: '下载中', color: '' },
+  'metaDL': { text: '获取元数据', color: '' },
+  'pausedDL': { text: '下载暂停', color: '' },
+  'queuedDL': { text: '排队下载', color: '' },
+  'stalledDL': { text: '下载停滞', color: '' },
+  'checkingDL': { text: '校验中(未完成)', color: '' },
+  'forcedDL': { text: '强制下载', color: '' },
+  'checkingResumeData': { text: '检查恢复数据', color: '' },
+  'moving': { text: '移动中', color: '' },
+  'unknown': { text: '未知状态', color: '' }
+}
