@@ -73,9 +73,8 @@ public class AnalysisApi {
             String startText = doc.select("p.bangumi-info:contains(放送开始)").text();
             String startDate = AutoBangumiUtil.parseDate(startText);
             result.setSendData(startDate);
-
+            result.setPosterLink(StrUtil.format("/images/{}.png", bangumiId));
             Element poster = doc.selectFirst(".bangumi-poster");
-
             AsyncManager.me().execute(new TimerTask() {
                 @Override
                 public void run() {
@@ -91,7 +90,6 @@ public class AnalysisApi {
                         try {
                             // 下载图片
                             AutoBangumiUtil.downloadImage(fullImgUrl, bangumiId + ".png"); // PNG 格式
-                            result.setPosterLink(StrUtil.format("/images/{}.png", bangumiId));
                             log.info("Mikan 解析RSS成功 图片下载成功：{}", fullImgUrl);
                         } catch (Exception e) {
                             log.error("Mikan 解析RSS失败 下载图片失败：{}，原因：{}", fullImgUrl, e.getMessage(), e);

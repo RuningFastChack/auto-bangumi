@@ -517,7 +517,7 @@ onMounted(() => getTableList(queryParams.value));
               <template v-if="column.key === 'status'">
                 <a-switch v-model:checked="record.status"
                           @click="(checked:'0'|'1')=>{
-                              changeRssManage({id:record.id,complete:checked})
+                              changeRssManage({id:record.id,status:checked})
                             }"
                           checked-value="1"
                           un-checked-value="0"

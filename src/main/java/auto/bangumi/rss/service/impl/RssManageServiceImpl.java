@@ -56,7 +56,7 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
                 .eq(Objects.nonNull(dto.getUpdateWeek()), RssManage::getUpdateWeek, dto.getUpdateWeek())
                 .ge(StringUtils.isNotBlank(dto.getSendDateForm()), RssManage::getSendDate, dto.getSendDateForm())
                 .le(StringUtils.isNotBlank(dto.getSendDateTo()), RssManage::getSendDate, dto.getSendDateTo())
-                .orderByDesc(RssManage::getStatus, RssManage::getUpdateWeek));
+                .orderByDesc(RssManage::getSendDate, RssManage::getStatus, RssManage::getUpdateWeek));
         List<RssManage> selectedList = Optional.ofNullable(selectedPage.getRecords()).orElse(new ArrayList<>());
         return PageUtils.getPageResult(dto.getPage(), dto.getLimit(), BeanUtil.copyToList(selectedList, RssManageListVO.class), (int) selectedPage.getTotal());
     }

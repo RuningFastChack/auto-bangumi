@@ -72,28 +72,27 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
             return;
         }
 
-        List<RssManage> updateBatchList = new ArrayList<>();
-        for (RssManage rssManage : selectedList) {
-            String rssStr = rssManage.getRssList();
-            if (StringUtils.isNotBlank(rssStr)) {
-                Rss rss = JSON.parseArray(rssStr, Rss.class).get(0);
-                AsyncManager.me().execute(new TimerTask() {
-                    @Override
-                    public void run() {
+        AsyncManager.me().execute(new TimerTask() {
+            @Override
+            public void run() {
+                for (RssManage rssManage : selectedList) {
+                    String rssStr = rssManage.getRssList();
+                    if (StringUtils.isNotBlank(rssStr)) {
+                        Rss rss = JSON.parseArray(rssStr, Rss.class).get(0);
                         switch (rss.getType()) {
                             case Mikan:
                                 AnalysisResult mikan = analysisApi.analysisMikan(rss.getRss());
                                 RssManage build = RssManage.builder().id(rssManage.getId()).posterLink(mikan.getPosterLink()).build();
-                                updateBatchList.add(build);
+                                iRssManageService.updateById(build);
                                 break;
                             default:
                                 break;
                         }
                     }
-                });
+                }
+
             }
-        }
-        iRssManageService.updateBatchById(updateBatchList);
+        });
     }
 
     /**
