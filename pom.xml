@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>auto.bangumi</groupId>
     <artifactId>auto-bangumi</artifactId>
-    <version>1.0.0-beta</version>
+    <version>1.1.0-beta</version>
     <packaging>jar</packaging>
     <name>auto-bangumi</name>
     <description>auto-bangumi自动化番剧管理</description>
