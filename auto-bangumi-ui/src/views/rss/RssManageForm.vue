@@ -310,7 +310,7 @@ defineExpose({
           <div style="margin-top: 8px">
             <a-tag
               v-for="(item, index) in paramsProps.filter"
-              :key="index"
+              :key="item"
               closable
               @close="delFilter(index)"
             >
