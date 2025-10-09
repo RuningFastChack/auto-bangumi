@@ -26,7 +26,6 @@ import { type ItemType, message } from 'ant-design-vue';
 import type { Key } from 'ant-design-vue/es/_util/type';
 import CardPanel from '@/components/CardPanel.vue';
 import { useRightClickMenu } from '@/hooks/useRightClickMenu.ts';
-import type { RssManageList } from '@/api/types/rss/rssManage.ts';
 //region type
 
 const { isPhone } = useScreen();
@@ -171,9 +170,13 @@ const pushRssItem = async () => {
     return message.error('请选择需要推送的订阅');
   }
   try {
+    loading.value = true;
     await pushRssItemToDownLoad(selectedRssItems.value);
   } finally {
-    await query();
+    setTimeout(async () => {
+      await query();
+      loading.value = false;
+    }, 1000);
   }
 };
 
