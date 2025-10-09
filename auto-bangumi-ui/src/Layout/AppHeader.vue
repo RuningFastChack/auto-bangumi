@@ -5,7 +5,7 @@ import {
   BgColorsOutlined,
   FontSizeOutlined,
   LogoutOutlined,
-  MenuUnfoldOutlined
+  MenuUnfoldOutlined, PlusCircleOutlined
 } from '@ant-design/icons-vue';
 import { Modal } from 'ant-design-vue';
 import CardPanel from '@/components/CardPanel.vue';
@@ -18,6 +18,8 @@ import { logoutApi } from '@/api/modules/login.ts';
 import { AutoBangumiRouter } from '@/router';
 import { HOME_URL } from '@/config';
 import { isEmpty } from '@/utils';
+import LayoutMain from '@/Layout/LayoutMain.vue';
+import RssManageForm from '@/views/rss/RssManageForm.vue';
 //region type
 const { y } = useScroll(document.body);
 
@@ -39,6 +41,7 @@ const route = useRoute();
 
 //region refs & data
 const openPhoneMenu = ref<boolean>(false);
+const rssManageFormRef = ref<InstanceType<typeof RssManageForm>>();
 //endregion
 
 //region computed
@@ -110,6 +113,15 @@ const appMenus = computed(() => {
           value: THEME.DARK
         }
       ]
+    },
+    {
+      title: '新增订阅',
+      icon: PlusCircleOutlined,
+      click: async () => {
+        rssManageFormRef.value?.acceptParams('新增');
+      },
+      conditions: useUser.isLogged(),
+      onlyPC: false
     },
     {
       title: '退出',
@@ -294,6 +306,7 @@ defineOptions({ name: 'AppHeader' });
       </a-breadcrumb-item>
     </a-breadcrumb>
   </div>
+  <rss-manage-form ref="rssManageFormRef" />
 </template>
 
 <style lang="scss" scoped>

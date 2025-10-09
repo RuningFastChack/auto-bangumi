@@ -366,6 +366,11 @@ export type TorrentsInfoListResponse = {
   upSpeed: number;
 }
 
+export type TorrentsInfoDeleteRequest = {
+  hashes: string[],
+  deleteFiles: boolean
+}
+
 export enum TorrentsStatusEnum {
   all = 'all',
   downloading = 'downloading',

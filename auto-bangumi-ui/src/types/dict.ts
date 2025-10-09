@@ -55,7 +55,7 @@ export const QB_TORRENTS_STATUS_MAP: Record<string, DictOptions> = {
   'metaDL': { text: '获取元数据', color: '' },
   'pausedDL': { text: '下载暂停', color: '' },
   'queuedDL': { text: '排队下载', color: '' },
-  'stalledDL': { text: '下载停滞', color: '' },
+  'stalledDL': { text: '等待', color: '' },
   'checkingDL': { text: '校验中(未完成)', color: '' },
   'forcedDL': { text: '强制下载', color: '' },
   'checkingResumeData': { text: '检查恢复数据', color: '' },

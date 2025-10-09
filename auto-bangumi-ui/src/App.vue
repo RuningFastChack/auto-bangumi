@@ -5,7 +5,7 @@ import { THEME, useAppStore } from '@/stores/modules/app';
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
 import { computed } from 'vue';
 import LayoutMain from '@/Layout/LayoutMain.vue';
-import { QuestionCircleOutlined } from '@ant-design/icons-vue';
+
 const useApp = useAppStore();
 
 const appTheme = {
@@ -32,7 +32,7 @@ const assemblySize = computed(() => useApp.assemblySize);
   <a-config-provider :component-size="assemblySize" :theme="appTheme" :locale="zhCN">
     <div class="global-app-container">
       <app-header />
-      <LayoutMain/>
+      <LayoutMain />
     </div>
   </a-config-provider>
 </template>
