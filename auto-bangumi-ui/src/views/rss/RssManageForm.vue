@@ -71,7 +71,11 @@ const paramsProps = ref<RssManage>({
   complete: '0',
   updateWeek: 1,
   sendDate: '',
-  rssList: []
+  rssList: [],
+  config: {
+    latestEpisode: '0',
+    totalEpisode: '0'
+  }
 });
 //endregion
 
@@ -98,7 +102,11 @@ const acceptParams = async (title: '新增' | '修改', rssManageId?: number) =>
     complete: '0',
     updateWeek: 1,
     sendDate: '',
-    rssList: []
+    rssList: [],
+    config: {
+      latestEpisode: '0',
+      totalEpisode: '0'
+    }
   };
   if (rssManageId) {
     loading.value = true;
@@ -115,7 +123,8 @@ const acceptParams = async (title: '新增' | '修改', rssManageId?: number) =>
       complete: data.complete,
       updateWeek: data.updateWeek,
       sendDate: data.sendDate,
-      rssList: data.rssList.map(item => ({ ...item, id: getRandomId() })) || []
+      rssList: data.rssList.map(item => ({ ...item, id: getRandomId() })) || [],
+      config: data.config
     };
   }
   if (!rssManageId) {
@@ -348,6 +357,14 @@ defineExpose({
 
         <a-form-item label="发布日期" name="sendDate">
           <a-input v-model:value="paramsProps.sendDate" placeholder="请填写发布日期" allowClear />
+        </a-form-item>
+
+        <a-form-item label="总集数" name="config.totalEpisode">
+          <a-input v-model:value="paramsProps.config.totalEpisode" placeholder="总集数" allowClear />
+        </a-form-item>
+
+        <a-form-item label="最新一集" name="config.latestEpisode">
+          <a-input v-model:value="paramsProps.config.latestEpisode" placeholder="最新一集" allowClear />
         </a-form-item>
 
         <a-form-item label="订阅链接">

@@ -88,6 +88,14 @@ const columns = computed(() => {
       title: '番剧标题',
       width: 200
     },
+    { align: 'center', dataIndex: 'totalEpisode', key: 'totalEpisode', title: '总集数', width: 80 },
+    {
+      align: 'center',
+      dataIndex: 'latestEpisode',
+      key: 'latestEpisode',
+      title: '最新一集',
+      width: 80
+    },
     { align: 'center', dataIndex: 'season', key: 'season', title: '季度', width: 90 },
     { align: 'center', dataIndex: 'status', key: 'status', title: '是否启用', width: 90 },
     {
@@ -366,7 +374,8 @@ onMounted(() => getTableList(queryParams.value));
       <a-col :span="24">
         <between-menus>
           <template v-if="!isPhone" #left>
-            <a-typography-title class="mb-0" :level="4">{{ route.meta.mainTitle }}</a-typography-title>
+            <a-typography-title class="mb-0" :level="4">{{ route.meta.mainTitle }}
+            </a-typography-title>
           </template>
           <template #center>
             <div class="search-input">
@@ -537,8 +546,11 @@ onMounted(() => getTableList(queryParams.value));
               <template v-if="column.key === 'season'">
                 <span>Season {{ record.season }}</span>
               </template>
-              <template v-if="column.key === 'lastEpisodeNum'">
-                <span>Episode {{ record.lastEpisodeNum }}</span>
+              <template v-if="column.key === 'latestEpisode'">
+                <span>Episode {{ record.config.latestEpisode }}</span>
+              </template>
+              <template v-if="column.key === 'totalEpisode'">
+                <span>Episode {{ record.config.totalEpisode }}</span>
               </template>
             </a-table>
           </template>

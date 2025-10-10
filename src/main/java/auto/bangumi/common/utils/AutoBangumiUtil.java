@@ -1,6 +1,7 @@
 package auto.bangumi.common.utils;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -119,6 +120,20 @@ public abstract class AutoBangumiUtil {
         DateTimeFormatter outputFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date = LocalDate.parse(raw, inputFmt);
         return date.format(outputFmt);
+    }
+
+    /**
+     * 解析总集数
+     *
+     * @param text
+     * @return
+     */
+    public static String parseTotalEpisode(String text) {
+        if (StringUtils.isBlank(text)) {
+            return "0";
+        }
+        String raw = text.replace("总集数：", "").trim();
+        return StringUtils.isBlank(raw) ? "0" : raw;
     }
 
     /**

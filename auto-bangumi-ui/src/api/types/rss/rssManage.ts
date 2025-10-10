@@ -1,4 +1,4 @@
-import type {IPageQuery} from '@/api/types';
+import type { IPageQuery } from '@/api/types';
 
 export type RssManage = {
   id?: number;
@@ -12,11 +12,11 @@ export type RssManage = {
   updateWeek: number;
   sendDate: string;
   rssList: RSS[];
+  config: RssManageConfig;
 };
 
 export type RssManageList = {
   id: number;
-  lastEpisodeNum: string;
   officialTitle: string;
   season: string;
   status: '0' | '1';
@@ -24,16 +24,17 @@ export type RssManageList = {
   complete: '0' | '1';
   updateWeek: number;
   sendDate: string;
+  config: RssManageConfig;
 };
 
 export type RssManageCalendar = {
   id: number;
-  lastEpisodeNum: string;
   officialTitle: string;
   season: string;
   updateWeek: number;
   sendDate: string;
   posterLink: string;
+  config: RssManageConfig;
 };
 
 export type RssManageQuery = IPageQuery & {
@@ -44,7 +45,7 @@ export type RssManageQuery = IPageQuery & {
   updateWeek?: number;
   sendDateForm?: string;
   sendDateTo?: string;
-  sendDate?:[]
+  sendDate?: []
 };
 
 export type RSS = {
@@ -56,3 +57,8 @@ export type RSS = {
   type: 'Mikan';
   subGroupId?: string;
 };
+
+export type RssManageConfig = {
+  latestEpisode: string,
+  totalEpisode: string,
+}

@@ -8,7 +8,6 @@ import auto.bangumi.common.utils.PageUtils;
 import auto.bangumi.qBittorrent.service.QBittorrentApi;
 import auto.bangumi.rss.mapper.RssItemMapper;
 import auto.bangumi.rss.mapper.RssManageMapper;
-import auto.bangumi.rss.model.DTO.RssManage.RssManageConfigDTO;
 import auto.bangumi.rss.model.DTO.RssManage.RssManageDTO;
 import auto.bangumi.rss.model.DTO.RssManage.RssManageListDTO;
 import auto.bangumi.rss.model.Rss;
@@ -144,7 +143,7 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
 
         saveInfo.setRssList(!uniqueRssList.isEmpty() ? JSON.toJSONString(uniqueRssList) : JSON.toJSONString(new ArrayList<>()));
 
-        saveInfo.setConfig(JSON.toJSONString(RssManageConfigDTO.builder().latestEpisode("0").totalEpisode("0").build()));
+        saveInfo.setConfig(JSON.toJSONString(dto.getConfig()));
 
         int insert = baseMapper.insert(saveInfo);
         log.info("RSS Manage 保存{}:{}", insert > 0 ? "成功" : "失败", JSON.toJSONString(saveInfo));
@@ -177,6 +176,7 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
         BeanUtil.copyProperties(dto, saveInfo, CopyOptions.create().setIgnoreProperties("filter", "rssList","config"));
         saveInfo.setFilter(Objects.nonNull(dto.getFilter()) && !dto.getFilter().isEmpty() ? String.join(",", dto.getFilter()) : "");
         saveInfo.setRssList(!uniqueRssList.isEmpty() ? JSON.toJSONString(uniqueRssList) : JSON.toJSONString(new ArrayList<>()));
+        saveInfo.setConfig(Objects.nonNull(dto.getConfig()) ? JSON.toJSONString(dto.getConfig()) : JSON.toJSONString(new RssManageDTO()));
         int updated = baseMapper.updateById(saveInfo);
         log.info("RSS Manage 编辑{}:{}", updated > 0 ? "成功" : "失败", JSON.toJSONString(saveInfo));
     }

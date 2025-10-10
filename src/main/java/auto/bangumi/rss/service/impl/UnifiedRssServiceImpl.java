@@ -65,10 +65,10 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
      */
     @Override
     public void refreshPoster(List<Integer> rssManageIds) {
-        List<RssManage> selectedList = Optional.ofNullable(
+        List<RssManageVO> selectedList = Optional.ofNullable(
                 iRssManageService.list(new LambdaQueryWrapper<RssManage>()
                         .in(Objects.nonNull(rssManageIds) && !rssManageIds.isEmpty(), RssManage::getId, rssManageIds))
-        ).orElse(new ArrayList<>());
+        ).orElse(new ArrayList<>()).stream().map(RssManageVO::copy).toList();
 
         if (selectedList.isEmpty()) {
             return;
@@ -77,14 +77,23 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
         AsyncManager.me().execute(new TimerTask() {
             @Override
             public void run() {
-                for (RssManage rssManage : selectedList) {
-                    String rssStr = rssManage.getRssList();
-                    if (StringUtils.isNotBlank(rssStr)) {
-                        Rss rss = JSON.parseArray(rssStr, Rss.class).get(0);
+                for (RssManageVO rssManage : selectedList) {
+                    List<Rss> rssList = rssManage.getRssList();
+                    if (Objects.nonNull(rssList) && !rssList.isEmpty()) {
+                        Rss rss = rssList.get(0);
                         switch (rss.getType()) {
                             case Mikan:
                                 AnalysisResult mikan = analysisApi.analysisMikan(rss.getRss());
+
                                 RssManage build = RssManage.builder().id(rssManage.getId()).posterLink(mikan.getPosterLink()).build();
+
+                                String episode = mikan.getConfig().getTotalEpisode();
+                                if (StringUtils.isNotBlank(episode) && !"0".equals(episode)) {
+                                    RssManageConfigVO config = rssManage.getConfig();
+                                    config.setTotalEpisode(episode);
+                                    build.setConfig(JSON.toJSONString(config));
+                                }
+
                                 iRssManageService.updateById(build);
                                 break;
                             default:

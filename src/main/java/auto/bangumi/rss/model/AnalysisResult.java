@@ -1,5 +1,6 @@
 package auto.bangumi.rss.model;
 
+import auto.bangumi.rss.model.DTO.RssManage.RssManageConfigDTO;
 import lombok.*;
 
 @Getter
@@ -43,4 +44,9 @@ public class AnalysisResult {
      * 图片路径
      */
     private String posterLink;
+
+    /**
+     * 配置
+     */
+    private RssManageConfigDTO config;
 }

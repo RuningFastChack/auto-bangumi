@@ -7,6 +7,7 @@ import auto.bangumi.common.utils.AsyncManager;
 import auto.bangumi.common.utils.AutoBangumiUtil;
 import auto.bangumi.common.utils.HttpClientUtil;
 import auto.bangumi.rss.model.AnalysisResult;
+import auto.bangumi.rss.model.DTO.RssManage.RssManageConfigDTO;
 import cn.hutool.core.util.StrUtil;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Unmarshaller;
@@ -66,6 +67,10 @@ public class AnalysisApi {
             String weekText = doc.select("p.bangumi-info:contains(放送日期)").text();
             int week = AutoBangumiUtil.parseWeek(weekText);
             result.setUpdateWeek(week);
+
+            String totalEpisode = doc.select("p.bangumi-info:contains(总集数)").text();
+            String total = AutoBangumiUtil.parseTotalEpisode(totalEpisode);
+            result.setConfig(RssManageConfigDTO.builder().totalEpisode(total).latestEpisode("0").build());
 
             String title = doc.select("p.bangumi-title").text();
             result.setTitle(title);
