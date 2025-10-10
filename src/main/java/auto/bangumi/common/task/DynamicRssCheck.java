@@ -14,7 +14,7 @@ import java.time.Instant;
 import java.util.Objects;
 
 /**
- * 检查RSS下载情况
+ * 检查RSS下载情况、检查番剧是否完结
  *
  * @author 查查
  * @since 2025/9/20
@@ -47,6 +47,9 @@ public class DynamicRssCheck implements SchedulingConfigurer {
                     if (Objects.nonNull(config.getGeneralSetting()) && config.getGeneralSetting().getEnable()) {
                         iUnifiedRssService.pollingCheckRssItem();
                     }
+
+                    //检查番剧是否完结
+                    iUnifiedRssService.pollingCheckRssManageComplete();
                 },
                 // 动态触发器
                 triggerContext -> {

@@ -150,6 +150,40 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
         }
     }
 
+    /**
+     * 轮询 - 检查番剧是否完结
+     */
+    @Override
+    public void pollingCheckRssManageComplete() {
+        List<RssManageVO> selectedList = Optional.ofNullable(iRssManageService.list(new LambdaQueryWrapper<RssManage>()
+                        .eq(RssManage::getComplete, SysYesNo.NO.getCode()))).orElse(new ArrayList<>())
+                .stream().map(RssManageVO::copy).toList();
+
+        if (selectedList.isEmpty()) {
+            return;
+        }
+
+        for (RssManageVO rssManage : selectedList) {
+            String episode = rssManage.getConfig().getTotalEpisode();
+            if ("0".equals(episode)) {
+                continue;
+            }
+            AsyncManager.me().execute(new TimerTask() {
+                @Override
+                public void run() {
+                    Long count = iRssItemService.count(new LambdaQueryWrapper<RssItem>().eq(RssItem::getRssManageId, rssManage.getId()));
+                    Long totalEpisode = Long.valueOf(episode);
+                    if (totalEpisode.equals(count)) {
+                        RssManage updateInfo = RssManage.builder().id(rssManage.getId())
+                                .complete(SysYesNo.YSE.getCode())
+                                .build();
+                        iRssManageService.updateById(updateInfo);
+                    }
+                }
+            });
+        }
+    }
+
     private void checkRssItem(List<String> torrentCodes){
         List<String> successCodes = QBittorrentApi.CheckTorrentState(torrentCodes);
         if (!successCodes.isEmpty()) {
@@ -443,16 +477,19 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
                     //刷新最新剧集
                     RssManageVO rssManage = iRssManageService.findRssManageDetailById(item.getRssManageId());
                     if (rssManage != null && rssManage.getConfig() != null) {
+                        RssManage updateInfo = RssManage.builder().id(rssManage.getId()).build();
+
                         RssManageConfigVO config = rssManage.getConfig();
                         BigDecimal pushEpisodeNum = new BigDecimal(Optional.ofNullable(item.getEpisodeNum()).orElse("0"));
                         BigDecimal configEpisodeNum = new BigDecimal(Optional.ofNullable(config.getLatestEpisode()).orElse("0"));
 
+                        //更新最新集数
                         if (pushEpisodeNum.compareTo(configEpisodeNum) > 0) {
                             config.setLatestEpisode(item.getEpisodeNum());
-                            iRssManageService.update(new LambdaUpdateWrapper<RssManage>()
-                                    .eq(RssManage::getId, item.getRssManageId())
-                                    .set(RssManage::getConfig, JSON.toJSONString(config)));
+                            updateInfo.setConfig(JSON.toJSONString(config));
                         }
+
+                        iRssManageService.updateById(updateInfo);
                     }
                 }
             }

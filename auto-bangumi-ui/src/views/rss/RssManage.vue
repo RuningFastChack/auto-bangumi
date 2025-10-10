@@ -86,23 +86,8 @@ const columns = computed(() => {
       key: 'officialTitle',
       ellipsis: true,
       title: '番剧标题',
-      width: 200
+      width: 180
     },
-    { align: 'center', dataIndex: 'totalEpisode', key: 'totalEpisode', title: '总集数', width: 80 },
-    {
-      align: 'center',
-      dataIndex: 'latestEpisode',
-      key: 'latestEpisode',
-      title: '最新一集',
-      width: 80
-    },
-    { align: 'center', dataIndex: 'season', key: 'season', title: '季度', width: 90 },
-    { align: 'center', dataIndex: 'status', key: 'status', title: '是否启用', width: 90 },
-    {
-      align: 'left', dataIndex: 'savePath', key: 'savePath', title: '保存路径',
-      ellipsis: true, width: 180
-    },
-    { align: 'center', dataIndex: 'complete', key: 'complete', title: '是否完结', width: 90 },
     {
       align: 'center',
       dataIndex: 'updateWeek',
@@ -110,7 +95,22 @@ const columns = computed(() => {
       title: '更新星期',
       width: 90
     },
+    { align: 'center', dataIndex: 'season', key: 'season', title: '季度', width: 80 },
+    {
+      align: 'center',
+      dataIndex: 'latestEpisode',
+      key: 'latestEpisode',
+      title: '最新一集',
+      width: 80
+    },
+    { align: 'center', dataIndex: 'complete', key: 'complete', title: '是否完结', width: 80 },
+    { align: 'center', dataIndex: 'status', key: 'status', title: '是否启用', width: 80 },
+    { align: 'center', dataIndex: 'totalEpisode', key: 'totalEpisode', title: '总集数', width: 80 },
     { align: 'center', dataIndex: 'sendDate', key: 'sendDate', title: '发布日期', width: 120 },
+    {
+      align: 'left', dataIndex: 'savePath', key: 'savePath', title: '保存路径',
+      ellipsis: true, width: 180
+    },
     {
       align: 'center',
       key: 'operation',
