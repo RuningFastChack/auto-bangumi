@@ -12,6 +12,7 @@ import auto.bangumi.qBittorrent.service.QBittorrentApi;
 import auto.bangumi.rss.model.AnalysisResult;
 import auto.bangumi.rss.model.DTO.RssItem.RssItemDTO;
 import auto.bangumi.rss.model.Rss;
+import auto.bangumi.rss.model.VO.RssManage.RssManageConfigVO;
 import auto.bangumi.rss.model.VO.RssManage.RssManageVO;
 import auto.bangumi.rss.model.entity.RssItem;
 import auto.bangumi.rss.model.entity.RssManage;
@@ -33,6 +34,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.StringReader;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -177,7 +179,6 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
                         .id(item.getId())
                         .officialTitle(item.getOfficialTitle())
                         .season(item.getSeason())
-                        .lastEpisodeNum(item.getLastEpisodeNum())
                         .filter(StringUtils.isNotBlank(item.getFilter()) ? Arrays.asList(item.getFilter().split(",")) : new ArrayList<>())
                         .rssList(StringUtils.isNotBlank(item.getRssList()) ? JSON.parseArray(item.getRssList(), Rss.class) : new ArrayList<>())
                         .build()
@@ -430,6 +431,20 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
                     iRssItemService.update(new LambdaUpdateWrapper<RssItem>()
                             .eq(RssItem::getTorrentCode, item.getTorrentCode())
                             .set(RssItem::getPushed, SysYesNo.YSE.getCode()));
+                    //刷新最新剧集
+                    RssManageVO rssManage = iRssManageService.findRssManageDetailById(item.getRssManageId());
+                    if (rssManage != null && rssManage.getConfig() != null) {
+                        RssManageConfigVO config = rssManage.getConfig();
+                        BigDecimal pushEpisodeNum = new BigDecimal(Optional.ofNullable(item.getEpisodeNum()).orElse("0"));
+                        BigDecimal configEpisodeNum = new BigDecimal(Optional.ofNullable(config.getLatestEpisode()).orElse("0"));
+
+                        if (pushEpisodeNum.compareTo(configEpisodeNum) > 0) {
+                            config.setLatestEpisode(item.getEpisodeNum());
+                            iRssManageService.update(new LambdaUpdateWrapper<RssManage>()
+                                    .eq(RssManage::getId, item.getRssManageId())
+                                    .set(RssManage::getConfig, JSON.toJSONString(config)));
+                        }
+                    }
                 }
             }
         });

@@ -30,12 +30,6 @@ public class RssManage {
     private String season;
 
     /**
-     * 推送的最新剧集
-     */
-    @TableField(value = "last_episode_num")
-    private String lastEpisodeNum;
-
-    /**
      * 是否启用
      */
     @TableField(value = "status")
@@ -88,4 +82,10 @@ public class RssManage {
      */
     @TableField(value = "rss_list")
     private String rssList;
+
+    /**
+     * 配置
+     */
+    @TableField(value = "config")
+    private String config;
 }

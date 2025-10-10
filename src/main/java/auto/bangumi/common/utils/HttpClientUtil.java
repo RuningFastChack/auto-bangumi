@@ -70,7 +70,7 @@ public abstract class HttpClientUtil {
             if (result != null)
                 return result;
         } catch (Exception e) {
-            log.error("sendGet请求失败:{}", e.getMessage(), e);
+            log.error("sendGet请求失败:{}", e.getMessage());
         }
         return "";
     }
@@ -148,7 +148,7 @@ public abstract class HttpClientUtil {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             return sendFormPost(host, path, headers, query, body, httpClient);
         } catch (Exception e) {
-            log.error("sendFormPost请求失败：{}", e.getMessage(), e);
+            log.error("sendFormPost请求失败：{}", e.getMessage());
         }
         return null;
     }
@@ -189,7 +189,7 @@ public abstract class HttpClientUtil {
                 .build()) {
             return sendJsonPost(host, path, headers, query, body, httpClient);
         } catch (Exception e) {
-            log.error("sendJsonPost请求失败：{}", e.getMessage(), e);
+            log.error("sendJsonPost请求失败：{}", e.getMessage());
         }
         return null;
     }
@@ -227,7 +227,7 @@ public abstract class HttpClientUtil {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             return sendFormPut(host, path, headers, query, body, httpClient);
         } catch (Exception e) {
-            log.error("sendFormPut请求失败：{}", e.getMessage(), e);
+            log.error("sendFormPut请求失败：{}", e.getMessage());
         }
         return null;
     }
@@ -264,7 +264,7 @@ public abstract class HttpClientUtil {
                 .build()) {
             return sendJsonPut(host, path, headers, query, body, httpClient);
         } catch (Exception e) {
-            log.error("sendJsonPut请求失败：{}", e.getMessage(), e);
+            log.error("sendJsonPut请求失败：{}", e.getMessage());
         }
         return null;
     }
@@ -303,7 +303,7 @@ public abstract class HttpClientUtil {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             return sendDelete(host, path, headers, query, httpClient);
         } catch (Exception e) {
-            log.error("sendDelete请求失败：{}", e.getMessage(), e);
+            log.error("sendDelete请求失败：{}", e.getMessage());
         }
         return null;
     }
@@ -334,7 +334,7 @@ public abstract class HttpClientUtil {
                 .build()) {
             return sendJsonDelete(host, path, headers, query, body, httpClient);
         } catch (Exception e) {
-            log.error("sendJsonDelete请求失败：{}", e.getMessage(), e);
+            log.error("sendJsonDelete请求失败：{}", e.getMessage());
         }
         return null;
     }
@@ -370,7 +370,7 @@ public abstract class HttpClientUtil {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             return sendFormDelete(host, path, headers, query, body, httpClient);
         } catch (Exception e) {
-            log.error("sendFormDelete请求失败：{}", e.getMessage(), e);
+            log.error("sendFormDelete请求失败：{}", e.getMessage());
         }
         return null;
     }
