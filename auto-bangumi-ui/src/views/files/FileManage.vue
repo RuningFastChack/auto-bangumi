@@ -1,21 +1,16 @@
 <script setup lang="ts">
-import { useScreen } from '@/hooks/useScreen.ts';
-import { computed, type CSSProperties, h, onMounted, onUnmounted, ref } from 'vue';
-import { arrayFilter } from '@/utils/array.ts';
-import type { AntColumnsType } from '@/types/ant.ts';
-import {
-  filterFileName,
-  getFileExtName,
-  getFileIcon,
-  isCompressFile
-} from '@/utils/fileManager.ts';
-import { convertFileSize } from '@/utils/fileSize.ts';
+import {useScreen} from '@/hooks/useScreen.ts';
+import {computed, type CSSProperties, h, onMounted, onUnmounted, ref} from 'vue';
+import {arrayFilter} from '@/utils/array.ts';
+import type {AntColumnsType} from '@/types/ant.ts';
+import {filterFileName, getFileExtName, getFileIcon, isCompressFile} from '@/utils/fileManager.ts';
+import {convertFileSize} from '@/utils/fileSize.ts';
 import dayjs from 'dayjs';
-import { useFileManager } from '@/hooks/useFileManager.ts';
-import { useRightClickMenu } from '@/hooks/useRightClickMenu.ts';
-import { useUserStore } from '@/stores/modules/user.ts';
+import {useFileManager} from '@/hooks/useFileManager.ts';
+import {useRightClickMenu} from '@/hooks/useRightClickMenu.ts';
+import {useUserStore} from '@/stores/modules/user.ts';
 import FileEditor from '@/components/FileEditor.vue';
-import { type ItemType, message, Modal } from 'ant-design-vue';
+import {type ItemType, message, Modal} from 'ant-design-vue';
 import {
   CopyOutlined,
   DeleteOutlined,
@@ -33,11 +28,11 @@ import {
   SearchOutlined,
   UploadOutlined
 } from '@ant-design/icons-vue';
-import type { MscFileList } from '@/api/types/mcs/files';
+import type {MscFileList} from '@/api/types/mcs/files';
 import BetweenMenus from '@/components/BetweenMenus.vue';
-import { useRoute } from 'vue-router';
+import {useRoute} from 'vue-router';
 import CardPanel from '@/components/CardPanel.vue';
-import { t } from '@/config/lang/i18n.ts';
+import {t} from '@/config/lang/i18n.ts';
 //region type
 
 const route = useRoute();
@@ -130,7 +125,7 @@ const columns = computed(() => {
       dataIndex: 'type',
       key: 'type',
       customRender: (e: { text: number; record: { name: string } }) => {
-        return e.text == 1 ? filterFileName(e.record.name) : '文件夹';
+        return e.text == 1 ? filterFileName(e.record.name) : t('TXT_CODE_15fbf98b');
       },
       condition: () => !isPhone.value,
       minWidth: 200

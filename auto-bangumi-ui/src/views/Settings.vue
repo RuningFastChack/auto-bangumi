@@ -477,7 +477,7 @@ onMounted(() => initUserConfig());
           <template #setting>
             <div class="content-box">
               <a-typography-title :level="4" class="mb-24">
-                {{t('TXT_CODE_9684a760')}}}
+                {{t('TXT_CODE_9684a760')}}
               </a-typography-title>
               <div style="text-align: left">
                 <a-form :model="systemConfigFormData.generalSetting"
