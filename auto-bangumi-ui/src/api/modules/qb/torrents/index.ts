@@ -1,9 +1,9 @@
 import http from '@/api';
-import {ADMIN_MODULE} from '@/api/helper/prefix';
+import { ADMIN_MODULE } from '@/api/helper/prefix';
 import type {
-  TorrentsInfoAddRequest,
+  TorrentsInfoAddRequest, TorrentsInfoDeleteRequest,
   TorrentsInfoListRequest,
-  TorrentsInfoListResponse,
+  TorrentsInfoListResponse
 } from '@/api/types/qb/torrents';
 
 /**
@@ -37,6 +37,6 @@ export const resumeTorrent = (torrents: string[]) => {
 /**
  * 删除种子
  */
-export const deleteTorrent = (torrents: string[]) => {
-  return http.delete<boolean>(ADMIN_MODULE + 'v1/qb/torrents', torrents);
+export const deleteTorrent = (params: TorrentsInfoDeleteRequest) => {
+  return http.delete<boolean>(ADMIN_MODULE + 'v1/qb/torrents', params);
 };

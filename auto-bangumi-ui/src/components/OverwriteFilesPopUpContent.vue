@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { t } from '../config/lang/i18n.ts';
 
 const props = defineProps<{
   count?: number;
@@ -25,17 +26,17 @@ const allRef = computed({
 
 <template>
   <div class="flex-col">
-    文件 {{ props.fileName }} 已经在目录中存在
+    {{ t('TXT_CODE_1049cbd1', { name: props.fileName }) }}
     <div style="margin-top: 16px; margin-bottom: -8px">
       <a-checkbox v-model:checked="overwriteRef">
-        覆盖
+        {{ t('TXT_CODE_10693964') }}
       </a-checkbox>
       <a-checkbox
         v-if="props.count && props.count > 1"
         v-model:checked="allRef"
         style="margin-left: 5px"
       >
-        以及之后 {{ props.count - 1 }} 个
+        {{ t('TXT_CODE_107695d', { num: props.count - 1 }) }}
       </a-checkbox>
     </div>
   </div>

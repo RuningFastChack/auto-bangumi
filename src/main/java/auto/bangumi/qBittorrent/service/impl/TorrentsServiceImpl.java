@@ -5,6 +5,7 @@ import auto.bangumi.common.exception.common.BusinessException;
 import auto.bangumi.qBittorrent.constant.QBittorrentConstant;
 import auto.bangumi.qBittorrent.constant.QBittorrentPathConstant;
 import auto.bangumi.qBittorrent.model.Request.TorrentsInfoAddRequest;
+import auto.bangumi.qBittorrent.model.Request.TorrentsInfoDeleteRequest;
 import auto.bangumi.qBittorrent.model.Request.TorrentsInfoListRequest;
 import auto.bangumi.qBittorrent.model.Response.TorrentsInfoListResponse;
 import auto.bangumi.qBittorrent.model.Response.TorrentsInfoRawResponse;
@@ -86,8 +87,8 @@ public class TorrentsServiceImpl implements ITorrentsService {
             return false;
         }
         try {
-            Map<String, Object> query = Map.of("hashes", String.join("|", torrents));
-            HttpResponse response = QBHttpUtil.sendJSONPost(QBittorrentPathConstant.TORRENTS_PAUSE, query, new HashMap<>());
+            Map<String, Object> body = Map.of("hashes", String.join("|", torrents));
+            HttpResponse response = QBHttpUtil.sendJSONPost(QBittorrentPathConstant.TORRENTS_PAUSE, new HashMap<>(), body);
             QBResponseEnum.TORRENT_OPERATE_ERROR.assertNull(response);
             int status = response.getStatusLine().getStatusCode();
             String message = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
@@ -111,8 +112,8 @@ public class TorrentsServiceImpl implements ITorrentsService {
             return false;
         }
         try {
-            Map<String, Object> query = Map.of("hashes", String.join("|", torrents));
-            HttpResponse response = QBHttpUtil.sendJSONPost(QBittorrentPathConstant.TORRENTS_RESUME, query, new HashMap<>());
+            Map<String, Object> body = Map.of("hashes", String.join("|", torrents));
+            HttpResponse response = QBHttpUtil.sendJSONPost(QBittorrentPathConstant.TORRENTS_RESUME, new HashMap<>(), body);
             QBResponseEnum.TORRENT_OPERATE_ERROR.assertNull(response);
             int status = response.getStatusLine().getStatusCode();
             String message = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
@@ -127,17 +128,17 @@ public class TorrentsServiceImpl implements ITorrentsService {
     /**
      * 删除
      *
-     * @param torrents
+     * @param request
      * @return
      */
     @Override
-    public Boolean deleteTorrent(List<String> torrents) {
-        if (torrents.isEmpty()) {
+    public Boolean deleteTorrent(TorrentsInfoDeleteRequest request) {
+        if (request.getHashes().isEmpty()) {
             return false;
         }
         try {
-            Map<String, Object> query = Map.of("hashes", String.join("|", torrents));
-            HttpResponse response = QBHttpUtil.sendJSONPost(QBittorrentPathConstant.TORRENTS_DELETE, query, new HashMap<>());
+            Map<String, Object> body = request.toMap();
+            HttpResponse response = QBHttpUtil.sendJSONPost(QBittorrentPathConstant.TORRENTS_DELETE, new HashMap<>(), body);
             QBResponseEnum.TORRENT_OPERATE_ERROR.assertNull(response);
             int status = response.getStatusLine().getStatusCode();
             String message = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
@@ -145,7 +146,7 @@ public class TorrentsServiceImpl implements ITorrentsService {
             return QBittorrentConstant.success.equals(status);
         } catch (Exception e) {
             log.error("删除种子异常：{}", e.getMessage());
-            throw new BusinessException(QBResponseEnum.TORRENT_OPERATE_ERROR, new Object[]{torrents}, e.getMessage());
+            throw new BusinessException(QBResponseEnum.TORRENT_OPERATE_ERROR, new Object[]{request}, e.getMessage());
         }
     }
 }

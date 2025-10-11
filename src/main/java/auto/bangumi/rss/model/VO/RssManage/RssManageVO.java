@@ -2,8 +2,6 @@ package auto.bangumi.rss.model.VO.RssManage;
 
 import auto.bangumi.rss.model.Rss;
 import auto.bangumi.rss.model.entity.RssManage;
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.bean.copier.CopyOptions;
 import com.alibaba.fastjson.JSON;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
@@ -33,11 +31,6 @@ public class RssManageVO {
      * 季度
      */
     private String season;
-
-    /**
-     * 推送的最新剧集
-     */
-    private String lastEpisodeNum;
 
     /**
      * 是否启用
@@ -80,16 +73,31 @@ public class RssManageVO {
     private List<Rss> rssList;
 
     /**
+     * 配置
+     */
+    private RssManageConfigVO config;
+
+    /**
      * 复制
      *
-     * @param dto
+     * @param rssManage
      * @return
      */
-    public static RssManageVO copy(RssManage dto) {
-        RssManageVO result = RssManageVO.builder().build();
-        BeanUtil.copyProperties(dto, result, CopyOptions.create().setIgnoreProperties("filter", "rssList"));
-        result.setFilter(StringUtils.isNotBlank(dto.getFilter()) ? Arrays.asList(dto.getFilter().split(",")) : new ArrayList<>());
-        result.setRssList(StringUtils.isNotBlank(dto.getRssList()) ? JSON.parseArray(dto.getRssList(), Rss.class) : new ArrayList<>());
-        return result;
+    public static RssManageVO copy(RssManage rssManage) {
+        return RssManageVO.builder()
+                .id(rssManage.getId())
+                .officialTitle(rssManage.getOfficialTitle())
+                .season(rssManage.getSeason())
+                .status(rssManage.getStatus())
+                .filter(StringUtils.isNotBlank(rssManage.getFilter()) ? Arrays.asList(rssManage.getFilter().split(",")) : new ArrayList<>())
+                .posterLink(rssManage.getPosterLink())
+                .savePath(rssManage.getSavePath())
+                .complete(rssManage.getComplete())
+                .updateWeek(rssManage.getUpdateWeek())
+                .sendDate(rssManage.getSendDate())
+                .rssList(StringUtils.isNotBlank(rssManage.getRssList()) ? JSON.parseArray(rssManage.getRssList(), Rss.class) : new ArrayList<>())
+                .config(StringUtils.isNotBlank(rssManage.getConfig()) ? JSON.parseObject(rssManage.getConfig(), RssManageConfigVO.class) : new RssManageConfigVO())
+                .build();
+
     }
 }

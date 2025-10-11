@@ -6,15 +6,14 @@ import type { LoginDTO } from '@/api/types';
 import { loginApi } from '@/api/modules/login.ts';
 import { useUserStore } from '@/stores/modules/user.ts';
 import CardPanel from '@/components/CardPanel.vue';
-import router from '@/router';
 import {
   CheckCircleOutlined,
   LoadingOutlined,
   LockOutlined,
   UserOutlined
 } from '@ant-design/icons-vue';
-import { useRoute } from 'vue-router';
 import { useAppRouters } from '@/hooks/useAppRouters.ts';
+import { t } from '@/config/lang/i18n.ts';
 //region type
 const userStore = useUserStore();
 const appRouters = useAppRouters();
@@ -47,7 +46,7 @@ const loginStep = ref<number>(0);
 
 const handleLogin = async () => {
   if (!formData.username.trim() || !formData.password.trim()) {
-    return message.error('请完善账号信息');
+    return message.error(t('TXT_CODE_db58021b'));
   }
   try {
     loginStep.value = 1;
@@ -90,13 +89,13 @@ defineOptions({ name: 'LoginCard' });
           <a-typography-title :level="3" class="mb-20 glitch-wrapper">
             <div
               class="glitch"
-              :data-text="'用户验证'"
+              :data-text="t('TXT_CODE_4601a6b1')"
             >
-              用户验证
+              {{ t('TXT_CODE_4601a6b1') }}
             </div>
           </a-typography-title>
           <a-typography-paragraph class="mb-20">
-            使用服务器的 AutoBangumi 账号进入面板
+            {{ t('TXT_CODE_b78f7254') }}
           </a-typography-paragraph>
           <div class="account-input-container">
             <form @submit.prevent>
@@ -106,7 +105,7 @@ defineOptions({ name: 'LoginCard' });
                   class="account"
                   size="large"
                   name="mcsm-name-input"
-                  placeholder="账号"
+                  :placeholder="t('TXT_CODE_ed48be38')"
                 >
                   <template #suffix>
                     <UserOutlined style="color: rgba(0, 0, 0, 0.45)" />
@@ -116,7 +115,7 @@ defineOptions({ name: 'LoginCard' });
                   v-model:value="formData.password"
                   class="mt-20 account"
                   type="password"
-                  placeholder="密码"
+                  :placeholder="t('TXT_CODE_8a6b31a0')"
                   size="large"
                   name="mcsm-pw-input"
                   @press-enter="handleLogin"
@@ -132,7 +131,7 @@ defineOptions({ name: 'LoginCard' });
               <div></div>
               <div class="justify-end" style="gap: 10px">
                 <a-button size="large" type="primary" style="min-width: 95px" @click="handleLogin">
-                  登录
+                  {{ t('TXT_CODE_4bb75258') }}
                 </a-button>
               </div>
             </div>

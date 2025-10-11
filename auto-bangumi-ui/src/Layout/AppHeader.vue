@@ -2,10 +2,11 @@
 import { useScroll } from '@vueuse/core';
 import { computed, h, ref } from 'vue';
 import {
-  BgColorsOutlined,
+  BgColorsOutlined, FontColorsOutlined,
   FontSizeOutlined,
   LogoutOutlined,
-  MenuUnfoldOutlined
+  MenuUnfoldOutlined,
+  PlusCircleOutlined
 } from '@ant-design/icons-vue';
 import { Modal } from 'ant-design-vue';
 import CardPanel from '@/components/CardPanel.vue';
@@ -17,7 +18,8 @@ import { useRoute } from 'vue-router';
 import { logoutApi } from '@/api/modules/login.ts';
 import { AutoBangumiRouter } from '@/router';
 import { HOME_URL } from '@/config';
-import { isEmpty } from '@/utils';
+import RssManageForm from '@/views/rss/RssManageForm.vue';
+import { SUPPORTED_LANGS, t } from '@/config/lang/i18n.ts';
 //region type
 const { y } = useScroll(document.body);
 
@@ -39,6 +41,7 @@ const route = useRoute();
 
 //region refs & data
 const openPhoneMenu = ref<boolean>(false);
+const rssManageFormRef = ref<InstanceType<typeof RssManageForm>>();
 //endregion
 
 //region computed
@@ -70,7 +73,7 @@ const menus = computed(() => {
 const appMenus = computed(() => {
   return [
     {
-      title: '组件大小',
+      title: t('TXT_CODE_2a15d8d5'),
       icon: FontSizeOutlined,
       click: (key: SizeType) => {
         useApp.setSize(key);
@@ -79,21 +82,33 @@ const appMenus = computed(() => {
       conditions: true,
       menus: [
         {
-          title: '默认',
+          title: t('TXT_CODE_4ffa7c8e'),
           value: 'middle'
         },
         {
-          title: '小型',
+          title: t('TXT_CODE_959c41e0'),
           value: 'small'
         },
         {
-          title: '大型',
+          title: t('TXT_CODE_788b4745'),
           value: 'large'
         }
       ]
     },
     {
-      title: '选择主题',
+      title: t('TXT_CODE_1a195559'),
+      icon: FontColorsOutlined,
+      click: (key: string) => {
+        console.log(key);
+        useApp.setLanguage(key);
+        setTimeout(() => window.location.reload(), 600);
+      },
+      onlyPC: false,
+      conditions: true,
+      menus: SUPPORTED_LANGS.map(item => ({ title: item.label, value: item.value }))
+    },
+    {
+      title: t('TXT_CODE_a4bf9492'),
       icon: BgColorsOutlined,
       click: (key: THEME) => {
         useApp.setTheme(key);
@@ -102,21 +117,30 @@ const appMenus = computed(() => {
       conditions: true,
       menus: [
         {
-          title: '浅色模式',
+          title: t('TXT_CODE_17a80597'),
           value: THEME.LIGHT
         },
         {
-          title: '深色模式',
+          title: t('TXT_CODE_8b12366f'),
           value: THEME.DARK
         }
       ]
     },
     {
-      title: '退出',
+      title: t('TXT_CODE_6a905beb'),
+      icon: PlusCircleOutlined,
+      click: async () => {
+        rssManageFormRef.value?.acceptParams('新增');
+      },
+      conditions: useUser.isLogged(),
+      onlyPC: false
+    },
+    {
+      title: t('TXT_CODE_45659f49'),
       icon: LogoutOutlined,
       click: async () => {
         Modal.confirm({
-          title: '确定要退出当前用户吗',
+          title: t('TXT_CODE_845e9756'),
           async onOk() {
             await logoutApi();
             useUser.clear();
@@ -133,7 +157,7 @@ const appMenus = computed(() => {
 const breadcrumbs = computed(() => {
   const arr = [
     {
-      title: '管理面板',
+      title: t('TXT_CODE_a9bf94d0'),
       disabled: false,
       href: `.`
     }
@@ -183,7 +207,7 @@ defineOptions({ name: 'AppHeader' });
       <nav class="btns">
         <a href="." style="margin-right: 12px">
           <div class="logo">
-            <img alt="标题" src="@/assets/logo.svg" style="height: 18px" />
+            <img alt="" src="@/assets/logo.svg" style="height: 18px" />
           </div>
         </a>
         <div
@@ -250,7 +274,7 @@ defineOptions({ name: 'AppHeader' });
             </div>
           </div>
           <div>
-            <img alt="标题" src="@/assets/logo.svg" style="height: 18px" />
+            <img alt="" src="@/assets/logo.svg" style="height: 18px" />
           </div>
           <div style="width: 100px" class="justify-end">
             <div v-for="(item, index) in appMenus" :key="index">
@@ -294,6 +318,7 @@ defineOptions({ name: 'AppHeader' });
       </a-breadcrumb-item>
     </a-breadcrumb>
   </div>
+  <rss-manage-form ref="rssManageFormRef" />
 </template>
 
 <style lang="scss" scoped>

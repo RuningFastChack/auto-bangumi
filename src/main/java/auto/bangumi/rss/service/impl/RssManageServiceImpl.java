@@ -57,8 +57,8 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
                 .ge(StringUtils.isNotBlank(dto.getSendDateForm()), RssManage::getSendDate, dto.getSendDateForm())
                 .le(StringUtils.isNotBlank(dto.getSendDateTo()), RssManage::getSendDate, dto.getSendDateTo())
                 .orderByDesc(RssManage::getSendDate, RssManage::getStatus, RssManage::getUpdateWeek));
-        List<RssManage> selectedList = Optional.ofNullable(selectedPage.getRecords()).orElse(new ArrayList<>());
-        return PageUtils.getPageResult(dto.getPage(), dto.getLimit(), BeanUtil.copyToList(selectedList, RssManageListVO.class), (int) selectedPage.getTotal());
+        List<RssManageListVO> selectedList = Optional.ofNullable(selectedPage.getRecords()).orElse(new ArrayList<>()).stream().map(RssManageListVO::copy).collect(Collectors.toList());
+        return PageUtils.getPageResult(dto.getPage(), dto.getLimit(), selectedList, (int) selectedPage.getTotal());
     }
 
     /**
@@ -76,8 +76,7 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
 
         for (RssManage rssManage : selectedList) {
             Integer week = rssManage.getUpdateWeek();
-            RssManageCalendarVO result = RssManageCalendarVO.builder().build();
-            BeanUtil.copyProperties(rssManage, result);
+            RssManageCalendarVO result = RssManageCalendarVO.copy(rssManage);
             calendarMap.computeIfAbsent(week, k -> new ArrayList<>()).add(result);
         }
         return calendarMap;
@@ -144,7 +143,7 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
 
         saveInfo.setRssList(!uniqueRssList.isEmpty() ? JSON.toJSONString(uniqueRssList) : JSON.toJSONString(new ArrayList<>()));
 
-        saveInfo.setLastEpisodeNum("0");
+        saveInfo.setConfig(JSON.toJSONString(dto.getConfig()));
 
         int insert = baseMapper.insert(saveInfo);
         log.info("RSS Manage 保存{}:{}", insert > 0 ? "成功" : "失败", JSON.toJSONString(saveInfo));
@@ -174,9 +173,10 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
                 .values()).stream().sorted(Comparator.comparingInt(r -> r.getSort() != null ? r.getSort() : 0)).toList();
 
         RssManage saveInfo = RssManage.builder().build();
-        BeanUtil.copyProperties(dto, saveInfo, CopyOptions.create().setIgnoreProperties("filter", "rssList"));
+        BeanUtil.copyProperties(dto, saveInfo, CopyOptions.create().setIgnoreProperties("filter", "rssList","config"));
         saveInfo.setFilter(Objects.nonNull(dto.getFilter()) && !dto.getFilter().isEmpty() ? String.join(",", dto.getFilter()) : "");
         saveInfo.setRssList(!uniqueRssList.isEmpty() ? JSON.toJSONString(uniqueRssList) : JSON.toJSONString(new ArrayList<>()));
+        saveInfo.setConfig(Objects.nonNull(dto.getConfig()) ? JSON.toJSONString(dto.getConfig()) : JSON.toJSONString(new RssManageDTO()));
         int updated = baseMapper.updateById(saveInfo);
         log.info("RSS Manage 编辑{}:{}", updated > 0 ? "成功" : "失败", JSON.toJSONString(saveInfo));
     }

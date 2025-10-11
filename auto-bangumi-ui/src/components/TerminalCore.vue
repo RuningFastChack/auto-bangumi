@@ -8,6 +8,7 @@ import { message } from 'ant-design-vue';
 import { getInstanceOutputLog } from '@/api/modules/mcs/protected/instance';
 import { useUserStore } from '@/stores/modules/user.ts';
 import { CodeOutlined, DeleteOutlined, LoadingOutlined } from '@ant-design/icons-vue';
+import { t } from '@/config/lang/i18n.ts';
 //region type
 const { userInfo } = useUserStore();
 //endregion
@@ -79,15 +80,15 @@ const initTerminal = async () => {
   if (dom) {
     return initTerminalWindow(dom);
   }
-  throw new Error('终端初始化失败，请刷新网页重试！');
+  throw new Error(t('TXT_CODE_108ce2e4'));
 };
 
 events.on('opened', () => {
-  message.success('实例已运行');
+  message.success(t('TXT_CODE_10a6d36f'));
 });
 
 events.on('stopped', () => {
-  message.success('实例已停止运行');
+  message.success(t('TXT_CODE_10cc2794'));
 });
 
 events.on('error', (error: Error) => {
@@ -139,10 +140,7 @@ defineOptions({ name: 'TerminalCore' });
     <div class="terminal-button-group position-absolute-right position-absolute-top">
       <ul>
         <li @click="clearTerminal()">
-          <a-tooltip placement="top">
-            <template #title>
-              <span>清空终端输出内容</span>
-            </template>
+          <a-tooltip placement="top" :title="t('TXT_CODE_10eeb359')">
             <delete-outlined />
           </a-tooltip>
         </li>
@@ -170,7 +168,7 @@ defineOptions({ name: 'TerminalCore' });
       <a-input
         ref="inputRef"
         v-model:value="commandInputValue"
-        placeholder="输入命令按回车发送，使用上下键选择历史命令"
+        :placeholder="t('TXT_CODE_10efed7c')"
         autofocus
         :disabled="!isConnect"
         @press-enter="handleSendCommand"

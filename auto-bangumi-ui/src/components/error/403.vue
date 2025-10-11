@@ -1,18 +1,18 @@
 <script lang="ts" setup>
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
 import CardPanel from '@/components/CardPanel.vue';
-
+import { t } from '@/config/lang/i18n.ts';
 </script>
 
 <template>
   <card-panel>
-    <template #title>页面错误</template>
+    <template #title>{{ t('TXT_CODE_PAGE_403_TITLE') }}</template>
     <template #body>
       <div class="flex justify-center align-center h-100">
         <div>
           <a-typography-paragraph>
             <ExclamationCircleOutlined />
-            页面运行错误，请刷新网页重试
+            {{ t('TXT_CODE_PAGE_403_DESCRIPTION') }}
           </a-typography-paragraph>
         </div>
       </div>

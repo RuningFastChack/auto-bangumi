@@ -1,6 +1,6 @@
 {
   "name": "auto-bangumi-ui",
-  "version": "1.1.0-beta",
+  "version": "1.2.0-beta",
   "private": true,
   "type": "module",
   "engines": {
@@ -50,13 +50,16 @@
     "uuid": "^13.0.0",
     "vite-plugin-compression": "^0.5.1",
     "vue": "^3.5.18",
-    "vue-router": "^4.5.1"
+    "vue-router": "^4.5.1",
+    "i18next-scanner": "^4.3.0",
+    "vue-i18n": "^9.6.5"
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.2",
     "@types/codemirror": "^5.60.16",
     "@types/eventemitter3": "^2.0.4",
     "@types/node": "^22.16.5",
+    "@types/vue-i18n": "^7.0.0",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.6.0",

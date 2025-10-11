@@ -2,7 +2,9 @@ package auto.bangumi.qBittorrent.controller;
 
 import auto.bangumi.common.model.dto.ApiResult;
 import auto.bangumi.common.valid.Add;
+import auto.bangumi.common.valid.Delete;
 import auto.bangumi.qBittorrent.model.Request.TorrentsInfoAddRequest;
+import auto.bangumi.qBittorrent.model.Request.TorrentsInfoDeleteRequest;
 import auto.bangumi.qBittorrent.model.Request.TorrentsInfoListRequest;
 import auto.bangumi.qBittorrent.model.Response.TorrentsInfoListResponse;
 import auto.bangumi.qBittorrent.service.ITorrentsService;
@@ -58,7 +60,7 @@ public class TorrentsController {
      * 删除种子
      */
     @DeleteMapping
-    public ApiResult<Boolean> deleteTorrent(@RequestBody @NotNull(message = "不能为空") List<String> torrents) {
-        return ApiResult.success(iTorrentsService.deleteTorrent(torrents));
+    public ApiResult<Boolean> deleteTorrent(@RequestBody @Validated(Delete.class) TorrentsInfoDeleteRequest request) {
+        return ApiResult.success(iTorrentsService.deleteTorrent(request));
     }
 }

@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import CardPanel from '@/components/CardPanel.vue';
 import { Empty } from 'ant-design-vue';
+import { t } from '@/config/lang/i18n.ts';
 //region type
 
 //endregion
@@ -79,7 +80,7 @@ defineOptions({ name: 'IframeCard' });
       <template #body>
         <a-empty :image="Empty.PRESENTED_IMAGE_SIMPLE">
           <template #description>
-            <span>暂无网页</span>
+            <span>{{ t('TXT_CODE_10430e01') }}</span>
           </template>
         </a-empty>
       </template>

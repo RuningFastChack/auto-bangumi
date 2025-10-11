@@ -12,6 +12,7 @@ import auto.bangumi.qBittorrent.service.QBittorrentApi;
 import auto.bangumi.rss.model.AnalysisResult;
 import auto.bangumi.rss.model.DTO.RssItem.RssItemDTO;
 import auto.bangumi.rss.model.Rss;
+import auto.bangumi.rss.model.VO.RssManage.RssManageConfigVO;
 import auto.bangumi.rss.model.VO.RssManage.RssManageVO;
 import auto.bangumi.rss.model.entity.RssItem;
 import auto.bangumi.rss.model.entity.RssManage;
@@ -33,6 +34,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.StringReader;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -63,10 +65,10 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
      */
     @Override
     public void refreshPoster(List<Integer> rssManageIds) {
-        List<RssManage> selectedList = Optional.ofNullable(
+        List<RssManageVO> selectedList = Optional.ofNullable(
                 iRssManageService.list(new LambdaQueryWrapper<RssManage>()
                         .in(Objects.nonNull(rssManageIds) && !rssManageIds.isEmpty(), RssManage::getId, rssManageIds))
-        ).orElse(new ArrayList<>());
+        ).orElse(new ArrayList<>()).stream().map(RssManageVO::copy).toList();
 
         if (selectedList.isEmpty()) {
             return;
@@ -75,14 +77,23 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
         AsyncManager.me().execute(new TimerTask() {
             @Override
             public void run() {
-                for (RssManage rssManage : selectedList) {
-                    String rssStr = rssManage.getRssList();
-                    if (StringUtils.isNotBlank(rssStr)) {
-                        Rss rss = JSON.parseArray(rssStr, Rss.class).get(0);
+                for (RssManageVO rssManage : selectedList) {
+                    List<Rss> rssList = rssManage.getRssList();
+                    if (Objects.nonNull(rssList) && !rssList.isEmpty()) {
+                        Rss rss = rssList.get(0);
                         switch (rss.getType()) {
                             case Mikan:
                                 AnalysisResult mikan = analysisApi.analysisMikan(rss.getRss());
+
                                 RssManage build = RssManage.builder().id(rssManage.getId()).posterLink(mikan.getPosterLink()).build();
+
+                                String episode = mikan.getConfig().getTotalEpisode();
+                                if (StringUtils.isNotBlank(episode) && !"0".equals(episode)) {
+                                    RssManageConfigVO config = rssManage.getConfig();
+                                    config.setTotalEpisode(episode);
+                                    build.setConfig(JSON.toJSONString(config));
+                                }
+
                                 iRssManageService.updateById(build);
                                 break;
                             default:
@@ -139,6 +150,40 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
         }
     }
 
+    /**
+     * 轮询 - 检查番剧是否完结
+     */
+    @Override
+    public void pollingCheckRssManageComplete() {
+        List<RssManageVO> selectedList = Optional.ofNullable(iRssManageService.list(new LambdaQueryWrapper<RssManage>()
+                        .eq(RssManage::getComplete, SysYesNo.NO.getCode()))).orElse(new ArrayList<>())
+                .stream().map(RssManageVO::copy).toList();
+
+        if (selectedList.isEmpty()) {
+            return;
+        }
+
+        for (RssManageVO rssManage : selectedList) {
+            String episode = rssManage.getConfig().getTotalEpisode();
+            if ("0".equals(episode)) {
+                continue;
+            }
+            AsyncManager.me().execute(new TimerTask() {
+                @Override
+                public void run() {
+                    Long count = iRssItemService.count(new LambdaQueryWrapper<RssItem>().eq(RssItem::getRssManageId, rssManage.getId()));
+                    Long totalEpisode = Long.valueOf(episode);
+                    if (totalEpisode.equals(count)) {
+                        RssManage updateInfo = RssManage.builder().id(rssManage.getId())
+                                .complete(SysYesNo.YSE.getCode())
+                                .build();
+                        iRssManageService.updateById(updateInfo);
+                    }
+                }
+            });
+        }
+    }
+
     private void checkRssItem(List<String> torrentCodes){
         List<String> successCodes = QBittorrentApi.CheckTorrentState(torrentCodes);
         if (!successCodes.isEmpty()) {
@@ -177,7 +222,6 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
                         .id(item.getId())
                         .officialTitle(item.getOfficialTitle())
                         .season(item.getSeason())
-                        .lastEpisodeNum(item.getLastEpisodeNum())
                         .filter(StringUtils.isNotBlank(item.getFilter()) ? Arrays.asList(item.getFilter().split(",")) : new ArrayList<>())
                         .rssList(StringUtils.isNotBlank(item.getRssList()) ? JSON.parseArray(item.getRssList(), Rss.class) : new ArrayList<>())
                         .build()
@@ -430,6 +474,23 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
                     iRssItemService.update(new LambdaUpdateWrapper<RssItem>()
                             .eq(RssItem::getTorrentCode, item.getTorrentCode())
                             .set(RssItem::getPushed, SysYesNo.YSE.getCode()));
+                    //刷新最新剧集
+                    RssManageVO rssManage = iRssManageService.findRssManageDetailById(item.getRssManageId());
+                    if (rssManage != null && rssManage.getConfig() != null) {
+                        RssManage updateInfo = RssManage.builder().id(rssManage.getId()).build();
+
+                        RssManageConfigVO config = rssManage.getConfig();
+                        BigDecimal pushEpisodeNum = new BigDecimal(Optional.ofNullable(item.getEpisodeNum()).orElse("0"));
+                        BigDecimal configEpisodeNum = new BigDecimal(Optional.ofNullable(config.getLatestEpisode()).orElse("0"));
+
+                        //更新最新集数
+                        if (pushEpisodeNum.compareTo(configEpisodeNum) > 0) {
+                            config.setLatestEpisode(item.getEpisodeNum());
+                            updateInfo.setConfig(JSON.toJSONString(config));
+                        }
+
+                        iRssManageService.updateById(updateInfo);
+                    }
                 }
             }
         });

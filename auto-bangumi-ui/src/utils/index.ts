@@ -37,11 +37,10 @@ export const formatSpeed = (bytesPerSecond: number, decimals: number = 2): strin
   const i = Math.floor(Math.log(bytesPerSecond) / Math.log(k));
 
   return parseFloat((bytesPerSecond / Math.pow(k, i)).toFixed(decimals)) + ' ' + sizes[i];
-}
+};
 
-export const formatMilliseconds = (milliseconds: number): string => {
-  if (milliseconds <= 0) return '0秒';
-  const seconds = Math.floor(milliseconds / 1000);
+export const formatMilliseconds = (seconds: number): string => {
+  if (seconds <= 0) return '0秒';
   const days = Math.floor(seconds / (24 * 60 * 60));
   const hours = Math.floor((seconds % (24 * 60 * 60)) / (60 * 60));
   const minutes = Math.floor((seconds % (60 * 60)) / 60);
@@ -63,7 +62,7 @@ export const formatMilliseconds = (milliseconds: number): string => {
   }
 
   return parts.join('');
-}
+};
 
 export const formatTimestamp = (timestamp: number): string => {
   if (!timestamp || timestamp <= 0) return '-';
@@ -78,4 +77,4 @@ export const formatTimestamp = (timestamp: number): string => {
   const seconds = String(date.getSeconds()).padStart(2, '0');
 
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-}
+};

@@ -1,6 +1,7 @@
 package auto.bangumi.qBittorrent.service;
 
 import auto.bangumi.qBittorrent.model.Request.TorrentsInfoAddRequest;
+import auto.bangumi.qBittorrent.model.Request.TorrentsInfoDeleteRequest;
 import auto.bangumi.qBittorrent.model.Request.TorrentsInfoListRequest;
 import auto.bangumi.qBittorrent.model.Response.TorrentsInfoListResponse;
 
@@ -49,8 +50,8 @@ public interface ITorrentsService {
     /**
      * 删除
      *
-     * @param torrents
+     * @param request
      * @return
      */
-    Boolean deleteTorrent(List<String> torrents);
+    Boolean deleteTorrent( TorrentsInfoDeleteRequest request);
 }

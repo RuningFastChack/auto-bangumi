@@ -28,6 +28,11 @@ public interface IUnifiedRssService {
     void pollingCheckRssItem();
 
     /**
+     * 轮询 - 检查番剧是否完结
+     */
+    void pollingCheckRssManageComplete();
+
+    /**
      * 轮询 - 推送最新的番剧
      *       最新是无法最新了，只能做 T - 1
      * @param isWeek 需要日期限制

@@ -30,6 +30,7 @@ import { parseForwardAddress } from '@/utils/protocol.ts';
 import { useUserStore } from '@/stores/modules/user.ts';
 import { number2permission, permission2number } from '@/utils/permission.ts';
 import axios from 'axios';
+import { t } from '@/config/lang/i18n.ts';
 
 export const useFileManager = () => {
   const fileStatus = ref<FileStatus>();
@@ -109,7 +110,7 @@ export const useFileManager = () => {
           dialog.value.mode != 'unzip' &&
           dialog.value.mode != 'permission'
         ) {
-          return reportErrorMsg('请输入内容');
+          return reportErrorMsg(t('TXT_CODE_efaf2dad'));
         }
         resolve(dialog.value.value);
         dialog.value.show = false;
@@ -139,19 +140,19 @@ export const useFileManager = () => {
 
   const reloadList = async () => {
     await getFileList();
-    return message.success('刷新文件列表成功');
+    return message.success(t('TXT_CODE_9010651a'));
   };
 
   const touchFile = async (dir?: boolean) => {
     try {
       clearSelected();
       const dirname = dir
-        ? await openDialog('新建目录', '请输入目录名称')
-        : await openDialog('新建文件', '请输入文件名');
+        ? await openDialog(t('TXT_CODE_fd582904'), t('TXT_CODE_2c27a482'))
+        : await openDialog(t('TXT_CODE_5bb81d15'), t('TXT_CODE_5e86b451'));
       const { data } = dir ? await createFileMkdir({ target: breadcrumbs[breadcrumbs.length - 1].path + dirname }) :
         await createFileTouch({ target: breadcrumbs[breadcrumbs.length - 1].path + dirname });
       await getFileList();
-      data ? message.success('创建成功') : message.error('创建失败');
+      data ? message.success(t('TXT_CODE_5397c0ac')) : message.error(t('TXT_CODE_eefe0fc6'));
     } catch (error: any) {
     }
   };
@@ -164,19 +165,19 @@ export const useFileManager = () => {
       };
     } else {
       if (!selectionData.value || selectionData.value.length === 0)
-        return reportErrorMsg('请先选择文件');
+        return reportErrorMsg(t('TXT_CODE_6ffebfa4'));
       clipboard.value = {
         type,
         value: selectionData.value?.map((e) => breadcrumbs[breadcrumbs.length - 1].path + e.name)
       };
     }
-    message.success('已保存至剪切板');
+    message.success(t('TXT_CODE_db1ccab3'));
     clearSelected();
   };
 
   const paste = async () => {
     if (!clipboard?.value?.type || !clipboard.value.value)
-      return reportErrorMsg('请先选择文件');
+      return reportErrorMsg(t('TXT_CODE_6ffebfa4'));
     try {
       let targets = clipboard.value.value.map((e) => [
         e,
@@ -184,7 +185,7 @@ export const useFileManager = () => {
       ]);
       clipboard.value.type == 'copy' ? await copyFile({ targets: targets }) : await moveFile({ targets: targets });
       await getFileList();
-      message.success('文件操作任务开始，如果文件数量过多，则需要一定时间');
+      message.success(t('TXT_CODE_6ad9f7bc'));
       clearSelected();
       clipboard.value.value = [];
     } catch (error: any) {
@@ -192,7 +193,7 @@ export const useFileManager = () => {
   };
 
   const resetName = async (file: string) => {
-    const newname = await openDialog('重命名', '请输入新名称', file);
+    const newname = await openDialog(t('TXT_CODE_68b085b2'), t('TXT_CODE_9c73d33b'), file);
     try {
       await moveFile({
         targets: [
@@ -202,7 +203,7 @@ export const useFileManager = () => {
           ]
         ]
       });
-      message.success('重命名成功');
+      message.success(t('TXT_CODE_86e664e3'));
       await getFileList();
     } catch (error: any) {
 
@@ -214,7 +215,7 @@ export const useFileManager = () => {
       try {
         await removeFile({ targets: files });
         await getFileList();
-        message.success('文件删除任务开始，如果文件数量过多，则需要一定时间');
+        message.success(t('TXT_CODE_762fb2d8'));
         if (dataSource?.value?.length === 0 && queryParams.value.page && queryParams.value.page > 1) {
           queryParams.value.page -= 1;
           await getFileList();
@@ -224,23 +225,23 @@ export const useFileManager = () => {
     };
 
     Modal.confirm({
-      title: '你确定要删除吗?',
+      title: t('TXT_CODE_501ec941'),
       icon: createVNode(ExclamationCircleOutlined),
-      content: createVNode('div', { style: 'color:red;' }, '删除后将无法恢复！'),
+      content: createVNode('div', { style: 'color:red;' }, t('TXT_CODE_c2ea3bc8')),
       async onOk() {
         if (!isMultiple.value) {
           // one file
           await useDeleteFileApi([breadcrumbs[breadcrumbs.length - 1].path + file]);
         } else {
           // more file
-          if (!selectionData.value) return reportErrorMsg('请选择要删除的内容');
+          if (!selectionData.value) return reportErrorMsg(t('TXT_CODE_bcf9385b'));
           await useDeleteFileApi(
             selectionData.value.map((e) => breadcrumbs[breadcrumbs.length - 1].path + e.name)
           );
         }
       },
       okType: 'danger',
-      okText: '确定',
+      okText: t('TXT_CODE_BUTTON_DESC_CONFIRM'),
       class: 'test'
     });
     return;
@@ -248,12 +249,12 @@ export const useFileManager = () => {
 
   const zipFile = async () => {
     if (!selectionData.value || selectionData.value.length === 0)
-      return reportErrorMsg('请先选择文件');
-    const filename = await openDialog('压缩文件', '请输入压缩后的文件名', '', 'zip');
+      return reportErrorMsg(t('TXT_CODE_6ffebfa4'));
+    const filename = await openDialog(t('TXT_CODE_a27f67b8'), t('TXT_CODE_86ac872f'), '', 'zip');
     const loadingDialog = await openLoadingDialog(
-      '处理中..',
-      '正在压缩文件，请耐心等待...',
-      '我们正在全力处理文件中！'
+      t('TXT_CODE_76285ea5'),
+      t('TXT_CODE_5de3a35a'),
+      t('TXT_CODE_d4c4b1fd')
     );
     try {
       await compressFile({
@@ -261,21 +262,21 @@ export const useFileManager = () => {
         source: breadcrumbs[breadcrumbs.length - 1].path + filename + '.zip',
         targets: selectionData.value.map((e) => breadcrumbs[breadcrumbs.length - 1].path + e.name)
       });
-      message.success('任务执行完毕');
+      message.success(t('TXT_CODE_6f3e1bcb'));
       await getFileList();
     } catch (error: any) {
-      message.error('压缩任务执行失败');
+      message.error(t('TXT_CODE_6094d5b6'));
     } finally {
       await loadingDialog.cancel();
     }
   };
 
   const unzipFile = async (name: string) => {
-    const dirname = await openDialog('解压文件', '', '', 'unzip');
+    const dirname = await openDialog(t('TXT_CODE_ace89145'), '', '', 'unzip');
     const loadingDialog = await openLoadingDialog(
-      '处理中..',
-      '正在解压文件，请耐心等待...',
-      '我们正在全力处理文件'
+      t('TXT_CODE_76285ea5'),
+      t('TXT_CODE_4d6e3301'),
+      t('TXT_CODE_d4c4b1fd')
     );
     try {
       await extractFile(<FileExtract>{
@@ -286,10 +287,10 @@ export const useFileManager = () => {
             ? breadcrumbs[breadcrumbs.length - 1].path
             : breadcrumbs[breadcrumbs.length - 1].path + dirname
       });
-      message.success('任务执行完毕！');
+      message.success(t('TXT_CODE_6f3e1bcb'));
       await getFileList();
     } catch (error: any) {
-      message.error('解压任务执行失败！');
+      message.error(t('TXT_CODE_779ab770'));
     } finally {
       await loadingDialog.cancel();
     }
@@ -305,16 +306,16 @@ export const useFileManager = () => {
       });
       if (!data) {
         percentComplete.value = 0;
-        throw new Error('获取上传地址失败');
+        throw new Error(t('TXT_CODE_d6c7d846'));
       }
 
       let shouldOverwrite = true;
       if (dataSource.value?.find((dataType) => dataType.name === file.name)) {
         const confirmPromise = new Promise<boolean>((onComplete) => {
           Modal.confirm({
-            title: '覆盖文件',
+            title: t('TXT_CODE_7df2d9b8'),
             icon: createVNode(ExclamationCircleOutlined),
-            content: ['您上传的文件', file.name, '已经在目录中存在, 是否覆盖原文件?'].join(' '),
+            content: [t('TXT_CODE_d12a9af3'), file.name, t('TXT_CODE_600a2b99')].join(' '),
             onOk() {
               onComplete(true);
             },
@@ -349,7 +350,7 @@ export const useFileManager = () => {
 
       await getFileList();
       percentComplete.value = 0;
-      return message.success('上传成功');
+      return message.success(t('TXT_CODE_462225ed'));
     } catch (error: any) {
       percentComplete.value = 0;
       return reportErrorMsg(error.response?.data || error.message);
@@ -421,13 +422,13 @@ export const useFileManager = () => {
 
   const downloadFile = async (fileName: string) => {
     const link = await getFileLink(fileName);
-    if (!link) throw new Error('获取下载地址失败');
+    if (!link) throw new Error(t('TXT_CODE_c69737c0'));
     window.open(link);
   };
 
   const handleChangeDir = async (dir: string) => {
     if (breadcrumbs.findIndex((e) => e.path === dir) === -1)
-      return reportErrorMsg('找不到路径');
+      return reportErrorMsg(t('TXT_CODE_0c258319'));
     spinning.value = true;
     breadcrumbs.splice(breadcrumbs.findIndex((e) => e.path === dir) + 1);
     queryParams.value.filename = '';
@@ -471,15 +472,15 @@ export const useFileManager = () => {
     loading: false,
     item: [
       {
-        key: '所有者',
+        key: t('TXT_CODE_8af2ba7f'),
         role: 'owner'
       },
       {
-        key: '用户组',
+        key: t('TXT_CODE_7d6d63f6'),
         role: 'usergroup'
       },
       {
-        key: '任何人',
+        key: t('TXT_CODE_663f5522'),
         role: 'everyone'
       }
     ]
@@ -489,7 +490,7 @@ export const useFileManager = () => {
     permission.loading = true;
     permission.data = number2permission(mode);
     permission.loading = false;
-    await openDialog('更改权限', '', '', 'permission', {
+    await openDialog(t('TXT_CODE_3e37664a'), '', '', 'permission', {
       maxWidth: '400px'
     });
     try {
@@ -502,14 +503,14 @@ export const useFileManager = () => {
         deep: permission.deep,
         target: breadcrumbs[breadcrumbs.length - 1].path + name
       });
-      message.success('更改权限成功');
+      message.success(t('TXT_CODE_99ae8182'));
       await getFileList();
     } catch (err: any) {
     }
     permission.deep = false;
   };
 
-  const currentDisk = ref('程序根目录');
+  const currentDisk = ref(t('TXT_CODE_2f642f11'));
 
   const toDisk = async (disk: string) => {
     spinning.value = true;

@@ -24,6 +24,7 @@ import type { UserConfig } from '@/api/types/user.ts';
 import { type DictOptions, DOWN_UTIL_MAP } from '@/types/dict.ts';
 import type { LoginDTO } from '@/api/types';
 import { useAppRouters } from '@/hooks/useAppRouters.ts';
+import { t } from '@/config/lang/i18n.ts';
 //region type
 let userStore = useUserStore();
 
@@ -46,12 +47,12 @@ const loading = ref<boolean>(false);
 const leftMenusPanelRef = ref<InstanceType<typeof LeftMenusPanel>>();
 
 const menus = arrayFilter([
-  { title: '常规设置', key: 'setting', icon: SettingOutlined },
-  { title: '下载规则', key: 'rules', icon: BarsOutlined },
-  { title: '下载器设置', key: 'downloader', icon: ControlOutlined },
-  { title: 'MCSManage设置', key: 'mcsManage', icon: MediumOutlined },
-  { title: '安全设置', key: 'security', icon: LockOutlined },
-  { title: '关于', key: 'about', icon: QuestionCircleOutlined }
+  { title: t('TXT_CODE_9684a760'), key: 'setting', icon: SettingOutlined },
+  { title: t('TXT_CODE_dea81dc5'), key: 'rules', icon: BarsOutlined },
+  { title: t('TXT_CODE_ebf8d5c7'), key: 'downloader', icon: ControlOutlined },
+  { title: t('TXT_CODE_61448c38'), key: 'mcsManage', icon: MediumOutlined },
+  { title: t('TXT_CODE_6473ffdd'), key: 'security', icon: LockOutlined },
+  { title: t('TXT_CODE_1deef431'), key: 'about', icon: QuestionCircleOutlined }
 ]);
 
 const aboutLinks = arrayFilter([
@@ -274,17 +275,14 @@ const ApacheLicense = `
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-`
-
-const OriginalIntention = `本项目最初的动机源于个人对 AutoBangumi 的使用体验。
-虽然 AutoBangumi 功能非常优秀，但其中一些功能在实际使用中遇到了不少困扰。
-同时个人原因并不熟悉 Python，因此决定基于 Java 重新设计一个更符合个人需求的 RSS 订阅自动化工具。
 `;
 
+const OriginalIntention = t('TXT_CODE_0f6bc6ed');
+
 const securityRules = reactive({
-  username: [{ required: true, message: '请填写用户名称' }],
-  password: [{ required: true, message: '请填写新密码' }],
-  newPwdConfirm: [{ required: true, message: '请填写确认新密码' }]
+  username: [{ required: true, message: t('TXT_CODE_5e81d097') }],
+  password: [{ required: true, message: t('TXT_CODE_9e3efb9f') }],
+  newPwdConfirm: [{ required: true, message: t('TXT_CODE_313a25e2') }]
 });
 const securityFormData = ref<UpdateUserInfo>({
   username: deepCopy(userStore.userInfo.username) || '',
@@ -319,18 +317,18 @@ const systemConfigFormData = ref<UserConfig>({
 });
 
 const systemDownLoadSettingRules = reactive({
-  url: [{ required: true, message: '下载器链接' }],
-  username: [{ required: true, message: '用户账号' }],
-  password: [{ required: true, message: '用户密码' }],
-  savePath: [{ required: true, message: '保存路径' }]
+  url: [{ required: true, message: t('TXT_CODE_977d5a70') }],
+  username: [{ required: true, message: t('TXT_CODE_72f1dfa8') }],
+  password: [{ required: true, message: t('TXT_CODE_aac3ac9d') }],
+  savePath: [{ required: true, message: t('TXT_CODE_196c9daa') }]
 });
 const systemDownLoadSettingRef = ref<FormInstance>();
 
 const mcsManageRules = reactive({
-  url: [{ required: true, message: '请填写McsManage网址' }],
-  mcsManageKey: [{ required: true, message: '请填写McsManageKey' }],
-  daemonId: [{ required: true, message: '请填写守护进程ID' }],
-  instanceId: [{ required: true, message: '请填写实例ID' }]
+  url: [{ required: true, message: t('TXT_CODE_4af78325') }],
+  mcsManageKey: [{ required: true, message: t('TXT_CODE_a559c48a') }],
+  daemonId: [{ required: true, message: t('TXT_CODE_200b9b9f') }],
+  instanceId: [{ required: true, message: t('TXT_CODE_0ee7f317') }]
 });
 const mcsManageRuleFormRef = ref<FormInstance>();
 //endregion
@@ -348,12 +346,12 @@ const mcsManageRuleFormRef = ref<FormInstance>();
 const addFilter = () => {
   const inputVal = ref('');
   Modal.confirm({
-    title: '添加规则',
-    okText: '添加',
-    cancelText: '取消',
+    title: t('TXT_CODE_ff0e598f'),
+    okText: t('TXT_CODE_585cb161'),
+    cancelText: t('TXT_CODE_BUTTON_DESC_CANCEL'),
     content: () =>
       h(Input, {
-        placeholder: '请输入规则',
+        placeholder: t('TXT_CODE_a53e1804'),
         value: inputVal.value,
         onInput: (e: any) => {
           inputVal.value = e.target.value;
@@ -394,7 +392,7 @@ const handleSubmitDownLoadSetting = () => {
       try {
         await updateConfig(systemConfigFormData.value);
         await initUserConfig();
-        message.success('保存成功');
+        message.success(t('TXT_CODE_10194e6a'));
       } finally {
         loading.value = false;
       }
@@ -408,7 +406,7 @@ const handleSubmitMcsManageSetting = () => {
       try {
         await updateConfig(systemConfigFormData.value);
         await initUserConfig();
-        message.success('保存成功');
+        message.success(t('TXT_CODE_10194e6a'));
       } finally {
         loading.value = false;
       }
@@ -424,9 +422,9 @@ const handleSubmitPassword = () => {
         userStore.clear();
 
         Modal.success({
-          title: '提示',
+          title: t('TXT_CODE_e349fb9a'),
           content: h('div', {}, [
-            h('p', '账户修改成功！请重新登录！')
+            h('p', t('TXT_CODE_7ec27326'))
           ]),
           onOk() {
             window.location.href = '/';
@@ -445,7 +443,7 @@ const handleSubmitGeneralSetting = async () => {
   try {
     await updateConfig(systemConfigFormData.value);
     await initUserConfig();
-    message.success('修改成功');
+    message.success(t('TXT_CODE_f5ed98cf'));
   } finally {
     loading.value = false;
   }
@@ -456,7 +454,7 @@ const handleSubmitFilterSetting = async () => {
   try {
     await updateConfig(systemConfigFormData.value);
     await initUserConfig();
-    message.success('修改成功');
+    message.success(t('TXT_CODE_f5ed98cf'));
   } finally {
     loading.value = false;
   }
@@ -479,30 +477,30 @@ onMounted(() => initUserConfig());
           <template #setting>
             <div class="content-box">
               <a-typography-title :level="4" class="mb-24">
-                常规设置
+                {{t('TXT_CODE_9684a760')}}}
               </a-typography-title>
               <div style="text-align: left">
                 <a-form :model="systemConfigFormData.generalSetting"
                         layout="vertical">
                   <a-form-item name="enable">
                     <a-typography-title :level="5">
-                      启动程序
+                      {{ t('TXT_CODE_466e199a') }}
                     </a-typography-title>
                     <a-typography-paragraph>
                       <p>
-                        启停程序订阅
+                        {{ t('TXT_CODE_98af1455') }}
                       </p>
                     </a-typography-paragraph>
                     <a-switch v-model:checked="systemConfigFormData.generalSetting.enable"
                               @click="handleSubmitGeneralSetting"
                               :checked-value="true"
                               :un-checked-value="false"
-                              checked-children="是"
-                              un-checked-children="否" />
+                              :checked-children="t('TXT_CODE_DICT_YES')"
+                              :un-checked-children="t('TXT_CODE_DICT_NO')" />
                   </a-form-item>
                   <a-form-item name="rssTimeOut">
                     <a-typography-title :level="5">
-                      轮询间隔（秒）
+                      {{ t('TXT_CODE_13a7199a') }}
                     </a-typography-title>
                     <a-input-number v-model:value="systemConfigFormData.generalSetting.rssTimeOut"
                                     @change.lazy="handleSubmitGeneralSetting"
@@ -515,11 +513,11 @@ onMounted(() => initUserConfig());
           <template #rules>
             <div class="content-box">
               <a-typography-title :level="4" class="mb-24">
-                下载规则
+                {{ t('TXT_CODE_dea81dc5') }}
               </a-typography-title>
               <a-typography-paragraph>
                 <p>
-                  全局定义下载规则
+                  {{ t('TXT_CODE_51ef8fb5') }}
                 </p>
               </a-typography-paragraph>
               <div style="text-align: left">
@@ -527,38 +525,38 @@ onMounted(() => initUserConfig());
                         layout="vertical">
                   <a-form-item name="enable">
                     <a-typography-title :level="5">
-                      启用规则
+                      {{ t('TXT_CODE_a66abdc7') }}
                     </a-typography-title>
                     <a-typography-paragraph>
                       <p>
-                        全局设置是否启用规则，会影响到每个番剧的推送判断。
+                        {{ t('TXT_CODE_a19c36ab') }}
                       </p>
                     </a-typography-paragraph>
                     <a-switch v-model:checked="systemConfigFormData.filterSetting.enable"
                               @click="handleSubmitFilterSetting"
                               :checked-value="true"
                               :un-checked-value="false"
-                              checked-children="是"
-                              un-checked-children="否" />
+                              :checked-children="t('TXT_CODE_DICT_YES')"
+                              :un-checked-children="t('TXT_CODE_DICT_NO')" />
                   </a-form-item>
                   <a-form-item name="filterReg">
                     <a-typography-title :level="5">
-                      下载规则
+                      {{ t('TXT_CODE_dea81dc5') }}
                     </a-typography-title>
                     <a-typography-paragraph>
                       <p>
-                        在系统推送番剧前会根据自定义的规则进行跳过判断，
+                        {{ t('TXT_CODE_2ad8d65a') }}
                         <br />
-                        如果番剧名称符合规则则跳过。
+                        {{ t('TXT_CODE_7b3809e0') }}
                         <br />
-                        此处用于设置通用规则。
+                        {{ t('TXT_CODE_ce53913e') }}
                       </p>
                     </a-typography-paragraph>
                     <a-button type="primary" @click="addFilter">
                       <template #icon>
                         <PlusOutlined />
                       </template>
-                      添加规则
+                      {{ t('TXT_CODE_ff0e598f') }}
                     </a-button>
                     <div style="margin-top: 8px">
                       <a-tag
@@ -572,25 +570,25 @@ onMounted(() => initUserConfig());
                     </div>
                   </a-form-item>
                 </a-form>
-            </div>
+              </div>
             </div>
           </template>
           <template #downloader>
             <div class="content-box">
               <a-typography-title :level="4" class="mb-24">
-                下载器设置
+                {{ t('TXT_CODE_ebf8d5c7') }}
               </a-typography-title>
               <a-typography-paragraph>
                 <p>
-                  目前仅支持QBittorrent！
+                  {{ t('TXT_CODE_dda1acd0') }}
                 </p>
               </a-typography-paragraph>
               <a-typography-title :level="5">
-                下载器
+                {{ t('TXT_CODE_af220178') }}
               </a-typography-title>
               <div class="pb-4 flex">
                 <a-select v-model:value="systemConfigFormData.downLoadSetting.utilEnum"
-                          style="width: 100%" placeholder="下载器">
+                          style="width: 100%" :placeholder="t('TXT_CODE_af220178')">
                   <a-select-option
                     v-for="([key,item]) in Object.entries(DOWN_UTIL_MAP) as [string, DictOptions][]"
                     :key="key"
@@ -608,57 +606,57 @@ onMounted(() => initUserConfig());
                         layout="vertical">
                   <a-form-item name="url">
                     <a-typography-title :level="5">
-                      下载器链接
+                      {{ t('TXT_CODE_977d5a70') }}
                     </a-typography-title>
                     <a-input v-model:value="systemConfigFormData.downLoadSetting.url"
-                             placeholder="下载器链接"
+                             :placeholder="t('TXT_CODE_977d5a70')"
                              allowClear />
                   </a-form-item>
                   <a-form-item name="username">
                     <a-typography-title :level="5">
-                      用户账号
+                      {{ t('TXT_CODE_72f1dfa8') }}
                     </a-typography-title>
                     <a-input v-model:value="systemConfigFormData.downLoadSetting.username"
-                             placeholder="用户账号"
+                             :placeholder="t('TXT_CODE_72f1dfa8')"
                              allowClear />
                   </a-form-item>
                   <a-form-item name="password">
                     <a-typography-title :level="5">
-                      用户密码
+                      {{ t('TXT_CODE_aac3ac9d') }}
                     </a-typography-title>
                     <a-input v-model:value="systemConfigFormData.downLoadSetting.password"
-                             placeholder="用户密码"
+                             :placeholder="t('TXT_CODE_aac3ac9d')"
                              allowClear />
                   </a-form-item>
                   <a-form-item name="savePath">
                     <a-typography-title :level="5">
-                      保存路径
+                      {{ t('TXT_CODE_196c9daa') }}
                     </a-typography-title>
                     <a-input v-model:value="systemConfigFormData.downLoadSetting.savePath"
-                             placeholder="保存路径"
+                             :placeholder="t('TXT_CODE_196c9daa')"
                              allowClear />
                   </a-form-item>
                   <a-form-item name="ssl">
                     <a-typography-title :level="5">
-                      SSL
+                      {{ t('TXT_CODE_aa673fb1') }}
                     </a-typography-title>
                     <a-typography-paragraph>
                       <p>
-                        暂不支持
-                        <a-tag>SSL</a-tag>
+                        {{ t('TXT_CODE_c6db1586') }}
+                        <a-tag>{{ t('TXT_CODE_aa673fb1') }}</a-tag>
                       </p>
                     </a-typography-paragraph>
                     <a-switch v-model:checked="systemConfigFormData.downLoadSetting.ssl"
                               disabled
                               :checked-value="true"
                               :un-checked-value="false"
-                              checked-children="是"
-                              un-checked-children="否" />
+                              :checked-children="t('TXT_CODE_DICT_YES')"
+                              :un-checked-children="t('TXT_CODE_DICT_NO')" />
                   </a-form-item>
                   <div class="button">
                     <a-button type="primary" :loading="loading"
                               @click="handleSubmitDownLoadSetting">
-                      保存
+                      {{ t('TXT_CODE_BUTTON_DESC_SAVE') }}
                     </a-button>
                   </div>
                 </a-form>
@@ -668,7 +666,7 @@ onMounted(() => initUserConfig());
           <template #mcsManage>
             <div class="content-box">
               <a-typography-title :level="4" class="mb-24">
-                McsManage设置
+                {{ t('TXT_CODE_6b826a0e') }}
               </a-typography-title>
               <div style="text-align: left">
                 <a-form :model="systemConfigFormData.mcsManageSetting"
@@ -676,7 +674,7 @@ onMounted(() => initUserConfig());
                         ref="mcsManageRuleFormRef"
                         layout="vertical">
                   <a-typography-title :level="5">
-                    使用教程
+                    {{ t('TXT_CODE_bc823422') }}
                   </a-typography-title>
                   <a-typography-paragraph>
                     <a-typography-text type="secondary">
@@ -685,14 +683,14 @@ onMounted(() => initUserConfig());
                         target="_blank">
                         <a-button>
                           <MediumOutlined />
-                          跳转链接
+                          {{ t('TXT_CODE_af89b8f0') }}
                         </a-button>
                       </a>
                     </a-typography-text>
                   </a-typography-paragraph>
                   <a-form-item name="mcsManageKey">
                     <a-typography-title :level="5">
-                      McsManage Url
+                      {{ t('TXT_CODE_8556fd2c') }}
                     </a-typography-title>
                     <a-input v-model:value="systemConfigFormData.mcsManageSetting.url"
                              placeholder="http://localhost:24444"
@@ -700,32 +698,32 @@ onMounted(() => initUserConfig());
                   </a-form-item>
                   <a-form-item name="mcsManageKey">
                     <a-typography-title :level="5">
-                      McsManageKey
+                      {{ t('TXT_CODE_05e1cdd3') }}
                     </a-typography-title>
                     <a-input v-model:value="systemConfigFormData.mcsManageSetting.mcsManageKey"
-                             placeholder="McsManageKey"
+                             :placeholder="t('TXT_CODE_a559c48a')"
                              allowClear />
                   </a-form-item>
                   <a-form-item name="daemonId">
                     <a-typography-title :level="5">
-                      守护进程ID
+                      {{ t('TXT_CODE_bb0a7e2f') }}
                     </a-typography-title>
                     <a-input v-model:value="systemConfigFormData.mcsManageSetting.daemonId"
-                             placeholder="守护进程ID"
+                             :placeholder="t('TXT_CODE_200b9b9f')"
                              allowClear />
                   </a-form-item>
                   <a-form-item name="instanceId">
                     <a-typography-title :level="5">
-                      实例ID
+                      {{ t('TXT_CODE_b19b8a1e') }}
                     </a-typography-title>
                     <a-input v-model:value="systemConfigFormData.mcsManageSetting.instanceId"
-                             placeholder="实例ID"
+                             :placeholder="t('TXT_CODE_0ee7f317')"
                              allowClear />
                   </a-form-item>
                   <div class="button">
                     <a-button type="primary" :loading="loading"
                               @click="handleSubmitMcsManageSetting">
-                      保存
+                      {{ t('TXT_CODE_BUTTON_DESC_SAVE') }}
                     </a-button>
                   </div>
                 </a-form>
@@ -735,7 +733,7 @@ onMounted(() => initUserConfig());
           <template #security>
             <div class="content-box">
               <a-typography-title :level="4" class="mb-24">
-                安全设置
+                {{ t('TXT_CODE_6473ffdd') }}
               </a-typography-title>
               <div style="text-align: left">
                 <a-form :model="securityFormData"
@@ -743,46 +741,46 @@ onMounted(() => initUserConfig());
                         ref="securityRuleFormRef"
                         layout="vertical">
                   <a-typography-title :level="5">
-                    注意事项
+                    {{ t('TXT_CODE_48360885') }}
                   </a-typography-title>
                   <a-typography-paragraph>
                     <a-typography-text type="secondary">
-                      其实没啥注意的，就是修改密码而已。反正忘了的话，启动
-                      <a-tag>JAR</a-tag>
-                      时加上
-                      <a-tag>--reload</a-tag>
-                      命令就好了。
+                      {{ t('TXT_CODE_0164b7f1') }}
+                      <a-tag>{{ t('TXT_CODE_514eca2f') }}</a-tag>
+                      {{ t('TXT_CODE_28b324f1') }}
+                      <a-tag>{{ t('TXT_CODE_fbf31b03') }}</a-tag>
+                      {{ t('TXT_CODE_29f457f5') }}
                       <br />
-                      初始化后，账号：
-                      <a-tag>admin</a-tag>
-                      密码：
-                      <a-tag>adminadmin</a-tag>
+                      {{ t('TXT_CODE_15f2d98f') }}
+                      <a-tag>{{ t('TXT_CODE_f8bd6988') }}</a-tag>
+                      {{ t('TXT_CODE_b391b4b3') }}
+                      <a-tag>{{ t('TXT_CODE_112bc9f8') }}</a-tag>
                     </a-typography-text>
                   </a-typography-paragraph>
                   <a-form-item name="username">
                     <a-typography-title :level="5">
-                      用户账号
+                      {{ t('TXT_CODE_72f1dfa8') }}
                     </a-typography-title>
-                    <a-input v-model:value="securityFormData.username" placeholder="用户账号"
+                    <a-input v-model:value="securityFormData.username" :placeholder="t('TXT_CODE_5e81d097')"
                              allowClear />
                   </a-form-item>
                   <a-form-item name="password">
                     <a-typography-title :level="5">
-                      新密码
+                      {{t('TXT_CODE_e771fa8a')}}
                     </a-typography-title>
-                    <a-input v-model:value="securityFormData.password" placeholder="新密码"
+                    <a-input v-model:value="securityFormData.password" :placeholder="t('TXT_CODE_9e3efb9f')"
                              allowClear />
                   </a-form-item>
                   <a-form-item name="newPwdConfirm">
                     <a-typography-title :level="5">
-                      再次确认
+                      {{ t('TXT_CODE_579ef006') }}
                     </a-typography-title>
-                    <a-input v-model:value="securityFormData.newPwdConfirm" placeholder="再次确认"
+                    <a-input v-model:value="securityFormData.newPwdConfirm" :placeholder="t('TXT_CODE_579ef006')"
                              allowClear />
                   </a-form-item>
                   <div class="button">
                     <a-button type="primary" :loading="loading" @click="handleSubmitPassword">
-                      保存
+                      {{ t('TXT_CODE_BUTTON_DESC_SAVE') }}
                     </a-button>
                   </div>
                 </a-form>
@@ -792,13 +790,11 @@ onMounted(() => initUserConfig());
           <template #about>
             <div class="content-box">
               <a-typography-title :level="4" class="mb-24">
-                关于
+                {{ t('TXT_CODE_1deef431') }}
               </a-typography-title>
               <a-typography-paragraph>
                 <p>
-                  我非常感谢 MCSManage、Sz-Admin 和 AutoBangumi 这几个优秀的开源项目！
-                  我的项目在设计上主要参考了 MCSManage 的前端实现、Sz-Admin 的后端架构，以及
-                  AutoBangumi 的功能思路。
+                  {{t('TXT_CODE_1b5f5536')}}
                 </p>
               </a-typography-paragraph>
               <div class="pb-4 flex">
@@ -815,13 +811,13 @@ onMounted(() => initUserConfig());
               </div>
               <a-typography-paragraph>
                 <p>
-                  初衷
+                  {{ t('TXT_CODE_7cda1b69') }}
                 </p>
                 <pre style="font-size: 13px">{{ OriginalIntention }}</pre>
               </a-typography-paragraph>
               <a-typography-paragraph>
                 <p>
-                  开源协议
+                  {{ t('TXT_CODE_ca3f035a') }}
                 </p>
                 <pre style="font-size: 13px">{{ ApacheLicense }}</pre>
               </a-typography-paragraph>

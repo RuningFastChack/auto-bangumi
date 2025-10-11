@@ -6,10 +6,12 @@ import auto.bangumi.common.utils.HttpClientUtil;
 import auto.bangumi.qBittorrent.constant.QBittorrentPathConstant;
 import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HeaderElement;
 import org.apache.http.HttpResponse;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,21 +26,23 @@ public abstract class QBHttpUtil {
 
     private static String SID = "";
     private static String URL = "";
+    private static Date EXPIRE_TIME = null;
+    private static final long EXPIRE_DURATION = 30 * 60 * 1000;
 
     static {
-        UserConfig.DownLoadSetting downLoadSetting = ConfigCatch.findConfig().getDownLoadSetting();
-        URL = downLoadSetting.getUrl();
-        LoginQBittorrent(downLoadSetting.getUsername(), downLoadSetting.getPassword());
+        URL = ConfigCatch.findConfig().getDownLoadSetting().getUrl();
+        LoginQBittorrent();
     }
 
     /**
      * 登录账号
      */
-    private static void LoginQBittorrent(String username, String password) {
+    private static void LoginQBittorrent() {
+        UserConfig.DownLoadSetting downLoadSetting = ConfigCatch.findConfig().getDownLoadSetting();
         HttpResponse httpResponse = HttpClientUtil.sendFormPost(URL, QBittorrentPathConstant.LOGIN,
                 Map.of("Referer", StrUtil.format("{}{}", URL, QBittorrentPathConstant.LOGIN)),
                 new HashMap<>(),
-                Map.of("username", username, "password", password));
+                Map.of("username", downLoadSetting.getUsername(), "password", downLoadSetting.getPassword()));
         if (httpResponse != null) {
             int status = httpResponse.getStatusLine().getStatusCode();
             if (status == 200) {
@@ -47,6 +51,7 @@ public abstract class QBHttpUtil {
                         boolean HAS_SID = element.getName().equals("SID");
                         if (HAS_SID) {
                             SID = element.getValue();
+                            EXPIRE_TIME = new Date(System.currentTimeMillis() + EXPIRE_DURATION);
                         }
                     }
                 }
@@ -57,6 +62,9 @@ public abstract class QBHttpUtil {
     }
 
     public static String sendGet(String path, Map<String, Object> params) {
+        if (StringUtils.isBlank(SID) || EXPIRE_TIME == null || new Date().after(EXPIRE_TIME)) {
+            LoginQBittorrent();
+        }
         return HttpClientUtil.sendGet(URL + path, params, Map.of("Cookie", StrUtil.format("SID={}", SID)));
     }
 
@@ -64,6 +72,9 @@ public abstract class QBHttpUtil {
      * POST请求 - json提交
      */
     public static HttpResponse sendJSONPost(String path, Map<String, Object> query, Map<String, Object> body) {
+        if (StringUtils.isBlank(SID) || EXPIRE_TIME == null || new Date().after(EXPIRE_TIME)) {
+            LoginQBittorrent();
+        }
         return HttpClientUtil.sendFormPost(URL, path, Map.of("Cookie", StrUtil.format("SID={}", SID)), query, body);
     }
 
@@ -71,6 +82,9 @@ public abstract class QBHttpUtil {
      * PUT请求 - form提交
      */
     public static HttpResponse sendJSONPut(String path, Map<String, Object> query, Map<String, Object> body) {
+        if (StringUtils.isBlank(SID) || EXPIRE_TIME == null || new Date().after(EXPIRE_TIME)) {
+            LoginQBittorrent();
+        }
         return HttpClientUtil.sendFormPut(URL, path, Map.of("Cookie", StrUtil.format("SID={}", SID)), query, body);
     }
 
@@ -78,6 +92,9 @@ public abstract class QBHttpUtil {
      * DELETE请求 - form提交
      */
     public static HttpResponse sendDelete(String path, Map<String, Object> query, Map<String, Object> body) {
+        if (StringUtils.isBlank(SID) || EXPIRE_TIME == null || new Date().after(EXPIRE_TIME)) {
+            LoginQBittorrent();
+        }
         return HttpClientUtil.sendFormDelete(URL, path, Map.of("Cookie", StrUtil.format("SID={}", SID)), query, body);
     }
 

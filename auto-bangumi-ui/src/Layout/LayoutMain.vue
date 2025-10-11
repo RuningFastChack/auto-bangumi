@@ -2,14 +2,9 @@
 //region type
 import { useScreen } from '@/hooks/useScreen.ts';
 import { useRoute } from 'vue-router';
-import { PlusCircleOutlined } from '@ant-design/icons-vue';
-import RssManageForm from '@/views/rss/RssManageForm.vue';
-import { useUserStore } from '@/stores/modules/user.ts';
-import { ref } from 'vue';
 //region otherMethods
 
 const { isPhone } = useScreen();
-const { isLogged,userInfo } = useUserStore();
 
 //endregion
 
@@ -18,7 +13,6 @@ const { isLogged,userInfo } = useUserStore();
 //endregion
 
 //region refs & data
-const rssManageFormRef = ref<InstanceType<typeof RssManageForm>>();
 //endregion
 
 //region computed
@@ -44,21 +38,6 @@ defineOptions({ name: 'LayoutMain' });
     <div :class="{ 'main-flex-center': !isPhone }"
          :style="!isPhone ? { margin: route?.meta?.viewConfig?.margin } : {}"
     >
-      <div v-if="isLogged()">
-        <a-float-button-group shape="circle" :style="{ right: '24px' }">
-          <a-float-button @click="rssManageFormRef.acceptParams('新增')">
-            <template #icon>
-              <a-tooltip placement="left">
-                <template #title>
-                  <span>新增订阅</span>
-                </template>
-                <PlusCircleOutlined />
-              </a-tooltip>
-            </template>
-          </a-float-button>
-        </a-float-button-group>
-        <rss-manage-form ref="rssManageFormRef" />
-      </div>
       <a-row :gutter="[0, 0]" :align="'center' as any" style="width: 100%">
         <a-col
           :span="24"

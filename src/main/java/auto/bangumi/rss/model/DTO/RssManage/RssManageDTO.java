@@ -86,4 +86,6 @@ public class RssManageDTO {
     @Size(min = 1, message = "至少需要一条订阅", groups = {Add.class, Update.class})
     @NotNull(message = "不能为空", groups = {Add.class, Update.class})
     private List<Rss> rssList;
+
+    private RssManageConfigDTO config;
 }

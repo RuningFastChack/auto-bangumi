@@ -1,6 +1,9 @@
 package auto.bangumi.rss.model.VO.RssManage;
 
+import auto.bangumi.rss.model.entity.RssManage;
+import com.alibaba.fastjson.JSON;
 import lombok.*;
+import org.apache.commons.lang3.StringUtils;
 
 @Getter
 @Setter
@@ -25,11 +28,6 @@ public class RssManageCalendarVO {
     private String season;
 
     /**
-     * 推送的最新剧集
-     */
-    private String lastEpisodeNum;
-
-    /**
      * 更新星期 1 2 3 4 5 6 7
      */
     private Integer updateWeek;
@@ -43,4 +41,21 @@ public class RssManageCalendarVO {
      * 图片路径
      */
     private String posterLink;
+
+    /**
+     * 配置
+     */
+    private RssManageConfigVO config;
+
+    public static RssManageCalendarVO copy(RssManage rssManage){
+        return RssManageCalendarVO.builder()
+                .id(rssManage.getId())
+                .officialTitle(rssManage.getOfficialTitle())
+                .season(rssManage.getSeason())
+                .updateWeek(rssManage.getUpdateWeek())
+                .sendDate(rssManage.getSendDate())
+                .posterLink(rssManage.getPosterLink())
+                .config(StringUtils.isNotBlank(rssManage.getConfig()) ? JSON.parseObject(rssManage.getConfig(), RssManageConfigVO.class) : new RssManageConfigVO())
+                .build();
+    }
 }

@@ -37,6 +37,7 @@ import { type ItemType, message, Modal } from 'ant-design-vue';
 import { triggerPushLastRssItem } from '@/api/modules/rssItem.ts';
 import RssItems from '@/views/rss/RssItems.vue';
 import { useRightClickMenu } from '@/hooks/useRightClickMenu.ts';
+import { t } from '@/config/lang/i18n.ts';
 //region type
 
 //endregion
@@ -85,28 +86,60 @@ const columns = computed(() => {
       dataIndex: 'officialTitle',
       key: 'officialTitle',
       ellipsis: true,
-      title: '番剧标题',
-      width: 200
+      title: t('TXT_CODE_eedbd0f9'),
+      width: 180
     },
-    { align: 'center', dataIndex: 'season', key: 'season', title: '季度', width: 90 },
-    { align: 'center', dataIndex: 'status', key: 'status', title: '是否启用', width: 90 },
-    {
-      align: 'left', dataIndex: 'savePath', key: 'savePath', title: '保存路径',
-      ellipsis: true, width: 180
-    },
-    { align: 'center', dataIndex: 'complete', key: 'complete', title: '是否完结', width: 90 },
     {
       align: 'center',
       dataIndex: 'updateWeek',
       key: 'updateWeek',
-      title: '更新星期',
+      title: t('TXT_CODE_eefeb8c4'),
       width: 90
     },
-    { align: 'center', dataIndex: 'sendDate', key: 'sendDate', title: '发布日期', width: 120 },
+    { align: 'center', dataIndex: 'season', key: 'season', title: '季度', width: 80 },
+    {
+      align: 'center',
+      dataIndex: 'latestEpisode',
+      key: 'latestEpisode',
+      title: t('TXT_CODE_18ad2c30'),
+      width: 80
+    },
+    {
+      align: 'center',
+      dataIndex: 'complete',
+      key: 'complete',
+      title: t('TXT_CODE_8f72f0f1'),
+      width: 80
+    },
+    {
+      align: 'center',
+      dataIndex: 'status',
+      key: 'status',
+      title: t('TXT_CODE_708351ce'),
+      width: 80
+    },
+    {
+      align: 'center',
+      dataIndex: 'totalEpisode',
+      key: 'totalEpisode',
+      title: t('TXT_CODE_7df39b03'),
+      width: 80
+    },
+    {
+      align: 'center',
+      dataIndex: 'sendDate',
+      key: 'sendDate',
+      title: t('TXT_CODE_b1ffe778'),
+      width: 120
+    },
+    {
+      align: 'left', dataIndex: 'savePath', key: 'savePath', title: t('TXT_CODE_196c9daa'),
+      ellipsis: true, width: 180
+    },
     {
       align: 'center',
       key: 'operation',
-      title: '操作',
+      title: t('TXT_CODE_608994aa'),
       width: 180,
       fixed: 'right',
       condition: () => !isMultiple.value
@@ -184,16 +217,16 @@ const openRssManageForm = (title: string, id?: number) => {
 
 const delRssManage = (id: number) => {
   Modal.confirm({
-    title: '温馨提示',
-    content: '是否删除选中的订阅?',
-    okText: '确定',
-    cancelText: '取消',
+    title: t('TXT_CODE_cad8f6c3'),
+    content: t('TXT_CODE_f2236242'),
+    okText: t('TXT_CODE_BUTTON_DESC_CONFIRM'),
+    cancelText: t('TXT_CODE_BUTTON_DESC_CANCEL'),
     okType: 'danger',
     onOk: async () => {
       loading.value = true;
       try {
         await removeRssManage(id);
-        message.success('删除成功');
+        message.success(t('TXT_CODE_408ff5e0'));
       } finally {
         loading.value = false;
         await query();
@@ -204,15 +237,15 @@ const delRssManage = (id: number) => {
 
 const refreshPoster = () => {
   Modal.confirm({
-    title: '温馨提示',
-    content: '是否刷新选中的订阅?若无选中,则刷新全部!',
-    okText: '确定',
-    cancelText: '取消',
+    title: t('TXT_CODE_cad8f6c3'),
+    content: t('TXT_CODE_1af25c1b'),
+    okText: t('TXT_CODE_BUTTON_DESC_CONFIRM'),
+    cancelText: t('TXT_CODE_BUTTON_DESC_CANCEL'),
     onOk: async () => {
       loading.value = true;
       try {
         await refreshPosterApi(selectedRssManages.value);
-        message.success('刷新成功');
+        message.success(t('TXT_CODE_20034af4'));
       } finally {
         loading.value = false;
         await query();
@@ -238,49 +271,49 @@ const openRssItem = (id: number, officialTitle: string) => {
 const menuList = (record: RssManageList) =>
   arrayFilter<ItemType & { style?: CSSProperties }>([
     {
-      label: '新增订阅',
+      label: t('TXT_CODE_6a905beb'),
       key: 'new',
       icon: h(PlusOutlined),
-      onClick: () => openRssManageForm('新增'),
+      onClick: () => openRssManageForm(t('TXT_CODE_84c8197b')),
       condition: () => !isMultiple.value
     },
     {
-      label: '启用',
+      label: t('TXT_CODE_389ded38'),
       key: 'enable',
       icon: h(CheckCircleOutlined),
       onClick: () => changeRssManage({ id: record.id, status: '1' }),
       condition: () => record.status === '0' && !isMultiple.value
     },
     {
-      label: '禁用',
+      label: t('TXT_CODE_51d131da'),
       key: 'unenable',
       icon: h(StopOutlined),
       onClick: () => changeRssManage({ id: record.id, status: '0' }),
       condition: () => record.status === '1' && !isMultiple.value
     },
     {
-      label: '完结',
+      label: t('TXT_CODE_cf656d4b'),
       key: 'complete',
       icon: h(InboxOutlined),
       onClick: () => changeRssManage({ id: record.id, complete: '1' }),
       condition: () => record.complete === '0' && !isMultiple.value
     },
     {
-      label: '发布',
+      label: t('TXT_CODE_370edf53'),
       key: 'release',
       icon: h(HourglassOutlined),
       onClick: () => changeRssManage({ id: record.id, complete: '0' }),
       condition: () => record.complete === '1' && !isMultiple.value
     },
     {
-      label: '编辑',
+      label: t('TXT_CODE_09e045a9'),
       key: 'edit',
       icon: h(EditOutlined),
-      onClick: () => openRssManageForm('编辑', record.id),
+      onClick: () => openRssManageForm(t('TXT_CODE_09e045a9'), record.id),
       condition: () => !isMultiple.value
     },
     {
-      label: '删除',
+      label: t('TXT_CODE_7502550b'),
       key: 'delete',
       icon: h(DeleteOutlined),
       style: {
@@ -290,20 +323,20 @@ const menuList = (record: RssManageList) =>
       onClick: () => delRssManage(record.id)
     },
     {
-      label: '刷新海报',
+      label: t('TXT_CODE_269f15bd'),
       key: 'refreshPoster',
       icon: h(ReloadOutlined),
       onClick: () => refreshPoster()
     },
     {
-      label: '订阅记录',
+      label: t('TXT_CODE_3d77fc59'),
       key: 'subRecord',
       icon: h(BookOutlined),
       condition: () => !isMultiple.value,
       onClick: () => openRssItem(record.id, record.officialTitle)
     },
     {
-      label: '刷新订阅',
+      label: t('TXT_CODE_c6c8f9b9'),
       key: 'refreshSub',
       icon: h(CloudSyncOutlined),
       onClick: () => refreshRssManage()
@@ -366,21 +399,22 @@ onMounted(() => getTableList(queryParams.value));
       <a-col :span="24">
         <between-menus>
           <template v-if="!isPhone" #left>
-            <a-typography-title class="mb-0" :level="4">{{ route.meta.mainTitle }}</a-typography-title>
+            <a-typography-title class="mb-0" :level="4">{{ route.meta.mainTitle }}
+            </a-typography-title>
           </template>
           <template #center>
             <div class="search-input">
               <a-input-group compact>
                 <a-select v-model:value="SearchSelect" style="width: 100px">
-                  <a-select-option value="ALL">所有</a-select-option>
-                  <a-select-option value="COMPLETED">已完结</a-select-option>
-                  <a-select-option value="UNFINISHED">未完结</a-select-option>
-                  <a-select-option value="OPENED">已启用</a-select-option>
-                  <a-select-option value="CLOSE">未启用</a-select-option>
+                  <a-select-option value="ALL">{{ t('TXT_CODE_b39a2cce') }}</a-select-option>
+                  <a-select-option value="COMPLETED">{{ t('TXT_CODE_3f3bc788') }}</a-select-option>
+                  <a-select-option value="UNFINISHED">{{ t('TXT_CODE_57cae95c') }}</a-select-option>
+                  <a-select-option value="OPENED">{{ t('TXT_CODE_af627d8e') }}</a-select-option>
+                  <a-select-option value="CLOSE">{{ t('TXT_CODE_be37408c') }}</a-select-option>
                 </a-select>
                 <a-input
                   v-model:value.trim.lazy="queryParams.officialTitle"
-                  placeholder="番剧标题"
+                  :placeholder="t('TXT_CODE_eedbd0f9')"
                   allow-clear
                   style="width: calc(100% - 100px)"
                   @change="query()"
@@ -393,7 +427,9 @@ onMounted(() => getTableList(queryParams.value));
             </div>
           </template>
           <template #right>
-            <a-button type="default" :loading="loading" @click="reload">刷新列表</a-button>
+            <a-button type="default" :loading="loading" @click="reload">{{ t('TXT_CODE_e4bfc6eb')
+              }}
+            </a-button>
             <a-dropdown v-if="isMultiple">
               <template #overlay>
                 <a-menu
@@ -405,19 +441,20 @@ onMounted(() => getTableList(queryParams.value));
                 </a-menu>
               </template>
               <a-button type="primary">
-                批量操作
+                {{ t('TXT_CODE_f769ec55') }}
                 <DownOutlined />
               </a-button>
             </a-dropdown>
-            <a-button v-else type="dashed" dashed @click="openRssManageForm('新增')">
-              新增订阅
+            <a-button v-else type="dashed" dashed
+                      @click="openRssManageForm(t('TXT_CODE_84c8197b'))">
+              {{ t('TXT_CODE_6a905beb') }}
             </a-button>
             <a-tooltip placement="top">
               <template #title>
-                <span>推送可更新番剧</span>
+                <span>{{ t('TXT_CODE_b0a2b343') }}</span>
               </template>
               <a-button type="primary" @click="triggerPushLastRssItem">
-                推送番剧
+                {{ t('TXT_CODE_1c6d2625') }}
               </a-button>
             </a-tooltip>
           </template>
@@ -464,7 +501,7 @@ onMounted(() => getTableList(queryParams.value));
                     <a-menu mode="vertical" :items="menuList(record as RssManageList)"></a-menu>
                   </template>
                   <a-button size="middle">
-                    操作
+                    {{ t('TXT_CODE_608994aa') }}
                     <DownOutlined />
                   </a-button>
                 </a-dropdown>
@@ -521,8 +558,8 @@ onMounted(() => getTableList(queryParams.value));
                             }"
                           checked-value="1"
                           un-checked-value="0"
-                          checked-children="是"
-                          un-checked-children="否" />
+                          :checked-children="t('TXT_CODE_DICT_YES')"
+                          :un-checked-children="t('TXT_CODE_DICT_NO')" />
               </template>
               <template v-if="column.key === 'complete'">
                 <a-switch v-model:checked="record.complete"
@@ -531,14 +568,17 @@ onMounted(() => getTableList(queryParams.value));
                             }"
                           checked-value="1"
                           un-checked-value="0"
-                          checked-children="是"
-                          un-checked-children="否" />
+                          :checked-children="t('TXT_CODE_DICT_YES')"
+                          :un-checked-children="t('TXT_CODE_DICT_NO')" />
               </template>
               <template v-if="column.key === 'season'">
                 <span>Season {{ record.season }}</span>
               </template>
-              <template v-if="column.key === 'lastEpisodeNum'">
-                <span>Episode {{ record.lastEpisodeNum }}</span>
+              <template v-if="column.key === 'latestEpisode'">
+                <span>Episode {{ record.config.latestEpisode }}</span>
+              </template>
+              <template v-if="column.key === 'totalEpisode'">
+                <span>Episode {{ record.config.totalEpisode }}</span>
               </template>
             </a-table>
           </template>
