@@ -1,3 +1,6 @@
+import { t } from '@/config/lang/i18n.ts';
+import { message } from 'ant-design-vue';
+
 /**
  * 成功状态
  * @type {string}
@@ -10,8 +13,6 @@ export const CODE_SUCCESS: string = '0000';
  */
 export const CODE_TOKEN_FAIL: string = 'A105';
 
-import { message } from 'ant-design-vue';
-
 /**
  * @description: 校验网络请求状态码
  * @param {Number} status
@@ -22,37 +23,37 @@ export const checkStatus = (status: number, msg?: string) => {
   let text = msg || '请求失败！';
   switch (status) {
     case 400:
-      text = msg || '请求失败！请您稍后重试';
+      text = msg || t('TXT_CODE_RESPONSE_ERROR_400');
       break;
     case 401:
-      text = msg || '登录失效！请您重新登录';
+      text = msg || t('TXT_CODE_RESPONSE_ERROR_401');
       break;
     case 404:
-      text = msg || '你所访问的资源不存在！';
+      text = msg || t('TXT_CODE_RESPONSE_ERROR_404');
       break;
     case 405:
-      text = msg || '请求方式错误！请您稍后重试';
+      text = msg || t('TXT_CODE_RESPONSE_ERROR_405');
       break;
     case 408:
-      text = msg || '请求超时！请您稍后重试';
+      text = msg || t('TXT_CODE_RESPONSE_ERROR_408');
       break;
     case 422:
-      text = msg || '请求参数异常！';
+      text = msg || t('TXT_CODE_RESPONSE_ERROR_422');
       break;
     case 500:
-      text = msg || '服务异常！';
+      text = msg || t('TXT_CODE_RESPONSE_ERROR_500');
       break;
     case 502:
-      text = msg || '网关错误！';
+      text = msg || t('TXT_CODE_RESPONSE_ERROR_502');
       break;
     case 503:
-      text = msg || '服务不可用！';
+      text = msg || t('TXT_CODE_RESPONSE_ERROR_503');
       break;
     case 504:
-      text = msg || '网关超时！';
+      text = msg || t('TXT_CODE_RESPONSE_ERROR_504');
       break;
     default:
-      text = msg || '请求失败！';
+      text = msg || t('TXT_CODE_RESPONSE_ERROR_OTHER');
       break;
   }
   message.error(text);

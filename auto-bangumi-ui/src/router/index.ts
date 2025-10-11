@@ -1,7 +1,8 @@
-import type {RouteRecordRaw} from 'vue-router';
-import {createRouter, createWebHashHistory} from 'vue-router';
-import {useUserStore} from '@/stores/modules/user';
-import {HOME_URL, IS_PREVIEW, LOGIN_URL, ROUTER_ERROR_LIST, ROUTER_WHITE_LIST} from '@/config';
+import type { RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
+import { useUserStore } from '@/stores/modules/user';
+import { HOME_URL, IS_PREVIEW, LOGIN_URL, ROUTER_ERROR_LIST, ROUTER_WHITE_LIST } from '@/config';
+import { t } from '@/config/lang/i18n.ts';
 
 
 export const AutoBangumiRouter: Menu.MenuOptions[] = [
@@ -21,7 +22,7 @@ export const AutoBangumiRouter: Menu.MenuOptions[] = [
     path: '/login',
     component: () => import('@/views/LoginCard.vue'),
     meta: {
-      title: '登录页',
+      title: t('TXT_CODE_MENU_TITLE_LOGIN'),
       viewConfig: {
         height: 'unset',
         width: 4,
@@ -34,8 +35,8 @@ export const AutoBangumiRouter: Menu.MenuOptions[] = [
     path: '/calendar',
     component: () => import('@/views/Calendar.vue'),
     meta: {
-      title: '日历',
-      mainTitle: '日历',
+      title: t('TXT_CODE_MENU_TITLE_CALENDAR'),
+      mainTitle: t('TXT_CODE_MENU_TITLE_CALENDAR'),
       mainMenu: true,
       viewConfig: {
         height: 'unset',
@@ -49,8 +50,8 @@ export const AutoBangumiRouter: Menu.MenuOptions[] = [
     name: 'RssManage',
     component: () => import('@/views/rss/RssManage.vue'),
     meta: {
-      title: 'RSS订阅',
-      mainTitle: 'RSS订阅',
+      title: t('TXT_CODE_MENU_TITLE_RSS'),
+      mainTitle: t('TXT_CODE_MENU_TITLE_RSS'),
       mainMenu: true,
       viewConfig: {
         height: 'unset',
@@ -64,8 +65,8 @@ export const AutoBangumiRouter: Menu.MenuOptions[] = [
     path: '/terminal',
     component: () => import('@/views/terminal/Terminal.vue'),
     meta: {
-      title: '终端',
-      mainTitle: '终端',
+      title: t('TXT_CODE_MENU_TITLE_TERMINAL'),
+      mainTitle: t('TXT_CODE_MENU_TITLE_TERMINAL'),
       mainMenu: !IS_PREVIEW,
       viewConfig: {
         height: '600px',
@@ -79,8 +80,8 @@ export const AutoBangumiRouter: Menu.MenuOptions[] = [
     path: '/fileManage',
     component: () => import('@/views/files/FileManage.vue'),
     meta: {
-      title: '文件管理',
-      mainTitle: '文件管理',
+      title: t('TXT_CODE_MENU_TITLE_FILE_MANAGE'),
+      mainTitle: t('TXT_CODE_MENU_TITLE_FILE_MANAGE'),
       mainMenu: true,
       viewConfig: {
         height: 'unset',
@@ -94,8 +95,8 @@ export const AutoBangumiRouter: Menu.MenuOptions[] = [
     path: '/qbService',
     component: () => import('@/views/QBService.vue'),
     meta: {
-      title: 'QB服务',
-      mainTitle: 'QB服务',
+      title: t('TXT_CODE_MENU_TITLE_QB_SERVICE'),
+      mainTitle: t('TXT_CODE_MENU_TITLE_QB_SERVICE'),
       mainMenu: true,
       viewConfig: {
         height: 'unset',
@@ -109,8 +110,8 @@ export const AutoBangumiRouter: Menu.MenuOptions[] = [
     path: '/setting',
     component: () => import('@/views/Settings.vue'),
     meta: {
-      title: '系统设置',
-      mainTitle: '设置',
+      title: t('TXT_CODE_MENU_TITLE_SYSTEM_SETTING'),
+      mainTitle: t('TXT_CODE_MENU_TITLE_SETTING'),
       mainMenu: true,
       viewConfig: {
         height: '800px',
@@ -124,8 +125,8 @@ export const AutoBangumiRouter: Menu.MenuOptions[] = [
     path: '/403',
     component: () => import('@/components/error/403.vue'),
     meta: {
-      title: '系统错误',
-      mainTitle: '错误',
+      title: t('TXT_CODE_MENU_TITLE_SYSTEM_ERROR'),
+      mainTitle: t('TXT_CODE_MENU_TITLE_ERROR'),
       viewConfig: {
         height: '100px',
         width: 6,
@@ -170,6 +171,7 @@ router.beforeEach(async (to, from, next) => {
 
   document.title = to.meta.title ? `${to.meta.title} - ${title}` : title;
 
+
   const toRoutePath = to.path.trim();
 
   if (toRoutePath === LOGIN_URL) {
@@ -199,7 +201,7 @@ router.beforeEach(async (to, from, next) => {
  * @description 路由跳转错误
  * */
 router.onError(error => {
-  console.warn('路由错误', error.message);
+  console.warn(t('TXT_CODE_MENU_TITLE_ROUTER_ERROR'), error.message);
 });
 
 export default router;

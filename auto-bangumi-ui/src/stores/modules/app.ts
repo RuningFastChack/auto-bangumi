@@ -17,6 +17,8 @@ export const useAppStore = defineStore(
 
     const assemblySize = ref<SizeType>('small');
 
+    const language = ref<string>('zh_cn');
+
     const setTheme = (val: THEME) => {
       isDark.value = val;
       window.location.reload();
@@ -26,13 +28,19 @@ export const useAppStore = defineStore(
       assemblySize.value = val;
     };
 
+    const setLanguage = (val: string) => {
+      language.value = val;
+    };
+
     return {
       isDark,
       assemblySize,
+      language,
+      setLanguage,
       setTheme,
       setSize
     };
   },
   {
-    persist: piniaPersistConfig('app', ['isDark', 'assemblySize'])
+    persist: piniaPersistConfig('app', ['isDark', 'assemblySize','language'])
   });

@@ -7,6 +7,7 @@ import { useKeyboardEvents } from '@/hooks/useKeyboardEvents';
 import { useScreen } from '@/hooks/useScreen';
 import { FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons-vue';
 import { getFileContent, updateFileContent } from '@/api/modules/mcs/files';
+import { t } from '@/config/lang/i18n.ts';
 
 const emit = defineEmits(['save']);
 
@@ -37,7 +38,7 @@ const initKeydownListener = () => {
     async () => {
       try {
         await submitRequest();
-        message.success('已通过快捷键保存！');
+        message.success(t('TXT_CODE_10150756'));
         emit('save');
       } catch (err: any) {
         return reportErrorMsg(err.message);
@@ -90,7 +91,7 @@ const submitRequest = async () => {
 const submit = async () => {
   try {
     await submitRequest();
-    message.success('保存成功');
+    message.success(t('TXT_CODE_10194e6a'));
     cancel();
     resolve(editorText.value);
     emit('save');
@@ -120,8 +121,8 @@ defineExpose({
   <a-modal
     v-model:open="open"
     centered
-    cancel-text="放弃"
-    ok-text="保存"
+    :cancel-text="t('TXT_CODE_BUTTON_DESC_GIVE_UP')"
+    :ok-text="t('TXT_CODE_BUTTON_DESC_SAVE')"
     :mask-closable="false"
     :width="fullScreen ? '100%' : '1600px'"
     :confirm-loading="isLoading"

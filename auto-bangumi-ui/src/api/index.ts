@@ -7,6 +7,7 @@ import { checkStatus, CODE_SUCCESS, CODE_TOKEN_FAIL } from '@/api/helper';
 import type { IResultData } from '@/api/types';
 import { useUserStore } from '@/stores/modules/user';
 import { message } from 'ant-design-vue';
+import { t } from '@/config/lang/i18n.ts';
 
 export interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   loading?: boolean;
@@ -81,9 +82,9 @@ class RequestHttp {
         // tryHideFullScreenLoading()
         // 请求超时 && 网络错误单独判断，没有 response
         if (error.message.indexOf('timeout') !== -1) {
-          message.error('请求超时！请您稍后重试');
-        }else if (error.message.indexOf('Network Error') !== -1) {
-          message.error('网络错误！请您稍后重试');
+          message.error(t('TXT_CODE_RESPONSE_ERROR_408'));
+        } else if (error.message.indexOf('Network Error') !== -1) {
+          message.error(t('TXT_CODE_RESPONSE_ERROR_OTHER'));
         }
         // 根据服务器响应的错误状态码，做不同的处理
         if (response) {

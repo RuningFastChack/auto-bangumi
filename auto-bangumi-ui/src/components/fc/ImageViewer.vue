@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { useFileManager } from '@/hooks/useFileManager';
+import { t } from '@/config/lang/i18n.ts';
 
 const props = defineProps<{
   emitResult: () => void;
@@ -34,7 +35,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <a-modal :open="isOpen" title="图像预览" @ok="onClose" @cancel="onClose">
+  <a-modal :open="isOpen" :title="t('TXT_CODE_10088738')" @ok="onClose" @cancel="onClose">
     <div class="image-view">
       <a-spin :spinning="!imgLink">
         <a-image :src="imgLink" />
@@ -44,9 +45,9 @@ onMounted(async () => {
       {{ props.fileName }}
     </div>
     <template #footer>
-      <a-button @click="onClose">关闭</a-button>
+      <a-button @click="onClose">{{ t('TXT_CODE_BUTTON_DESC_CLOSE') }}</a-button>
       <a-button type="primary" :loading="downloadBtnLoading" @click="onDownload">
-        下载
+        {{ t('TXT_CODE_BUTTON_DESC_DOWNLOAD') }}
       </a-button>
     </template>
   </a-modal>

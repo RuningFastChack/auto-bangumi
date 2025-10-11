@@ -26,6 +26,7 @@ import { type ItemType, message } from 'ant-design-vue';
 import type { Key } from 'ant-design-vue/es/_util/type';
 import CardPanel from '@/components/CardPanel.vue';
 import { useRightClickMenu } from '@/hooks/useRightClickMenu.ts';
+import { t } from '@/config/lang/i18n.ts';
 //region type
 
 const { isPhone } = useScreen();
@@ -42,7 +43,7 @@ type SearchSelectType = 'ALL' | 'PUSH' | 'PUSHED' | 'DOWNLOAD' | 'DOWNLOADED'
 
 const SearchSelect = ref<SearchSelectType>('ALL');
 
-const dialogTitle = ref<string>('番剧名称');
+const dialogTitle = ref<string>(t('TXT_CODE_55759115'));
 
 //endregion
 
@@ -68,28 +69,50 @@ const selectedRssItems = ref<string[]>([]);
 const columns = computed(() => {
   return arrayFilter<AntColumnsType>([
     {
-      align: 'left', dataIndex: 'name', key: 'name', title: '剧集名称',
-      ellipsis: true, width: 180
-    },
-    { align: 'center', dataIndex: 'episodeNum', key: 'episodeNum', title: '剧集', width: 90 },
-    {
-      align: 'left', dataIndex: 'translationGroup', key: 'translationGroup', title: '字幕组',
-      ellipsis: true, width: 90
-    },
-    { align: 'center', dataIndex: 'downloaded', key: 'downloaded', title: '完成下载', width: 90 },
-    { align: 'center', dataIndex: 'pushed', key: 'pushed', title: '完成推送', width: 90 },
-    {
-      align: 'left', dataIndex: 'torrentName', key: 'torrentName', title: 'Torrent名称',
+      align: 'left', dataIndex: 'name', key: 'name', title: t('TXT_CODE_efb2a8da'),
       ellipsis: true, width: 180
     },
     {
-      align: 'left', dataIndex: 'torrentCode', key: 'torrentCode', title: 'TorrentCode',
+      align: 'center',
+      dataIndex: 'episodeNum',
+      key: 'episodeNum',
+      title: t('TXT_CODE_513e85d7'),
+      width: 90
+    },
+    {
+      align: 'left',
+      dataIndex: 'translationGroup',
+      key: 'translationGroup',
+      title: t('TXT_CODE_66d9a5b0'),
+      ellipsis: true,
+      width: 90
+    },
+    {
+      align: 'center',
+      dataIndex: 'downloaded',
+      key: 'downloaded',
+      title: t('TXT_CODE_53df9ac8'),
+      width: 90
+    },
+    {
+      align: 'center',
+      dataIndex: 'pushed',
+      key: 'pushed',
+      title: t('TXT_CODE_dc75dbd2'),
+      width: 90
+    },
+    {
+      align: 'left', dataIndex: 'torrentName', key: 'torrentName', title: t('TXT_CODE_e3bbdcd7'),
+      ellipsis: true, width: 180
+    },
+    {
+      align: 'left', dataIndex: 'torrentCode', key: 'torrentCode', title: t('TXT_CODE_32bc721a'),
       ellipsis: true, width: 180
     },
     {
       align: 'center',
       key: 'operation',
-      title: '操作',
+      title: t('TXT_CODE_608994aa'),
       width: 120,
       fixed: 'right',
       condition: () => !isMultiple.value
@@ -167,7 +190,7 @@ const reload = async () => {
 
 const pushRssItem = async () => {
   if (isEmpty(selectedRssItems.value)) {
-    return message.error('请选择需要推送的订阅');
+    return message.error(t('TXT_CODE_10b3eb83'));
   }
   try {
     loading.value = true;
@@ -183,35 +206,35 @@ const pushRssItem = async () => {
 const menuList = (record: RssItemList) =>
   arrayFilter<ItemType & { style?: CSSProperties }>([
     {
-      label: '已下载',
+      label: t('TXT_CODE_1b1c9472'),
       key: 'DOWNLOADED',
       icon: h(CheckCircleOutlined),
       onClick: () => changeRssItem({ id: record.id, downloaded: '1' }),
       condition: () => record.downloaded === '0' && !isMultiple.value
     },
     {
-      label: '未下载',
+      label: t('TXT_CODE_c94d5184'),
       key: 'DOWNLOAD',
       icon: h(StopOutlined),
       onClick: () => changeRssItem({ id: record.id, downloaded: '0' }),
       condition: () => record.downloaded === '1' && !isMultiple.value
     },
     {
-      label: '已推送',
+      label: t('TXT_CODE_b68ecac9'),
       key: 'PUSHED',
       icon: h(InboxOutlined),
       onClick: () => changeRssItem({ id: record.id, pushed: '1' }),
       condition: () => record.pushed === '0' && !isMultiple.value
     },
     {
-      label: '未推送',
+      label: t('TXT_CODE_52a4105a'),
       key: 'PUSH',
       icon: h(HourglassOutlined),
       onClick: () => changeRssItem({ id: record.id, pushed: '0' }),
       condition: () => record.pushed === '1' && !isMultiple.value
     },
     {
-      label: '推送',
+      label: t('TXT_CODE_8653dcc4'),
       key: 'refreshPoster',
       icon: h(RocketOutlined),
       onClick: () => pushRssItem()
@@ -297,15 +320,16 @@ defineExpose({
               <div class="search-input">
                 <a-input-group compact>
                   <a-select v-model:value="SearchSelect" style="width: 100px">
-                    <a-select-option value="ALL">所有</a-select-option>
-                    <a-select-option value="PUSH">未推送</a-select-option>
-                    <a-select-option value="PUSHED">已推送</a-select-option>
-                    <a-select-option value="DOWNLOAD">未下载</a-select-option>
-                    <a-select-option value="DOWNLOADED">已下载</a-select-option>
+                    <a-select-option value="ALL">{{ t('TXT_CODE_b39a2cce') }}</a-select-option>
+                    <a-select-option value="PUSH">{{ t('TXT_CODE_52a4105a') }}</a-select-option>
+                    <a-select-option value="PUSHED">{{ t('TXT_CODE_b68ecac9') }}</a-select-option>
+                    <a-select-option value="DOWNLOAD">{{ t('TXT_CODE_c94d5184') }}</a-select-option>
+                    <a-select-option value="DOWNLOADED">{{ t('TXT_CODE_1b1c9472') }}
+                    </a-select-option>
                   </a-select>
                   <a-input
                     v-model:value.trim.lazy="SearchTitle"
-                    placeholder="番剧标题、字幕组、TorrentCode、TorrentName"
+                    :placeholder="t('TXT_CODE_f1142188')"
                     allow-clear
                     style="width: calc(100% - 100px)"
                     @change="query()"
@@ -321,10 +345,10 @@ defineExpose({
               <a-button type="default" :loading="loading" @click="reload">刷新</a-button>
               <a-tooltip placement="top" v-if="isMultiple">
                 <template #title>
-                  <span>推送选择的番剧</span>
+                  <span>{{ t('TXT_CODE_62eea640') }}</span>
                 </template>
                 <a-button type="primary" @click="pushRssItem">
-                  推送
+                  {{ t('TXT_CODE_8653dcc4') }}
                 </a-button>
               </a-tooltip>
             </template>
@@ -371,7 +395,7 @@ defineExpose({
                       <a-menu mode="vertical" :items="menuList(record as RssItemList)"></a-menu>
                     </template>
                     <a-button size="middle">
-                      操作
+                      {{ t('TXT_CODE_608994aa') }}
                       <DownOutlined />
                     </a-button>
                   </a-dropdown>
@@ -431,8 +455,8 @@ defineExpose({
                             }"
                             checked-value="1"
                             un-checked-value="0"
-                            checked-children="是"
-                            un-checked-children="否" />
+                            :checked-children="t('TXT_CODE_DICT_YES')"
+                            :un-checked-children="t('TXT_CODE_DICT_NO')" />
                 </template>
                 <template v-if="column.key === 'pushed'">
                   <a-switch v-model:checked="record.pushed"
@@ -441,8 +465,8 @@ defineExpose({
                             }"
                             checked-value="1"
                             un-checked-value="0"
-                            checked-children="是"
-                            un-checked-children="否" />
+                            :checked-children="t('TXT_CODE_DICT_YES')"
+                            :un-checked-children="t('TXT_CODE_DICT_NO')" />
                 </template>
               </a-table>
             </template>

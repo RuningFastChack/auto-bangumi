@@ -2,7 +2,7 @@
 import BetweenMenus from '@/components/BetweenMenus.vue';
 import {
   CloseOutlined,
-  CodeOutlined ,
+  CodeOutlined,
   DownOutlined,
   PauseCircleOutlined,
   RedoOutlined
@@ -18,6 +18,7 @@ import {
 import TerminalCore from '@/components/TerminalCore.vue';
 import { message } from 'ant-design-vue';
 import { useTerminal, type UseTerminalHook } from '@/hooks/useTerminal.ts';
+import { t } from '@/config/lang/i18n.ts';
 //region type
 const { isPhone } = useScreen();
 const terminalHook: UseTerminalHook = useTerminal();
@@ -42,33 +43,33 @@ const route = useRoute();
 //region refs & data
 const operations = computed<OperationsType[]>(() => [
   {
-    title: '关闭',
+    title: t('TXT_CODE_BUTTON_DESC_CLOSE'),
     icon: PauseCircleOutlined,
     type: 'default',
     click: async () => {
       await stopInstance();
-      message.success('实例已停止运行')
+      message.success(t('TXT_CODE_10cc2794'));
     },
     props: { danger: true }
   },
   {
-    title: '重启',
+    title: t('TXT_CODE_cf2fd431'),
     icon: RedoOutlined,
     type: 'default',
     noConfirm: false,
     click: async () => {
       await restartInstance();
-      message.success('实例重启中')
+      message.success(t('TXT_CODE_8ede6095'));
     }
   },
   {
-    title: '终止',
+    title: t('TXT_CODE_221ff8c7'),
     icon: CloseOutlined,
     type: 'danger',
     class: 'color-warning',
     click: async () => {
       await killInstance();
-      message.success('实例已停止运行')
+      message.success(t('TXT_CODE_10cc2794'));
     }
   }
 ]);//endregion
@@ -99,7 +100,7 @@ defineOptions({ name: 'Terminal' });
         <template #left>
           <div class="align-center">
             <a-typography-title class="mb-0" :level="4">
-              <CodeOutlined  />
+              <CodeOutlined />
               {{ route.meta.mainTitle }}
             </a-typography-title>
           </div>
@@ -118,7 +119,7 @@ defineOptions({ name: 'Terminal' });
                 {{ item.title }}
               </a-button>
               <a-popconfirm v-else :key="item.title"
-                            title="你确定要执行此操作吗?"
+                            :title="t('TXT_CODE_1d745be0')"
                             @confirm="item.click"
               >
                 <a-button
@@ -147,7 +148,7 @@ defineOptions({ name: 'Terminal' });
               </a-menu>
             </template>
             <a-button type="primary">
-              操作
+              {{ t('TXT_CODE_608994aa') }}
               <DownOutlined />
             </a-button>
           </a-dropdown>

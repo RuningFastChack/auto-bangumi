@@ -1,12 +1,13 @@
 import { message } from 'ant-design-vue';
+import { t } from '@/config/lang/i18n.ts';
 
 export function emptyValueValidator(value: string | number) {
-  if (String(value).trim() === '') throw new Error('字段不可为空');
+  if (String(value).trim() === '') throw new Error(t('TXT_CODE_d883f23b'));
   return Promise.resolve();
 }
 
 export function isNumberValidator(value: any) {
-  if (!value || isNaN(Number(value))) throw new Error('字段必须是数字');
+  if (!value || isNaN(Number(value))) throw new Error(t('TXT_CODE_48ca65f8'));
   return Promise.resolve();
 }
 
@@ -25,12 +26,12 @@ export function getValidatorErrorMsg(error: any, def: string = '') {
 
 export function reportValidatorError(error: any) {
   console.error('Function reportValidatorError():', error);
-  message.error(getValidatorErrorMsg(error, '操作失败'));
+  message.error(getValidatorErrorMsg(error, t('TXT_CODE_7e83e7dd')));
 }
 
 export function reportErrorMsg(error: any = {}) {
   console.error('Function reportErrorMsg():', error);
-  message.error(getValidatorErrorMsg(error, '操作失败')).then(r => {
+  message.error(getValidatorErrorMsg(error, t('TXT_CODE_7e83e7dd'))).then(r => {
   });
 }
 

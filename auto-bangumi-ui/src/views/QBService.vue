@@ -3,19 +3,9 @@ import BetweenMenus from '@/components/BetweenMenus.vue';
 import { useRoute } from 'vue-router';
 import { useScreen } from '@/hooks/useScreen.ts';
 import CardPanel from '@/components/CardPanel.vue';
-import {
-  computed,
-  createVNode,
-  type CSSProperties,
-  h,
-  onMounted,
-  onUnmounted,
-  ref,
-  watch
-} from 'vue';
+import { computed, type CSSProperties, h, onMounted, onUnmounted, ref, watch } from 'vue';
 import { QB_STATUS_MAP, QB_TORRENTS_STATUS_MAP } from '@/types/dict.ts';
 import {
-  type TorrentsInfoDeleteRequest,
   type TorrentsInfoListRequest,
   type TorrentsInfoListResponse,
   TorrentsStatusEnum
@@ -30,15 +20,16 @@ import {
 import { arrayFilter } from '@/utils/array.ts';
 import type { AntColumnsType } from '@/types/ant.ts';
 import { useRightClickMenu } from '@/hooks/useRightClickMenu.ts';
-import { Checkbox, Input, type ItemType, message, Modal } from 'ant-design-vue';
+import { type ItemType, message } from 'ant-design-vue';
 import { convertFileSize } from '@/utils/fileSize.ts';
 import { formatMilliseconds, formatSpeed, formatTimestamp } from '@/utils';
 import {
   CaretRightOutlined,
-  DeleteOutlined, DownOutlined,
+  DeleteOutlined,
+  DownOutlined,
   PauseCircleOutlined
 } from '@ant-design/icons-vue';
-import type { RssManageList } from '@/api/types/rss/rssManage.ts';
+import { t } from '@/config/lang/i18n.ts';
 //region type
 const { isPhone } = useScreen();
 const route = useRoute();
@@ -65,7 +56,7 @@ const SearchForm = ref<TorrentsInfoListRequest>({
 const dataSource = ref<TorrentsInfoListResponse[]>([]);
 
 const CategoriesTypeList = ref<CategoriesType[]>(
-  [{ name: '全部', value: '' }]
+  [{ name: t('TXT_CODE_DICT_QB_ALL'), value: '' }]
 );
 
 const selectedRowKeys = ref<string[]>([]);
@@ -83,53 +74,53 @@ const columns = computed(() => {
       dataIndex: 'name',
       key: 'name',
       ellipsis: true,
-      title: '种子名称',
+      title: t('TXT_CODE_8634968f'),
       width: 200
     },
-    { align: 'center', dataIndex: 'size', key: 'size', title: '选定大小', width: 90 },
+    { align: 'center', dataIndex: 'size', key: 'size', title: t('TXT_CODE_964f06b7'), width: 90 },
     {
       align: 'center',
       dataIndex: 'progress',
       key: 'progress',
-      title: '下载进度',
+      title: t('TXT_CODE_e2ac97d3'),
       width: 100
     },
-    { align: 'center', dataIndex: 'state', key: 'state', title: '状态', width: 90 },
-    { align: 'center', dataIndex: 'seed', key: 'seed', title: '种子', width: 90 },
-    { align: 'center', dataIndex: 'user', key: 'user', title: '用户', width: 90 },
+    { align: 'center', dataIndex: 'state', key: 'state', title: t('TXT_CODE_ecc7c1f8'), width: 90 },
+    { align: 'center', dataIndex: 'seed', key: 'seed', title: t('TXT_CODE_e442f33c'), width: 90 },
+    { align: 'center', dataIndex: 'user', key: 'user', title: t('TXT_CODE_50f6f4ab'), width: 90 },
     {
       align: 'center',
       dataIndex: 'dlSpeed',
       key: 'dlSpeed',
-      title: '下载速度',
+      title: t('TXT_CODE_c0ca06e4'),
       width: 90
     },
     {
       align: 'center',
       dataIndex: 'upSpeed',
       key: 'upSpeed',
-      title: '上传速度',
+      title: t('TXT_CODE_4a4afc85'),
       width: 90
     },
-    { align: 'center', dataIndex: 'eta', key: 'eta', title: '剩余时间', width: 110 },
+    { align: 'center', dataIndex: 'eta', key: 'eta', title: t('TXT_CODE_d1675e39'), width: 110 },
     {
       align: 'center',
       dataIndex: 'category',
       key: 'category',
-      title: '分类',
+      title: t('TXT_CODE_ede2c8ec'),
       width: 90
     },
     {
       align: 'center',
       dataIndex: 'addedOn',
       key: 'addedOn',
-      title: '添加时间',
+      title: t('TXT_CODE_e1f361ba'),
       width: 200
     },
     {
       align: 'center',
       key: 'operation',
-      title: '操作',
+      title: t('TXT_CODE_608994aa'),
       width: 120,
       fixed: 'right',
       condition: () => !isMultiple.value
@@ -179,21 +170,21 @@ const handleRightClickRow = (e: MouseEvent, record: TorrentsInfoListResponse) =>
 const menuList = (record: TorrentsInfoListResponse) =>
   arrayFilter<ItemType & { style?: CSSProperties }>([
     {
-      label: '暂停',
+      label: t('TXT_CODE_2d0d1442'),
       key: 'pause',
       icon: h(PauseCircleOutlined),
       onClick: () => handlePauseTorrents(),
       condition: () => isMultiple.value ? true : (record.state === 'stalledDL' || record.state === 'downloading')
     },
     {
-      label: '恢复',
+      label: t('TXT_CODE_DICT_QB_RESUMED'),
       key: 'resume',
       icon: h(CaretRightOutlined),
       onClick: () => handleResumeTorrents(),
       condition: () => isMultiple.value ? true : record.state === 'pausedDL'
     },
     {
-      label: '删除',
+      label: t('TXT_CODE_7502550b'),
       key: 'delete',
       icon: h(DeleteOutlined),
       style: {
@@ -210,8 +201,8 @@ const handlePauseTorrents = async () => {
     loading.value = true;
     const { data } = await pauseTorrent(selectedRowKeys.value);
     data ?
-      message.success('暂停成功') :
-      message.error('暂停失败');
+      message.success(t('TXT_CODE_c580c012')) :
+      message.error(t('TXT_CODE_49475943'));
   } finally {
     loading.value = false;
   }
@@ -221,8 +212,8 @@ const handleResumeTorrents = async () => {
     loading.value = true;
     const { data } = await resumeTorrent(selectedRowKeys.value);
     data ?
-      message.success('恢复成功') :
-      message.error('恢复失败');
+      message.success(t('TXT_CODE_ef1696c6')) :
+      message.error(t('TXT_CODE_27eedb03'));
   } finally {
     loading.value = false;
   }
@@ -235,8 +226,8 @@ const handleDeleteTorrents = async () => {
       deleteFiles: deleteFiles.value
     });
     data ?
-      message.success('删除成功') :
-      message.error('删除失败');
+      message.success(t('TXT_CODE_408ff5e0')) :
+      message.error(t('TXT_CODE_bfa350ed'));
   } finally {
     loading.value = false;
     visible.value = false;
@@ -306,7 +297,7 @@ watch(() => SearchForm.value,
                 </a-menu>
               </template>
               <a-button type="primary">
-                批量操作
+                {{ t('TXT_CODE_f769ec55') }}
                 <DownOutlined />
               </a-button>
             </a-dropdown>
@@ -379,7 +370,7 @@ watch(() => SearchForm.value,
                             :items="menuList(record as TorrentsInfoListResponse)"></a-menu>
                   </template>
                   <a-button size="middle">
-                    操作
+                    {{ t('TXT_CODE_608994aa') }}
                     <DownOutlined />
                   </a-button>
                 </a-dropdown>
@@ -414,10 +405,10 @@ watch(() => SearchForm.value,
       </a-col>
     </a-row>
     <a-modal
-      v-model:open="visible" title="提示" ok-text="删除" cancel-text="取消"
+      v-model:open="visible" title="提示" :ok-text="t('TXT_CODE_7502550b')" :cancel-text="t('TXT_CODE_BUTTON_DESC_CANCEL')"
       @ok="handleDeleteTorrents"
     >
-      <a-checkbox v-model:checked="deleteFiles">是否删除本地文件？</a-checkbox>
+      <a-checkbox v-model:checked="deleteFiles">{{ t('TXT_CODE_994faa01')}}</a-checkbox>
     </a-modal>
   </div>
 </template>

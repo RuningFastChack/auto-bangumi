@@ -14,6 +14,7 @@ import { setUpTerminalStreamChannel } from '@/api/modules/mcs/protected/instance
 import { parseForwardAddress } from '@/utils/protocol.ts';
 import { removeTrail } from '@/utils/string.ts';
 import { useScreen } from '@/hooks/useScreen.ts';
+import { t } from '@/config/lang/i18n.ts';
 
 export interface StdoutData {
   instanceUuid: string;
@@ -170,7 +171,7 @@ export function useTerminal() {
 
     const { data } = await setUpTerminalStreamChannel();
     const remoteInfo = unref(data);
-    if (!remoteInfo) throw new Error('无法获取远程节点信息');
+    if (!remoteInfo) throw new Error(t('TXT_CODE_d2a4cac8'));
 
     const addr = parseForwardAddress(remoteInfo?.addr, 'ws');
     socketAddress.value = addr;
@@ -377,12 +378,12 @@ export function useTerminal() {
       }
       const now = Date.now();
       if (now - lastCtrlCTime < ctrlCTimeThreshold) {
-        term.write('\r\n' + '已发送 Ctrl+C！' + '\r\n');
+        term.write('\r\n' + t('TXT_CODE_6cd16521') + '\r\n');
         sendInput(data);
         lastCtrlCTime = 0;
       } else {
         lastCtrlCTime = now;
-        term.write('\r\n' + '请快速再按一下 Ctrl+C 生效...');
+        term.write('\r\n' +t('TXT_CODE_622d2fb8'));
       }
     });
 
@@ -403,7 +404,7 @@ export function useTerminal() {
 
   const sendCommand = (command: string) => {
     setHistory(command);
-    if (!socket?.connected) throw new Error('实例没有在运行');
+    if (!socket?.connected) throw new Error(t('TXT_CODE_22a77658'));
     socket.emit('stream/input', {
       data: {
         command

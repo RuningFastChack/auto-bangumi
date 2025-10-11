@@ -11,15 +11,13 @@ import auto.bangumi.qBittorrent.utils.QBHttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 分类服务
@@ -38,8 +36,16 @@ public class CategoriesServiceImpl implements ICategoriesService {
     @Override
     public List<CategoriesListResponse> findCategoriesList() {
         String sendGet = QBHttpUtil.sendGet(QBittorrentPathConstant.CATEGORIES_GET_ALL, new HashMap<>());
+        if (StringUtils.isBlank(sendGet)) {
+            return new ArrayList<>();
+        }
         Map<String, CategoriesListResponse> parsed = JSON.parseObject(sendGet, new TypeReference<>() {
         });
+
+        if (Objects.isNull(parsed)) {
+            return new ArrayList<>();
+        }
+
         return new ArrayList<>(parsed.values());
     }
 

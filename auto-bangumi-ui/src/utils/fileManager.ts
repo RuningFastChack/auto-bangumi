@@ -22,6 +22,7 @@ import {
   VideoCameraOutlined,
   WindowsOutlined
 } from '@ant-design/icons-vue';
+import { t } from '@/config/lang/i18n.ts';
 
 export const filterFileName = (fileName: string, onlyExtname = false) => {
   const i = fileName.lastIndexOf('.');
@@ -29,10 +30,10 @@ export const filterFileName = (fileName: string, onlyExtname = false) => {
   return i === -1
     ? onlyExtname
       ? 'UNKNOWN'
-      : '文件'
+      : t('TXT_CODE_6ccc8881')
     : onlyExtname
       ? suffix
-      : `${suffix} 文件`;
+      : `${suffix} ${t('TXT_CODE_6ccc8881')}`;
 };
 
 export const getFileExtName = (fileName: string) => {

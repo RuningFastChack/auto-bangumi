@@ -7,7 +7,6 @@ import { createRssManage, findRssManageDetail, updateRssManage } from '@/api/mod
 import type { RSS, RssManage } from '@/api/types/rss/rssManage.ts';
 import { getRandomId } from '@/utils/randId.ts';
 import { analysisMikan } from '@/api/modules/analysis.ts';
-import { isEmpty } from '@/utils';
 import {
   ArrowDownOutlined,
   ArrowUpOutlined,
@@ -17,6 +16,7 @@ import {
 } from '@ant-design/icons-vue';
 import { type DictOptions, RSS_TYPE_MAP, WEEK_MAP } from '@/types/dict.ts';
 import { useScreen } from '@/hooks/useScreen.ts';
+import { t } from '@/config/lang/i18n.ts';
 
 const { isPhone } = useScreen();
 //region type
@@ -39,25 +39,25 @@ const visible = ref<boolean>(false);
 
 const loading = ref<boolean>(false);
 
-const dialogTitle = ref<'新增' | '修改'>('新增');
+const dialogTitle = ref<string>(t('TXT_CODE_84c8197b'));
 
 const ruleFormRef = ref<FormInstance>();
 
 const rules = reactive({
-  officialTitle: [{ required: true, message: '请填写动画标题' }],
-  season: [{ required: true, message: '请填写季度' }],
-  sendDate: [{ required: true, message: '请填写发布日期' }],
-  status: [{ required: true, message: '请选择是否启用' }],
-  complete: [{ required: true, message: '请选择是否完结' }],
-  updateWeek: [{ required: true, message: '请选择更新星期' }]
+  officialTitle: [{ required: true, message: t('TXT_CODE_b5e7f231') }],
+  season: [{ required: true, message: t('TXT_CODE_dac8a2e5') }],
+  sendDate: [{ required: true, message: t('TXT_CODE_d7cf7d70') }],
+  status: [{ required: true, message: t('TXT_CODE_6f5546c4') }],
+  complete: [{ required: true, message: t('TXT_CODE_a5917239') }],
+  updateWeek: [{ required: true, message: t('TXT_CODE_925d58b0') }]
 });
 
 const rssRules = reactive({
-  rss: [{ required: true, message: '请填写订阅链接' }],
-  translationGroup: [{ required: true, message: '请填写字幕组' }],
-  subGroupId: [{ required: true, message: '请填写字幕组ID' }],
-  status: [{ required: true, message: '请选择是否启用' }],
-  type: [{ required: true, message: '请选择链接类型' }]
+  rss: [{ required: true, message: t('TXT_CODE_43df94e7') }],
+  translationGroup: [{ required: true, message: t('TXT_CODE_9fe7189c') }],
+  subGroupId: [{ required: true, message: t('TXT_CODE_4427cb2f') }],
+  status: [{ required: true, message: t('TXT_CODE_6f5546c4') }],
+  type: [{ required: true, message: t('TXT_CODE_47fcc538') }]
 });
 
 const paramsProps = ref<RssManage>({
@@ -88,7 +88,7 @@ const paramsProps = ref<RssManage>({
 //endregion
 
 //region methods
-const acceptParams = async (title: '新增' | '修改', rssManageId?: number) => {
+const acceptParams = async (title: string, rssManageId?: number) => {
   visible.value = true;
   dialogTitle.value = title;
   paramsProps.value = {
@@ -188,13 +188,13 @@ const handleSubmit = () => {
       if (id) {
         await updateRssManage(paramsProps.value);
         visible.value = false;
-        message.success('编辑成功');
+        message.success(t('TXT_CODE_20ceb846'));
         emit('success');
       }
       if (!id) {
         await createRssManage(paramsProps.value);
         visible.value = false;
-        message.success('登记成功');
+        message.success(t('TXT_CODE_17fc6ee1'));
         emit('success');
       }
     })
@@ -209,12 +209,12 @@ const handleSubmit = () => {
 const addFilter = () => {
   const inputVal = ref('');
   Modal.confirm({
-    title: '添加规则',
-    okText: '添加',
-    cancelText: '取消',
+    title: t('TXT_CODE_ff0e598f'),
+    okText: t('TXT_CODE_585cb161'),
+    cancelText: t('TXT_CODE_BUTTON_DESC_CANCEL'),
     content: () =>
       h(Input, {
-        placeholder: '请输入规则',
+        placeholder: t('TXT_CODE_a53e1804'),
         value: inputVal.value,
         onInput: (e: any) => {
           inputVal.value = e.target.value;
@@ -281,17 +281,14 @@ defineExpose({
         :labelCol="labelCol"
         :wrapperCol="wrapperCol"
       >
-        <a-form-item label="动画标题" name="officialTitle">
-          <a-input v-model:value="paramsProps.officialTitle" placeholder="请填写动画标题"
+        <a-form-item :label="t('TXT_CODE_b992ba89')" name="officialTitle">
+          <a-input v-model:value="paramsProps.officialTitle" :placeholder="t('TXT_CODE_b5e7f231')"
                    allowClear />
         </a-form-item>
 
-        <a-form-item label="季度" name="season">
+        <a-form-item :label="t('TXT_CODE_70a588d7')" name="season">
           <template #tooltip>
-            <a-tooltip placement="top">
-              <template #title>
-                <span>建议此处写数字</span>
-              </template>
+            <a-tooltip placement="top" :title="t('TXT_CODE_4d31db07')">
               <QuestionCircleOutlined />
             </a-tooltip>
           </template>
@@ -299,22 +296,22 @@ defineExpose({
             v-model:value="paramsProps.season" allowClear />
         </a-form-item>
 
-        <a-form-item label="是否启用" name="status">
+        <a-form-item :label="t('TXT_CODE_708351ce')" name="status">
           <a-switch
             v-model:checked="paramsProps.status"
             checkedValue="1"
             unCheckedValue="0"
-            checked-children="是"
-            un-checked-children="否"
+            :checked-children="t('TXT_CODE_DICT_YES')"
+            :un-checked-children="t('TXT_CODE_DICT_NO')"
           />
         </a-form-item>
 
-        <a-form-item label="下载规则" name="filter">
+        <a-form-item :label="t('TXT_CODE_dea81dc5')" name="filter">
           <a-button type="primary" @click="addFilter">
             <template #icon>
               <PlusOutlined />
             </template>
-            添加规则
+            {{ t('TXT_CODE_ff0e598f') }}
           </a-button>
           <div style="margin-top: 8px">
             <a-tag
@@ -328,22 +325,24 @@ defineExpose({
           </div>
         </a-form-item>
 
-        <a-form-item label="保存路径" name="savePath">
-          <a-input v-model:value="paramsProps.savePath" placeholder="请填写保存路径" allowClear />
+        <a-form-item :label="t('TXT_CODE_196c9daa')" name="savePath">
+          <a-input v-model:value="paramsProps.savePath" :placeholder="t('TXT_CODE_fece9cd9')"
+                   allowClear />
         </a-form-item>
 
-        <a-form-item label="是否完结" name="complete">
+        <a-form-item :label="t('TXT_CODE_8f72f0f1')" name="complete">
           <a-switch
             v-model:checked="paramsProps.complete"
             checkedValue="1"
             unCheckedValue="0"
-            checked-children="是"
-            un-checked-children="否"
+            :checked-children="t('TXT_CODE_DICT_YES')"
+            :un-checked-children="t('TXT_CODE_DICT_NO')"
           />
         </a-form-item>
 
-        <a-form-item label="更新星期" name="updateWeek">
-          <a-select v-model:value="paramsProps.updateWeek" allowClear placeholder="更新星期">
+        <a-form-item :label="t('TXT_CODE_eefeb8c4')" name="updateWeek">
+          <a-select v-model:value="paramsProps.updateWeek" allowClear
+                    :placeholder="t('TXT_CODE_eefeb8c4')">
             <a-select-option
               v-for="([key,item]) in Object.entries(WEEK_MAP) as [string, DictOptions][]"
               :key="key"
@@ -355,24 +354,29 @@ defineExpose({
           </a-select>
         </a-form-item>
 
-        <a-form-item label="发布日期" name="sendDate">
-          <a-input v-model:value="paramsProps.sendDate" placeholder="请填写发布日期" allowClear />
+        <a-form-item :label="t('TXT_CODE_b1ffe778')" name="sendDate">
+          <a-input v-model:value="paramsProps.sendDate" :placeholder="t('TXT_CODE_d7cf7d70')"
+                   allowClear />
         </a-form-item>
 
-        <a-form-item label="总集数" name="config.totalEpisode">
-          <a-input v-model:value="paramsProps.config.totalEpisode" placeholder="总集数" allowClear />
+        <a-form-item :label="t('TXT_CODE_7df39b03')" name="config.totalEpisode">
+          <a-input v-model:value="paramsProps.config.totalEpisode"
+                   :placeholder="t('TXT_CODE_7df39b03')"
+                   allowClear />
         </a-form-item>
 
-        <a-form-item label="最新一集" name="config.latestEpisode">
-          <a-input v-model:value="paramsProps.config.latestEpisode" placeholder="最新一集" allowClear />
+        <a-form-item :label="t('TXT_CODE_18ad2c30')" name="config.latestEpisode">
+          <a-input v-model:value="paramsProps.config.latestEpisode"
+                   :placeholder="t('TXT_CODE_18ad2c30')"
+                   allowClear />
         </a-form-item>
 
-        <a-form-item label="订阅链接">
+        <a-form-item :label="t('TXT_CODE_f032059f')">
           <a-button type="primary" @click="addRss">
             <template #icon>
               <PlusOutlined />
             </template>
-            添加链接
+            {{ t('TXT_CODE_efdf57c1') }}
           </a-button>
         </a-form-item>
       </a-form>
@@ -382,7 +386,9 @@ defineExpose({
                justify="start" align="middle"
                v-for="(rss, index) in paramsProps.rssList" :key="index">
           <a-col :xs="24" :sm="24" :md="3">
-            <div :style="{textAlign:isPhone?'left':'right'}">链接{{ index + 1 }}：</div>
+            <div :style="{textAlign:isPhone?'left':'right'}">
+              {{ t('TXT_CODE_e7a601ef', { num: index + 1 }) }}
+            </div>
           </a-col>
           <a-col :xs="24" :sm="24" :md="21">
             <a-form :model="rss"
@@ -392,17 +398,18 @@ defineExpose({
             >
               <a-form-item name="rss">
                 <a-tooltip>
-                  <template #title>{{ rss.rss || '尚未填写链接' }}</template>
+                  <template #title>{{ rss.rss || t('TXT_CODE_2c1fca48') }}</template>
                   <a-input v-model:value="rss.rss" @change="analysisRss(rss)"
-                           placeholder="请填写订阅链接"
+                           :placeholder="t('TXT_CODE_43df94e7')"
                            allowClear />
                 </a-tooltip>
               </a-form-item>
               <a-form-item name="subGroupId">
-                <a-input v-model:value="rss.subGroupId" placeholder="字幕分组ID" allowClear />
+                <a-input v-model:value="rss.subGroupId" :placeholder="t('TXT_CODE_b9a788e3')"
+                         allowClear />
               </a-form-item>
               <a-form-item name="translationGroup">
-                <a-input v-model:value="rss.translationGroup" placeholder="请填写字幕组"
+                <a-input v-model:value="rss.translationGroup" :placeholder="t('TXT_CODE_9fe7189c')"
                          allowClear />
               </a-form-item>
               <a-form-item name="status">
@@ -410,12 +417,12 @@ defineExpose({
                   v-model:checked="rss.status"
                   checkedValue="1"
                   unCheckedValue="0"
-                  checked-children="启用"
-                  un-checked-children="禁用"
+                  :checked-children="t('TXT_CODE_389ded38')"
+                  :un-checked-children="t('TXT_CODE_51d131da')"
                 />
               </a-form-item>
               <a-form-item name="type">
-                <a-select v-model:value="rss.type" style="width: 100%" placeholder="链接类型">
+                <a-select v-model:value="rss.type" style="width: 100%" :placeholder="t('TXT_CODE_9d565011')">
                   <a-select-option
                     v-for="([key,item]) in Object.entries(RSS_TYPE_MAP) as [string, DictOptions][]"
                     :key="key"
@@ -453,7 +460,7 @@ defineExpose({
       </a-space>
     </a-spin>
     <template #extra>
-      <a-button type="primary" @click="handleSubmit">提交</a-button>
+      <a-button type="primary" @click="handleSubmit">{{ t('TXT_CODE_58b814f8') }}</a-button>
     </template>
   </a-drawer>
 </template>

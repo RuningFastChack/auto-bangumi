@@ -37,6 +37,7 @@ import type { MscFileList } from '@/api/types/mcs/files';
 import BetweenMenus from '@/components/BetweenMenus.vue';
 import { useRoute } from 'vue-router';
 import CardPanel from '@/components/CardPanel.vue';
+import { t } from '@/config/lang/i18n.ts';
 //region type
 
 const route = useRoute();
@@ -118,14 +119,14 @@ const columns = computed(() => {
   return arrayFilter<AntColumnsType>([
     {
       align: 'left',
-      title: '文件名',
+      title: t('TXT_CODE_86695f5f'),
       dataIndex: 'name',
       key: 'name',
       minWidth: 200
     },
     {
       align: 'center',
-      title: '类型',
+      title: t('TXT_CODE_74cb2b17'),
       dataIndex: 'type',
       key: 'type',
       customRender: (e: { text: number; record: { name: string } }) => {
@@ -136,7 +137,7 @@ const columns = computed(() => {
     },
     {
       align: 'center',
-      title: '大小',
+      title: t('TXT_CODE_9893ccd3'),
       dataIndex: 'size',
       key: 'size',
       customRender: (e: { text: number }) =>
@@ -146,7 +147,7 @@ const columns = computed(() => {
     },
     {
       align: 'center',
-      title: '修改时间',
+      title: t('TXT_CODE_f50a4cc9'),
       dataIndex: 'time',
       key: 'time',
       customRender: (e: { text: string }) => {
@@ -157,14 +158,14 @@ const columns = computed(() => {
     },
     {
       align: 'center',
-      title: '权限',
+      title: t('TXT_CODE_c0222feb'),
       dataIndex: 'mode',
       key: 'mode',
       minWidth: 200
     },
     {
       align: isPhone.value ? 'center' : 'right',
-      title: '操作',
+      title: t('TXT_CODE_608994aa'),
       dataIndex: 'action',
       key: 'action',
       minWidth: 200,
@@ -195,12 +196,12 @@ const handleDrop = (e: DragEvent) => {
   opacity.value = false;
   if (!files) return;
   if (files.length === 0) return;
-  if (files.length > 1) return message.error('只能同时选择一个文件');
-  if (percentComplete.value > 0) return message.error('请等待当前文件上传完成');
+  if (files.length > 1) return message.error(t('TXT_CODE_dd31c8fa'));
+  if (percentComplete.value > 0) return message.error(t('TXT_CODE_649d5bb1'));
   Modal.confirm({
-    title: '确认上传' + ` ${files[0].name} ?`,
+    title: t('TXT_CODE_79ea06c8', { filename: files[0].name }),
     icon: h(ExclamationCircleOutlined),
-    content: `上传过程中不可取消`,
+    content: t('TXT_CODE_79d13f80'),
     onOk() {
       selectedFile(files[0]);
     }
@@ -222,18 +223,18 @@ const handleClickFile = async (file: MscFileList) => {
 const menuList = (record: MscFileList) =>
   arrayFilter<ItemType & { style?: CSSProperties }>([
     {
-      label: '新建',
+      label: t('TXT_CODE_a1187741'),
       key: 'new',
       icon: h(PlusOutlined),
       children: [
         {
-          label: '目录',
+          label: t('TXT_CODE_2c7407e8'),
           key: 'newFolder',
           icon: h(FolderOutlined),
           onClick: () => touchFile(true)
         },
         {
-          label: '空白文件',
+          label: t('TXT_CODE_2ce26742'),
           key: 'newFile',
           icon: h(FileOutlined),
           onClick: () => touchFile()
@@ -242,60 +243,60 @@ const menuList = (record: MscFileList) =>
       condition: () => !isMultiple.value
     },
     {
-      label: '解压',
+      label: t('TXT_CODE_f1ab9de1'),
       key: 'unzip',
       icon: h(FileZipOutlined),
       onClick: () => unzipFile(record.name),
       condition: () => record.type === '1' && isCompressFile(record.name)
     },
     {
-      label: '编辑',
+      label: t('TXT_CODE_09e045a9'),
       key: 'edit',
       icon: h(EditOutlined),
       onClick: () => editFile(record.name),
       condition: () => !isMultiple.value && record.type === '1'
     },
     {
-      label: '下载',
+      label: t('TXT_CODE_BUTTON_DESC_DOWNLOAD'),
       key: 'download',
       icon: h(DownloadOutlined),
       onClick: () => downloadFile(record.name),
       condition: () => !isMultiple.value && record.type === '1'
     },
     {
-      label: '剪切',
+      label: t('TXT_CODE_48ab9b61'),
       key: 'cut',
       icon: h(ScissorOutlined),
       onClick: () => setClipBoard('move')
     },
     {
-      label: '复制',
+      label: t('TXT_CODE_6edf7c5e'),
       key: 'copy',
       icon: h(CopyOutlined),
       onClick: () => setClipBoard('copy')
     },
     {
-      label: '重命名',
+      label: t('TXT_CODE_68b085b2'),
       key: 'rename',
       icon: h(FormOutlined),
       onClick: () => resetName(record.name),
       condition: () => !isMultiple.value
     },
     {
-      label: '更改权限',
+      label: t('TXT_CODE_3e37664a'),
       key: 'changePermission',
       icon: h(KeyOutlined),
       onClick: () => changePermission(record.name, record.mode),
       condition: () => !isMultiple.value && fileStatus.value?.platform !== 'win32'
     },
     {
-      label: '压缩',
+      label: t('TXT_CODE_9e17e170'),
       key: 'zip',
       icon: h(FileZipOutlined),
       onClick: () => zipFile()
     },
     {
-      label: '删除',
+      label: t('TXT_CODE_7502550b'),
       key: 'delete',
       icon: h(DeleteOutlined),
       style: {
@@ -350,7 +351,7 @@ defineOptions({ name: 'FileManage' });
             <div class="search-input">
               <a-input
                 v-model:value.trim.lazy="queryParams.filename"
-                placeholder="根据文件名搜索"
+                :placeholder="t('TXT_CODE_5787d578')"
                 allow-clear
                 @change="handleSearchChange()"
               >
@@ -362,9 +363,7 @@ defineOptions({ name: 'FileManage' });
           </template>
           <template #right>
             <a-typography-text v-if="selectedRowKeys.length">
-              {{
-                `选择 ${String(selectedRowKeys.length)} 项`
-              }}
+              {{ t('TXT_CODE_2df3061e', { num: String(selectedRowKeys.length) }) }}
             </a-typography-text>
             <a-upload
               :before-upload="beforeUpload"
@@ -376,8 +375,8 @@ defineOptions({ name: 'FileManage' });
                 <upload-outlined v-if="percentComplete === 0" />
                 {{
                   percentComplete > 0
-                    ? '正在上传：' + percentComplete + '%'
-                    : '上传文件'
+                    ? t('TXT_CODE_3ff7d88a', { num: percentComplete })
+                    : t('TXT_CODE_aa7deb70')
                 }}
               </a-button>
             </a-upload>
@@ -387,10 +386,10 @@ defineOptions({ name: 'FileManage' });
               danger
               @click="paste()"
             >
-              粘贴文件
+              {{ t('TXT_CODE_38f7cb5a') }}
             </a-button>
             <a-button v-else type="default" @click="reloadList()">
-              刷新列表
+              {{ t('TXT_CODE_e4bfc6eb') }}
             </a-button>
             <a-dropdown v-if="isMultiple">
               <template #overlay>
@@ -410,7 +409,7 @@ defineOptions({ name: 'FileManage' });
                 </a-menu>
               </template>
               <a-button type="primary">
-                批量操作
+                {{ t('TXT_CODE_f769ec55') }}
                 <DownOutlined />
               </a-button>
             </a-dropdown>
@@ -418,15 +417,15 @@ defineOptions({ name: 'FileManage' });
               <template #overlay>
                 <a-menu>
                   <a-menu-item key="newFile" @click="touchFile()">
-                    空白文件
+                    {{ t('TXT_CODE_2ce26742') }}
                   </a-menu-item>
                   <a-menu-item key="newFolder" @click="touchFile(true)">
-                    目录
+                    {{ t('TXT_CODE_2c7407e8') }}
                   </a-menu-item>
                 </a-menu>
               </template>
               <a-button type="primary">
-                新建
+                {{ t('TXT_CODE_a1187741') }}
                 <DownOutlined />
               </a-button>
             </a-dropdown>
@@ -459,7 +458,7 @@ defineOptions({ name: 'FileManage' });
                 style="width: 125px"
                 @change="toDisk(currentDisk)"
               >
-                <a-select-option value="/">程序根目录</a-select-option>
+                <a-select-option value="/">{{ t('TXT_CODE_2f642f11') }}</a-select-option>
                 <a-select-option v-for="disk in fileStatus?.disks" :key="disk" :value="disk">
                   {{ disk }}
                 </a-select-option>
@@ -479,7 +478,7 @@ defineOptions({ name: 'FileManage' });
               style="color: #1677ff"
             >
               <a-spin />
-              {{ '当前有' + fileStatus?.instanceFileTask + ' 个压缩 / 解压任务正在运行中...' }}
+              {{ t('TXT_CODE_c4e165ad', { num: fileStatus?.instanceFileTask }) }}
             </p>
             <a-spin :spinning="spinning">
               <a-table
@@ -522,7 +521,7 @@ defineOptions({ name: 'FileManage' });
                       <a-menu mode="vertical" :items="menuList(record as MscFileList)"></a-menu>
                     </template>
                     <a-button size="middle">
-                      操作
+                      {{ t('TXT_CODE_608994aa') }}
                       <DownOutlined />
                     </a-button>
                   </a-dropdown>
@@ -571,20 +570,20 @@ defineOptions({ name: 'FileManage' });
       v-if="dialog.mode == ''"
       :ref="dialog.ref"
       v-model:value="dialog.value"
-      placeholder="请输入内容"
+      :placeholder="t('TXT_CODE_efaf2dad')"
     />
 
     <a-space v-if="dialog.mode == 'unzip'" direction="vertical" class="w-100">
-      <a-typography-title :level="5">请选择解压模式</a-typography-title>
+      <a-typography-title :level="5">{{ t('TXT_CODE_5bd936d0') }}</a-typography-title>
       <a-radio-group v-model:value="dialog.unzipmode">
-        <a-radio-button value="0">解压到当前目录</a-radio-button>
-        <a-radio-button value="1">解压到新文件夹</a-radio-button>
+        <a-radio-button value="0">{{ t('TXT_CODE_012fe73c') }}</a-radio-button>
+        <a-radio-button value="1">{{ t('TXT_CODE_1f3bf88b') }}</a-radio-button>
       </a-radio-group>
 
       <a-input
         v-if="dialog.unzipmode == '1'"
         v-model:value="dialog.value"
-        placeholder="请输入文件夹名"
+        :placeholder="t('TXT_CODE_6fe33ee3')"
       />
     </a-space>
 
@@ -592,19 +591,19 @@ defineOptions({ name: 'FileManage' });
       <a-input
         :ref="dialog.ref"
         v-model:value="dialog.value"
-        placeholder="请输入压缩后的文件名"
+        :placeholder="t('TXT_CODE_86ac872f')"
         addon-after=". zip"
       />
     </a-space>
 
     <a-space v-if="dialog.mode == 'unzip'" direction="vertical" class="w-100 mt-16">
-      <a-typography-title :level="5">请选择压缩文件的格式</a-typography-title>
+      <a-typography-title :level="5">{{ t('TXT_CODE_4db2747a') }}</a-typography-title>
       <a-typography-text type="secondary">
-        在解压/压缩文件时发现文件名存在乱码现象时，可以修改此选项解决。
+        {{ t('TXT_CODE_f59c59ae') }}
         <br />
-        如果压缩包来源是中国大陆，一般可选 GBK;
+        {{ t('TXT_CODE_0b63cd66') }}
         <br />
-        如果是来自台湾，香港地区，可以选择BIG5，如果来自其他地区可以选择 UTF-8。
+        {{ t('TXT_CODE_3d7f0186') }}
       </a-typography-text>
       <a-radio-group v-model:value="dialog.code">
         <a-radio-button value="utf-8">UTF-8</a-radio-button>
@@ -615,7 +614,7 @@ defineOptions({ name: 'FileManage' });
 
     <a-space v-if="dialog.mode == 'zip'" direction="vertical" class="w-100 mt-16">
       <a-typography-text>
-        面板压缩后的 ZIP 文件，将全部以 UTF-8 编码打包，如需要进行解压操作，请选择 UTF-8 编码进行解压！
+        {{ t('TXT_CODE_9ebb1950') }}
       </a-typography-text>
     </a-space>
 
@@ -632,19 +631,19 @@ defineOptions({ name: 'FileManage' });
                 <strong>{{ item.key }}</strong>
               </a-typography-text>
               <a-col class="mb-10 options">
-                <a-checkbox value="4">读取</a-checkbox>
+                <a-checkbox value="4">{{ t('TXT_CODE_86d40a49') }}</a-checkbox>
               </a-col>
               <a-col class="mb-10 options">
-                <a-checkbox value="2">写入</a-checkbox>
+                <a-checkbox value="2">{{ t('TXT_CODE_64d6d0f9') }}</a-checkbox>
               </a-col>
               <a-col class="mb-10 options">
-                <a-checkbox value="1">执行</a-checkbox>
+                <a-checkbox value="1">{{ t('TXT_CODE_088257d4') }}</a-checkbox>
               </a-col>
             </a-row>
           </a-checkbox-group>
         </div>
         <a-checkbox v-model:checked="permission.deep" class="mt-15">
-          应用到子目录
+          {{ t('TXT_CODE_d745c975') }}
         </a-checkbox>
       </a-spin>
     </a-space>
