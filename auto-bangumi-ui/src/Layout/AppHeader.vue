@@ -19,7 +19,7 @@ import { logoutApi } from '@/api/modules/login.ts';
 import { AutoBangumiRouter } from '@/router';
 import { HOME_URL } from '@/config';
 import RssManageForm from '@/views/rss/RssManageForm.vue';
-import { SUPPORTED_LANGS, t } from '@/config/lang/i18n.ts';
+import { SUPPORTED_LANGS, t } from '@/lang/i18n.ts';
 //region type
 const { y } = useScroll(document.body);
 

@@ -29,7 +29,7 @@ import {
   DownOutlined,
   PauseCircleOutlined
 } from '@ant-design/icons-vue';
-import { t } from '@/config/lang/i18n.ts';
+import { t } from '@/lang/i18n.ts';
 //region type
 const { isPhone } = useScreen();
 const route = useRoute();

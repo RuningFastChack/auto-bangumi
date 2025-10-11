@@ -1,4 +1,4 @@
-import { t } from '@/config/lang/i18n.ts';
+import { t } from '@/lang/i18n.ts';
 
 export type DictOptions = {
   text: string,

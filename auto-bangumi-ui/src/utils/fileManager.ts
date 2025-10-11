@@ -22,7 +22,7 @@ import {
   VideoCameraOutlined,
   WindowsOutlined
 } from '@ant-design/icons-vue';
-import { t } from '@/config/lang/i18n.ts';
+import { t } from '@/lang/i18n.ts';
 
 export const filterFileName = (fileName: string, onlyExtname = false) => {
   const i = fileName.lastIndexOf('.');

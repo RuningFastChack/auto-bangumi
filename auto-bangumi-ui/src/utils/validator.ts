@@ -1,5 +1,5 @@
 import { message } from 'ant-design-vue';
-import { t } from '@/config/lang/i18n.ts';
+import { t } from '@/lang/i18n.ts';
 
 export function emptyValueValidator(value: string | number) {
   if (String(value).trim() === '') throw new Error(t('TXT_CODE_d883f23b'));

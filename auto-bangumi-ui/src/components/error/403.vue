@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
 import CardPanel from '@/components/CardPanel.vue';
-import { t } from '@/config/lang/i18n.ts';
+import { t } from '@/lang/i18n.ts';
 </script>
 
 <template>

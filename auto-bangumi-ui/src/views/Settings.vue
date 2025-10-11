@@ -24,7 +24,7 @@ import type { UserConfig } from '@/api/types/user.ts';
 import { type DictOptions, DOWN_UTIL_MAP } from '@/types/dict.ts';
 import type { LoginDTO } from '@/api/types';
 import { useAppRouters } from '@/hooks/useAppRouters.ts';
-import { t } from '@/config/lang/i18n.ts';
+import { t } from '@/lang/i18n.ts';
 //region type
 let userStore = useUserStore();
 

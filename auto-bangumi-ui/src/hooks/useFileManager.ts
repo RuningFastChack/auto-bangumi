@@ -30,7 +30,7 @@ import { parseForwardAddress } from '@/utils/protocol.ts';
 import { useUserStore } from '@/stores/modules/user.ts';
 import { number2permission, permission2number } from '@/utils/permission.ts';
 import axios from 'axios';
-import { t } from '@/config/lang/i18n.ts';
+import { t } from '@/lang/i18n.ts';
 
 export const useFileManager = () => {
   const fileStatus = ref<FileStatus>();

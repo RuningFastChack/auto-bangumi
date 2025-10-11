@@ -16,7 +16,7 @@ import {
 } from '@ant-design/icons-vue';
 import { type DictOptions, RSS_TYPE_MAP, WEEK_MAP } from '@/types/dict.ts';
 import { useScreen } from '@/hooks/useScreen.ts';
-import { t } from '@/config/lang/i18n.ts';
+import { t } from '@/lang/i18n.ts';
 
 const { isPhone } = useScreen();
 //region type

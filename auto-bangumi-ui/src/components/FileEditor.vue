@@ -7,7 +7,7 @@ import { useKeyboardEvents } from '@/hooks/useKeyboardEvents';
 import { useScreen } from '@/hooks/useScreen';
 import { FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons-vue';
 import { getFileContent, updateFileContent } from '@/api/modules/mcs/files';
-import { t } from '@/config/lang/i18n.ts';
+import { t } from '@/lang/i18n.ts';
 
 const emit = defineEmits(['save']);
 

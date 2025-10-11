@@ -18,7 +18,7 @@ import {
 import TerminalCore from '@/components/TerminalCore.vue';
 import { message } from 'ant-design-vue';
 import { useTerminal, type UseTerminalHook } from '@/hooks/useTerminal.ts';
-import { t } from '@/config/lang/i18n.ts';
+import { t } from '@/lang/i18n.ts';
 //region type
 const { isPhone } = useScreen();
 const terminalHook: UseTerminalHook = useTerminal();

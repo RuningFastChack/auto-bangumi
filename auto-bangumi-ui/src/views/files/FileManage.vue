@@ -32,7 +32,7 @@ import type {MscFileList} from '@/api/types/mcs/files';
 import BetweenMenus from '@/components/BetweenMenus.vue';
 import {useRoute} from 'vue-router';
 import CardPanel from '@/components/CardPanel.vue';
-import {t} from '@/config/lang/i18n.ts';
+import {t} from '@/lang/i18n.ts';
 //region type
 
 const route = useRoute();

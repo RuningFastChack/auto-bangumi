@@ -37,7 +37,7 @@ import { type ItemType, message, Modal } from 'ant-design-vue';
 import { triggerPushLastRssItem } from '@/api/modules/rssItem.ts';
 import RssItems from '@/views/rss/RssItems.vue';
 import { useRightClickMenu } from '@/hooks/useRightClickMenu.ts';
-import { t } from '@/config/lang/i18n.ts';
+import { t } from '@/lang/i18n.ts';
 //region type
 
 //endregion

@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import CardPanel from '@/components/CardPanel.vue';
 import { Empty } from 'ant-design-vue';
-import { t } from '@/config/lang/i18n.ts';
+import { t } from '@/lang/i18n.ts';
 //region type
 
 //endregion

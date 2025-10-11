@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { t } from '../config/lang/i18n.ts';
+import { t } from '@/lang/i18n.ts';
 
 const props = defineProps<{
   count?: number;

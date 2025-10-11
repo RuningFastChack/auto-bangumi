@@ -1,4 +1,4 @@
-import { initI18n } from '@/config/lang/i18n.ts';
+import { initI18n } from '@/lang/i18n.ts';
 
 (async function() {
   const cache = localStorage.getItem('app');

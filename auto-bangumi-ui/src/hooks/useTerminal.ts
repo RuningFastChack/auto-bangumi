@@ -14,7 +14,7 @@ import { setUpTerminalStreamChannel } from '@/api/modules/mcs/protected/instance
 import { parseForwardAddress } from '@/utils/protocol.ts';
 import { removeTrail } from '@/utils/string.ts';
 import { useScreen } from '@/hooks/useScreen.ts';
-import { t } from '@/config/lang/i18n.ts';
+import { t } from '@/lang/i18n.ts';
 
 export interface StdoutData {
   instanceUuid: string;

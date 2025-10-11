@@ -2,7 +2,7 @@ import type { RouteRecordRaw } from 'vue-router';
 import { createRouter, createWebHashHistory } from 'vue-router';
 import { useUserStore } from '@/stores/modules/user';
 import { HOME_URL, IS_PREVIEW, LOGIN_URL, ROUTER_ERROR_LIST, ROUTER_WHITE_LIST } from '@/config';
-import { t } from '@/config/lang/i18n.ts';
+import { t } from '@/lang/i18n.ts';
 
 
 export const AutoBangumiRouter: Menu.MenuOptions[] = [

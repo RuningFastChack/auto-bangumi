@@ -26,7 +26,7 @@ import { type ItemType, message } from 'ant-design-vue';
 import type { Key } from 'ant-design-vue/es/_util/type';
 import CardPanel from '@/components/CardPanel.vue';
 import { useRightClickMenu } from '@/hooks/useRightClickMenu.ts';
-import { t } from '@/config/lang/i18n.ts';
+import { t } from '@/lang/i18n.ts';
 //region type
 
 const { isPhone } = useScreen();

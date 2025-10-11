@@ -1,5 +1,5 @@
 import { notification } from 'ant-design-vue';
-import { t } from '@/config/lang/i18n.ts';
+import { t } from '@/lang/i18n.ts';
 
 /**
  * @description 全局代码错误捕捉

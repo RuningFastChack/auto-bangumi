@@ -8,7 +8,7 @@ import { message } from 'ant-design-vue';
 import { getInstanceOutputLog } from '@/api/modules/mcs/protected/instance';
 import { useUserStore } from '@/stores/modules/user.ts';
 import { CodeOutlined, DeleteOutlined, LoadingOutlined } from '@ant-design/icons-vue';
-import { t } from '@/config/lang/i18n.ts';
+import { t } from '@/lang/i18n.ts';
 //region type
 const { userInfo } = useUserStore();
 //endregion

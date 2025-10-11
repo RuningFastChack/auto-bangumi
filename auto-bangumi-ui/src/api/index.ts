@@ -7,7 +7,7 @@ import { checkStatus, CODE_SUCCESS, CODE_TOKEN_FAIL } from '@/api/helper';
 import type { IResultData } from '@/api/types';
 import { useUserStore } from '@/stores/modules/user';
 import { message } from 'ant-design-vue';
-import { t } from '@/config/lang/i18n.ts';
+import { t } from '@/lang/i18n.ts';
 
 export interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   loading?: boolean;

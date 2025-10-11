@@ -12,7 +12,7 @@ import { useRoute } from 'vue-router';
 import { WEEK_MAP } from '../types/dict.ts';
 import RssManageForm from '@/views/rss/RssManageForm.vue';
 import RssItems from '@/views/rss/RssItems.vue';
-import { t } from '@/config/lang/i18n.ts';
+import { t } from '@/lang/i18n.ts';
 //region type
 
 //endregion

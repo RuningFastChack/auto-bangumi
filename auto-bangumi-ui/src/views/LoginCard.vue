@@ -13,7 +13,7 @@ import {
   UserOutlined
 } from '@ant-design/icons-vue';
 import { useAppRouters } from '@/hooks/useAppRouters.ts';
-import { t } from '@/config/lang/i18n.ts';
+import { t } from '@/lang/i18n.ts';
 //region type
 const userStore = useUserStore();
 const appRouters = useAppRouters();
