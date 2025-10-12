@@ -79,15 +79,6 @@ const getCurrentLang = (): string => {
   return searchSupportLanguage(curLang);
 };
 
-// Only for first install page
-const getInitLanguage = (): string => {
-  const curLang = String(i18n.global.locale).toLowerCase();
-  const lang = searchSupportLanguage(curLang);
-  if (lang !== 'zh_cn' && lang !== 'zh_tw') {
-    return 'en_us';
-  }
-  return lang;
-};
 
 const isCN = () => {
   return (
@@ -111,7 +102,6 @@ const t = $t;
 export {
   $t,
   getCurrentLang,
-  getInitLanguage,
   getSupportLanguages,
   initI18n,
   isCN,
