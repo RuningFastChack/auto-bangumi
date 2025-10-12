@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useScreen } from '@/hooks/useScreen.ts';
+import {useScreen} from '@/hooks/useScreen.ts';
 import BetweenMenus from '@/components/BetweenMenus.vue';
 import {
   CheckCircleOutlined,
@@ -10,23 +10,23 @@ import {
   SearchOutlined,
   StopOutlined
 } from '@ant-design/icons-vue';
-import { computed, type CSSProperties, h, ref, watch } from 'vue';
-import type { RssItemList, RssItemQuery } from '@/api/types/rss/rssItem.ts';
-import type { IPage } from '@/api/types';
-import { arrayFilter } from '@/utils/array.ts';
-import type { AntColumnsType } from '@/types/ant.ts';
-import { sleep } from '@/utils/common.ts';
-import { isEmpty } from '@/utils';
+import {computed, type CSSProperties, h, ref, watch} from 'vue';
+import type {RssItemList, RssItemQuery} from '@/api/types/rss/rssItem.ts';
+import type {IPage} from '@/api/types';
+import {arrayFilter} from '@/utils/array.ts';
+import type {AntColumnsType} from '@/types/ant.ts';
+import {sleep} from '@/utils/common.ts';
+import {isEmpty} from '@/utils';
 import {
   findRssItemPage,
   pushRssItemToDownLoad,
   updateRssItemToList
 } from '@/api/modules/rssItem.ts';
-import { type ItemType, message } from 'ant-design-vue';
-import type { Key } from 'ant-design-vue/es/_util/type';
+import {type ItemType, message} from 'ant-design-vue';
+import type {Key} from 'ant-design-vue/es/_util/type';
 import CardPanel from '@/components/CardPanel.vue';
-import { useRightClickMenu } from '@/hooks/useRightClickMenu.ts';
-import { t } from '@/lang/i18n.ts';
+import {useRightClickMenu} from '@/hooks/useRightClickMenu.ts';
+import {t} from '@/lang/i18n.ts';
 //region type
 
 const { isPhone } = useScreen();
@@ -43,7 +43,7 @@ type SearchSelectType = 'ALL' | 'PUSH' | 'PUSHED' | 'DOWNLOAD' | 'DOWNLOADED'
 
 const SearchSelect = ref<SearchSelectType>('ALL');
 
-const dialogTitle = ref<string>(t('TXT_CODE_55759115'));
+const dialogTitle = ref<string>(t('TXT_CODE_b992ba89'));
 
 //endregion
 

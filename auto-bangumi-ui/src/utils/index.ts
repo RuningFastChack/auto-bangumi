@@ -1,3 +1,6 @@
+import type {RssManageCalendar, RssManageList} from "@/api/types/rss/rssManage.ts";
+
+
 /**
  * 判断客户端
  */
@@ -78,3 +81,13 @@ export const formatTimestamp = (timestamp: number): string => {
 
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 };
+
+export const officialTitle = (row: RssManageCalendar | RssManageList, language: string) => {
+  if (language?.toLowerCase()?.startsWith('zh')) {
+    return row.officialTitle;
+  } else if (language?.toLowerCase()?.startsWith('en')) {
+    return row.officialTitleEn;
+  } else {
+    return row.officialTitleJp;
+  }
+}

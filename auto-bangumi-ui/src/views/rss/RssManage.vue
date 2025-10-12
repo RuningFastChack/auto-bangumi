@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, type CSSProperties, h, onMounted, ref, watch } from 'vue';
+import {computed, type CSSProperties, h, onMounted, ref, watch} from 'vue';
 import BetweenMenus from '@/components/BetweenMenus.vue';
-import { useScreen } from '@/hooks/useScreen.ts';
-import { useRoute } from 'vue-router';
+import {useScreen} from '@/hooks/useScreen.ts';
+import {useRoute} from 'vue-router';
 import CardPanel from '@/components/CardPanel.vue';
-import { arrayFilter } from '@/utils/array.ts';
+import {arrayFilter} from '@/utils/array.ts';
 import {
   BookOutlined,
   CheckCircleOutlined,
@@ -19,8 +19,8 @@ import {
   SearchOutlined,
   StopOutlined
 } from '@ant-design/icons-vue';
-import type { AntColumnsType } from '@/types/ant.ts';
-import type { RssManageList, RssManageQuery } from '@/api/types/rss/rssManage.ts';
+import type {AntColumnsType} from '@/types/ant.ts';
+import type {RssManageList, RssManageQuery} from '@/api/types/rss/rssManage.ts';
 import {
   changeRssManageStatusAndComplete,
   findRssManagePage,
@@ -28,16 +28,17 @@ import {
   refreshRssManageByIds,
   removeRssManage
 } from '@/api/modules/rssManage.ts';
-import type { IPage } from '@/api/types';
-import { WEEK_MAP } from '@/types/dict.ts';
-import { isEmpty } from '@/utils';
-import { sleep } from '@/utils/common.ts';
+import type {IPage} from '@/api/types';
+import {WEEK_MAP} from '@/types/dict.ts';
+import {isEmpty, officialTitle} from '@/utils';
+import {sleep} from '@/utils/common.ts';
 import RssManageForm from '@/views/rss/RssManageForm.vue';
-import { type ItemType, message, Modal } from 'ant-design-vue';
-import { triggerPushLastRssItem } from '@/api/modules/rssItem.ts';
+import {type ItemType, message, Modal} from 'ant-design-vue';
+import {triggerPushLastRssItem} from '@/api/modules/rssItem.ts';
 import RssItems from '@/views/rss/RssItems.vue';
-import { useRightClickMenu } from '@/hooks/useRightClickMenu.ts';
-import { t } from '@/lang/i18n.ts';
+import {useRightClickMenu} from '@/hooks/useRightClickMenu.ts';
+import {t} from '@/lang/i18n.ts';
+import {useAppStore} from "@/stores/modules/app.ts";
 //region type
 
 //endregion
@@ -46,6 +47,8 @@ import { t } from '@/lang/i18n.ts';
 const { openRightClickMenu } = useRightClickMenu();
 
 const route = useRoute();
+
+const {language} = useAppStore();
 
 const loading = ref<boolean>(false);
 
@@ -86,7 +89,7 @@ const columns = computed(() => {
       dataIndex: 'officialTitle',
       key: 'officialTitle',
       ellipsis: true,
-      title: t('TXT_CODE_eedbd0f9'),
+      title: t('TXT_CODE_b992ba89'),
       width: 180
     },
     {
@@ -258,6 +261,7 @@ const refreshRssManage = async () => {
   loading.value = true;
   try {
     await refreshRssManageByIds(selectedRssManages.value);
+    message.success(t('TXT_CODE_20034af4'));
   } finally {
     loading.value = false;
     await query();
@@ -278,14 +282,14 @@ const menuList = (record: RssManageList) =>
       condition: () => !isMultiple.value
     },
     {
-      label: t('TXT_CODE_389ded38'),
+      label: t('TXT_CODE_DICT_ENABLE'),
       key: 'enable',
       icon: h(CheckCircleOutlined),
       onClick: () => changeRssManage({ id: record.id, status: '1' }),
       condition: () => record.status === '0' && !isMultiple.value
     },
     {
-      label: t('TXT_CODE_51d131da'),
+      label: t('TXT_CODE_DICT_DISABLE'),
       key: 'unenable',
       icon: h(StopOutlined),
       onClick: () => changeRssManage({ id: record.id, status: '0' }),
@@ -333,7 +337,7 @@ const menuList = (record: RssManageList) =>
       key: 'subRecord',
       icon: h(BookOutlined),
       condition: () => !isMultiple.value,
-      onClick: () => openRssItem(record.id, record.officialTitle)
+      onClick: () => openRssItem(record.id, officialTitle(record, language))
     },
     {
       label: t('TXT_CODE_c6c8f9b9'),
@@ -414,7 +418,7 @@ onMounted(() => getTableList(queryParams.value));
                 </a-select>
                 <a-input
                   v-model:value.trim.lazy="queryParams.officialTitle"
-                  :placeholder="t('TXT_CODE_eedbd0f9')"
+                  :placeholder="t('TXT_CODE_b992ba89')"
                   allow-clear
                   style="width: calc(100% - 100px)"
                   @change="query()"
@@ -533,9 +537,9 @@ onMounted(() => getTableList(queryParams.value));
               <template v-if="column.key === 'officialTitle'">
                 <a-tooltip placement="top">
                   <template #title>
-                    <span>{{ record.officialTitle }}</span>
+                    <span>{{ officialTitle(record, language) }}</span>
                   </template>
-                  <span>{{ record.officialTitle }}</span>
+                  <span>{{ officialTitle(record, language) }}</span>
                 </a-tooltip>
               </template>
               <template v-if="column.key === 'savePath'">

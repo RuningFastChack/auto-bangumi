@@ -1,4 +1,4 @@
-import { createApp } from 'vue';
+import {createApp} from 'vue';
 import pinia from '@/stores';
 
 import Antd from 'ant-design-vue';
@@ -12,8 +12,8 @@ import '@/assets/variables-dark.scss';
 
 import App from './App.vue';
 import errorHandler from '@/utils/errorHandler.ts';
-import { getI18nInstance } from '@/config/lang/i18n';
-import { isLocalEnv } from '@/utils';
+import {getI18nInstance} from '@/lang/i18n';
+import {isLocalEnv} from '@/utils';
 import router from './router';
 
 export async function mountApp() {

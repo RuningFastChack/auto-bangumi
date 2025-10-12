@@ -1,24 +1,27 @@
 <script setup lang="ts">
 import CardPanel from '@/components/CardPanel.vue';
-import { onMounted, ref } from 'vue';
-import type { RssManageCalendar } from '@/api/types/rss/rssManage.ts';
-import { findRssManageCalendar } from '@/api/modules/rssManage.ts';
-import { isEmpty, isLocalEnv } from '@/utils';
-import { EditOutlined, OrderedListOutlined } from '@ant-design/icons-vue';
-import { sleep } from '@/utils/common.ts';
+import {onMounted, ref} from 'vue';
+import type {RssManageCalendar} from '@/api/types/rss/rssManage.ts';
+import {findRssManageCalendar} from '@/api/modules/rssManage.ts';
+import {isEmpty, isLocalEnv, officialTitle} from '@/utils';
+import {EditOutlined, OrderedListOutlined} from '@ant-design/icons-vue';
+import {sleep} from '@/utils/common.ts';
 import BetweenMenus from '@/components/BetweenMenus.vue';
-import { useScreen } from '@/hooks/useScreen.ts';
-import { useRoute } from 'vue-router';
-import { WEEK_MAP } from '../types/dict.ts';
+import {useScreen} from '@/hooks/useScreen.ts';
+import {useRoute} from 'vue-router';
+import {WEEK_MAP} from '../types/dict.ts';
 import RssManageForm from '@/views/rss/RssManageForm.vue';
 import RssItems from '@/views/rss/RssItems.vue';
-import { t } from '@/lang/i18n.ts';
+import {t} from '@/lang/i18n.ts';
+import {useAppStore} from "@/stores/modules/app.ts";
 //region type
 
 //endregion
 
 //region props & emit
 const route = useRoute();
+
+const {language} = useAppStore();
 
 const rssManageFormRef = ref<InstanceType<typeof RssManageForm>>();
 
@@ -36,6 +39,7 @@ const paramsProps = ref<Record<number, RssManageCalendar[]>>({});
 //endregion
 
 //region computed
+
 //endregion
 
 //region watch
@@ -59,7 +63,7 @@ const handlerEdit = (obj: RssManageCalendar) => {
   rssManageFormRef.value?.acceptParams(t('TXT_CODE_09e045a9'), obj.id);
 };
 const handlerRssItem = (obj: RssManageCalendar) => {
-  rssItemRef.value?.acceptParams(obj.id, obj.officialTitle);
+  rssItemRef.value?.acceptParams(obj.id, officialTitle(obj, language));
 };
 //endregion
 
@@ -102,8 +106,8 @@ onMounted(() => init());
                         align="center">
                   <div v-if="!isEmpty(item)" v-for="(_item, _index) in item"
                        :key="_index">
-                    <a-tooltip :title="_item.officialTitle">
-                      <a-card hoverable :title="_item.officialTitle">
+                    <a-tooltip :title="officialTitle(_item,language)">
+                      <a-card :title="officialTitle(_item,language)" hoverable>
                         <template #cover>
                           <div class="rss-item-container">
                             <div class="rss-item-card">

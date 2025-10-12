@@ -19,10 +19,11 @@ export type McsManageSetting = {
   instanceId: string;
 };
 
-
 export type GeneralSetting = {
   rssTimeOut: number;
   enable: boolean;
+  savePathRule: string;
+  episodeTitleRule: string;
 };
 
 export type FilterSetting = {

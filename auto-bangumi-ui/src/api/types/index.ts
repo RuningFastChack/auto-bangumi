@@ -25,14 +25,23 @@ export type IPageQuery = {
 };
 
 export type AnalysisResult = {
-  subGroupId: string;
-  translationGroup: string;
-  season: string;
   title: string;
+  titleEn: string;
+  titleJp: string;
+  season: string;
+  savePath: string;
+  translationGroup: string;
+  subGroupId: string;
   sendData: string;
-  posterLink: string;
   updateWeek: number;
+  posterLink: string;
+  config: RssManageConfig;
 };
+
+export type RssManageConfig = {
+  latestEpisode: string,
+  totalEpisode: string,
+}
 
 export type LoginInfo = {
   token: string;

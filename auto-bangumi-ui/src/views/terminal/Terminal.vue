@@ -7,18 +7,18 @@ import {
   PauseCircleOutlined,
   RedoOutlined
 } from '@ant-design/icons-vue';
-import { useScreen } from '@/hooks/useScreen.ts';
-import { useRoute } from 'vue-router';
-import { computed } from 'vue';
+import {useScreen} from '@/hooks/useScreen.ts';
+import {useRoute} from 'vue-router';
+import {computed} from 'vue';
 import {
   killInstance,
   restartInstance,
   stopInstance
 } from '@/api/modules/mcs/protected/instance/index.ts';
 import TerminalCore from '@/components/TerminalCore.vue';
-import { message } from 'ant-design-vue';
-import { useTerminal, type UseTerminalHook } from '@/hooks/useTerminal.ts';
-import { t } from '@/lang/i18n.ts';
+import {message} from 'ant-design-vue';
+import {useTerminal, type UseTerminalHook} from '@/hooks/useTerminal.ts';
+import {t} from '@/lang/i18n.ts';
 //region type
 const { isPhone } = useScreen();
 const terminalHook: UseTerminalHook = useTerminal();
@@ -53,7 +53,7 @@ const operations = computed<OperationsType[]>(() => [
     props: { danger: true }
   },
   {
-    title: t('TXT_CODE_cf2fd431'),
+    title: t('TXT_CODE_BUTTON_DESC_RESTART'),
     icon: RedoOutlined,
     type: 'default',
     noConfirm: false,
@@ -63,7 +63,7 @@ const operations = computed<OperationsType[]>(() => [
     }
   },
   {
-    title: t('TXT_CODE_221ff8c7'),
+    title: t('TXT_CODE_BUTTON_DESC_TERMINATE'),
     icon: CloseOutlined,
     type: 'danger',
     class: 'color-warning',

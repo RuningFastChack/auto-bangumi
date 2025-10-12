@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useUserStore } from '@/stores/modules/user.ts';
-import type { FormInstance } from 'ant-design-vue';
-import { Input, message, Modal } from 'ant-design-vue';
-import { h, reactive, ref } from 'vue';
-import { createRssManage, findRssManageDetail, updateRssManage } from '@/api/modules/rssManage.ts';
-import type { RSS, RssManage } from '@/api/types/rss/rssManage.ts';
-import { getRandomId } from '@/utils/randId.ts';
-import { analysisMikan } from '@/api/modules/analysis.ts';
+import {useUserStore} from '@/stores/modules/user.ts';
+import type {FormInstance} from 'ant-design-vue';
+import {Input, message, Modal} from 'ant-design-vue';
+import {h, reactive, ref} from 'vue';
+import {createRssManage, findRssManageDetail, updateRssManage} from '@/api/modules/rssManage.ts';
+import type {RSS, RssManage} from '@/api/types/rss/rssManage.ts';
+import {getRandomId} from '@/utils/randId.ts';
+import {analysisMikan} from '@/api/modules/analysis.ts';
 import {
   ArrowDownOutlined,
   ArrowUpOutlined,
@@ -14,9 +14,10 @@ import {
   PlusOutlined,
   QuestionCircleOutlined
 } from '@ant-design/icons-vue';
-import { type DictOptions, RSS_TYPE_MAP, WEEK_MAP } from '@/types/dict.ts';
-import { useScreen } from '@/hooks/useScreen.ts';
-import { t } from '@/lang/i18n.ts';
+import {type DictOptions, RSS_TYPE_MAP, WEEK_MAP} from '@/types/dict.ts';
+import {useScreen} from '@/hooks/useScreen.ts';
+import {t} from '@/lang/i18n.ts';
+import {isEmpty} from "@/utils";
 
 const { isPhone } = useScreen();
 //region type
@@ -45,6 +46,9 @@ const ruleFormRef = ref<FormInstance>();
 
 const rules = reactive({
   officialTitle: [{ required: true, message: t('TXT_CODE_b5e7f231') }],
+  officialTitleEn: [{required: true, message: t('TXT_CODE_b5e7f231')}],
+  officialTitleJp: [{required: true, message: t('TXT_CODE_b5e7f231')}],
+  savePath: [{required: true, message: t('TXT_CODE_fece9cd9')}],
   season: [{ required: true, message: t('TXT_CODE_dac8a2e5') }],
   sendDate: [{ required: true, message: t('TXT_CODE_d7cf7d70') }],
   status: [{ required: true, message: t('TXT_CODE_6f5546c4') }],
@@ -63,6 +67,8 @@ const rssRules = reactive({
 const paramsProps = ref<RssManage>({
   id: undefined,
   officialTitle: '',
+  officialTitleEn: '',
+  officialTitleJp: '',
   season: '1',
   status: '1',
   filter: [],
@@ -94,6 +100,8 @@ const acceptParams = async (title: string, rssManageId?: number) => {
   paramsProps.value = {
     id: undefined,
     officialTitle: '',
+    officialTitleEn: '',
+    officialTitleJp: '',
     season: '1',
     status: '1',
     filter: [...(userStore.userInfo.config?.filterSetting?.filterReg ?? [])],
@@ -115,6 +123,8 @@ const acceptParams = async (title: string, rssManageId?: number) => {
     paramsProps.value = {
       id: data.id,
       officialTitle: data.officialTitle,
+      officialTitleEn: data.officialTitleEn,
+      officialTitleJp: data.officialTitleJp,
       season: data.season,
       status: data.status,
       filter: data.filter ? [...data.filter] : [],
@@ -237,14 +247,23 @@ const analysisRss = async (rss: RSS) => {
     case 'Mikan':
       loading.value = true;
       try {
+        if (isEmpty(rss.rss)) {
+          return;
+        }
         const { data } = await analysisMikan(rss.rss);
         rss.subGroupId = data.subGroupId;
         rss.translationGroup = data.translationGroup;
         paramsProps.value.officialTitle = data.title;
+        paramsProps.value.officialTitleEn = data.titleEn;
+        paramsProps.value.officialTitleJp = data.titleJp;
         paramsProps.value.sendDate = data.sendData;
         paramsProps.value.posterLink = data.posterLink;
+        if (!paramsProps.value.id) {
+          paramsProps.value.savePath = data.savePath;
+        }
         paramsProps.value.updateWeek = data.updateWeek;
         paramsProps.value.season = data.season;
+        paramsProps.value.config = data.config;
       } finally {
         loading.value = false;
       }
@@ -281,9 +300,26 @@ defineExpose({
         :labelCol="labelCol"
         :wrapperCol="wrapperCol"
       >
-        <a-form-item :label="t('TXT_CODE_b992ba89')" name="officialTitle">
+        <a-form-item name="officialTitle">
+          <template #label>
+            {{ t('TXT_CODE_b992ba89') }} CN
+          </template>
           <a-input v-model:value="paramsProps.officialTitle" :placeholder="t('TXT_CODE_b5e7f231')"
                    allowClear />
+        </a-form-item>
+        <a-form-item name="officialTitleEn">
+          <template #label>
+            {{ t('TXT_CODE_b992ba89') }} EN
+          </template>
+          <a-input v-model:value="paramsProps.officialTitleEn" :placeholder="t('TXT_CODE_b5e7f231')"
+                   allowClear/>
+        </a-form-item>
+        <a-form-item name="officialTitleJp">
+          <template #label>
+            {{ t('TXT_CODE_b992ba89') }} JP
+          </template>
+          <a-input v-model:value="paramsProps.officialTitleJp" :placeholder="t('TXT_CODE_b5e7f231')"
+                   allowClear/>
         </a-form-item>
 
         <a-form-item :label="t('TXT_CODE_70a588d7')" name="season">
@@ -400,7 +436,7 @@ defineExpose({
                 <a-tooltip>
                   <template #title>{{ rss.rss || t('TXT_CODE_2c1fca48') }}</template>
                   <a-input v-model:value="rss.rss" @change="analysisRss(rss)"
-                           :placeholder="t('TXT_CODE_43df94e7')"
+                           :placeholder="t('TXT_CODE_f032059f')"
                            allowClear />
                 </a-tooltip>
               </a-form-item>
@@ -409,7 +445,7 @@ defineExpose({
                          allowClear />
               </a-form-item>
               <a-form-item name="translationGroup">
-                <a-input v-model:value="rss.translationGroup" :placeholder="t('TXT_CODE_9fe7189c')"
+                <a-input v-model:value="rss.translationGroup" :placeholder="t('TXT_CODE_66d9a5b0')"
                          allowClear />
               </a-form-item>
               <a-form-item name="status">
@@ -417,8 +453,8 @@ defineExpose({
                   v-model:checked="rss.status"
                   checkedValue="1"
                   unCheckedValue="0"
-                  :checked-children="t('TXT_CODE_389ded38')"
-                  :un-checked-children="t('TXT_CODE_51d131da')"
+                  :checked-children="t('TXT_CODE_DICT_ENABLE')"
+                  :un-checked-children="t('TXT_CODE_DICT_DISABLE')"
                 />
               </a-form-item>
               <a-form-item name="type">
@@ -460,7 +496,10 @@ defineExpose({
       </a-space>
     </a-spin>
     <template #extra>
-      <a-button type="primary" @click="handleSubmit">{{ t('TXT_CODE_58b814f8') }}</a-button>
+      <a-button type="primary" @click="handleSubmit">{{
+          t('TXT_CODE_BUTTON_DESC_SUBMIT')
+        }}
+      </a-button>
     </template>
   </a-drawer>
 </template>

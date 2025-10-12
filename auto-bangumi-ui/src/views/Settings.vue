@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { arrayFilter } from '@/utils/array.ts';
-import { type FormInstance, Input, message, Modal } from 'ant-design-vue';
+import {arrayFilter} from '@/utils/array.ts';
+import {type FormInstance, Input, message, Modal} from 'ant-design-vue';
 
 import {
   BarsOutlined,
@@ -16,23 +16,20 @@ import {
 } from '@ant-design/icons-vue';
 import CardPanel from '@/components/CardPanel.vue';
 import LeftMenusPanel from '@/components/LeftMenusPanel.vue';
-import { h, onMounted, reactive, ref } from 'vue';
-import { findUserConfig, updateConfig, updateLoginInfo } from '@/api/modules/user.ts';
-import { useUserStore } from '@/stores/modules/user.ts';
-import { deepCopy } from '@/utils';
-import type { UserConfig } from '@/api/types/user.ts';
-import { type DictOptions, DOWN_UTIL_MAP } from '@/types/dict.ts';
-import type { LoginDTO } from '@/api/types';
-import { useAppRouters } from '@/hooks/useAppRouters.ts';
-import { t } from '@/lang/i18n.ts';
+import {h, onMounted, reactive, ref} from 'vue';
+import {findUserConfig, updateConfig, updateLoginInfo} from '@/api/modules/user.ts';
+import {useUserStore} from '@/stores/modules/user.ts';
+import {deepCopy} from '@/utils';
+import type {UserConfig} from '@/api/types/user.ts';
+import {type DictOptions, DOWN_UTIL_MAP} from '@/types/dict.ts';
+import type {LoginDTO} from '@/api/types';
+import {t} from '@/lang/i18n.ts';
 //region type
 let userStore = useUserStore();
 
 type UpdateUserInfo = LoginDTO & {
   newPwdConfirm?: string
 }
-
-const { toPage } = useAppRouters();
 
 //endregion
 
@@ -277,6 +274,9 @@ const ApacheLicense = `
    limitations under the License.
 `;
 
+const savePathDesc = t('TXT_CODE_17167b7a');
+const episodeReNameRuleDesc = t('TXT_CODE_bd3ae424');
+
 const OriginalIntention = t('TXT_CODE_0f6bc6ed');
 
 const securityRules = reactive({
@@ -299,6 +299,8 @@ const systemConfigFormData = ref<UserConfig>({
     daemonId: ''
   },
   generalSetting: {
+    savePathRule: '',
+    episodeTitleRule: '',
     rssTimeOut: 3600,
     enable: true
   },
@@ -506,6 +508,32 @@ onMounted(() => initUserConfig());
                                     @change.lazy="handleSubmitGeneralSetting"
                                     allowClear />
                   </a-form-item>
+                  <a-form-item name="savePathRule">
+                    <a-typography-title :level="5">
+                      {{ t('TXT_CODE_1293cc3a') }}
+                    </a-typography-title>
+                    <a-typography-paragraph>
+                      <pre style="font-size: 13px">{{ savePathDesc }}</pre>
+                    </a-typography-paragraph>
+                    <a-input v-model:value="systemConfigFormData.generalSetting.savePathRule"
+                             allowClear/>
+                  </a-form-item>
+                  <a-form-item name="episodeTitleRule">
+                    <a-typography-title :level="5">
+                      {{ t('TXT_CODE_b8f12f7e') }}
+                    </a-typography-title>
+                    <a-typography-paragraph>
+                      <pre style="font-size: 13px">{{ episodeReNameRuleDesc }}</pre>
+                    </a-typography-paragraph>
+                    <a-input v-model:value="systemConfigFormData.generalSetting.episodeTitleRule"
+                             allowClear/>
+                  </a-form-item>
+                  <div class="button">
+                    <a-button :loading="loading" type="primary"
+                              @click="handleSubmitGeneralSetting">
+                      {{ t('TXT_CODE_BUTTON_DESC_SAVE') }}
+                    </a-button>
+                  </div>
                 </a-form>
               </div>
             </div>
@@ -638,12 +666,12 @@ onMounted(() => initUserConfig());
                   </a-form-item>
                   <a-form-item name="ssl">
                     <a-typography-title :level="5">
-                      {{ t('TXT_CODE_aa673fb1') }}
+                      SSL
                     </a-typography-title>
                     <a-typography-paragraph>
                       <p>
                         {{ t('TXT_CODE_c6db1586') }}
-                        <a-tag>{{ t('TXT_CODE_aa673fb1') }}</a-tag>
+                        <a-tag>SSL</a-tag>
                       </p>
                     </a-typography-paragraph>
                     <a-switch v-model:checked="systemConfigFormData.downLoadSetting.ssl"
@@ -746,15 +774,15 @@ onMounted(() => initUserConfig());
                   <a-typography-paragraph>
                     <a-typography-text type="secondary">
                       {{ t('TXT_CODE_0164b7f1') }}
-                      <a-tag>{{ t('TXT_CODE_514eca2f') }}</a-tag>
+                      <a-tag>JAR</a-tag>
                       {{ t('TXT_CODE_28b324f1') }}
-                      <a-tag>{{ t('TXT_CODE_fbf31b03') }}</a-tag>
+                      <a-tag>--reload</a-tag>
                       {{ t('TXT_CODE_29f457f5') }}
                       <br />
                       {{ t('TXT_CODE_15f2d98f') }}
-                      <a-tag>{{ t('TXT_CODE_f8bd6988') }}</a-tag>
+                      <a-tag>admin</a-tag>
                       {{ t('TXT_CODE_b391b4b3') }}
-                      <a-tag>{{ t('TXT_CODE_112bc9f8') }}</a-tag>
+                      <a-tag>adminadmin</a-tag>
                     </a-typography-text>
                   </a-typography-paragraph>
                   <a-form-item name="username">

@@ -1,8 +1,10 @@
-import type { IPageQuery } from '@/api/types';
+import type {IPageQuery, RssManageConfig} from '@/api/types';
 
 export type RssManage = {
   id?: number;
   officialTitle: string;
+  officialTitleEn: string;
+  officialTitleJp: string;
   season: string;
   status: '0' | '1';
   filter?: string[];
@@ -18,6 +20,8 @@ export type RssManage = {
 export type RssManageList = {
   id: number;
   officialTitle: string;
+  officialTitleEn: string;
+  officialTitleJp: string;
   season: string;
   status: '0' | '1';
   savePath: string;
@@ -30,6 +34,8 @@ export type RssManageList = {
 export type RssManageCalendar = {
   id: number;
   officialTitle: string;
+  officialTitleEn: string;
+  officialTitleJp: string;
   season: string;
   updateWeek: number;
   sendDate: string;
@@ -57,8 +63,3 @@ export type RSS = {
   type: 'Mikan';
   subGroupId?: string;
 };
-
-export type RssManageConfig = {
-  latestEpisode: string,
-  totalEpisode: string,
-}
