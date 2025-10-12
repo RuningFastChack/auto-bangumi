@@ -33,6 +33,10 @@ public class UserConfig {
 
         private Integer rssTimeOut;
 
+        private String savePathRule;
+
+        private String episodeTitleRule;
+
         private Boolean enable;
     }
 

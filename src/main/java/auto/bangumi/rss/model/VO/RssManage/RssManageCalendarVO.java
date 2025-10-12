@@ -23,6 +23,16 @@ public class RssManageCalendarVO {
     private String officialTitle;
 
     /**
+     * 动画标题
+     */
+    private String officialTitleEn;
+
+    /**
+     * 动画标题
+     */
+    private String officialTitleJp;
+
+    /**
      * 季度
      */
     private String season;
@@ -51,6 +61,8 @@ public class RssManageCalendarVO {
         return RssManageCalendarVO.builder()
                 .id(rssManage.getId())
                 .officialTitle(rssManage.getOfficialTitle())
+                .officialTitleEn(rssManage.getOfficialTitleEn())
+                .officialTitleJp(rssManage.getOfficialTitleJp())
                 .season(rssManage.getSeason())
                 .updateWeek(rssManage.getUpdateWeek())
                 .sendDate(rssManage.getSendDate())

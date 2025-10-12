@@ -24,6 +24,18 @@ public class RssManage {
     private String officialTitle;
 
     /**
+     * 动画标题
+     */
+    @TableField(value = "official_title_en")
+    private String officialTitleEn;
+
+    /**
+     * 动画标题
+     */
+    @TableField(value = "official_title_jp")
+    private String officialTitleJp;
+
+    /**
      * 季度
      */
     @TableField(value = "season")

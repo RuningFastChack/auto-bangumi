@@ -29,6 +29,16 @@ public class RssManageListVO {
     private String officialTitle;
 
     /**
+     * 动画标题
+     */
+    private String officialTitleEn;
+
+    /**
+     * 动画标题
+     */
+    private String officialTitleJp;
+
+    /**
      * 季度
      */
     private String season;
@@ -67,6 +77,8 @@ public class RssManageListVO {
         return RssManageListVO.builder()
                 .id(rssManage.getId())
                 .officialTitle(rssManage.getOfficialTitle())
+                .officialTitleEn(rssManage.getOfficialTitleEn())
+                .officialTitleJp(rssManage.getOfficialTitleJp())
                 .season(rssManage.getSeason())
                 .status(rssManage.getStatus())
                 .savePath(rssManage.getSavePath())

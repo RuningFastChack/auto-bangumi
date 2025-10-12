@@ -16,9 +16,24 @@ public class AnalysisResult {
     private String title;
 
     /**
+     * 标题
+     */
+    private String titleEn;
+
+    /**
+     * 标题
+     */
+    private String titleJp;
+
+    /**
      * 季度
      */
     private String season;
+
+    /**
+     * 保存路径
+     */
+    private String savePath;
 
     /**
      * 分组

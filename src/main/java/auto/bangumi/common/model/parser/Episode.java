@@ -14,6 +14,8 @@ import lombok.*;
 @AllArgsConstructor
 public class Episode {
     private String name;
+    private String nameEn;
+    private String nameJp;
     private int season;
     private String seasonRaw;
     private String episode;

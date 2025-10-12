@@ -36,6 +36,18 @@ public class RssManageDTO {
     private String officialTitle;
 
     /**
+     * 动画标题
+     */
+    @NotBlank(message = "不能为空", groups = {Add.class, Update.class})
+    private String officialTitleEn;
+
+    /**
+     * 动画标题
+     */
+    @NotBlank(message = "不能为空", groups = {Add.class, Update.class})
+    private String officialTitleJp;
+
+    /**
      * 季度
      */
     @NotBlank(message = "不能为空", groups = {Add.class, Update.class})
@@ -60,6 +72,7 @@ public class RssManageDTO {
     /**
      * 保存路径
      */
+    @NotBlank(message = "不能为空", groups = {Add.class, Update.class})
     private String savePath;
 
     /**

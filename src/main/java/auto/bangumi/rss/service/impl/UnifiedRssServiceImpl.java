@@ -1,5 +1,6 @@
 package auto.bangumi.rss.service.impl;
 
+import auto.bangumi.admin.model.UserConfig;
 import auto.bangumi.common.enums.SysYesNo;
 import auto.bangumi.common.model.RssFeed;
 import auto.bangumi.common.model.parser.Episode;
@@ -338,6 +339,8 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
                         RssManageVO.builder()
                                 .id(item.getId())
                                 .officialTitle(item.getOfficialTitle())
+                                .officialTitleEn(item.getOfficialTitleEn())
+                                .officialTitleJp(item.getOfficialTitleJp())
                                 .season(item.getSeason())
                                 .savePath(item.getSavePath())
                                 .rssList(JSON.parseArray(item.getRssList(), Rss.class))
@@ -404,6 +407,19 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
                                     StrUtil.format("S0{}", rssManage.getSeason()) :
                                     StrUtil.format("S{}", rssManage.getSeason());
                             SeriesName = StrUtil.format("{} {}{}", rssManage.getOfficialTitle(), seasonNumStr, episodeNumStr);
+
+                            UserConfig.GeneralSetting setting = ConfigCatch.findConfig().getGeneralSetting();
+                            String episodeTitleRule = setting.getEpisodeTitleRule();
+                            if (StringUtils.isNotBlank(episodeTitleRule)) {
+                                SeriesName = episodeTitleRule
+                                        .replace("{officialTitle}", rssManage.getOfficialTitle())
+                                        .replace("{officialTitleEn}", rssManage.getOfficialTitleEn())
+                                        .replace("{officialTitleJp}", rssManage.getOfficialTitleJp())
+                                        .replace("{season}", seasonNumStr.replace("S", ""))
+                                        .replace("{episode}", episodeNumStr.replace("E", ""))
+                                ;
+                            }
+
                             RssItemDTO build = RssItemDTO.builder()
                                     .torrentCode(torrentCode)
                                     .episodeNum(String.valueOf(episodeNum))
@@ -487,9 +503,8 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
                         if (pushEpisodeNum.compareTo(configEpisodeNum) > 0) {
                             config.setLatestEpisode(item.getEpisodeNum());
                             updateInfo.setConfig(JSON.toJSONString(config));
+                            iRssManageService.updateById(updateInfo);
                         }
-
-                        iRssManageService.updateById(updateInfo);
                     }
                 }
             }

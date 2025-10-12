@@ -1,10 +1,12 @@
 package auto.bangumi.rss.service;
 
+import auto.bangumi.admin.model.UserConfig;
 import auto.bangumi.common.model.RssFeed;
-import auto.bangumi.common.model.parser.ParsedTitle;
-import auto.bangumi.common.parser.TitleParser;
+import auto.bangumi.common.model.parser.Episode;
+import auto.bangumi.common.parser.RawParser;
 import auto.bangumi.common.utils.AsyncManager;
 import auto.bangumi.common.utils.AutoBangumiUtil;
+import auto.bangumi.common.utils.ConfigCatch;
 import auto.bangumi.common.utils.HttpClientUtil;
 import auto.bangumi.rss.model.AnalysisResult;
 import auto.bangumi.rss.model.DTO.RssManage.RssManageConfigDTO;
@@ -131,9 +133,23 @@ public class AnalysisApi {
                 result.setTranslationGroup(translationGroup.replace("字幕组：", ""));
 
             }
-            String title = rssFeed.getChannel().getTitle();
-            ParsedTitle parsedTitle = TitleParser.parseTitle(title);
-            result.setSeason(String.valueOf(parsedTitle.getSeason()));
+            String title = rssFeed.getChannel().getItems().get(0).getTitle();
+            Episode parse = RawParser.parse(title);
+            result.setSeason(String.valueOf(parse.getSeason()));
+            result.setTitleEn(StringUtils.isNotBlank(parse.getNameEn()) ? parse.getNameEn() : result.getTitle());
+            result.setTitleJp(StringUtils.isNotBlank(parse.getNameJp()) ? parse.getNameEn() : result.getTitle());
+
+            UserConfig.GeneralSetting setting = ConfigCatch.findConfig().getGeneralSetting();
+            String savePathRule = setting.getSavePathRule();
+            if (StringUtils.isNotBlank(savePathRule)) {
+                String savePath = savePathRule
+                        .replace("{officialTitle}", result.getTitle())
+                        .replace("{officialTitleEn}", result.getTitleEn())
+                        .replace("{officialTitleJp}", result.getTitleJp())
+                        .replace("{season}", result.getSeason());
+                result.setSavePath(savePath);
+            }
+
         } catch (Exception e) {
             log.error("Mikan 解析RSS失败，解析XML异常。RSS：{}，原因：{}", rss, e.getMessage(), e);
         }

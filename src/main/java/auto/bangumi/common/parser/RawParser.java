@@ -2,7 +2,6 @@ package auto.bangumi.common.parser;
 
 import auto.bangumi.common.model.parser.Episode;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,7 +57,7 @@ public abstract class RawParser {
 
         if (!matcher.find()) {
             log.error("Cannot parse title: {}", rawTitle);
-            return null;
+            return new Episode();
         }
 
         String seasonInfo = matcher.group(1).trim();
@@ -85,16 +84,17 @@ public abstract class RawParser {
 
         TagResult tags = findTags(other);
 
-        return new Episode(
-                StringUtils.isNotBlank(nameResult.nameZh) ? nameResult.nameZh : StringUtils.isNotBlank(nameResult.nameJp) ? nameResult.nameJp : nameResult.nameEn,
-                seasonResult.season,
-                seasonResult.seasonRaw,
-                episode,
-                tags.sub,
-                tags.dpi,
-                tags.source,
-                group
-        );
+        return Episode.builder()
+                .name(nameResult.nameZh)
+                .nameJp(nameResult.nameJp)
+                .nameEn(nameResult.nameEn)
+                .season(seasonResult.season)
+                .seasonRaw(seasonResult.seasonRaw)
+                .episode(episode)
+                .sub(tags.sub)
+                .dpi(tags.dpi)
+                .source(tags.source)
+                .build();
     }
 
     private static String preProcess(String raw) {
