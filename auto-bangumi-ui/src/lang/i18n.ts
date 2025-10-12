@@ -1,6 +1,6 @@
 // I18n init configuration (Frontend)
 
-import { createI18n } from 'vue-i18n';
+import {createI18n} from 'vue-i18n';
 
 // DO NOT I18N
 // If you want to add the language of your own country, you need to add the code here.
@@ -10,8 +10,16 @@ export const SUPPORTED_LANGS = [
     value: `en_us`
   },
   {
+    label: `日本語`,
+    value: `ja_jp`
+  },
+  {
     label: `简体中文`,
     value: `zh_cn`
+  },
+  {
+    label: `繁體中文`,
+    value: `zh_tw`
   }
 ];
 

@@ -85,16 +85,17 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
                         switch (rss.getType()) {
                             case Mikan:
                                 AnalysisResult mikan = analysisApi.analysisMikan(rss.getRss());
-
-                                RssManage build = RssManage.builder().id(rssManage.getId()).posterLink(mikan.getPosterLink()).build();
-
+                                RssManage build = RssManage.builder()
+                                        .id(rssManage.getId())
+                                        .officialTitleEn(StringUtils.isNotBlank(mikan.getTitleEn()) ? mikan.getTitleEn() : rssManage.getOfficialTitle())
+                                        .officialTitleJp(StringUtils.isNotBlank(mikan.getTitleJp()) ? mikan.getTitleJp() : rssManage.getOfficialTitle())
+                                        .posterLink(mikan.getPosterLink()).build();
                                 String episode = mikan.getConfig().getTotalEpisode();
                                 if (StringUtils.isNotBlank(episode) && !"0".equals(episode)) {
                                     RssManageConfigVO config = rssManage.getConfig();
                                     config.setTotalEpisode(episode);
                                     build.setConfig(JSON.toJSONString(config));
                                 }
-
                                 iRssManageService.updateById(build);
                                 break;
                             default:
