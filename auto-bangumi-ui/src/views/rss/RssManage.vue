@@ -90,14 +90,14 @@ const columns = computed(() => {
       key: 'officialTitle',
       ellipsis: true,
       title: t('TXT_CODE_b992ba89'),
-      width: 180
+      minWidth: 180
     },
     {
       align: 'center',
       dataIndex: 'updateWeek',
       key: 'updateWeek',
       title: t('TXT_CODE_eefeb8c4'),
-      width: 90
+      minWidth: 90
     },
     { align: 'center', dataIndex: 'season', key: 'season', title: '季度', width: 80 },
     {
@@ -105,45 +105,49 @@ const columns = computed(() => {
       dataIndex: 'latestEpisode',
       key: 'latestEpisode',
       title: t('TXT_CODE_18ad2c30'),
-      width: 80
+      minWidth: 80,
+      condition: () => !isPhone.value
     },
     {
       align: 'center',
       dataIndex: 'complete',
       key: 'complete',
       title: t('TXT_CODE_8f72f0f1'),
-      width: 80
+      minWidth: 80
     },
     {
       align: 'center',
       dataIndex: 'status',
       key: 'status',
       title: t('TXT_CODE_708351ce'),
-      width: 80
+      minWidth: 80
     },
     {
       align: 'center',
       dataIndex: 'totalEpisode',
       key: 'totalEpisode',
       title: t('TXT_CODE_7df39b03'),
-      width: 80
+      minWidth: 80,
+      condition: () => !isPhone.value
     },
     {
       align: 'center',
       dataIndex: 'sendDate',
       key: 'sendDate',
       title: t('TXT_CODE_b1ffe778'),
-      width: 120
+      minWidth: 120,
+      condition: () => !isPhone.value
     },
     {
       align: 'left', dataIndex: 'savePath', key: 'savePath', title: t('TXT_CODE_196c9daa'),
-      ellipsis: true, width: 180
+      ellipsis: true, width: 180,
+      condition: () => !isPhone.value
     },
     {
       align: 'center',
       key: 'operation',
       title: t('TXT_CODE_608994aa'),
-      width: 180,
+      minWidth: 230,
       fixed: 'right',
       condition: () => !isMultiple.value
     }
@@ -469,7 +473,7 @@ onMounted(() => getTableList(queryParams.value));
           <template #body>
             <a-table
               :loading="loading"
-              :scroll="{ x: 1800 }"
+              :scroll="{x: 'max-content'}"
               :row-selection="{
                 selectedRowKeys:selectedRssManages,
                 onChange:(selectedRowKeys:number[])=>{

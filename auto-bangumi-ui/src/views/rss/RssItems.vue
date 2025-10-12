@@ -70,14 +70,14 @@ const columns = computed(() => {
   return arrayFilter<AntColumnsType>([
     {
       align: 'left', dataIndex: 'name', key: 'name', title: t('TXT_CODE_efb2a8da'),
-      ellipsis: true, width: 180
+      ellipsis: true, minWidth: 180
     },
     {
       align: 'center',
       dataIndex: 'episodeNum',
       key: 'episodeNum',
       title: t('TXT_CODE_513e85d7'),
-      width: 90
+      minWidth: 90
     },
     {
       align: 'left',
@@ -85,35 +85,38 @@ const columns = computed(() => {
       key: 'translationGroup',
       title: t('TXT_CODE_66d9a5b0'),
       ellipsis: true,
-      width: 90
+      minWidth: 90,
+      condition: () => !isPhone.value
     },
     {
       align: 'center',
       dataIndex: 'downloaded',
       key: 'downloaded',
       title: t('TXT_CODE_53df9ac8'),
-      width: 90
+      minWidth: 90
     },
     {
       align: 'center',
       dataIndex: 'pushed',
       key: 'pushed',
       title: t('TXT_CODE_dc75dbd2'),
-      width: 90
+      minWidth: 90
     },
     {
       align: 'left', dataIndex: 'torrentName', key: 'torrentName', title: t('TXT_CODE_e3bbdcd7'),
-      ellipsis: true, width: 180
+      ellipsis: true, minWidth: 180,
+      condition: () => !isPhone.value
     },
     {
       align: 'left', dataIndex: 'torrentCode', key: 'torrentCode', title: t('TXT_CODE_32bc721a'),
-      ellipsis: true, width: 180
+      ellipsis: true, minWidth: 180,
+      condition: () => !isPhone.value
     },
     {
       align: 'center',
       key: 'operation',
       title: t('TXT_CODE_608994aa'),
-      width: 120,
+      minWidth: 120,
       fixed: 'right',
       condition: () => !isMultiple.value
     }
@@ -359,7 +362,7 @@ defineExpose({
             <template #body>
               <a-table
                 :loading="loading"
-                :scroll="{ x: 1000 }"
+                :scroll="{x: 'max-content'}"
                 :row-selection="{
                 selectedRowKeys:selectedRssItems,
                 onChange:(selectedRowKeys:Key[])=>{
