@@ -1,7 +1,8 @@
 <script setup lang="ts">
 //region type
-import { useScreen } from '@/hooks/useScreen.ts';
-import { useRoute } from 'vue-router';
+import {useScreen} from '@/hooks/useScreen.ts';
+import {useRoute} from 'vue-router';
+import LayoutRouter from "@/Layout/LayoutRouter.vue";
 //region otherMethods
 
 const { isPhone } = useScreen();
@@ -47,7 +48,7 @@ defineOptions({ name: 'LayoutMain' });
           <div
             :style="{minHeight: route?.meta?.viewConfig?.height||'unset'}"
             class="layout-card-container transition-all-6 global-drag-animation">
-            <router-view :key="route.fullPath" />
+            <LayoutRouter/>
           </div>
         </a-col>
       </a-row>

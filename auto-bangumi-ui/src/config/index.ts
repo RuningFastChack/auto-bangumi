@@ -16,6 +16,13 @@ export const ROUTER_ERROR_LIST: string[] = ['/403'];
 // 是否是预览环境
 export const IS_PREVIEW: boolean = import.meta.env.VITE_PREVIEW === 'true';
 
-
+export enum LayoutCardHeight {
+  MINI = "100px",
+  SMALL = "200px",
+  MEDIUM = "400px",
+  BIG = "600px",
+  LARGE = "800px",
+  AUTO = "unset"
+}
 
 

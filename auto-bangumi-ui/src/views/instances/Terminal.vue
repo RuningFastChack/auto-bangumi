@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import BetweenMenus from '@/components/BetweenMenus.vue';
 import {
+  ArrowRightOutlined,
   CloseOutlined,
   CodeOutlined,
   DownOutlined,
+  FolderOpenOutlined,
   PauseCircleOutlined,
   RedoOutlined
 } from '@ant-design/icons-vue';
@@ -19,9 +21,13 @@ import TerminalCore from '@/components/TerminalCore.vue';
 import {message} from 'ant-design-vue';
 import {useTerminal, type UseTerminalHook} from '@/hooks/useTerminal.ts';
 import {t} from '@/lang/i18n.ts';
+import {arrayFilter} from "@/utils/array.ts";
+import {useAppRouters} from "@/hooks/useAppRouters.ts";
+import {LayoutCardHeight} from "@/config";
 //region type
 const { isPhone } = useScreen();
 const terminalHook: UseTerminalHook = useTerminal();
+const {toPage} = useAppRouters();
 
 interface OperationsType {
   title?: string;
@@ -75,7 +81,16 @@ const operations = computed<OperationsType[]>(() => [
 ]);//endregion
 
 //region computed
-
+const btns = computed(() => {
+  return arrayFilter([
+    {
+      title: t("TXT_CODE_MENU_TITLE_FILE_MANAGE"),
+      icon: FolderOpenOutlined,
+      click: () => {
+        toPage({path: "/instances/fileManage"});
+      }
+    },]);
+});
 //endregion
 
 //region watch
@@ -155,9 +170,40 @@ defineOptions({ name: 'Terminal' });
         </template>
       </between-menus>
     </div>
+    <div class="mb-16">
     <terminal-core
       :use-terminal-hook="terminalHook"
-      :height="route?.meta?.viewConfig?.height||'unset'" />
+      :height="route?.meta?.viewConfig?.height||'unset'"/>
+    </div>
+    <div class="mb-24">
+      <card-panel>
+        <template #title>{{ t('TXT_CODE_6ccc1870') }}</template>
+        <template #body>
+          <a-row :gutter="[0, 0]" class="responsive-layout-group">
+            <a-col v-for="(item, index) in btns" :key="index" :lg="6" :md="24" :span="24"
+                   class="responsive-item">
+              <inner-card
+                :icon="item.icon"
+                :style="{ height: LayoutCardHeight.MINI }"
+                @click="item.click"
+              >
+                <template #title>
+                  {{ item.title }}
+                </template>
+                <template #body>
+                  <a href="javascript:void(0);">
+                <span>
+                  {{ t("TXT_CODE_3bcaafd3") }}
+                  <ArrowRightOutlined style="font-size: 12px"/>
+                </span>
+                  </a>
+                </template>
+              </inner-card>
+            </a-col>
+          </a-row>
+        </template>
+      </card-panel>
+    </div>
   </div>
 </template>
 
@@ -260,5 +306,28 @@ defineOptions({ name: 'Terminal' });
   .terminal-design-tip {
     color: rgba(255, 255, 255, 0.584);
   }
+}
+
+.function-btns-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.responsive-layout-group {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  align-content: flex-start;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.responsive-item {
+  width: 25%;
+  padding: 4px 4px;
+  overflow: hidden;
 }
 </style>

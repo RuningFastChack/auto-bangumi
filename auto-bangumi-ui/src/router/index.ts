@@ -1,8 +1,8 @@
-import type { RouteRecordRaw } from 'vue-router';
-import { createRouter, createWebHashHistory } from 'vue-router';
-import { useUserStore } from '@/stores/modules/user';
-import { HOME_URL, IS_PREVIEW, LOGIN_URL, ROUTER_ERROR_LIST, ROUTER_WHITE_LIST } from '@/config';
-import { t } from '@/lang/i18n.ts';
+import type {RouteRecordRaw} from 'vue-router';
+import {createRouter, createWebHashHistory} from 'vue-router';
+import {useUserStore} from '@/stores/modules/user';
+import {HOME_URL, IS_PREVIEW, LOGIN_URL, ROUTER_ERROR_LIST, ROUTER_WHITE_LIST} from '@/config';
+import {t} from '@/lang/i18n.ts';
 
 
 export const AutoBangumiRouter: Menu.MenuOptions[] = [
@@ -61,34 +61,46 @@ export const AutoBangumiRouter: Menu.MenuOptions[] = [
     }
   },
   {
-    name: 'Terminal',
-    path: '/terminal',
-    component: () => import('@/views/terminal/Terminal.vue'),
+    path: '/instances',
+    redirect: '/instances/terminal',
+    component: () => import('@/Layout/LayoutRouter.vue'),
     meta: {
-      title: t('TXT_CODE_MENU_TITLE_TERMINAL'),
-      mainTitle: t('TXT_CODE_MENU_TITLE_TERMINAL'),
-      mainMenu: !IS_PREVIEW,
-      viewConfig: {
-        height: '600px',
-        width: 12,
-        margin: 'auto'
-      }
-    }
-  },
-  {
-    name: 'FileManage',
-    path: '/fileManage',
-    component: () => import('@/views/files/FileManage.vue'),
-    meta: {
-      title: t('TXT_CODE_MENU_TITLE_FILE_MANAGE'),
-      mainTitle: t('TXT_CODE_MENU_TITLE_FILE_MANAGE'),
+      title: t('TXT_CODE_MENU_TITLE_INSTANCES'),
+      mainTitle: t('TXT_CODE_MENU_TITLE_INSTANCES'),
       mainMenu: true,
-      viewConfig: {
-        height: 'unset',
-        width: 12,
-        margin: 'auto'
+    },
+    children: [
+      {
+        name: 'Terminal',
+        path: 'terminal',
+        component: () => import('@/views/instances/Terminal.vue'),
+        meta: {
+          title: t('TXT_CODE_MENU_TITLE_TERMINAL'),
+          mainTitle: t('TXT_CODE_MENU_TITLE_TERMINAL'),
+          mainMenu: !IS_PREVIEW,
+          viewConfig: {
+            height: '600px',
+            width: 12,
+            margin: 'auto'
+          }
+        }
+      },
+      {
+        name: 'FileManage',
+        path: 'fileManage',
+        component: () => import('@/views/instances/FileManage.vue'),
+        meta: {
+          title: t('TXT_CODE_MENU_TITLE_FILE_MANAGE'),
+          mainTitle: t('TXT_CODE_MENU_TITLE_FILE_MANAGE'),
+          mainMenu: true,
+          viewConfig: {
+            height: 'unset',
+            width: 12,
+            margin: 'auto'
+          }
+        }
       }
-    }
+    ],
   },
   {
     name: 'QBService',

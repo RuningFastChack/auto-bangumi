@@ -54,6 +54,7 @@ declare module 'vue' {
     FileEditor: typeof import('./src/components/FileEditor.vue')['default']
     IframeCard: typeof import('./src/components/IframeCard.vue')['default']
     ImageViewer: typeof import('./src/components/fc/ImageViewer.vue')['default']
+    InnerCard: typeof import('./src/components/InnerCard.vue')['default']
     LeftMenuBtn: typeof import('./src/components/LeftMenuBtn.vue')['default']
     LeftMenusPanel: typeof import('./src/components/LeftMenusPanel.vue')['default']
     OverwriteFilesPopUpContent: typeof import('./src/components/OverwriteFilesPopUpContent.vue')['default']
