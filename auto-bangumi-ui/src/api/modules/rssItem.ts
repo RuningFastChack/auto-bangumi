@@ -33,3 +33,11 @@ export const pushRssItemToDownLoad = (torrentCodes: string[]) => {
 export const triggerPushLastRssItem = () => {
   return http.post(ADMIN_MODULE + 'v1/rss/item/refresh/last', {});
 };
+
+/**
+ * 删除订阅记录
+ * @param torrentCodes
+ */
+export const removeRssItemByTorrentCodes = (torrentCodes: string[]) => {
+  return http.delete(ADMIN_MODULE + 'v1/rss/item', torrentCodes);
+};

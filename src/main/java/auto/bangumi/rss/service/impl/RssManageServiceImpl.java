@@ -22,6 +22,7 @@ import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import jakarta.annotation.Resource;
@@ -181,6 +182,18 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
         saveInfo.setConfig(Objects.nonNull(dto.getConfig()) ? JSON.toJSONString(dto.getConfig()) : JSON.toJSONString(new RssManageDTO()));
         int updated = baseMapper.updateById(saveInfo);
         log.info("RSS Manage 编辑{}:{}", updated > 0 ? "成功" : "失败", JSON.toJSONString(saveInfo));
+
+        //同步修改订阅记录的启用状态
+        Map<String, List<Rss>> rssGroupByStatus = uniqueRssList.stream().collect(Collectors.groupingBy(Rss::getStatus));
+        for (Map.Entry<String, List<Rss>> entry : rssGroupByStatus.entrySet()) {
+            List<Rss> rssListCopy = entry.getValue();
+            if (!rssListCopy.isEmpty()) {
+                List<String> subGroupIds = rssListCopy.stream().map(Rss::getSubGroupId).toList();
+                rssItemMapper.update(new LambdaUpdateWrapper<RssItem>()
+                        .set(RssItem::getStatus, entry.getKey())
+                        .in(RssItem::getSubGroupId, subGroupIds));
+            }
+        }
     }
 
     /**

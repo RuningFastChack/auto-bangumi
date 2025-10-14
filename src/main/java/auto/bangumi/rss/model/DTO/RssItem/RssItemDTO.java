@@ -1,5 +1,6 @@
 package auto.bangumi.rss.model.DTO.RssItem;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.*;
 
 /**
@@ -74,6 +75,11 @@ public class RssItemDTO {
      * 是否下载完成
      */
     private String downloaded;
+
+    /**
+     * 是否启用
+     */
+    private String status;
 
     /**
      * 是否推送

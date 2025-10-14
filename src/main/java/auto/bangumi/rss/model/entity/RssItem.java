@@ -90,6 +90,12 @@ public class RssItem {
     private String pushed;
 
     /**
+     * 是否启用
+     */
+    @TableField(value = "status")
+    private String status;
+
+    /**
      * 逻辑删除
      */
     @TableLogic

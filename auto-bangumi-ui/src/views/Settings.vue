@@ -302,6 +302,7 @@ const systemConfigFormData = ref<UserConfig>({
     savePathRule: '',
     episodeTitleRule: '',
     rssTimeOut: 3600,
+    sendingTimeLimit: 1800,
     enable: true
   },
   filterSetting: {
@@ -526,6 +527,13 @@ onMounted(() => initUserConfig());
                       <pre style="font-size: 13px">{{ episodeReNameRuleDesc }}</pre>
                     </a-typography-paragraph>
                     <a-input v-model:value="systemConfigFormData.generalSetting.episodeTitleRule"
+                             allowClear/>
+                  </a-form-item>
+                  <a-form-item name="sendingTimeLimit">
+                    <a-typography-title :level="5">
+                      {{ t('TXT_CODE_23cfaee9') }}
+                    </a-typography-title>
+                    <a-input v-model:value="systemConfigFormData.generalSetting.sendingTimeLimit"
                              allowClear/>
                   </a-form-item>
                   <div class="button">

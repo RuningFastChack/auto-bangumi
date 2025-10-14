@@ -24,6 +24,7 @@ export type GeneralSetting = {
   enable: boolean;
   savePathRule: string;
   episodeTitleRule: string;
+  sendingTimeLimit: number;
 };
 
 export type FilterSetting = {

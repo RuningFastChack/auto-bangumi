@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import {useScreen} from '@/hooks/useScreen.ts';
+import { useScreen } from '@/hooks/useScreen.ts';
 import BetweenMenus from '@/components/BetweenMenus.vue';
 import {
   CheckCircleOutlined,
+  DeleteOutlined,
   DownOutlined,
   HourglassOutlined,
   InboxOutlined,
@@ -10,23 +11,26 @@ import {
   SearchOutlined,
   StopOutlined
 } from '@ant-design/icons-vue';
-import {computed, type CSSProperties, h, ref, watch} from 'vue';
-import type {RssItemList, RssItemQuery} from '@/api/types/rss/rssItem.ts';
-import type {IPage} from '@/api/types';
-import {arrayFilter} from '@/utils/array.ts';
-import type {AntColumnsType} from '@/types/ant.ts';
-import {sleep} from '@/utils/common.ts';
-import {isEmpty} from '@/utils';
+import { computed, type CSSProperties, h, ref, watch } from 'vue';
+import type { RssItemList, RssItemQuery } from '@/api/types/rss/rssItem.ts';
+import type { IPage } from '@/api/types';
+import { arrayFilter } from '@/utils/array.ts';
+import type { AntColumnsType } from '@/types/ant.ts';
+import { sleep } from '@/utils/common.ts';
+import { isEmpty } from '@/utils';
 import {
   findRssItemPage,
   pushRssItemToDownLoad,
+  removeRssItemByTorrentCodes,
   updateRssItemToList
 } from '@/api/modules/rssItem.ts';
-import {type ItemType, message} from 'ant-design-vue';
-import type {Key} from 'ant-design-vue/es/_util/type';
+import { type ItemType, message, Modal } from 'ant-design-vue';
+import type { Key } from 'ant-design-vue/es/_util/type';
 import CardPanel from '@/components/CardPanel.vue';
-import {useRightClickMenu} from '@/hooks/useRightClickMenu.ts';
-import {t} from '@/lang/i18n.ts';
+import { useRightClickMenu } from '@/hooks/useRightClickMenu.ts';
+import { t } from '@/lang/i18n.ts';
+import type { RssManageList } from '@/api/types/rss/rssManage.ts';
+import { removeRssManage } from '@/api/modules/rssManage.ts';
 //region type
 
 const { isPhone } = useScreen();
@@ -206,6 +210,26 @@ const pushRssItem = async () => {
   }
 };
 
+const delRssItem = ()=>{
+  Modal.confirm({
+    title: t('TXT_CODE_cad8f6c3'),
+    content: t('TXT_CODE_754c6a74'),
+    okText: t('TXT_CODE_BUTTON_DESC_CONFIRM'),
+    cancelText: t('TXT_CODE_BUTTON_DESC_CANCEL'),
+    okType: 'danger',
+    onOk: async () => {
+      loading.value = true;
+      try {
+        await removeRssItemByTorrentCodes(selectedRssItems.value)
+        message.success(t('TXT_CODE_408ff5e0'));
+      } finally {
+        loading.value = false;
+        await query();
+      }
+    }
+  });
+}
+
 const menuList = (record: RssItemList) =>
   arrayFilter<ItemType & { style?: CSSProperties }>([
     {
@@ -235,6 +259,15 @@ const menuList = (record: RssItemList) =>
       icon: h(HourglassOutlined),
       onClick: () => changeRssItem({ id: record.id, pushed: '0' }),
       condition: () => record.pushed === '1' && !isMultiple.value
+    },
+    {
+      label: t('TXT_CODE_7502550b'),
+      key: 'DELETE',
+      icon: h(DeleteOutlined),
+      style: {
+        color: 'var(--color-red-5)'
+      },
+      onClick: () => delRssItem()
     },
     {
       label: t('TXT_CODE_8653dcc4'),
@@ -346,14 +379,21 @@ defineExpose({
             </template>
             <template #right>
               <a-button type="default" :loading="loading" @click="reload">刷新</a-button>
-              <a-tooltip placement="top" v-if="isMultiple">
-                <template #title>
-                  <span>{{ t('TXT_CODE_62eea640') }}</span>
+              <a-dropdown v-if="isMultiple">
+                <template #overlay>
+                  <a-menu
+                    mode="vertical"
+                    :items="
+                    menuList({} as RssItemList)
+                  "
+                  >
+                  </a-menu>
                 </template>
-                <a-button type="primary" @click="pushRssItem">
-                  {{ t('TXT_CODE_8653dcc4') }}
+                <a-button type="primary">
+                  {{ t('TXT_CODE_f769ec55') }}
+                  <DownOutlined />
                 </a-button>
-              </a-tooltip>
+              </a-dropdown>
             </template>
           </between-menus>
         </a-col>

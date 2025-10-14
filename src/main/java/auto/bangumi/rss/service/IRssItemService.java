@@ -33,4 +33,11 @@ public interface IRssItemService extends IService<RssItem> {
      * @param dto
      */
     void updateRssItemById(RssItemDTO dto);
+
+    /**
+     * 删除
+     *
+     * @param torrentCodes
+     */
+    void removeRssItemByTorrentCodes(List<String> torrentCodes);
 }

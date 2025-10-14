@@ -94,4 +94,16 @@ public class RssItemController {
         iUnifiedRssService.pollingLastRssItem(false);
         return ApiResult.success();
     }
+
+    /**
+     * 删除
+     *
+     * @param torrentCodes
+     * @return
+     */
+    @DeleteMapping
+    public ApiResult<Void> removeRssItemByTorrentCodes(@RequestBody @NotNull(message = "不能为空") List<String> torrentCodes) {
+        iRssItemService.removeRssItemByTorrentCodes(torrentCodes);
+        return ApiResult.success();
+    }
 }

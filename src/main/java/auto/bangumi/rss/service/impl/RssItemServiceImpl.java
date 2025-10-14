@@ -90,4 +90,16 @@ public class RssItemServiceImpl extends ServiceImpl<RssItemMapper, RssItem> impl
         log.info("RSS Item Manage 编辑{}:{}", updated > 0 ? "成功" : "失败", JSON.toJSONString(saveInfo));
 
     }
+
+    /**
+     * 删除
+     *
+     * @param torrentCodes
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void removeRssItemByTorrentCodes(List<String> torrentCodes) {
+        int deleted = baseMapper.delete(new LambdaQueryWrapper<RssItem>().in(RssItem::getTorrentCode, torrentCodes));
+        log.info("Rss Item 删除订阅记录 {}", deleted > 0 ? "成功" : "失败");
+    }
 }

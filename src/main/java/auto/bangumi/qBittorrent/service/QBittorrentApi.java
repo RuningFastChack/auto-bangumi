@@ -35,6 +35,8 @@ public abstract class QBittorrentApi {
         try {
             QBHttpUtil.sendJSONPost(QBittorrentPathConstant.CATEGORIES_ADD, new HashMap<>(),
                     Map.of("category", AutoBangumiConstant.TORRENT_CATEGORY));
+            QBHttpUtil.sendJSONPost(QBittorrentPathConstant.CATEGORIES_ADD, new HashMap<>(),
+                    Map.of("category", AutoBangumiConstant.TORRENT_CATEGORY_ARCHIVE));
         } catch (Exception e) {
             log.error("初始化QB失败，创建分组异常。{}", e.getMessage());
         }
@@ -48,7 +50,17 @@ public abstract class QBittorrentApi {
      */
     public static Boolean CreateTorrents(RssItemDTO itemDTO) {
         try {
-            UserConfig.DownLoadSetting downLoadSetting = ConfigCatch.findConfig().getDownLoadSetting();
+            UserConfig config = ConfigCatch.findConfig();
+
+            UserConfig.DownLoadSetting downLoadSetting = config.getDownLoadSetting();
+
+            UserConfig.GeneralSetting generalSetting = config.getGeneralSetting();
+
+            Integer sendingTimeLimit = AutoBangumiConstant.SENDING_TIME_LIMIT;
+            if (Objects.nonNull(generalSetting.getSendingTimeLimit())) {
+                sendingTimeLimit = generalSetting.getSendingTimeLimit();
+            }
+
             HttpResponse response = QBHttpUtil.sendJSONPost(QBittorrentPathConstant.TORRENTS_ADD, new HashMap<>(), Map.of(
                     "urls", itemDTO.getUrl(),
                     "savepath", StrUtil.format("{}{}",
@@ -56,7 +68,7 @@ public abstract class QBittorrentApi {
                             itemDTO.getSavePath()),
                     "category", AutoBangumiConstant.TORRENT_CATEGORY,
                     "rename", itemDTO.getTorrentName(),
-                    "seedingTimeLimit", AutoBangumiConstant.SENDING_TIME_LIMIT
+                    "seedingTimeLimit", sendingTimeLimit / 60
             ));
             if (response != null) {
 
@@ -173,6 +185,30 @@ public abstract class QBittorrentApi {
                 QBittorrentPathConstant.TORRENTS_DELETE,
                 new HashMap<>(),
                 Map.of("hashes", hashes, "deleteFiles", "false")
+        );
+
+        if (response != null) {
+            int statusCode = response.getStatusLine().getStatusCode();
+            return statusCode == 200;
+        }
+        return false;
+    }
+
+    /**
+     * 归档种子
+     *
+     * @param torrentCodes
+     * @return
+     */
+    public static Boolean ArchiveTorrents(List<String> torrentCodes) {
+        if (Objects.isNull(torrentCodes) || torrentCodes.isEmpty()) {
+            return false;
+        }
+        String hashes = String.join("|", torrentCodes);
+        HttpResponse response = QBHttpUtil.sendJSONPost(
+                QBittorrentPathConstant.TORRENTS_SET_CATEGORY,
+                new HashMap<>(),
+                Map.of("hashes", hashes, "category", AutoBangumiConstant.TORRENT_CATEGORY_ARCHIVE)
         );
 
         if (response != null) {

@@ -55,6 +55,11 @@ public class RssItemListVO {
     private String downloaded;
 
     /**
+     * 是否启用
+     */
+    private String status;
+
+    /**
      * 是否推送
      */
     private String pushed;

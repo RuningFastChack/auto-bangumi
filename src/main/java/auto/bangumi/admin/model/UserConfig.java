@@ -38,6 +38,8 @@ public class UserConfig {
         private String episodeTitleRule;
 
         private Boolean enable;
+
+        private Integer sendingTimeLimit;
     }
 
     @Getter

@@ -61,6 +61,12 @@ public interface QBittorrentPathConstant {
      * 添加种子
      */
     String TORRENTS_ADD = "/api/v2/torrents/add";
+
+    /**
+     * 设置种子分组
+     */
+    String TORRENTS_SET_CATEGORY = "/api/v2/torrents/setCategory";
+
     //endregion
 
     //region FILE
