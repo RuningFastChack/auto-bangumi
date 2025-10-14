@@ -1,5 +1,4 @@
-import type {RssManageCalendar, RssManageList} from "@/api/types/rss/rssManage.ts";
-import {isCN, isEN} from "@/lang/i18n.ts";
+import type { RssManageCalendar, RssManageList } from '@/api/types/rss/rssManage.ts';
 
 
 /**
@@ -84,9 +83,9 @@ export const formatTimestamp = (timestamp: number): string => {
 };
 
 export const officialTitle = (row: RssManageCalendar | RssManageList, language: string) => {
-  if (isCN()) {
+  if (language?.toLowerCase()?.startsWith('zh')) {
     return row.officialTitle;
-  } else if (isEN()) {
+  } else if (language?.toLowerCase()?.startsWith('en')) {
     return row.officialTitleEn;
   } else {
     return row.officialTitleJp;
