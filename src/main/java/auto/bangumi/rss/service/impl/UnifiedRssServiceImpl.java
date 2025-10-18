@@ -60,7 +60,7 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
     private AnalysisApi analysisApi;
 
     /**
-     * 刷新海报
+     * 刷新海报、刷新总集数、刷新中日英标题
      *
      * @param rssManageIds
      */
@@ -103,7 +103,6 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
                         }
                     }
                 }
-
             }
         });
     }
@@ -132,7 +131,7 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
     public void pollingCheckRssItem() {
         List<String> torrentCodes = Optional.ofNullable(iRssItemService.list(new LambdaQueryWrapper<RssItem>()
                         .select(RssItem::getTorrentCode)
-                        .eq(RssItem::getPushed, SysYesNo.YSE.getCode())
+                        .eq(RssItem::getPushed, SysYesNo.YES.getCode())
                         .eq(RssItem::getDownloaded, SysYesNo.NO.getCode())
                         .isNotNull(RssItem::getTorrentCode)
                 ))
@@ -173,11 +172,14 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
             AsyncManager.me().execute(new TimerTask() {
                 @Override
                 public void run() {
-                    Long count = iRssItemService.count(new LambdaQueryWrapper<RssItem>().eq(RssItem::getRssManageId, rssManage.getId()));
+                    Long count = iRssItemService.count(new LambdaQueryWrapper<RssItem>()
+                            .eq(RssItem::getPushed, SysYesNo.YES.getCode())
+                            .eq(RssItem::getDownloaded, SysYesNo.YES.getCode())
+                            .eq(RssItem::getRssManageId, rssManage.getId()));
                     Long totalEpisode = Long.valueOf(episode);
                     if (totalEpisode.equals(count)) {
                         RssManage updateInfo = RssManage.builder().id(rssManage.getId())
-                                .complete(SysYesNo.YSE.getCode())
+                                .complete(SysYesNo.YES.getCode())
                                 .build();
                         iRssManageService.updateById(updateInfo);
                     }
@@ -195,7 +197,7 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
         List<String> successCodes = QBittorrentApi.CheckTorrentState(torrentCodes);
         if (!successCodes.isEmpty()) {
             iRssItemService.update(new LambdaUpdateWrapper<RssItem>()
-                    .set(RssItem::getDownloaded, SysYesNo.YSE.getCode())
+                    .set(RssItem::getDownloaded, SysYesNo.YES.getCode())
                     .in(RssItem::getTorrentCode, successCodes));
 
             List<RssItem> items = iRssItemService.list(new LambdaQueryWrapper<RssItem>().in(RssItem::getTorrentCode, successCodes));
@@ -230,7 +232,7 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
 
         List<RssManageVO> selectedList = Optional.ofNullable(iRssManageService.list(new LambdaQueryWrapper<RssManage>()
                 .eq(isWeek, RssManage::getUpdateWeek, week)
-                .eq(RssManage::getStatus, SysYesNo.YSE.getCode())
+                .eq(RssManage::getStatus, SysYesNo.YES.getCode())
                 .eq(RssManage::getComplete, SysYesNo.NO.getCode())
         )).orElse(new ArrayList<>()).stream().map(item ->
                 RssManageVO.builder()
@@ -249,6 +251,7 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
         List<Integer> rssManageIds = selectedList.stream().map(RssManageVO::getId).toList();
 
         List<RssItemDTO> rssItemList = Optional.ofNullable(iRssItemService.list(new LambdaQueryWrapper<RssItem>().in(RssItem::getRssManageId, rssManageIds)
+                        .eq(RssItem::getStatus, SysYesNo.YES.getCode())
                         .orderByAsc(RssItem::getEpisodeNum)))
                 .orElse(new ArrayList<>())
                 .stream().map(item -> RssItemDTO.builder()
@@ -293,7 +296,6 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
 
             for (Map.Entry<String, List<RssItemDTO>> episodeList : episodeMap.entrySet()) {
                 List<RssItemDTO> episodeListValue = episodeList.getValue();
-                episodeListValue = episodeListValue.stream().filter(item -> SysYesNo.YSE.getCode().equals(item.getStatus())).toList();
                 if (!episodeListValue.isEmpty()) {
                     boolean isAllNotPushed = episodeListValue.stream().allMatch(item -> SysYesNo.NO.getCode().equals(item.getPushed()));
                     if (!isAllNotPushed) {
@@ -376,7 +378,7 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
             List<Rss> rssList = rssManage.getRssList();
             Set<String> torrentCodeSet = rssItemMap.computeIfAbsent(rssManage.getId(), k -> new ArrayList<>()).stream().map(RssItem::getTorrentCode).collect(Collectors.toSet());
             for (Rss rss : rssList) {
-                if (SysYesNo.YSE.getCode().equals(rss.getStatus())) {
+                if (SysYesNo.YES.getCode().equals(rss.getStatus())) {
                     try {
                         String sendGet = HttpClientUtil.sendGet(rss.getRss());
                         if (StringUtils.isNotBlank(sendGet)) {
@@ -447,6 +449,7 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
                                         .name(SeriesName)
                                         .url(item.getEnclosure().getUrl())
                                         .homepage(item.getLink())
+                                        .status(SysYesNo.YES.getCode())
                                         .downloaded(SysYesNo.NO.getCode())
                                         .pushed(SysYesNo.NO.getCode())
                                         .build();
@@ -506,7 +509,7 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
                     //推送成功
                     iRssItemService.update(new LambdaUpdateWrapper<RssItem>()
                             .eq(RssItem::getTorrentCode, item.getTorrentCode())
-                            .set(RssItem::getPushed, SysYesNo.YSE.getCode()));
+                            .set(RssItem::getPushed, SysYesNo.YES.getCode()));
                     //刷新最新剧集
                     RssManageVO rssManage = iRssManageService.findRssManageDetailById(item.getRssManageId());
                     if (rssManage != null && rssManage.getConfig() != null) {

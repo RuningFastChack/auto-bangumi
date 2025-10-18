@@ -15,7 +15,13 @@ export const findRssItemPage = (params: RssItemQuery) => {
  * 修改列表信息
  * @param params
  */
-export const updateRssItemToList = (params: { id: number; downloaded?: string; pushed?: string; name?: string }) => {
+export const updateRssItemToList = (params: {
+  id: number;
+  downloaded?: string;
+  pushed?: string;
+  status?: string;
+  name?: string
+}) => {
   return http.put(ADMIN_MODULE + 'v1/rss/item/update', params);
 };
 

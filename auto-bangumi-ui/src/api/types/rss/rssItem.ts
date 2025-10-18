@@ -12,6 +12,7 @@ export type RssItem = {
   name?: string;
   url?: string;
   homepage?: string;
+  status?: '0' | '1';
   downloaded?: '0' | '1';
   pushed?: '0' | '1';
 };
@@ -35,5 +36,6 @@ export type RssItemList = {
   torrentName: string;
   name: string;
   downloaded: '0' | '1';
+  status: '0' | '1';
   pushed: '0' | '1';
 };

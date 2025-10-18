@@ -5,12 +5,12 @@
         <!--@mbg.generated-->
         insert into rss_item
         (torrent_code, episode_num, rss_manage_id, translation_group, torrent_name, "name",
-         url, homepage, downloaded, pushed,sub_group_id,save_path)
+         url, homepage, downloaded, pushed,sub_group_id,save_path,status)
         values
         <foreach collection="list" item="item" separator=",">
             (#{item.torrentCode}, #{item.episodeNum}, #{item.rssManageId}, #{item.translationGroup},
              #{item.torrentName}, #{item.name}, #{item.url}, #{item.homepage}, #{item.downloaded},
-             #{item.pushed},#{item.subGroupId},#{item.savePath})
+             #{item.pushed},#{item.subGroupId},#{item.savePath}, #{item.status})
         </foreach>
     </insert>
 </mapper>

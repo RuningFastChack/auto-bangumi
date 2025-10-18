@@ -29,8 +29,6 @@ import type { Key } from 'ant-design-vue/es/_util/type';
 import CardPanel from '@/components/CardPanel.vue';
 import { useRightClickMenu } from '@/hooks/useRightClickMenu.ts';
 import { t } from '@/lang/i18n.ts';
-import type { RssManageList } from '@/api/types/rss/rssManage.ts';
-import { removeRssManage } from '@/api/modules/rssManage.ts';
 //region type
 
 const { isPhone } = useScreen();
@@ -107,6 +105,13 @@ const columns = computed(() => {
       minWidth: 90
     },
     {
+      align: 'center',
+      dataIndex: 'status',
+      key: 'status',
+      title: t('TXT_CODE_708351ce'),
+      minWidth: 90
+    },
+    {
       align: 'left', dataIndex: 'torrentName', key: 'torrentName', title: t('TXT_CODE_e3bbdcd7'),
       ellipsis: true, minWidth: 180,
       condition: () => !isPhone.value
@@ -164,7 +169,12 @@ const handleTableChange = async (e: { page: number; limit: number }) => {
   await getTableList(queryParams.value);
 };
 
-const changeRssItem = async (params: { id: number, downloaded?: string, pushed?: string }) => {
+const changeRssItem = async (params: {
+  id: number,
+  downloaded?: string,
+  pushed?: string,
+  status?: string
+}) => {
   if (!isEmpty(params.id)) {
     try {
       await updateRssItemToList(params);
@@ -505,6 +515,16 @@ defineExpose({
                   <a-switch v-model:checked="record.pushed"
                             @click="(checked:'0'|'1')=>{
                               changeRssItem({id:record.id,pushed:checked})
+                            }"
+                            checked-value="1"
+                            un-checked-value="0"
+                            :checked-children="t('TXT_CODE_DICT_YES')"
+                            :un-checked-children="t('TXT_CODE_DICT_NO')" />
+                </template>
+                <template v-if="column.key === 'status'">
+                  <a-switch v-model:checked="record.pushed"
+                            @click="(checked:'0'|'1')=>{
+                              changeRssItem({id:record.id,status:checked})
                             }"
                             checked-value="1"
                             un-checked-value="0"

@@ -72,7 +72,7 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
     @Override
     public HashMap<Integer, List<RssManageCalendarVO>> findRssManageCalendar() {
         List<RssManage> selectedList = Optional.ofNullable(baseMapper.selectList(new LambdaQueryWrapper<RssManage>()
-                .eq(RssManage::getStatus, SysYesNo.YSE.getCode())
+                .eq(RssManage::getStatus, SysYesNo.YES.getCode())
                 .eq(RssManage::getComplete, SysYesNo.NO.getCode())
                 .orderByDesc(RssManage::getSendDate))).orElse(new ArrayList<>());
         HashMap<Integer, List<RssManageCalendarVO>> calendarMap = new HashMap<>();
@@ -93,7 +93,7 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
     @Override
     public List<RssManageVO> findRequiredUpdateRssManage() {
         return Optional.ofNullable(baseMapper.selectList(new LambdaQueryWrapper<RssManage>()
-                .eq(RssManage::getStatus, SysYesNo.YSE.getCode())
+                .eq(RssManage::getStatus, SysYesNo.YES.getCode())
                 .eq(RssManage::getComplete, SysYesNo.NO.getCode())
                 )).orElse(new ArrayList<>())
                 .stream().map(RssManageVO::copy).toList();
@@ -212,7 +212,7 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
         boolean removeRssTorrent = true;
         List<String> torrentCodes = Optional.ofNullable(rssItemMapper.selectList(new LambdaQueryWrapper<RssItem>()
                         .eq(RssItem::getRssManageId, id)
-                        .eq(RssItem::getPushed, SysYesNo.YSE.getCode())))
+                        .eq(RssItem::getPushed, SysYesNo.YES.getCode())))
                 .orElse(new ArrayList<>()).stream().map(RssItem::getTorrentCode).toList();
         if (!torrentCodes.isEmpty()) {
             removeRssTorrent = QBittorrentApi.RemoveTorrents(torrentCodes);

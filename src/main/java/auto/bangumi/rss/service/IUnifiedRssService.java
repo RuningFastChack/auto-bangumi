@@ -11,7 +11,7 @@ import java.util.List;
 public interface IUnifiedRssService {
 
     /**
-     * 刷新海报
+     * 刷新海报、刷新总集数、刷新中日英标题
      *
      * @param rssManageIds
      */
