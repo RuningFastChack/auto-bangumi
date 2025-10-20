@@ -1,7 +1,5 @@
 package auto.bangumi.common.task;
 
-import auto.bangumi.admin.model.UserConfig;
-import auto.bangumi.common.utils.ConfigCatch;
 import auto.bangumi.rss.service.IUnifiedRssService;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,17 +36,8 @@ public class DynamicRssCheck implements SchedulingConfigurer {
                     if (Objects.equals(active, "dev")) {
                         return;
                     }
-
-                    UserConfig config = ConfigCatch.findConfig();
-
-                    if (Objects.isNull(config)) {
-                        return;
-                    }
-
-                    if (Objects.nonNull(config.getGeneralSetting()) && config.getGeneralSetting().getEnable()) {
-                        iUnifiedRssService.pollingCheckRssItem();
-                    }
-
+                    //检查已推送的订阅，判断是否下载完成
+                    iUnifiedRssService.pollingCheckRssItem();
                     //检查番剧是否完结
                     iUnifiedRssService.pollingCheckRssManageComplete();
                     //更新总集数、标题
