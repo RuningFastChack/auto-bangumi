@@ -67,6 +67,7 @@
     </tr>
     <tr>
         <td><img alt="FileManage" src="./image/FileManage.png"/></td>
+        <td><img alt="FileManage" src="./image/QbService.png"/></td>
     </tr>
     <tr>
         <td><img alt="RssManage" src="./image/RssManage.png"/></td>
