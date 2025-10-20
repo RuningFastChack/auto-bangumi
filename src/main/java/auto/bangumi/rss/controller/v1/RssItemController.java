@@ -67,7 +67,7 @@ public class RssItemController {
         if (Objects.isNull(dto.getId())) {
             return ApiResult.error(CommonResponseEnum.VALID_ERROR);
         }
-        iRssItemService.updateById(RssItem.builder().id(dto.getId()).name(dto.getName()).downloaded(dto.getDownloaded()).pushed(dto.getPushed()).build());
+        iRssItemService.updateById(RssItem.builder().id(dto.getId()).name(dto.getName()).downloaded(dto.getDownloaded()).status(dto.getStatus()).pushed(dto.getPushed()).build());
         return ApiResult.success();
     }
 

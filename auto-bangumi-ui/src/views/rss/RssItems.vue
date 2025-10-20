@@ -522,7 +522,7 @@ defineExpose({
                             :un-checked-children="t('TXT_CODE_DICT_NO')" />
                 </template>
                 <template v-if="column.key === 'status'">
-                  <a-switch v-model:checked="record.pushed"
+                  <a-switch v-model:checked="record.status"
                             @click="(checked:'0'|'1')=>{
                               changeRssItem({id:record.id,status:checked})
                             }"
