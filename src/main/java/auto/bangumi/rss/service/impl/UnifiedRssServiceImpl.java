@@ -74,7 +74,29 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
         if (selectedList.isEmpty()) {
             return;
         }
+        refreshRssManageBaseInfo(selectedList, true);
+    }
 
+    /**
+     * 刷新总集数、刷新中日英标题
+     *
+     * @param rssManageIds
+     */
+    @Override
+    public void pollingRefreshRssManageBaseInfo(List<Integer> rssManageIds) {
+        //若为空则刷新启用的，若指定则刷新指定的
+        List<RssManageVO> selectedList = Optional.ofNullable(
+                iRssManageService.list(new LambdaQueryWrapper<RssManage>()
+                        .eq(Objects.isNull(rssManageIds) || rssManageIds.isEmpty(), RssManage::getStatus, SysYesNo.YES.getCode())
+                        .in(Objects.nonNull(rssManageIds) && !rssManageIds.isEmpty(), RssManage::getId, rssManageIds))
+        ).orElse(new ArrayList<>()).stream().map(RssManageVO::copy).toList();
+        if (selectedList.isEmpty()) {
+            return;
+        }
+        refreshRssManageBaseInfo(selectedList, false);
+    }
+
+    private void refreshRssManageBaseInfo(List<RssManageVO> selectedList, Boolean downLoad) {
         AsyncManager.me().execute(new TimerTask() {
             @Override
             public void run() {
@@ -84,7 +106,7 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
                         Rss rss = rssList.get(0);
                         switch (rss.getType()) {
                             case Mikan:
-                                AnalysisResult mikan = analysisApi.analysisMikan(rss.getRss());
+                                AnalysisResult mikan = analysisApi.analysisMikan(rss.getRss(), downLoad);
                                 RssManage build = RssManage.builder()
                                         .id(rssManage.getId())
                                         .officialTitleEn(StringUtils.isNotBlank(mikan.getTitleEn()) ? mikan.getTitleEn() : rssManage.getOfficialTitle())

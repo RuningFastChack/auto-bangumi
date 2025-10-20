@@ -18,6 +18,12 @@ public interface IUnifiedRssService {
     void refreshPoster(List<Integer> rssManageIds);
 
     /**
+     * 刷新总集数、刷新中日英标题
+     *
+     */
+    void pollingRefreshRssManageBaseInfo(List<Integer> rssManageIds);
+
+    /**
      * 轮询 - RSS订阅刷新
      */
     void pollingRssManage();

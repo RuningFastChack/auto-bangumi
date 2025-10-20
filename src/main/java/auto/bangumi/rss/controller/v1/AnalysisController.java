@@ -30,7 +30,7 @@ public class AnalysisController {
      */
     @GetMapping("mikan")
     public ApiResult<AnalysisResult> analysisMikan(@NotBlank(message = "不能为空") String rss) {
-        AnalysisResult mikan = analysisApi.analysisMikan(rss);
+        AnalysisResult mikan = analysisApi.analysisMikan(rss, true);
         if (StringUtils.isNotBlank(mikan.getSubGroupId())) {
             return ApiResult.success(mikan);
         }

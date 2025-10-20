@@ -40,9 +40,10 @@ public class AnalysisApi {
      * 解析RSS - Mikan类型
      *
      * @param rss
+     * @param downImage 是否下载图片
      * @return
      */
-    public AnalysisResult analysisMikan(String rss) {
+    public AnalysisResult analysisMikan(String rss, Boolean downImage) {
         AnalysisResult result = AnalysisResult.builder().build();
 
         String bangumiId = AutoBangumiUtil.extractBangumiId(rss);
@@ -81,31 +82,34 @@ public class AnalysisApi {
             String startDate = AutoBangumiUtil.parseDate(startText);
             result.setSendData(startDate);
             result.setPosterLink(StrUtil.format("/images/{}.png", bangumiId));
-            Element poster = doc.selectFirst(".bangumi-poster");
-            AsyncManager.me().execute(new TimerTask() {
-                @Override
-                public void run() {
-                    String imagePath = null;
-                    if (poster != null) {
-                        String style = poster.attr("style");
-                        if (!style.isBlank()) {
-                            imagePath = style.replaceAll(".*url\\(['\"]?(.*?)['\"]?\\).*", "$1");
+
+            if (downImage){
+                Element poster = doc.selectFirst(".bangumi-poster");
+                AsyncManager.me().execute(new TimerTask() {
+                    @Override
+                    public void run() {
+                        String imagePath = null;
+                        if (poster != null) {
+                            String style = poster.attr("style");
+                            if (!style.isBlank()) {
+                                imagePath = style.replaceAll(".*url\\(['\"]?(.*?)['\"]?\\).*", "$1");
+                            }
+                        }
+                        if (imagePath != null && !imagePath.isBlank()) {
+                            String fullImgUrl = baseURL + imagePath;
+                            try {
+                                // 下载图片
+                                AutoBangumiUtil.downloadImage(fullImgUrl, bangumiId + ".png"); // PNG 格式
+                                log.info("Mikan 解析RSS成功 图片下载成功：{}", fullImgUrl);
+                            } catch (Exception e) {
+                                log.error("Mikan 解析RSS失败 下载图片失败：{}，原因：{}", fullImgUrl, e.getMessage(), e);
+                            }
+                        } else {
+                            log.error("Mikan 解析RSS失败 未找到封面图片，跳过下载。");
                         }
                     }
-                    if (imagePath != null && !imagePath.isBlank()) {
-                        String fullImgUrl = baseURL + imagePath;
-                        try {
-                            // 下载图片
-                            AutoBangumiUtil.downloadImage(fullImgUrl, bangumiId + ".png"); // PNG 格式
-                            log.info("Mikan 解析RSS成功 图片下载成功：{}", fullImgUrl);
-                        } catch (Exception e) {
-                            log.error("Mikan 解析RSS失败 下载图片失败：{}，原因：{}", fullImgUrl, e.getMessage(), e);
-                        }
-                    } else {
-                        log.error("Mikan 解析RSS失败 未找到封面图片，跳过下载。");
-                    }
-                }
-            });
+                });
+            }
         } catch (IOException e) {
             log.error("Mikan 解析RSS失败 页面错误");
         }

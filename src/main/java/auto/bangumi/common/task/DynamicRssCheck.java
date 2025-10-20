@@ -11,6 +11,7 @@ import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -50,6 +51,8 @@ public class DynamicRssCheck implements SchedulingConfigurer {
 
                     //检查番剧是否完结
                     iUnifiedRssService.pollingCheckRssManageComplete();
+                    //更新总集数、标题
+                    iUnifiedRssService.pollingRefreshRssManageBaseInfo(new ArrayList<>());
                 },
                 // 动态触发器
                 triggerContext -> {
