@@ -120,44 +120,47 @@ public class AnalysisApi {
 
         try {
             String sendGet = HttpClientUtil.sendGet(rss);
-            JAXBContext context = JAXBContext.newInstance(RssFeed.class);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            RssFeed rssFeed = (RssFeed) unmarshaller.unmarshal(new StringReader(sendGet));
-            List<RssFeed.Item> itemList = rssFeed.getChannel().getItems();
+            if (StringUtils.isNotBlank(sendGet)) {
+                JAXBContext context = JAXBContext.newInstance(RssFeed.class);
+                Unmarshaller unmarshaller = context.createUnmarshaller();
+                RssFeed rssFeed = (RssFeed) unmarshaller.unmarshal(new StringReader(sendGet));
+                List<RssFeed.Item> itemList = rssFeed.getChannel().getItems();
 
-            if (Objects.nonNull(itemList) && !itemList.isEmpty()) {
-                RssFeed.Item item = itemList.get(0);
-                String xmlLink = item.getLink();
+                if (Objects.nonNull(itemList) && !itemList.isEmpty()) {
+                    RssFeed.Item item = itemList.get(0);
+                    String xmlLink = item.getLink();
 
-                Document doc = Jsoup.connect(xmlLink)
-                        .userAgent("Mozilla/5.0")
-                        .get();
+                    Document doc = Jsoup.connect(xmlLink)
+                            .userAgent("Mozilla/5.0")
+                            .get();
 
-                String translationGroup = doc.select("p.bangumi-info:contains(字幕组)").text();
-                result.setTranslationGroup(translationGroup.replace("字幕组：", ""));
+                    String translationGroup = doc.select("p.bangumi-info:contains(字幕组)").text();
+                    result.setTranslationGroup(translationGroup.replace("字幕组：", ""));
 
+                }
+                String title = rssFeed.getChannel().getItems().get(0).getTitle();
+                Episode parse = RawParser.parse(title);
+                result.setSeason(String.valueOf(parse.getSeason()));
+                result.setTitleEn(StringUtils.isNotBlank(parse.getNameEn()) ? parse.getNameEn() : result.getTitle());
+                result.setTitleJp(StringUtils.isNotBlank(parse.getNameJp()) ? parse.getNameEn() : result.getTitle());
+
+                UserConfig.GeneralSetting setting = ConfigCatch.findConfig().getGeneralSetting();
+                String savePathRule = setting.getSavePathRule();
+                if (StringUtils.isNotBlank(savePathRule)) {
+                    String savePath = savePathRule
+                            .replace("{officialTitle}", result.getTitle())
+                            .replace("{officialTitleEn}", result.getTitleEn())
+                            .replace("{officialTitleJp}", result.getTitleJp())
+                            .replace("{season}", result.getSeason());
+                    result.setSavePath(savePath);
+                }
+
+            } else {
+                log.error("Mikan 解析RSS失败，解析XML为空");
             }
-            String title = rssFeed.getChannel().getItems().get(0).getTitle();
-            Episode parse = RawParser.parse(title);
-            result.setSeason(String.valueOf(parse.getSeason()));
-            result.setTitleEn(StringUtils.isNotBlank(parse.getNameEn()) ? parse.getNameEn() : result.getTitle());
-            result.setTitleJp(StringUtils.isNotBlank(parse.getNameJp()) ? parse.getNameEn() : result.getTitle());
-
-            UserConfig.GeneralSetting setting = ConfigCatch.findConfig().getGeneralSetting();
-            String savePathRule = setting.getSavePathRule();
-            if (StringUtils.isNotBlank(savePathRule)) {
-                String savePath = savePathRule
-                        .replace("{officialTitle}", result.getTitle())
-                        .replace("{officialTitleEn}", result.getTitleEn())
-                        .replace("{officialTitleJp}", result.getTitleJp())
-                        .replace("{season}", result.getSeason());
-                result.setSavePath(savePath);
-            }
-
         } catch (Exception e) {
-            log.error("Mikan 解析RSS失败，解析XML异常。RSS：{}，原因：{}", rss, e.getMessage(), e);
+            log.error("Mikan 解析RSS失败，解析XML异常。RSS：{}，原因：{}", rss, e.getMessage());
         }
-
         //endregion
 
         return result;
