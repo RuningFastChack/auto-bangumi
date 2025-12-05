@@ -1,7 +1,6 @@
 package auto.bangumi.common.runner;
 
 import auto.bangumi.admin.service.IUserService;
-import auto.bangumi.common.utils.ConfigCatch;
 import auto.bangumi.qBittorrent.service.QBittorrentApi;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -9,11 +8,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
-
-import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 @Slf4j
 @Component
@@ -24,6 +18,9 @@ public class AutoBangumiStartedUpRunner implements ApplicationRunner {
 
     @Resource
     private ConfigurableApplicationContext context;
+
+    @Resource
+    private QBittorrentApi qBittorrentApi;
 
     @Override
     public void run(ApplicationArguments args) {
@@ -52,8 +49,7 @@ public class AutoBangumiStartedUpRunner implements ApplicationRunner {
     }
 
     private void initSysCache() {
-        ConfigCatch.reloadConfig();
-        QBittorrentApi.CreateCategory();
+        qBittorrentApi.CreateCategory();
         log.info("系统缓存初始化完成");
     }
 }

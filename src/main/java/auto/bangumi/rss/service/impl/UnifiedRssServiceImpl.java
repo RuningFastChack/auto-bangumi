@@ -58,6 +58,10 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
     private IRssItemService iRssItemService;
     @Resource
     private AnalysisApi analysisApi;
+    @Resource
+    private ConfigCatch configCatch;
+    @Resource
+    private QBittorrentApi qBittorrentApi;
 
     /**
      * 刷新海报、刷新总集数、刷新中日英标题
@@ -216,7 +220,7 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
      * @param torrentCodes
      */
     private void checkRssItem(List<String> torrentCodes){
-        List<String> successCodes = QBittorrentApi.CheckTorrentState(torrentCodes);
+        List<String> successCodes = qBittorrentApi.CheckTorrentState(torrentCodes);
         if (!successCodes.isEmpty()) {
             iRssItemService.update(new LambdaUpdateWrapper<RssItem>()
                     .set(RssItem::getDownloaded, SysYesNo.YES.getCode())
@@ -229,7 +233,7 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
                     public void run() {
                         RssItemDTO build = RssItemDTO.builder().build();
                         BeanUtil.copyProperties(item, build);
-                        QBittorrentApi.RenameFile(build);
+                        qBittorrentApi.RenameFile(build);
                     }
                 });
             }
@@ -238,7 +242,7 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
             AsyncManager.me().execute(new TimerTask() {
                 @Override
                 public void run() {
-                    QBittorrentApi.ArchiveTorrents(successCodes);
+                    qBittorrentApi.ArchiveTorrents(successCodes);
                 }
             });
         }
@@ -291,7 +295,7 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
                         .downloaded(item.getDownloaded())
                         .pushed(item.getPushed()).build()).toList();
 
-        Boolean enable = ConfigCatch.findConfig().getFilterSetting().getEnable();
+        Boolean enable = configCatch.findConfig().getFilterSetting().getEnable();
 
         Map<Integer, List<RssItemDTO>> rssItemGroupByRssManageId = rssItemList.stream().collect(Collectors.groupingBy(RssItemDTO::getRssManageId));
 
@@ -448,7 +452,7 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
                                         StrUtil.format("S{}", rssManage.getSeason());
                                 SeriesName = StrUtil.format("{} {}{}", rssManage.getOfficialTitle(), seasonNumStr, episodeNumStr);
 
-                                UserConfig.GeneralSetting setting = ConfigCatch.findConfig().getGeneralSetting();
+                                UserConfig.GeneralSetting setting = configCatch.findConfig().getGeneralSetting();
                                 String episodeTitleRule = setting.getEpisodeTitleRule();
                                 if (StringUtils.isNotBlank(episodeTitleRule)) {
                                     SeriesName = episodeTitleRule
@@ -526,7 +530,7 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
         AsyncManager.me().execute(new TimerTask() {
             @Override
             public void run() {
-                Boolean isPush = QBittorrentApi.CreateTorrents(item);
+                Boolean isPush = qBittorrentApi.CreateTorrents(item);
                 if (isPush) {
                     //推送成功
                     iRssItemService.update(new LambdaUpdateWrapper<RssItem>()

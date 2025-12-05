@@ -23,6 +23,9 @@ public class DynamicRssSubscription implements SchedulingConfigurer {
     @Resource
     private IUnifiedRssService iUnifiedRssService;
 
+    @Resource
+    private ConfigCatch configCatch;
+
     @Value("${spring.profiles.active}")
     private String active;
 
@@ -35,7 +38,7 @@ public class DynamicRssSubscription implements SchedulingConfigurer {
                         return;
                     }
 
-                    UserConfig config = ConfigCatch.findConfig();
+                    UserConfig config = configCatch.findConfig();
 
                     if (Objects.isNull(config)) {
                         return;
@@ -47,7 +50,7 @@ public class DynamicRssSubscription implements SchedulingConfigurer {
                 },
                 // 动态触发器
                 triggerContext -> {
-                    UserConfig config = ConfigCatch.findConfig();
+                    UserConfig config = configCatch.findConfig();
                     // 默认 10 分钟
                     long interval = 600L;
                     if (Objects.nonNull(config) &&

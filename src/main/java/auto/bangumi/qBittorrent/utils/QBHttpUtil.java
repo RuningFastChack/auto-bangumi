@@ -3,6 +3,7 @@ package auto.bangumi.qBittorrent.utils;
 import auto.bangumi.admin.model.UserConfig;
 import auto.bangumi.common.utils.ConfigCatch;
 import auto.bangumi.common.utils.HttpClientUtil;
+import auto.bangumi.common.utils.SpringContextUtil;
 import auto.bangumi.qBittorrent.constant.QBittorrentPathConstant;
 import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +31,7 @@ public abstract class QBHttpUtil {
     private static final long EXPIRE_DURATION = 30 * 60 * 1000;
 
     static {
-        URL = ConfigCatch.findConfig().getDownLoadSetting().getUrl();
+        URL = SpringContextUtil.getBean(ConfigCatch.class).findConfig().getDownLoadSetting().getUrl();
         LoginQBittorrent();
     }
 
@@ -38,7 +39,7 @@ public abstract class QBHttpUtil {
      * 登录账号
      */
     private static void LoginQBittorrent() {
-        UserConfig.DownLoadSetting downLoadSetting = ConfigCatch.findConfig().getDownLoadSetting();
+        UserConfig.DownLoadSetting downLoadSetting = SpringContextUtil.getBean(ConfigCatch.class).findConfig().getDownLoadSetting();
         HttpResponse httpResponse = HttpClientUtil.sendFormPost(URL, QBittorrentPathConstant.LOGIN,
                 Map.of("Referer", StrUtil.format("{}{}", URL, QBittorrentPathConstant.LOGIN)),
                 new HashMap<>(),

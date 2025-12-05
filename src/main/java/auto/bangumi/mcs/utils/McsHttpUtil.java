@@ -4,6 +4,7 @@ import auto.bangumi.admin.model.UserConfig;
 import auto.bangumi.common.enums.McsResponseEnum;
 import auto.bangumi.common.utils.ConfigCatch;
 import auto.bangumi.common.utils.HttpClientUtil;
+import auto.bangumi.common.utils.SpringContextUtil;
 import auto.bangumi.mcs.constant.McsManageConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -29,7 +30,7 @@ public abstract class McsHttpUtil {
     private static String URL = "";
 
     static {
-        UserConfig.McsManageSetting mcsManageSetting = ConfigCatch.findConfig().getMcsManageSetting();
+        UserConfig.McsManageSetting mcsManageSetting = SpringContextUtil.getBean(ConfigCatch.class).findConfig().getMcsManageSetting();
         DAEMON_ID = mcsManageSetting.getDaemonId();
         INSTANCE_ID = mcsManageSetting.getInstanceId();
         API_KEY = mcsManageSetting.getMcsManageKey();

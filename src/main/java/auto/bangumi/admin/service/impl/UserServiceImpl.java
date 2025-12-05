@@ -8,7 +8,6 @@ import auto.bangumi.admin.model.vo.UserVO;
 import auto.bangumi.admin.service.IUserService;
 import auto.bangumi.common.authentication.utils.LoginUtils;
 import auto.bangumi.common.enums.CommonResponseEnum;
-import auto.bangumi.common.utils.ConfigCatch;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.crypto.digest.BCrypt;
@@ -83,7 +82,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 .config(JSON.toJSONString(config))
                 .build();
         baseMapper.updateById(build);
-        ConfigCatch.reloadConfig();
     }
 
     /**
@@ -100,6 +98,5 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         if (reloaded) {
             log.info("重置账号成功");
         }
-        ConfigCatch.reloadConfig();
     }
 }

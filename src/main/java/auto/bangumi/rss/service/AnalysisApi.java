@@ -11,6 +11,7 @@ import auto.bangumi.common.utils.HttpClientUtil;
 import auto.bangumi.rss.model.AnalysisResult;
 import auto.bangumi.rss.model.DTO.RssManage.RssManageConfigDTO;
 import cn.hutool.core.util.StrUtil;
+import jakarta.annotation.Resource;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Unmarshaller;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +36,8 @@ import java.util.TimerTask;
 @Slf4j
 @Service
 public class AnalysisApi {
+    @Resource
+    private ConfigCatch configCatch;
 
     /**
      * 解析RSS - Mikan类型
@@ -144,7 +147,7 @@ public class AnalysisApi {
                 result.setTitleEn(StringUtils.isNotBlank(parse.getNameEn()) ? parse.getNameEn() : result.getTitle());
                 result.setTitleJp(StringUtils.isNotBlank(parse.getNameJp()) ? parse.getNameEn() : result.getTitle());
 
-                UserConfig.GeneralSetting setting = ConfigCatch.findConfig().getGeneralSetting();
+                UserConfig.GeneralSetting setting = configCatch.findConfig().getGeneralSetting();
                 String savePathRule = setting.getSavePathRule();
                 if (StringUtils.isNotBlank(savePathRule)) {
                     String savePath = savePathRule

@@ -40,6 +40,8 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
 
     @Resource
     private RssItemMapper rssItemMapper;
+    @Resource
+    private QBittorrentApi qBittorrentApi;
 
     /**
      * 分页
@@ -216,7 +218,7 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
                         .eq(RssItem::getPushed, SysYesNo.YES.getCode())))
                 .orElse(new ArrayList<>()).stream().map(RssItem::getTorrentCode).toList();
         if (!torrentCodes.isEmpty()) {
-            removeRssTorrent = QBittorrentApi.RemoveTorrents(torrentCodes);
+            removeRssTorrent = qBittorrentApi.RemoveTorrents(torrentCodes);
         }
         int deleted = baseMapper.deleteById(rssManage.getId());
         log.info("RSS Manage 删除订阅{} 番剧:{} 季度:{} 删除种子:{}",
