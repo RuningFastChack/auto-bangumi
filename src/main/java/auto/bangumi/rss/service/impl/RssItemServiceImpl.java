@@ -35,9 +35,10 @@ public class RssItemServiceImpl extends ServiceImpl<RssItemMapper, RssItem> impl
     public PageResult<RssItemListVO> findRssItemPage(RssItemListDTO dto) {
         Page<RssItem> selectedPage = baseMapper.selectPage(PageUtils.getPage(dto), new LambdaQueryWrapper<RssItem>()
                 .eq(RssItem::getRssManageId, dto.getRssManageId())
-                .like(StringUtils.isNotBlank(dto.getName()), RssItem::getName, dto.getName())
-                .like(StringUtils.isNotBlank(dto.getTorrentName()), RssItem::getTorrentName, dto.getTorrentName())
-                .like(StringUtils.isNotBlank(dto.getTranslationGroup()), RssItem::getTranslationGroup, dto.getTranslationGroup())
+                .and(StringUtils.isNotBlank(dto.getName()), item -> item.like(StringUtils.isNotBlank(dto.getName()), RssItem::getName, dto.getName())
+                        .or().like(StringUtils.isNotBlank(dto.getName()), RssItem::getTorrentName, dto.getName())
+                        .or().like(StringUtils.isNotBlank(dto.getName()), RssItem::getTranslationGroup, dto.getName())
+                )
                 .eq(StringUtils.isNotBlank(dto.getDownloaded()), RssItem::getDownloaded, dto.getDownloaded())
                 .eq(StringUtils.isNotBlank(dto.getPushed()), RssItem::getPushed, dto.getPushed())
                 .orderByDesc(RssItem::getEpisodeNum));

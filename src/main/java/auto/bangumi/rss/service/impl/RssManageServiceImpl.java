@@ -50,7 +50,8 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
     @Override
     public PageResult<RssManageListVO> findRssManagePage(RssManageListDTO dto) {
         Page<RssManage> selectedPage = baseMapper.selectPage(PageUtils.getPage(dto), new LambdaQueryWrapper<RssManage>()
-                .and(StringUtils.isNotBlank(dto.getOfficialTitle()), item -> item.like(StringUtils.isNotBlank(dto.getOfficialTitle()), RssManage::getOfficialTitle, dto.getOfficialTitle()).or()
+                .and(StringUtils.isNotBlank(dto.getOfficialTitle()),
+                        item -> item.like(StringUtils.isNotBlank(dto.getOfficialTitle()), RssManage::getOfficialTitle, dto.getOfficialTitle()).or()
                         .like(StringUtils.isNotBlank(dto.getOfficialTitle()), RssManage::getOfficialTitleEn, dto.getOfficialTitle()).or()
                         .like(StringUtils.isNotBlank(dto.getOfficialTitle()), RssManage::getOfficialTitleJp, dto.getOfficialTitle()))
                 .eq(StringUtils.isNotBlank(dto.getSeason()), RssManage::getSeason, dto.getSeason())
