@@ -126,7 +126,7 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
                         Rss rss = rssList.get(0);
                         switch (rss.getType()) {
                             case Mikan:
-                                AnalysisResult mikan = analysisApi.analysisMikan(rss.getRss(), true);
+                                AnalysisResult mikan = analysisApi.analysisMikan(rss.getRss(), false);
                                 String episode = mikan.getConfig().getTotalEpisode();
                                 if (StringUtils.isNotBlank(episode) && !"0".equals(episode)) {
                                     RssManageConfigVO config = rssManage.getConfig();
