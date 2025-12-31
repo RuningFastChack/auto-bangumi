@@ -264,7 +264,7 @@ const analysisRss = async (rss: RSS) => {
           paramsProps.value.savePath = data.savePath;
           paramsProps.value.config = data.config;
         } else {
-          paramsProps.value.config.latestEpisode = data.config.latestEpisode;
+          paramsProps.value.config.totalEpisode = data.config.totalEpisode;
         }
       } finally {
         loading.value = false;
