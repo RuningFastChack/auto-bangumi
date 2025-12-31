@@ -11,14 +11,14 @@ import java.util.List;
 public interface IUnifiedRssService {
 
     /**
-     * 刷新海报、刷新总集数、刷新中日英标题
+     * 刷新海报
      *
      * @param rssManageIds
      */
     void refreshPoster(List<Integer> rssManageIds);
 
     /**
-     * 刷新总集数、刷新中日英标题
+     * 刷新总集数
      *
      */
     void pollingRefreshRssManageBaseInfo(List<Integer> rssManageIds);

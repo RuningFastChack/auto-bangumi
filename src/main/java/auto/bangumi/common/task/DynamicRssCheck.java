@@ -40,7 +40,7 @@ public class DynamicRssCheck implements SchedulingConfigurer {
                     iUnifiedRssService.pollingCheckRssItem();
                     //检查番剧是否完结
                     iUnifiedRssService.pollingCheckRssManageComplete();
-                    //更新总集数、标题
+                    //更新总集数
                     iUnifiedRssService.pollingRefreshRssManageBaseInfo(new ArrayList<>());
                 },
                 // 动态触发器

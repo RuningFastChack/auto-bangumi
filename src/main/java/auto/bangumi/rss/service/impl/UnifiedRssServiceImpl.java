@@ -64,7 +64,7 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
     private QBittorrentApi qBittorrentApi;
 
     /**
-     * 刷新海报、刷新总集数、刷新中日英标题
+     * 刷新海报
      *
      * @param rssManageIds
      */
@@ -78,11 +78,31 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
         if (selectedList.isEmpty()) {
             return;
         }
-        refreshRssManageBaseInfo(selectedList, true);
+        AsyncManager.me().execute(new TimerTask() {
+            @Override
+            public void run() {
+                for (RssManageVO rssManage : selectedList) {
+                    List<Rss> rssList = rssManage.getRssList();
+                    if (Objects.nonNull(rssList) && !rssList.isEmpty()) {
+                        Rss rss = rssList.get(0);
+                        switch (rss.getType()) {
+                            case Mikan:
+                                AnalysisResult mikan = analysisApi.analysisMikan(rss.getRss(), true);
+                                RssManage build = RssManage.builder()
+                                        .id(rssManage.getId())
+                                        .posterLink(mikan.getPosterLink())
+                                        .build();
+                                iRssManageService.updateById(build);
+                                break;
+                        }
+                    }
+                }
+            }
+        });
     }
 
     /**
-     * 刷新总集数、刷新中日英标题
+     * 刷新总集数
      *
      * @param rssManageIds
      */
@@ -97,10 +117,6 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
         if (selectedList.isEmpty()) {
             return;
         }
-        refreshRssManageBaseInfo(selectedList, false);
-    }
-
-    private void refreshRssManageBaseInfo(List<RssManageVO> selectedList, Boolean downLoad) {
         AsyncManager.me().execute(new TimerTask() {
             @Override
             public void run() {
@@ -110,21 +126,17 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
                         Rss rss = rssList.get(0);
                         switch (rss.getType()) {
                             case Mikan:
-                                AnalysisResult mikan = analysisApi.analysisMikan(rss.getRss(), downLoad);
-                                RssManage build = RssManage.builder()
-                                        .id(rssManage.getId())
-                                        .officialTitleEn(StringUtils.isNotBlank(mikan.getTitleEn()) ? mikan.getTitleEn() : rssManage.getOfficialTitle())
-                                        .officialTitleJp(StringUtils.isNotBlank(mikan.getTitleJp()) ? mikan.getTitleJp() : rssManage.getOfficialTitle())
-                                        .posterLink(mikan.getPosterLink()).build();
+                                AnalysisResult mikan = analysisApi.analysisMikan(rss.getRss(), true);
                                 String episode = mikan.getConfig().getTotalEpisode();
                                 if (StringUtils.isNotBlank(episode) && !"0".equals(episode)) {
                                     RssManageConfigVO config = rssManage.getConfig();
                                     config.setTotalEpisode(episode);
-                                    build.setConfig(JSON.toJSONString(config));
+                                    RssManage build = RssManage.builder()
+                                            .id(rssManage.getId())
+                                            .config(JSON.toJSONString(config))
+                                            .build();
+                                    iRssManageService.updateById(build);
                                 }
-                                iRssManageService.updateById(build);
-                                break;
-                            default:
                                 break;
                         }
                     }
