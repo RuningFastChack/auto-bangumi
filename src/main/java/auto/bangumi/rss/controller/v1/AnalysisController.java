@@ -6,6 +6,7 @@ import auto.bangumi.rss.model.AnalysisResult;
 import auto.bangumi.rss.service.AnalysisApi;
 import jakarta.annotation.Resource;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.annotation.Validated;
@@ -29,8 +30,8 @@ public class AnalysisController {
      * @return
      */
     @GetMapping("mikan")
-    public ApiResult<AnalysisResult> analysisMikan(@NotBlank(message = "不能为空") String rss) {
-        AnalysisResult mikan = analysisApi.analysisMikan(rss, true);
+    public ApiResult<AnalysisResult> analysisMikan(@NotBlank(message = "不能为空") String rss, @NotNull(message = "不能为空") Boolean downImage) {
+        AnalysisResult mikan = analysisApi.analysisMikan(rss, downImage);
         if (StringUtils.isNotBlank(mikan.getSubGroupId())) {
             return ApiResult.success(mikan);
         }

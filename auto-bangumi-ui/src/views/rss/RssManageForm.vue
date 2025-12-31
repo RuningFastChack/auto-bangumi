@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import {useUserStore} from '@/stores/modules/user.ts';
-import type {FormInstance} from 'ant-design-vue';
-import {Input, message, Modal} from 'ant-design-vue';
-import {h, reactive, ref} from 'vue';
-import {createRssManage, findRssManageDetail, updateRssManage} from '@/api/modules/rssManage.ts';
-import type {RSS, RssManage} from '@/api/types/rss/rssManage.ts';
-import {getRandomId} from '@/utils/randId.ts';
-import {analysisMikan} from '@/api/modules/analysis.ts';
+import { useUserStore } from '@/stores/modules/user.ts';
+import type { FormInstance } from 'ant-design-vue';
+import { Input, message, Modal } from 'ant-design-vue';
+import { h, reactive, ref } from 'vue';
+import { createRssManage, findRssManageDetail, updateRssManage } from '@/api/modules/rssManage.ts';
+import type { RSS, RssManage } from '@/api/types/rss/rssManage.ts';
+import { getRandomId } from '@/utils/randId.ts';
+import { analysisMikan } from '@/api/modules/analysis.ts';
 import {
   ArrowDownOutlined,
   ArrowUpOutlined,
@@ -14,10 +14,10 @@ import {
   PlusOutlined,
   QuestionCircleOutlined
 } from '@ant-design/icons-vue';
-import {type DictOptions, RSS_TYPE_MAP, WEEK_MAP} from '@/types/dict.ts';
-import {useScreen} from '@/hooks/useScreen.ts';
-import {t} from '@/lang/i18n.ts';
-import {isEmpty} from "@/utils";
+import { type DictOptions, RSS_TYPE_MAP, WEEK_MAP } from '@/types/dict.ts';
+import { useScreen } from '@/hooks/useScreen.ts';
+import { t } from '@/lang/i18n.ts';
+import { isEmpty } from '@/utils';
 
 const { isPhone } = useScreen();
 //region type
@@ -46,9 +46,9 @@ const ruleFormRef = ref<FormInstance>();
 
 const rules = reactive({
   officialTitle: [{ required: true, message: t('TXT_CODE_b5e7f231') }],
-  officialTitleEn: [{required: true, message: t('TXT_CODE_b5e7f231')}],
-  officialTitleJp: [{required: true, message: t('TXT_CODE_b5e7f231')}],
-  savePath: [{required: true, message: t('TXT_CODE_fece9cd9')}],
+  officialTitleEn: [{ required: true, message: t('TXT_CODE_b5e7f231') }],
+  officialTitleJp: [{ required: true, message: t('TXT_CODE_b5e7f231') }],
+  savePath: [{ required: true, message: t('TXT_CODE_fece9cd9') }],
   season: [{ required: true, message: t('TXT_CODE_dac8a2e5') }],
   sendDate: [{ required: true, message: t('TXT_CODE_d7cf7d70') }],
   status: [{ required: true, message: t('TXT_CODE_6f5546c4') }],
@@ -250,19 +250,19 @@ const analysisRss = async (rss: RSS) => {
         if (isEmpty(rss.rss)) {
           return;
         }
-        const { data } = await analysisMikan(rss.rss);
+        const { data } = await analysisMikan(rss.rss, isEmpty(paramsProps.value.id));
         rss.subGroupId = data.subGroupId;
         rss.translationGroup = data.translationGroup;
-        paramsProps.value.officialTitle = data.title;
-        paramsProps.value.officialTitleEn = data.titleEn;
-        paramsProps.value.officialTitleJp = data.titleJp;
-        paramsProps.value.sendDate = data.sendData;
-        paramsProps.value.posterLink = data.posterLink;
-        if (!paramsProps.value.id) {
+        if (isEmpty(paramsProps.value.id)) {
+          paramsProps.value.officialTitle = data.title;
+          paramsProps.value.officialTitleEn = data.titleEn;
+          paramsProps.value.officialTitleJp = data.titleJp;
+          paramsProps.value.sendDate = data.sendData;
+          paramsProps.value.posterLink = data.posterLink;
+          paramsProps.value.updateWeek = data.updateWeek;
+          paramsProps.value.season = data.season;
           paramsProps.value.savePath = data.savePath;
         }
-        paramsProps.value.updateWeek = data.updateWeek;
-        paramsProps.value.season = data.season;
         paramsProps.value.config = data.config;
       } finally {
         loading.value = false;
@@ -312,14 +312,14 @@ defineExpose({
             {{ t('TXT_CODE_b992ba89') }} EN
           </template>
           <a-input v-model:value="paramsProps.officialTitleEn" :placeholder="t('TXT_CODE_b5e7f231')"
-                   allowClear/>
+                   allowClear />
         </a-form-item>
         <a-form-item name="officialTitleJp">
           <template #label>
             {{ t('TXT_CODE_b992ba89') }} JP
           </template>
           <a-input v-model:value="paramsProps.officialTitleJp" :placeholder="t('TXT_CODE_b5e7f231')"
-                   allowClear/>
+                   allowClear />
         </a-form-item>
 
         <a-form-item :label="t('TXT_CODE_70a588d7')" name="season">
@@ -458,7 +458,8 @@ defineExpose({
                 />
               </a-form-item>
               <a-form-item name="type">
-                <a-select v-model:value="rss.type" style="width: 100%" :placeholder="t('TXT_CODE_9d565011')">
+                <a-select v-model:value="rss.type" style="width: 100%"
+                          :placeholder="t('TXT_CODE_9d565011')">
                   <a-select-option
                     v-for="([key,item]) in Object.entries(RSS_TYPE_MAP) as [string, DictOptions][]"
                     :key="key"
