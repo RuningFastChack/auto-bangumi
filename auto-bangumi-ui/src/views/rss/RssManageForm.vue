@@ -262,8 +262,10 @@ const analysisRss = async (rss: RSS) => {
           paramsProps.value.updateWeek = data.updateWeek;
           paramsProps.value.season = data.season;
           paramsProps.value.savePath = data.savePath;
+          paramsProps.value.config = data.config;
+        } else {
+          paramsProps.value.config.latestEpisode = data.config.latestEpisode;
         }
-        paramsProps.value.config = data.config;
       } finally {
         loading.value = false;
       }
