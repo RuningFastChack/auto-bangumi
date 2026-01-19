@@ -1,4 +1,4 @@
-import type {IPageQuery, RssManageConfig} from '@/api/types';
+import type { IPageQuery, RssManageConfig } from '@/api/types';
 
 export type RssManage = {
   id?: number;
@@ -28,6 +28,7 @@ export type RssManageList = {
   complete: '0' | '1';
   updateWeek: number;
   sendDate: string;
+  translationGroupList: string[];
   config: RssManageConfig;
 };
 
@@ -40,6 +41,7 @@ export type RssManageCalendar = {
   updateWeek: number;
   sendDate: string;
   posterLink: string;
+  translationGroupList: string[];
   config: RssManageConfig;
 };
 

@@ -141,6 +141,12 @@ onMounted(() => init());
                                       {{ _item.config.latestEpisode }}
                                     </span>
                                   </div>
+                                  <div>
+                                    <a-tag v-for="(item, i) in _item.translationGroupList" :key="i"
+                                           variant="outlined" color="blue">
+                                      {{ item }}
+                                    </a-tag>
+                                  </div>
                                 </div>
                               </div>
                             </div>

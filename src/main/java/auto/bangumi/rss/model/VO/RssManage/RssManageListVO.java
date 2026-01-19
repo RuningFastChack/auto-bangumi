@@ -1,15 +1,11 @@
 package auto.bangumi.rss.model.VO.RssManage;
 
-import auto.bangumi.rss.model.Rss;
 import auto.bangumi.rss.model.entity.RssManage;
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.bean.copier.CopyOptions;
 import com.alibaba.fastjson.JSON;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 @Getter
 @Setter
@@ -67,6 +63,11 @@ public class RssManageListVO {
      * 发布日期 yyyy-MM-dd
      */
     private String sendDate;
+
+    /**
+     * 字幕组列表
+     */
+    private List<String> translationGroupList;
 
     /**
      * 配置

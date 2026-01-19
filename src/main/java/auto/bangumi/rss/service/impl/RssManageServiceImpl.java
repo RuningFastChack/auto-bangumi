@@ -63,8 +63,15 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
                 .ge(StringUtils.isNotBlank(dto.getSendDateForm()), RssManage::getSendDate, dto.getSendDateForm())
                 .le(StringUtils.isNotBlank(dto.getSendDateTo()), RssManage::getSendDate, dto.getSendDateTo())
                 .orderByDesc(RssManage::getSendDate, RssManage::getStatus, RssManage::getUpdateWeek));
-        List<RssManageListVO> selectedList = Optional.ofNullable(selectedPage.getRecords()).orElse(new ArrayList<>()).stream().map(RssManageListVO::copy).collect(Collectors.toList());
-        return PageUtils.getPageResult(dto.getPage(), dto.getLimit(), selectedList, (int) selectedPage.getTotal());
+        List<RssManage> rssManages = Optional.ofNullable(selectedPage.getRecords()).orElse(new ArrayList<>());
+        ArrayList<RssManageListVO> result = new ArrayList<>(rssManages.size());
+        for (RssManage rssManage : rssManages) {
+            RssManageListVO copy = RssManageListVO.copy(rssManage);
+            List<Rss> rssList = StringUtils.isNotBlank(rssManage.getRssList()) ? JSON.parseArray(rssManage.getRssList(), Rss.class) : new ArrayList<>();
+            copy.setTranslationGroupList(rssList.stream().filter(item -> item.getStatus().equals(SysYesNo.YES.getCode())).map(Rss::getTranslationGroup).collect(Collectors.toList()));
+            result.add(copy);
+        }
+        return PageUtils.getPageResult(dto.getPage(), dto.getLimit(), result, (int) selectedPage.getTotal());
     }
 
     /**
@@ -83,6 +90,8 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
         for (RssManage rssManage : selectedList) {
             Integer week = rssManage.getUpdateWeek();
             RssManageCalendarVO result = RssManageCalendarVO.copy(rssManage);
+            List<Rss> rssList = StringUtils.isNotBlank(rssManage.getRssList()) ? JSON.parseArray(rssManage.getRssList(), Rss.class) : new ArrayList<>();
+            result.setTranslationGroupList(rssList.stream().filter(item -> item.getStatus().equals(SysYesNo.YES.getCode())).map(Rss::getTranslationGroup).collect(Collectors.toList()));
             calendarMap.computeIfAbsent(week, k -> new ArrayList<>()).add(result);
         }
         return calendarMap;

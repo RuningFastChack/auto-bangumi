@@ -34,7 +34,7 @@ public class Rss {
     /**
      * 是否启用
      */
-    private String status;
+    private String  status;
 
     /**
      * 链接类型 - Mikan

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import {computed, type CSSProperties, h, onMounted, ref, watch} from 'vue';
+import { computed, type CSSProperties, h, onMounted, ref, watch } from 'vue';
 import BetweenMenus from '@/components/BetweenMenus.vue';
-import {useScreen} from '@/hooks/useScreen.ts';
-import {useRoute} from 'vue-router';
+import { useScreen } from '@/hooks/useScreen.ts';
+import { useRoute } from 'vue-router';
 import CardPanel from '@/components/CardPanel.vue';
-import {arrayFilter} from '@/utils/array.ts';
+import { arrayFilter } from '@/utils/array.ts';
 import {
   BookOutlined,
   CheckCircleOutlined,
@@ -19,8 +19,8 @@ import {
   SearchOutlined,
   StopOutlined
 } from '@ant-design/icons-vue';
-import type {AntColumnsType} from '@/types/ant.ts';
-import type {RssManageList, RssManageQuery} from '@/api/types/rss/rssManage.ts';
+import type { AntColumnsType } from '@/types/ant.ts';
+import type { RssManageList, RssManageQuery } from '@/api/types/rss/rssManage.ts';
 import {
   changeRssManageStatusAndComplete,
   findRssManagePage,
@@ -28,17 +28,17 @@ import {
   refreshRssManageByIds,
   removeRssManage
 } from '@/api/modules/rssManage.ts';
-import type {IPage} from '@/api/types';
-import {WEEK_MAP} from '@/types/dict.ts';
-import {isEmpty, officialTitle} from '@/utils';
-import {sleep} from '@/utils/common.ts';
+import type { IPage } from '@/api/types';
+import { WEEK_MAP } from '@/types/dict.ts';
+import { isEmpty, officialTitle } from '@/utils';
+import { sleep } from '@/utils/common.ts';
 import RssManageForm from '@/views/rss/RssManageForm.vue';
-import {type ItemType, message, Modal} from 'ant-design-vue';
-import {triggerPushLastRssItem} from '@/api/modules/rssItem.ts';
+import { type ItemType, message, Modal } from 'ant-design-vue';
+import { triggerPushLastRssItem } from '@/api/modules/rssItem.ts';
 import RssItems from '@/views/rss/RssItems.vue';
-import {useRightClickMenu} from '@/hooks/useRightClickMenu.ts';
-import {t} from '@/lang/i18n.ts';
-import {useAppStore} from "@/stores/modules/app.ts";
+import { useRightClickMenu } from '@/hooks/useRightClickMenu.ts';
+import { t } from '@/lang/i18n.ts';
+import { useAppStore } from '@/stores/modules/app.ts';
 //region type
 
 //endregion
@@ -48,7 +48,7 @@ const { openRightClickMenu } = useRightClickMenu();
 
 const route = useRoute();
 
-const {language} = useAppStore();
+const { language } = useAppStore();
 
 const loading = ref<boolean>(false);
 
@@ -97,6 +97,13 @@ const columns = computed(() => {
       dataIndex: 'updateWeek',
       key: 'updateWeek',
       title: t('TXT_CODE_eefeb8c4'),
+      minWidth: 90
+    },
+    {
+      align: 'center',
+      dataIndex: 'translationGroupList',
+      key: 'translationGroupList',
+      title: t('TXT_CODE_66d9a5b0'),
       minWidth: 90
     },
     { align: 'center', dataIndex: 'season', key: 'season', title: '季度', width: 80 },
@@ -538,13 +545,13 @@ onMounted(() => getTableList(queryParams.value));
                   </a-tooltip>
                 </a-space>
               </template>
-              <template v-if="column.key === 'officialTitle'">
-                <a-tooltip placement="top">
-                  <template #title>
-                    <span>{{ officialTitle(record, language) }}</span>
-                  </template>
-                  <span>{{ officialTitle(record, language) }}</span>
-                </a-tooltip>
+              <template v-if="column.key === 'translationGroupList'">
+                <div class="translation-groups">
+                  <a-tag v-for="(item, i) in record.translationGroupList" :key="i"
+                         variant="outlined" color="blue">
+                    {{ item }}
+                  </a-tag>
+                </div>
               </template>
               <template v-if="column.key === 'savePath'">
                 <a-tooltip placement="top">
@@ -599,6 +606,12 @@ onMounted(() => getTableList(queryParams.value));
 </template>
 
 <style scoped lang="scss">
+.translation-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 .search-input {
   transition: all 0.4s;
   text-align: center;

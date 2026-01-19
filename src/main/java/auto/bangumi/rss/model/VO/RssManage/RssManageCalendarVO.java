@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSON;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -51,6 +53,11 @@ public class RssManageCalendarVO {
      * 图片路径
      */
     private String posterLink;
+
+    /**
+     * 字幕组列表
+     */
+    private List<String> translationGroupList;
 
     /**
      * 配置
