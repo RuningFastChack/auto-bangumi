@@ -40,6 +40,11 @@ public class RssItemVO {
     private String savePath;
 
     /**
+     * 是否已读
+     */
+    private String readed;
+
+    /**
      * 番剧 - 字幕组ID？
      */
     private String subGroupId;

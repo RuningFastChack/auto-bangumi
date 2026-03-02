@@ -54,6 +54,12 @@ public class RssItem {
     private String subGroupId;
 
     /**
+     * 是否已读
+     */
+    @TableField(value = "readed")
+    private String readed;
+
+    /**
      * torrent的原始标题
      */
     @TableField(value = "torrent_name")

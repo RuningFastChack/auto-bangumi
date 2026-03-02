@@ -16,6 +16,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,8 +51,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public UserConfig findUserConfig() {
         List<User> selected = baseMapper.selectList(new LambdaQueryWrapper<>());
+
+        UserConfig userConfig = new UserConfig();
+
         String config = selected.get(0).getConfig();
-        return StringUtils.isNotBlank(config) ? JSON.parseObject(config, UserConfig.class) : UserConfig.builder().build();
+        if (StringUtils.isNotBlank(config)) {
+            UserConfig parsed = JSON.parseObject(config, UserConfig.class);
+            BeanUtils.copyProperties(parsed, userConfig);
+        }
+        return userConfig;
     }
 
     /**

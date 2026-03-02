@@ -52,6 +52,11 @@ public class RssItemDTO {
     private String subGroupId;
 
     /**
+     * 是否已读
+     */
+    private String readed;
+
+    /**
      * torrent的原始标题
      */
     private String torrentName;
