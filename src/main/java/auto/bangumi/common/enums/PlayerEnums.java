@@ -8,5 +8,5 @@ package auto.bangumi.common.enums;
  * @since 2026/03/02
  */
 public enum PlayerEnums {
-    JELLYFIN,
+    JellyFin,
 }
