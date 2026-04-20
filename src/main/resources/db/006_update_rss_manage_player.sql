@@ -47,6 +47,8 @@ CREATE TABLE "rss_manage_new"
 (
     "id"             integer NOT NULL COLLATE BINARY PRIMARY KEY AUTOINCREMENT,
     "official_title" text,
+    "official_title_en" text,
+    "official_title_jp" text,
     "season"         integer DEFAULT 0,
     "status"         text,
     "filter"         text,
@@ -61,10 +63,12 @@ CREATE TABLE "rss_manage_new"
     "config"         text
 );
 
-INSERT INTO rss_manage_new (id, official_title, season, status, filter, readed,
+INSERT INTO rss_manage_new (id, official_title, official_title_en, official_title_jp, season, status, filter, readed,
                             poster_link, save_path, deleted, complete,
-                            update_week, send_date, rss_list)
+                            update_week, send_date, rss_list, config)
 SELECT id,
+       official_title,
+       official_title,
        official_title,
        season,
        status,
@@ -76,7 +80,8 @@ SELECT id,
        complete,
        update_week,
        send_date,
-       rss_list
+       rss_list,
+       '{"latestEpisode":"0","totalEpisode":"0"}'
 FROM rss_manage;
 
 DROP TABLE rss_manage;
