@@ -364,6 +364,27 @@ const oneSelected = (key: number) => {
   selectedRssManages.value = [key];
 };
 
+const handleSelect = (value: string) => {
+  switch (value) {
+    case 'ALL':
+      Object.assign(queryParams.value, { page: 1, limit: 10, complete: '', status: '' });
+      break;
+    case 'COMPLETED':
+      Object.assign(queryParams.value, { page: 1, limit: 10, complete: '1', status: '' });
+      break;
+    case 'UNFINISHED':
+      Object.assign(queryParams.value, { page: 1, limit: 10, complete: '0', status: '' });
+      break;
+    case 'OPENED':
+      Object.assign(queryParams.value, { page: 1, limit: 10, complete: '', status: '1' });
+      break;
+    case 'CLOSE':
+      Object.assign(queryParams.value, { page: 1, limit: 10, complete: '', status: '0' });
+      break;
+  }
+  getTableList(queryParams.value);
+};
+
 const handleRightClickRow = (e: MouseEvent, record: RssManageList) => {
   e.preventDefault();
   e.stopPropagation();
@@ -372,31 +393,6 @@ const handleRightClickRow = (e: MouseEvent, record: RssManageList) => {
   return false;
 };
 
-watch(() => SearchSelect.value,
-  (value: SearchSelectType) => {
-    switch (value) {
-      case 'ALL':
-        Object.assign(queryParams.value, { page: 1, limit: 10, complete: '', status: '' });
-        getTableList(queryParams.value);
-        break;
-      case 'COMPLETED':
-        Object.assign(queryParams.value, { page: 1, limit: 10, complete: '1', status: '' });
-        getTableList(queryParams.value);
-        break;
-      case 'UNFINISHED':
-        Object.assign(queryParams.value, { page: 1, limit: 10, complete: '0', status: '' });
-        getTableList(queryParams.value);
-        break;
-      case 'OPENED':
-        Object.assign(queryParams.value, { page: 1, limit: 10, complete: '', status: '1' });
-        getTableList(queryParams.value);
-        break;
-      case 'CLOSE':
-        Object.assign(queryParams.value, { page: 1, limit: 10, complete: '', status: '0' });
-        getTableList(queryParams.value);
-        break;
-    }
-  }, { deep: true });
 //endregion
 
 //region otherMethods
@@ -420,7 +416,7 @@ onMounted(() => getTableList(queryParams.value));
           <template #center>
             <div class="search-input">
               <a-input-group compact>
-                <a-select v-model:value="SearchSelect" style="width: 100px">
+                <a-select v-model:value="SearchSelect" @change="handleSelect" style="width: 100px">
                   <a-select-option value="ALL">{{ t('TXT_CODE_b39a2cce') }}</a-select-option>
                   <a-select-option value="COMPLETED">{{ t('TXT_CODE_3f3bc788') }}</a-select-option>
                   <a-select-option value="UNFINISHED">{{ t('TXT_CODE_57cae95c') }}</a-select-option>

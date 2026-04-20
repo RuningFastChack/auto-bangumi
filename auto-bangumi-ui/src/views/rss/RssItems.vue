@@ -201,7 +201,9 @@ const reload = async () => {
     limit: 10,
     name: '',
     torrentName: '',
-    translationGroup: ''
+    translationGroup: '',
+    downloaded: '',
+    pushed: '',
   });
   await getTableList(queryParams.value);
 };
@@ -293,6 +295,28 @@ const oneSelected = (key: string) => {
   if (index > -1) return;
   selectedRssItems.value = [key];
 };
+
+const handleChange = (value: string) => {
+  switch (value) {
+    case 'ALL':
+      Object.assign(queryParams.value, { page: 1, limit: 10, pushed: '', downloaded: '' });
+      break;
+    case 'PUSH':
+      Object.assign(queryParams.value, { page: 1, limit: 10, pushed: '0', downloaded: '' });
+      break;
+    case 'PUSHED':
+      Object.assign(queryParams.value, { page: 1, limit: 10, pushed: '1', downloaded: '' });
+      break;
+    case 'DOWNLOAD':
+      Object.assign(queryParams.value, { page: 1, limit: 10, pushed: '', downloaded: '0' });
+      break;
+    case 'DOWNLOADED':
+      Object.assign(queryParams.value, { page: 1, limit: 10, pushed: '', downloaded: '1' });
+      break;
+  }
+  getTableList(queryParams.value);
+}
+
 const handleRightClickRow = (e: MouseEvent, record: RssItemList) => {
   e.preventDefault();
   e.stopPropagation();
@@ -303,32 +327,6 @@ const handleRightClickRow = (e: MouseEvent, record: RssItemList) => {
 //endregion
 
 //region otherMethods
-
-watch(() => SearchSelect.value,
-  (value: SearchSelectType) => {
-    switch (value) {
-      case 'ALL':
-        Object.assign(queryParams.value, { page: 1, limit: 10, pushed: '', downloaded: '' });
-        break;
-      case 'PUSH':
-        Object.assign(queryParams.value, { page: 1, limit: 10, pushed: '0', downloaded: '' });
-        getTableList(queryParams.value);
-        break;
-      case 'PUSHED':
-        Object.assign(queryParams.value, { page: 1, limit: 10, pushed: '1', downloaded: '' });
-        getTableList(queryParams.value);
-        break;
-      case 'DOWNLOAD':
-        Object.assign(queryParams.value, { page: 1, limit: 10, pushed: '', downloaded: '0' });
-        getTableList(queryParams.value);
-        break;
-      case 'DOWNLOADED':
-        Object.assign(queryParams.value, { page: 1, limit: 10, pushed: '', downloaded: '1' });
-        getTableList(queryParams.value);
-        break;
-    }
-  }, { deep: true });
-
 
 watch(() => SearchTitle.value,
   (value: string) => {
@@ -366,7 +364,7 @@ defineExpose({
             <template #left>
               <div class="search-input">
                 <a-input-group compact>
-                  <a-select v-model:value="SearchSelect" style="width: 100px">
+                  <a-select v-model:value="SearchSelect" @change="handleChange" style="width: 100px">
                     <a-select-option value="ALL">{{ t('TXT_CODE_b39a2cce') }}</a-select-option>
                     <a-select-option value="PUSH">{{ t('TXT_CODE_52a4105a') }}</a-select-option>
                     <a-select-option value="PUSHED">{{ t('TXT_CODE_b68ecac9') }}</a-select-option>
