@@ -351,7 +351,7 @@ defineOptions({ name: 'FileManage' });
                 @change="handleSearchChange()"
               >
                 <template #suffix>
-                  <SearchOutlined />
+                  <SearchOutlined style="cursor: pointer" @click="handleSearchChange" />
                 </template>
               </a-input>
             </div>
@@ -657,7 +657,7 @@ defineOptions({ name: 'FileManage' });
 .search-input {
   transition: all 0.4s;
   text-align: center;
-  width: 50%;
+  width: 100%;
 }
 
 .file-name {
@@ -674,18 +674,6 @@ defineOptions({ name: 'FileManage' });
   left: 0;
   top: 0;
   bottom: 0;
-}
-
-@media (max-width: 992px) {
-  .search-input {
-    transition: all 0.4s;
-    text-align: center;
-    width: 100% !important;
-  }
-}
-
-.search-input:hover {
-  width: 100%;
 }
 
 .file-breadcrumbs {

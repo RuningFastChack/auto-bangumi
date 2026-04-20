@@ -147,6 +147,7 @@ const isMultiple = computed(() => selectedRssItems.value && selectedRssItems.val
 
 const acceptParams = async (id: number, officialTitle: string) => {
   visible.value = true;
+  SearchSelect.value = 'ALL';
   dialogTitle.value = officialTitle;
   queryParams.value.rssManageId = id;
   await query();
@@ -381,7 +382,7 @@ defineExpose({
                     @change="query()"
                   >
                     <template #suffix>
-                      <search-outlined />
+                      <search-outlined style="cursor: pointer" @click="query()" />
                     </template>
                   </a-input>
                 </a-input-group>
@@ -544,14 +545,6 @@ defineExpose({
 .search-input {
   transition: all 0.4s;
   text-align: center;
-  width: 80%;
-
-  &:hover {
-    width: 100%;
-  }
-
-  @media (max-width: 992px) {
-    width: 100% !important;
-  }
+  width: 100%;
 }
 </style>
