@@ -425,73 +425,77 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
                             RssFeed rssFeed = (RssFeed) unmarshaller.unmarshal(new StringReader(sendGet));
                             List<RssFeed.Item> itemList = rssFeed.getChannel().getItems();
                             for (RssFeed.Item item : itemList) {
-                                String torrentCode = AutoBangumiUtil.extractEpisodeId(item.getLink());
+                                try {
+                                    String torrentCode = AutoBangumiUtil.extractEpisodeId(item.getLink());
 
-                                boolean added = torrentCodeSet.add(torrentCode);
+                                    boolean added = torrentCodeSet.add(torrentCode);
 
-                                if (!added) {
-                                    continue;
-                                }
-
-                                //获取剧集名称
-                                String SeriesName = item.getTitle();
-
-                                String episodeNum = String.valueOf(Integer.MAX_VALUE);
-
-                                String episodeNumStr = "E" + Integer.MAX_VALUE;
-
-                                Episode episode = RawParser.parse(SeriesName);
-
-                                if (Objects.nonNull(episode)) {
-                                    Matcher isInteger = RawParser.EPISODE_INTEGER.matcher(episode.getEpisode());
-                                    if (isInteger.matches()) {
-                                        Integer value = Integer.valueOf(episode.getEpisode());
-                                        episodeNum = String.valueOf(value);
-                                        episodeNumStr = value < 10 ?
-                                                StrUtil.format("E0{}", value) :
-                                                StrUtil.format("E{}", value);
+                                    if (!added) {
+                                        continue;
                                     }
-                                    Matcher isDouble = RawParser.EPISODE_DOUBLE.matcher(episode.getEpisode());
-                                    if (isDouble.matches()) {
-                                        Double value = Double.valueOf(episode.getEpisode());
-                                        episodeNum = String.valueOf(value);
-                                        episodeNumStr = StrUtil.format("E{}", value);
+
+                                    //获取剧集名称
+                                    String SeriesName = item.getTitle();
+
+                                    String episodeNum = String.valueOf(Integer.MAX_VALUE);
+
+                                    String episodeNumStr = "E" + Integer.MAX_VALUE;
+
+                                    Episode episode = RawParser.parse(SeriesName);
+
+                                    if (Objects.nonNull(episode) && StringUtils.isNotBlank(episode.getEpisode())) {
+                                        Matcher isInteger = RawParser.EPISODE_INTEGER.matcher(episode.getEpisode());
+                                        if (isInteger.matches()) {
+                                            Integer value = Integer.valueOf(episode.getEpisode());
+                                            episodeNum = String.valueOf(value);
+                                            episodeNumStr = value < 10 ?
+                                                    StrUtil.format("E0{}", value) :
+                                                    StrUtil.format("E{}", value);
+                                        }
+                                        Matcher isDouble = RawParser.EPISODE_DOUBLE.matcher(episode.getEpisode());
+                                        if (isDouble.matches()) {
+                                            Double value = Double.valueOf(episode.getEpisode());
+                                            episodeNum = String.valueOf(value);
+                                            episodeNumStr = StrUtil.format("E{}", value);
+                                        }
                                     }
+
+                                    String seasonNumStr = Integer.parseInt(rssManage.getSeason()) <= 9 ?
+                                            StrUtil.format("S0{}", rssManage.getSeason()) :
+                                            StrUtil.format("S{}", rssManage.getSeason());
+                                    SeriesName = StrUtil.format("{} {}{}", rssManage.getOfficialTitle(), seasonNumStr, episodeNumStr);
+
+                                    UserConfig.GeneralSetting setting = configCatch.findConfig().getGeneralSetting();
+                                    String episodeTitleRule = setting.getEpisodeTitleRule();
+                                    if (StringUtils.isNotBlank(episodeTitleRule)) {
+                                        SeriesName = episodeTitleRule
+                                                .replace("{officialTitle}", rssManage.getOfficialTitle())
+                                                .replace("{officialTitleEn}", rssManage.getOfficialTitleEn())
+                                                .replace("{officialTitleJp}", rssManage.getOfficialTitleJp())
+                                                .replace("{season}", seasonNumStr.replace("S", ""))
+                                                .replace("{episode}", episodeNumStr.replace("E", ""))
+                                        ;
+                                    }
+
+                                    RssItemDTO build = RssItemDTO.builder()
+                                            .torrentCode(torrentCode)
+                                            .episodeNum(String.valueOf(episodeNum))
+                                            .rssManageId(rssManage.getId())
+                                            .translationGroup(StringUtils.isBlank(rss.getTranslationGroup()) ? "未知" : rss.getTranslationGroup())
+                                            .subGroupId(rss.getSubGroupId())
+                                            .savePath(rssManage.getSavePath())
+                                            .torrentName(item.getTitle())
+                                            .name(SeriesName)
+                                            .url(item.getEnclosure().getUrl())
+                                            .homepage(item.getLink())
+                                            .status(SysYesNo.YES.getCode())
+                                            .downloaded(SysYesNo.NO.getCode())
+                                            .pushed(SysYesNo.NO.getCode())
+                                            .build();
+                                    saveBatchList.add(build);
+                                }catch (Exception e) {
+                                    log.error("刷新订阅，解析XML异常。番剧：{}，季度：{}，RSS：{}，原因：{}", rssManage.getOfficialTitle(), rssManage.getSeason(), rss.getRss(), e.getMessage(), e);
                                 }
-
-                                String seasonNumStr = Integer.parseInt(rssManage.getSeason()) <= 9 ?
-                                        StrUtil.format("S0{}", rssManage.getSeason()) :
-                                        StrUtil.format("S{}", rssManage.getSeason());
-                                SeriesName = StrUtil.format("{} {}{}", rssManage.getOfficialTitle(), seasonNumStr, episodeNumStr);
-
-                                UserConfig.GeneralSetting setting = configCatch.findConfig().getGeneralSetting();
-                                String episodeTitleRule = setting.getEpisodeTitleRule();
-                                if (StringUtils.isNotBlank(episodeTitleRule)) {
-                                    SeriesName = episodeTitleRule
-                                            .replace("{officialTitle}", rssManage.getOfficialTitle())
-                                            .replace("{officialTitleEn}", rssManage.getOfficialTitleEn())
-                                            .replace("{officialTitleJp}", rssManage.getOfficialTitleJp())
-                                            .replace("{season}", seasonNumStr.replace("S", ""))
-                                            .replace("{episode}", episodeNumStr.replace("E", ""))
-                                    ;
-                                }
-
-                                RssItemDTO build = RssItemDTO.builder()
-                                        .torrentCode(torrentCode)
-                                        .episodeNum(String.valueOf(episodeNum))
-                                        .rssManageId(rssManage.getId())
-                                        .translationGroup(StringUtils.isBlank(rss.getTranslationGroup()) ? "未知" : rss.getTranslationGroup())
-                                        .subGroupId(rss.getSubGroupId())
-                                        .savePath(rssManage.getSavePath())
-                                        .torrentName(item.getTitle())
-                                        .name(SeriesName)
-                                        .url(item.getEnclosure().getUrl())
-                                        .homepage(item.getLink())
-                                        .status(SysYesNo.YES.getCode())
-                                        .downloaded(SysYesNo.NO.getCode())
-                                        .pushed(SysYesNo.NO.getCode())
-                                        .build();
-                                saveBatchList.add(build);
 
                                 if (saveBatchList.size() > 3000) {
                                     iRssItemService.saveBatchRssItemList(saveBatchList);
