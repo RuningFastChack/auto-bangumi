@@ -13,7 +13,7 @@ public interface IUnifiedRssService {
     /**
      * 刷新海报
      *
-     * @param rssManageIds
+     * @param rssManageIds RssMange主键列表
      */
     void refreshPoster(List<Integer> rssManageIds);
 
@@ -25,6 +25,7 @@ public interface IUnifiedRssService {
 
     /**
      * 轮询 - RSS订阅刷新
+     * 只会刷新RssManage未完结且已启用的订阅
      */
     void pollingRssManage();
 
@@ -48,14 +49,14 @@ public interface IUnifiedRssService {
     /**
      * 刷新指定订阅
      *
-     * @param rssManageIds
+     * @param rssManageIds RssMange主键列表
      */
     void refreshRssManageByIds(List<Integer> rssManageIds);
 
     /**
      * 推送指定订阅
      *
-     * @param torrentCodes
+     * @param torrentCodes 磁力链接列表
      */
     void pushRssItemToDownLoad(List<String> torrentCodes);
 }

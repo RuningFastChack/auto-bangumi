@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>auto.bangumi</groupId>
     <artifactId>auto-bangumi</artifactId>
-    <version>1.3.3-beta</version>
+    <version>${revision}</version>
     <packaging>jar</packaging>
     <name>auto-bangumi</name>
     <description>auto-bangumi自动化番剧管理</description>
@@ -19,6 +19,9 @@
 
     <properties>
         <java.version>17</java.version>
+        <revision>1.4.0-beta</revision>
+        <package-time>${maven.build.timestamp}</package-time>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
@@ -135,6 +138,7 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
+                <filtering>true</filtering>
                 <includes>
                     <include>**/*.*</include>
                 </includes>

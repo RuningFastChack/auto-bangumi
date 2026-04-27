@@ -34,6 +34,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * RSS管理
+ */
 @Slf4j
 @Service
 public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage> implements IRssManageService {
@@ -46,8 +49,8 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
     /**
      * 分页
      *
-     * @param dto
-     * @return
+     * @param dto 分页查询参数
+     * @return 分页结果
      */
     @Override
     public PageResult<RssManageListVO> findRssManagePage(RssManageListDTO dto) {
@@ -77,7 +80,7 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
     /**
      * 日历模式
      *
-     * @return
+     * @return 日历结果
      */
     @Override
     public HashMap<Integer, List<RssManageCalendarVO>> findRssManageCalendar() {
@@ -99,8 +102,9 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
 
     /**
      * 需要更新的番剧
+     * 需要更新的番剧，仅查询启用且未完结的番剧
      *
-     * @return
+     * @return 需要更新的番剧列表
      */
     @Override
     public List<RssManageVO> findRequiredUpdateRssManage() {
@@ -114,8 +118,8 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
     /**
      * 详情
      *
-     * @param id
-     * @return
+     * @param id 主键
+     * @return 详情
      */
     @Override
     public RssManageVO findRssManageDetailById(Integer id) {
@@ -127,7 +131,7 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
     /**
      * 创建
      *
-     * @param dto
+     * @param dto 创建参数
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -166,15 +170,16 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
 
     /**
      * 编辑
+     * 更改状态时，是否启用状态status会和RssList以及RssItem进行联动更新。
+     * 仅适合禁用状态，因为我不想启动的是将所有Rss订阅都启动。
      *
-     * @param dto
+     * @param dto 更新参数
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateRssManage(RssManageDTO dto) {
         RssManage selectedOne = baseMapper.selectById(dto.getId());
         RssResponseEnum.RSS_MANAGE_EXISTS.assertNull(selectedOne);
-
 
         List<Rss> rssList = dto.getRssList();
 
@@ -187,11 +192,18 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
                 ))
                 .values()).stream().sorted(Comparator.comparingInt(r -> r.getSort() != null ? r.getSort() : 0)).toList();
 
+        if (SysYesNo.NO.getCode().equals(dto.getStatus())) {
+            for (Rss rss : uniqueRssList) {
+                rss.setStatus(SysYesNo.NO.getCode());
+            }
+        }
+
         RssManage saveInfo = RssManage.builder().build();
         BeanUtil.copyProperties(dto, saveInfo, CopyOptions.create().setIgnoreProperties("filter", "rssList","config"));
         saveInfo.setFilter(Objects.nonNull(dto.getFilter()) && !dto.getFilter().isEmpty() ? String.join(",", dto.getFilter()) : "");
         saveInfo.setRssList(!uniqueRssList.isEmpty() ? JSON.toJSONString(uniqueRssList) : JSON.toJSONString(new ArrayList<>()));
         saveInfo.setConfig(Objects.nonNull(dto.getConfig()) ? JSON.toJSONString(dto.getConfig()) : JSON.toJSONString(new RssManageDTO()));
+
         int updated = baseMapper.updateById(saveInfo);
         log.info("RSS Manage 编辑{}:{}", updated > 0 ? "成功" : "失败", JSON.toJSONString(saveInfo));
 
@@ -209,9 +221,41 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
     }
 
     /**
+     * 更新状态
+     * 更改状态时，是否启用状态status会和RssList以及RssItem进行联动更新。
+     * 仅适合禁用状态，因为我不想启动的是将所有Rss订阅都启动。
+     *
+     * @param id     主键
+     * @param status 状态码
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateRssManageStatus(Integer id, String status) {
+        RssManage selectedOne = baseMapper.selectById(id);
+        RssResponseEnum.RSS_MANAGE_EXISTS.assertNull(selectedOne);
+        RssManage updateInfo = RssManage.builder().id(id).status(status).build();
+        if (SysYesNo.NO.getCode().equals(status)) {
+            String rssList = selectedOne.getRssList();
+            List<Rss> rssListCopy = JSON.parseArray(rssList, Rss.class);
+            if (!rssListCopy.isEmpty()) {
+                for (Rss rss : rssListCopy) {
+                    rss.setStatus(SysYesNo.NO.getCode());
+                }
+            }
+            updateInfo.setRssList(JSON.toJSONString(rssListCopy));
+            rssItemMapper.update(new LambdaUpdateWrapper<RssItem>()
+                    .set(RssItem::getStatus, SysYesNo.NO.getCode())
+                    .eq(RssItem::getRssManageId, id)
+            );
+        }
+        baseMapper.updateById(updateInfo);
+        log.info("RSS Manage 更新状态{}:{}", id > 0 ? "成功" : "失败", JSON.toJSONString(updateInfo));
+    }
+
+    /**
      * 删除
      *
-     * @param id
+     * @param id 主键
      */
     @Override
     @Transactional(rollbackFor = Exception.class)

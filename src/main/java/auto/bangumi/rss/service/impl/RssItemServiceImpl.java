@@ -19,8 +19,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
+/**
+ * RSS剧集
+ */
 @Slf4j
 @Service
 public class RssItemServiceImpl extends ServiceImpl<RssItemMapper, RssItem> implements IRssItemService {
@@ -28,8 +34,8 @@ public class RssItemServiceImpl extends ServiceImpl<RssItemMapper, RssItem> impl
     /**
      * 查询记录
      *
-     * @param dto
-     * @return
+     * @param dto 查询参数
+     * @return 分页结果
      */
     @Override
     public PageResult<RssItemListVO> findRssItemPage(RssItemListDTO dto) {
@@ -45,17 +51,17 @@ public class RssItemServiceImpl extends ServiceImpl<RssItemMapper, RssItem> impl
         List<RssItem> selectedList = Optional.ofNullable(selectedPage.getRecords()).orElse(new ArrayList<>());
         return PageUtils.getPageResult(dto.getPage(), dto.getLimit(), BeanUtil.copyToList(selectedList, RssItemListVO.class), (int) selectedPage.getTotal());
     }
+
     /**
      * 保存记录
      *
-     * @param saveBatchList
-     * @return
+     * @param saveBatchList 保存参数
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<RssItemDTO> saveBatchRssItemList(List<RssItemDTO> saveBatchList) {
+    public void saveBatchRssItemList(List<RssItemDTO> saveBatchList) {
         if (Objects.isNull(saveBatchList) || saveBatchList.isEmpty()) {
-            return Collections.emptyList();
+            return;
         }
         List<String> codes = saveBatchList.stream()
                 .map(RssItemDTO::getTorrentCode)
@@ -69,16 +75,15 @@ public class RssItemServiceImpl extends ServiceImpl<RssItemMapper, RssItem> impl
                 .stream().map(RssItem::getTorrentCode).toList();
         List<RssItemDTO> needSaveList = saveBatchList.stream().filter(item -> !existCodes.contains(item.getTorrentCode())).toList();
         if (needSaveList.isEmpty()) {
-            return Collections.emptyList();
+            return;
         }
         baseMapper.saveBatchList(needSaveList);
-        return needSaveList;
     }
 
     /**
      * 修改
      *
-     * @param dto
+     * @param dto 更新参数
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -95,7 +100,7 @@ public class RssItemServiceImpl extends ServiceImpl<RssItemMapper, RssItem> impl
     /**
      * 删除
      *
-     * @param torrentCodes
+     * @param torrentCodes 删除参数
      */
     @Override
     @Transactional(rollbackFor = Exception.class)

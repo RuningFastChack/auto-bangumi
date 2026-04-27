@@ -111,6 +111,7 @@
   "TXT_CODE_b9a788e3": "字幕组ID",
   "TXT_CODE_4427cb2f": "请填写字幕组ID",
   "TXT_CODE_66d9a5b0": "字幕组",
+  "TXT_CODE_66d9a5b1": "剧集偏移量（0表示不偏移，+1表示1集偏移，-1表示1集偏移反向）",
   "TXT_CODE_9fe7189c": "请填写字幕组",
   "TXT_CODE_47fcc538": "请选择链接类型",
   "TXT_CODE_cf656d4b": "完结",

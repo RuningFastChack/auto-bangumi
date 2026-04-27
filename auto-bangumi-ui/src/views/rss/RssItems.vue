@@ -41,7 +41,7 @@ const visible = ref<boolean>(false);
 
 const loading = ref<boolean>(false);
 
-type SearchSelectType = 'ALL' | 'PUSH' | 'PUSHED' | 'DOWNLOAD' | 'DOWNLOADED'
+type SearchSelectType = 'ALL' | 'PUSH' | 'PUSHED' | 'DOWNLOAD' | 'DOWNLOADED';
 
 const SearchSelect = ref<SearchSelectType>('ALL');
 
@@ -71,8 +71,12 @@ const selectedRssItems = ref<string[]>([]);
 const columns = computed(() => {
   return arrayFilter<AntColumnsType>([
     {
-      align: 'left', dataIndex: 'name', key: 'name', title: t('TXT_CODE_efb2a8da'),
-      ellipsis: true, minWidth: 180
+      align: 'left',
+      dataIndex: 'name',
+      key: 'name',
+      title: t('TXT_CODE_efb2a8da'),
+      ellipsis: true,
+      minWidth: 180
     },
     {
       align: 'center',
@@ -112,13 +116,21 @@ const columns = computed(() => {
       minWidth: 90
     },
     {
-      align: 'left', dataIndex: 'torrentName', key: 'torrentName', title: t('TXT_CODE_e3bbdcd7'),
-      ellipsis: true, minWidth: 180,
+      align: 'left',
+      dataIndex: 'torrentName',
+      key: 'torrentName',
+      title: t('TXT_CODE_e3bbdcd7'),
+      ellipsis: true,
+      minWidth: 180,
       condition: () => !isPhone.value
     },
     {
-      align: 'left', dataIndex: 'torrentCode', key: 'torrentCode', title: t('TXT_CODE_32bc721a'),
-      ellipsis: true, minWidth: 180,
+      align: 'left',
+      dataIndex: 'torrentCode',
+      key: 'torrentCode',
+      title: t('TXT_CODE_32bc721a'),
+      ellipsis: true,
+      minWidth: 180,
       condition: () => !isPhone.value
     },
     {
@@ -147,10 +159,9 @@ const isMultiple = computed(() => selectedRssItems.value && selectedRssItems.val
 
 const acceptParams = async (id: number, officialTitle: string) => {
   visible.value = true;
-  SearchSelect.value = 'ALL';
   dialogTitle.value = officialTitle;
   queryParams.value.rssManageId = id;
-  await query();
+  await reload();
 };
 
 const getTableList = async (params: RssItemQuery) => {
@@ -170,12 +181,7 @@ const handleTableChange = async (e: { page: number; limit: number }) => {
   await getTableList(queryParams.value);
 };
 
-const changeRssItem = async (params: {
-  id: number,
-  downloaded?: string,
-  pushed?: string,
-  status?: string
-}) => {
+const changeRssItem = async (params: { id: number; downloaded?: string; pushed?: string; status?: string }) => {
   if (!isEmpty(params.id)) {
     try {
       await updateRssItemToList(params);
@@ -203,7 +209,7 @@ const reload = async () => {
     torrentName: '',
     translationGroup: '',
     downloaded: '',
-    pushed: '',
+    pushed: ''
   });
   await getTableList(queryParams.value);
 };
@@ -223,7 +229,7 @@ const pushRssItem = async () => {
   }
 };
 
-const delRssItem = ()=>{
+const delRssItem = () => {
   Modal.confirm({
     title: t('TXT_CODE_cad8f6c3'),
     content: t('TXT_CODE_754c6a74'),
@@ -233,7 +239,7 @@ const delRssItem = ()=>{
     onOk: async () => {
       loading.value = true;
       try {
-        await removeRssItemByTorrentCodes(selectedRssItems.value)
+        await removeRssItemByTorrentCodes(selectedRssItems.value);
         message.success(t('TXT_CODE_408ff5e0'));
       } finally {
         loading.value = false;
@@ -241,7 +247,7 @@ const delRssItem = ()=>{
       }
     }
   });
-}
+};
 
 const menuList = (record: RssItemList) =>
   arrayFilter<ItemType & { style?: CSSProperties }>([
@@ -315,7 +321,7 @@ const handleChange = (value: string) => {
       break;
   }
   getTableList(queryParams.value);
-}
+};
 
 const handleRightClickRow = (e: MouseEvent, record: RssItemList) => {
   e.preventDefault();
@@ -328,7 +334,8 @@ const handleRightClickRow = (e: MouseEvent, record: RssItemList) => {
 
 //region otherMethods
 
-watch(() => SearchTitle.value,
+watch(
+  () => SearchTitle.value,
   (value: string) => {
     Object.assign(queryParams.value, {
       page: 1,
@@ -338,8 +345,9 @@ watch(() => SearchTitle.value,
       name: value
     });
     getTableList(queryParams.value);
-  }, { deep: true });
-
+  },
+  { deep: true }
+);
 
 defineOptions({ name: 'RssItems' });
 
@@ -347,16 +355,10 @@ defineExpose({
   acceptParams
 });
 //endregion
-
 </script>
 
 <template>
-  <a-drawer
-    v-model:open="visible"
-    :title="dialogTitle"
-    :mask-closable="false"
-    :width="isPhone?'100%':'80%'"
-    destroy-on-close>
+  <a-drawer v-model:open="visible" :mask-closable="false" :title="dialogTitle" :width="isPhone ? '100%' : '80%'" destroy-on-close>
     <div class="container">
       <a-row :gutter="[24, 24]" style="height: 100%">
         <a-col :span="24">
@@ -369,8 +371,7 @@ defineExpose({
                     <a-select-option value="PUSH">{{ t('TXT_CODE_52a4105a') }}</a-select-option>
                     <a-select-option value="PUSHED">{{ t('TXT_CODE_b68ecac9') }}</a-select-option>
                     <a-select-option value="DOWNLOAD">{{ t('TXT_CODE_c94d5184') }}</a-select-option>
-                    <a-select-option value="DOWNLOADED">{{ t('TXT_CODE_1b1c9472') }}
-                    </a-select-option>
+                    <a-select-option value="DOWNLOADED">{{ t('TXT_CODE_1b1c9472') }} </a-select-option>
                   </a-select>
                   <a-input
                     v-model:value.trim.lazy="SearchTitle"
@@ -390,13 +391,7 @@ defineExpose({
               <a-button type="default" :loading="loading" @click="reload">刷新</a-button>
               <a-dropdown v-if="isMultiple">
                 <template #overlay>
-                  <a-menu
-                    mode="vertical"
-                    :items="
-                    menuList({} as RssItemList)
-                  "
-                  >
-                  </a-menu>
+                  <a-menu :items="menuList({} as RssItemList)" mode="vertical"> </a-menu>
                 </template>
                 <a-button type="primary">
                   {{ t('TXT_CODE_f769ec55') }}
@@ -411,23 +406,29 @@ defineExpose({
             <template #body>
               <a-table
                 :loading="loading"
-                :scroll="{x: 'max-content'}"
-                :row-selection="{
-                selectedRowKeys:selectedRssItems,
-                onChange:(selectedRowKeys:Key[])=>{
-                    selectedRssItems = selectedRowKeys as string[];
-                  }
-                }"
-                :data-source="dataSource"
                 :columns="columns"
-                :preserve-selected-row-keys="true"
-                :row-key="(record:RssItemList)=>record.torrentCode"
+                :custom-row="
+                  (record: RssItemList) => {
+                    return {
+                      onContextmenu: (e: MouseEvent) => handleRightClickRow(e, record)
+                    };
+                  }
+                "
+                :data-source="dataSource"
                 :pagination="{
-                  current:queryParams.page,
-                  pageSize:queryParams.limit,
+                  current: queryParams.page,
+                  pageSize: queryParams.limit,
                   hideOnSinglePage: false,
                   showSizeChanger: true,
-                  total:total
+                  total: total
+                }"
+                :preserve-selected-row-keys="true"
+                :row-key="(record: RssItemList) => record.torrentCode"
+                :row-selection="{
+                  selectedRowKeys: selectedRssItems,
+                  onChange: (selectedRowKeys: Key[]) => {
+                    selectedRssItems = selectedRowKeys as string[];
+                  }
                 }"
                 @change="
                   handleTableChange({
@@ -435,10 +436,7 @@ defineExpose({
                     limit: $event.pageSize || 0
                   })
                 "
-                :custom-row="(record: RssItemList) => {
-                    return {
-                      onContextmenu: (e: MouseEvent) => handleRightClickRow(e, record)
-                    };}"
+                :scroll="{ x: 'max-content' }"
                 v-slot:bodyCell="{ column, record }: { column: any; record: RssItemList }"
               >
                 <template v-if="column.key === 'operation' && !isMultiple">
@@ -453,24 +451,22 @@ defineExpose({
                   </a-dropdown>
                   <a-space v-else>
                     <a-tooltip
-                      v-for="(item, i) in (menuList(record as RssItemList) as any).filter(
-                          (menu: any) => !menu.children
-                        )"
+                      v-for="(item, i) in (menuList(record as RssItemList) as any).filter((menu: any) => !menu.children)"
                       :key="i"
                       :title="item.label"
                     >
                       <a-button
-                        v-if="item.key !=='new'"
+                        v-if="item.key !== 'new'"
                         :icon="item.icon"
                         type="text"
                         size="small"
                         :style="item.style"
                         @click="
-                            () => {
-                              oneSelected(record.torrentCode);
-                              item.onClick();
-                            }
-                          "
+                          () => {
+                            oneSelected(record.torrentCode);
+                            item.onClick();
+                          }
+                        "
                       >
                       </a-button>
                     </a-tooltip>
@@ -501,34 +497,46 @@ defineExpose({
                   </a-tooltip>
                 </template>
                 <template v-if="column.key === 'downloaded'">
-                  <a-switch v-model:checked="record.downloaded"
-                            @click="(checked:'0'|'1')=>{
-                              changeRssItem({id:record.id,downloaded:checked})
-                            }"
-                            checked-value="1"
-                            un-checked-value="0"
-                            :checked-children="t('TXT_CODE_DICT_YES')"
-                            :un-checked-children="t('TXT_CODE_DICT_NO')" />
+                  <a-switch
+                    v-model:checked="record.downloaded"
+                    :checked-children="t('TXT_CODE_DICT_YES')"
+                    :un-checked-children="t('TXT_CODE_DICT_NO')"
+                    checked-value="1"
+                    un-checked-value="0"
+                    @click="
+                      (checked: '0' | '1') => {
+                        changeRssItem({ id: record.id, downloaded: checked });
+                      }
+                    "
+                  />
                 </template>
                 <template v-if="column.key === 'pushed'">
-                  <a-switch v-model:checked="record.pushed"
-                            @click="(checked:'0'|'1')=>{
-                              changeRssItem({id:record.id,pushed:checked})
-                            }"
-                            checked-value="1"
-                            un-checked-value="0"
-                            :checked-children="t('TXT_CODE_DICT_YES')"
-                            :un-checked-children="t('TXT_CODE_DICT_NO')" />
+                  <a-switch
+                    v-model:checked="record.pushed"
+                    :checked-children="t('TXT_CODE_DICT_YES')"
+                    :un-checked-children="t('TXT_CODE_DICT_NO')"
+                    checked-value="1"
+                    un-checked-value="0"
+                    @click="
+                      (checked: '0' | '1') => {
+                        changeRssItem({ id: record.id, pushed: checked });
+                      }
+                    "
+                  />
                 </template>
                 <template v-if="column.key === 'status'">
-                  <a-switch v-model:checked="record.status"
-                            @click="(checked:'0'|'1')=>{
-                              changeRssItem({id:record.id,status:checked})
-                            }"
-                            checked-value="1"
-                            un-checked-value="0"
-                            :checked-children="t('TXT_CODE_DICT_YES')"
-                            :un-checked-children="t('TXT_CODE_DICT_NO')" />
+                  <a-switch
+                    v-model:checked="record.status"
+                    :checked-children="t('TXT_CODE_DICT_YES')"
+                    :un-checked-children="t('TXT_CODE_DICT_NO')"
+                    checked-value="1"
+                    un-checked-value="0"
+                    @click="
+                      (checked: '0' | '1') => {
+                        changeRssItem({ id: record.id, status: checked });
+                      }
+                    "
+                  />
                 </template>
               </a-table>
             </template>

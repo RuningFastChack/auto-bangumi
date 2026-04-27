@@ -94,9 +94,6 @@ public class RssManageVO {
 
     /**
      * 复制
-     *
-     * @param rssManage
-     * @return
      */
     public static RssManageVO copy(RssManage rssManage) {
         return RssManageVO.builder()

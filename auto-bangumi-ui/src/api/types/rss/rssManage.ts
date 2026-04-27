@@ -53,7 +53,7 @@ export type RssManageQuery = IPageQuery & {
   updateWeek?: number;
   sendDateForm?: string;
   sendDateTo?: string;
-  sendDate?: []
+  sendDate?: [];
 };
 
 export type RSS = {
@@ -63,5 +63,6 @@ export type RSS = {
   sort: number;
   status: '0' | '1';
   type: 'Mikan';
+  offset: number;
   subGroupId?: string;
 };

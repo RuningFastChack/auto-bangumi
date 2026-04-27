@@ -111,6 +111,7 @@
   "TXT_CODE_b9a788e3": "字幕組ID",
   "TXT_CODE_4427cb2f": "請填寫字幕組ID",
   "TXT_CODE_66d9a5b0": "字幕組",
+  "TXT_CODE_66d9a5b1": "劇集偏移量（0表示不偏移，+1表示1集偏移，-1表示1集偏移反向）",
   "TXT_CODE_9fe7189c": "請填寫字幕組",
   "TXT_CODE_47fcc538": "請選擇連結類型",
   "TXT_CODE_cf656d4b": "完結",

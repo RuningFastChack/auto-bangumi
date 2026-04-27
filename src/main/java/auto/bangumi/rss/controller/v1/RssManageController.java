@@ -11,7 +11,6 @@ import auto.bangumi.rss.model.DTO.RssManage.RssManageListDTO;
 import auto.bangumi.rss.model.VO.RssManage.RssManageCalendarVO;
 import auto.bangumi.rss.model.VO.RssManage.RssManageListVO;
 import auto.bangumi.rss.model.VO.RssManage.RssManageVO;
-import auto.bangumi.rss.model.entity.RssManage;
 import auto.bangumi.rss.service.IRssManageService;
 import auto.bangumi.rss.service.IUnifiedRssService;
 import jakarta.annotation.Resource;
@@ -39,8 +38,8 @@ public class RssManageController {
     /**
      * 分页
      *
-     * @param dto
-     * @return
+     * @param dto 分页查询参数
+     * @return 分页结果
      */
     @GetMapping("page")
     public ApiPageResult<PageResult<RssManageListVO>> findRssManagePage(RssManageListDTO dto) {
@@ -50,7 +49,7 @@ public class RssManageController {
     /**
      * 日历
      *
-     * @return
+     * @return 日历结果
      */
     @GetMapping("calendar")
     public ApiResult<HashMap<Integer, List<RssManageCalendarVO>>> findRssManageCalendar() {
@@ -60,8 +59,7 @@ public class RssManageController {
     /**
      * 详情
      *
-     * @param id
-     * @return
+     * @param id 主键
      */
     @GetMapping
     public ApiResult<RssManageVO> findRssManageDetail(@NotNull(message = "不能为空") Integer id) {
@@ -71,7 +69,7 @@ public class RssManageController {
     /**
      * 创建
      *
-     * @param dto
+     * @param dto 创建参数
      */
     @PostMapping
     public ApiResult<Void> createRssManage(@RequestBody @Validated(Add.class) RssManageDTO dto) {
@@ -82,7 +80,7 @@ public class RssManageController {
     /**
      * 编辑
      *
-     * @param dto
+     * @param dto 更新参数
      */
     @PutMapping
     public ApiResult<Void> updateRssManage(@RequestBody @Validated(Update.class) RssManageDTO dto) {
@@ -93,22 +91,21 @@ public class RssManageController {
     /**
      * 修改状态
      *
-     * @param dto
-     * @return
+     * @param dto 更新参数
      */
     @PutMapping("change")
     public ApiResult<Void> changeRssManage(@RequestBody RssManageDTO dto) {
         if (Objects.isNull(dto.getId())) {
             return ApiResult.error(CommonResponseEnum.VALID_ERROR);
         }
-        iRssManageService.updateById(RssManage.builder().id(dto.getId()).status(dto.getStatus()).complete(dto.getComplete()).build());
+        iRssManageService.updateRssManageStatus(dto.getId(), dto.getStatus());
         return ApiResult.success();
     }
 
     /**
      * 删除
      *
-     * @param params
+     * @param params 删除参数
      */
     @DeleteMapping
     public ApiResult<Void> removeRssManage(@RequestBody HashMap<String,Integer> params) {
@@ -121,8 +118,7 @@ public class RssManageController {
     /**
      * 刷新海报
      *
-     * @param rssManageIds
-     * @return
+     * @param rssManageIds 刷新参数
      */
     @PutMapping("refresh/poster")
     public ApiResult<Void> refreshPoster(@RequestBody List<Integer> rssManageIds) {
@@ -133,8 +129,7 @@ public class RssManageController {
     /**
      * 刷新订阅
      *
-     * @param rssManageIds
-     * @return
+     * @param rssManageIds 刷新参数
      */
     @PutMapping("refresh/manage")
     public ApiResult<Void> refreshRssManageByIds(@RequestBody @NotNull(message = "不能为空") List<Integer> rssManageIds) {

@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import {arrayFilter} from '@/utils/array.ts';
-import {type FormInstance, Input, message, Modal} from 'ant-design-vue';
+import { arrayFilter } from '@/utils/array.ts';
+import { type FormInstance, Input, message, Modal } from 'ant-design-vue';
 
 import {
   BarsOutlined,
   BulbOutlined,
+  CloudOutlined,
   ControlOutlined,
   DashboardOutlined,
   LayoutOutlined,
@@ -12,24 +13,25 @@ import {
   MediumOutlined,
   PlusOutlined,
   QuestionCircleOutlined,
-  SettingOutlined
+  SettingOutlined,
+  UngroupOutlined
 } from '@ant-design/icons-vue';
 import CardPanel from '@/components/CardPanel.vue';
 import LeftMenusPanel from '@/components/LeftMenusPanel.vue';
-import {h, onMounted, reactive, ref} from 'vue';
-import {findUserConfig, updateConfig, updateLoginInfo} from '@/api/modules/user.ts';
-import {useUserStore} from '@/stores/modules/user.ts';
-import {deepCopy} from '@/utils';
-import type {UserConfig} from '@/api/types/user.ts';
-import {type DictOptions, DOWN_UTIL_MAP} from '@/types/dict.ts';
-import type {LoginDTO} from '@/api/types';
-import {t} from '@/lang/i18n.ts';
+import { h, onMounted, reactive, ref } from 'vue';
+import { findUserConfig, updateConfig, updateLoginInfo } from '@/api/modules/user.ts';
+import { useUserStore } from '@/stores/modules/user.ts';
+import { deepCopy } from '@/utils';
+import type { UserConfig } from '@/api/types/user.ts';
+import { type DictOptions, DOWN_UTIL_MAP } from '@/types/dict.ts';
+import type { LoginDTO } from '@/api/types';
+import { t } from '@/lang/i18n.ts';
 //region type
 let userStore = useUserStore();
 
 type UpdateUserInfo = LoginDTO & {
-  newPwdConfirm?: string
-}
+  newPwdConfirm?: string;
+};
 
 //endregion
 
@@ -316,6 +318,10 @@ const systemConfigFormData = ref<UserConfig>({
     password: 'adminadmin',
     savePath: '/',
     ssl: false
+  },
+  systemInfo: {
+    version: '',
+    buildTime: ''
   }
 });
 
@@ -374,8 +380,7 @@ const delFilter = async (index: number) => {
   await handleSubmitFilterSetting();
 };
 
-const changeMenus = () => {
-};
+const changeMenus = () => {};
 
 const initUserConfig = async () => {
   loading.value = true;
@@ -389,56 +394,50 @@ const initUserConfig = async () => {
 };
 
 const handleSubmitDownLoadSetting = () => {
-  systemDownLoadSettingRef.value?.validate()
-    .then(async () => {
-      loading.value = true;
-      try {
-        await updateConfig(systemConfigFormData.value);
-        await initUserConfig();
-        message.success(t('TXT_CODE_10194e6a'));
-      } finally {
-        loading.value = false;
-      }
-    });
+  systemDownLoadSettingRef.value?.validate().then(async () => {
+    loading.value = true;
+    try {
+      await updateConfig(systemConfigFormData.value);
+      await initUserConfig();
+      message.success(t('TXT_CODE_10194e6a'));
+    } finally {
+      loading.value = false;
+    }
+  });
 };
 
 const handleSubmitMcsManageSetting = () => {
-  mcsManageRuleFormRef.value?.validate()
-    .then(async () => {
-      loading.value = true;
-      try {
-        await updateConfig(systemConfigFormData.value);
-        await initUserConfig();
-        message.success(t('TXT_CODE_10194e6a'));
-      } finally {
-        loading.value = false;
-      }
-    });
+  mcsManageRuleFormRef.value?.validate().then(async () => {
+    loading.value = true;
+    try {
+      await updateConfig(systemConfigFormData.value);
+      await initUserConfig();
+      message.success(t('TXT_CODE_10194e6a'));
+    } finally {
+      loading.value = false;
+    }
+  });
 };
 
 const handleSubmitPassword = () => {
-  securityRuleFormRef.value?.validate()
-    .then(async () => {
-      try {
-        loading.value = true;
-        await updateLoginInfo(securityFormData.value);
-        userStore.clear();
+  securityRuleFormRef.value?.validate().then(async () => {
+    try {
+      loading.value = true;
+      await updateLoginInfo(securityFormData.value);
+      userStore.clear();
 
-        Modal.success({
-          title: t('TXT_CODE_e349fb9a'),
-          content: h('div', {}, [
-            h('p', t('TXT_CODE_7ec27326'))
-          ]),
-          onOk() {
-            window.location.href = '/';
-          }
-        });
-
-      } finally {
-        loading.value = false;
-        securityRuleFormRef.value?.resetFields();
-      }
-    });
+      Modal.success({
+        title: t('TXT_CODE_e349fb9a'),
+        content: h('div', {}, [h('p', t('TXT_CODE_7ec27326'))]),
+        onOk() {
+          window.location.href = '/';
+        }
+      });
+    } finally {
+      loading.value = false;
+      securityRuleFormRef.value?.resetFields();
+    }
+  });
 };
 
 const handleSubmitGeneralSetting = async () => {
@@ -463,13 +462,11 @@ const handleSubmitFilterSetting = async () => {
   }
 };
 
-
 //region otherMethods
 defineOptions({ name: 'Settings' });
 
 onMounted(() => initUserConfig());
 //endregion
-
 </script>
 
 <template>
@@ -480,11 +477,10 @@ onMounted(() => initUserConfig());
           <template #setting>
             <div class="content-box">
               <a-typography-title :level="4" class="mb-24">
-                {{t('TXT_CODE_9684a760')}}
+                {{ t('TXT_CODE_9684a760') }}
               </a-typography-title>
               <div style="text-align: left">
-                <a-form :model="systemConfigFormData.generalSetting"
-                        layout="vertical">
+                <a-form :model="systemConfigFormData.generalSetting" layout="vertical">
                   <a-form-item name="enable">
                     <a-typography-title :level="5">
                       {{ t('TXT_CODE_466e199a') }}
@@ -494,20 +490,24 @@ onMounted(() => initUserConfig());
                         {{ t('TXT_CODE_98af1455') }}
                       </p>
                     </a-typography-paragraph>
-                    <a-switch v-model:checked="systemConfigFormData.generalSetting.enable"
-                              @click="handleSubmitGeneralSetting"
-                              :checked-value="true"
-                              :un-checked-value="false"
-                              :checked-children="t('TXT_CODE_DICT_YES')"
-                              :un-checked-children="t('TXT_CODE_DICT_NO')" />
+                    <a-switch
+                      v-model:checked="systemConfigFormData.generalSetting.enable"
+                      :checked-children="t('TXT_CODE_DICT_YES')"
+                      :checked-value="true"
+                      :un-checked-children="t('TXT_CODE_DICT_NO')"
+                      :un-checked-value="false"
+                      @click="handleSubmitGeneralSetting"
+                    />
                   </a-form-item>
                   <a-form-item name="rssTimeOut">
                     <a-typography-title :level="5">
                       {{ t('TXT_CODE_13a7199a') }}
                     </a-typography-title>
-                    <a-input-number v-model:value="systemConfigFormData.generalSetting.rssTimeOut"
-                                    @change.lazy="handleSubmitGeneralSetting"
-                                    allowClear />
+                    <a-input-number
+                      v-model:value="systemConfigFormData.generalSetting.rssTimeOut"
+                      allowClear
+                      @change.lazy="handleSubmitGeneralSetting"
+                    />
                   </a-form-item>
                   <a-form-item name="savePathRule">
                     <a-typography-title :level="5">
@@ -516,8 +516,7 @@ onMounted(() => initUserConfig());
                     <a-typography-paragraph>
                       <pre style="font-size: 13px">{{ savePathDesc }}</pre>
                     </a-typography-paragraph>
-                    <a-input v-model:value="systemConfigFormData.generalSetting.savePathRule"
-                             allowClear/>
+                    <a-input v-model:value="systemConfigFormData.generalSetting.savePathRule" allowClear />
                   </a-form-item>
                   <a-form-item name="episodeTitleRule">
                     <a-typography-title :level="5">
@@ -526,19 +525,16 @@ onMounted(() => initUserConfig());
                     <a-typography-paragraph>
                       <pre style="font-size: 13px">{{ episodeReNameRuleDesc }}</pre>
                     </a-typography-paragraph>
-                    <a-input v-model:value="systemConfigFormData.generalSetting.episodeTitleRule"
-                             allowClear/>
+                    <a-input v-model:value="systemConfigFormData.generalSetting.episodeTitleRule" allowClear />
                   </a-form-item>
                   <a-form-item name="sendingTimeLimit">
                     <a-typography-title :level="5">
                       {{ t('TXT_CODE_23cfaee9') }}
                     </a-typography-title>
-                    <a-input v-model:value="systemConfigFormData.generalSetting.sendingTimeLimit"
-                             allowClear/>
+                    <a-input v-model:value="systemConfigFormData.generalSetting.sendingTimeLimit" allowClear />
                   </a-form-item>
                   <div class="button">
-                    <a-button :loading="loading" type="primary"
-                              @click="handleSubmitGeneralSetting">
+                    <a-button :loading="loading" type="primary" @click="handleSubmitGeneralSetting">
                       {{ t('TXT_CODE_BUTTON_DESC_SAVE') }}
                     </a-button>
                   </div>
@@ -557,8 +553,7 @@ onMounted(() => initUserConfig());
                 </p>
               </a-typography-paragraph>
               <div style="text-align: left">
-                <a-form :model="systemConfigFormData.filterSetting"
-                        layout="vertical">
+                <a-form :model="systemConfigFormData.filterSetting" layout="vertical">
                   <a-form-item name="enable">
                     <a-typography-title :level="5">
                       {{ t('TXT_CODE_a66abdc7') }}
@@ -568,12 +563,14 @@ onMounted(() => initUserConfig());
                         {{ t('TXT_CODE_a19c36ab') }}
                       </p>
                     </a-typography-paragraph>
-                    <a-switch v-model:checked="systemConfigFormData.filterSetting.enable"
-                              @click="handleSubmitFilterSetting"
-                              :checked-value="true"
-                              :un-checked-value="false"
-                              :checked-children="t('TXT_CODE_DICT_YES')"
-                              :un-checked-children="t('TXT_CODE_DICT_NO')" />
+                    <a-switch
+                      v-model:checked="systemConfigFormData.filterSetting.enable"
+                      :checked-children="t('TXT_CODE_DICT_YES')"
+                      :checked-value="true"
+                      :un-checked-children="t('TXT_CODE_DICT_NO')"
+                      :un-checked-value="false"
+                      @click="handleSubmitFilterSetting"
+                    />
                   </a-form-item>
                   <a-form-item name="filterReg">
                     <a-typography-title :level="5">
@@ -623,10 +620,13 @@ onMounted(() => initUserConfig());
                 {{ t('TXT_CODE_af220178') }}
               </a-typography-title>
               <div class="pb-4 flex">
-                <a-select v-model:value="systemConfigFormData.downLoadSetting.utilEnum"
-                          style="width: 100%" :placeholder="t('TXT_CODE_af220178')">
+                <a-select
+                  v-model:value="systemConfigFormData.downLoadSetting.utilEnum"
+                  :placeholder="t('TXT_CODE_af220178')"
+                  style="width: 100%"
+                >
                   <a-select-option
-                    v-for="([key,item]) in Object.entries(DOWN_UTIL_MAP) as [string, DictOptions][]"
+                    v-for="[key, item] in Object.entries(DOWN_UTIL_MAP) as [string, DictOptions][]"
                     :key="key"
                     :value="key"
                     :title="item.text"
@@ -636,62 +636,71 @@ onMounted(() => initUserConfig());
                 </a-select>
               </div>
               <div style="text-align: left">
-                <a-form :model="systemConfigFormData.downLoadSetting"
-                        :rules="systemDownLoadSettingRules"
-                        ref="systemDownLoadSettingRef"
-                        layout="vertical">
+                <a-form
+                  ref="systemDownLoadSettingRef"
+                  :model="systemConfigFormData.downLoadSetting"
+                  :rules="systemDownLoadSettingRules"
+                  layout="vertical"
+                >
                   <a-form-item name="url">
                     <a-typography-title :level="5">
                       {{ t('TXT_CODE_977d5a70') }}
                     </a-typography-title>
-                    <a-input v-model:value="systemConfigFormData.downLoadSetting.url"
-                             :placeholder="t('TXT_CODE_977d5a70')"
-                             allowClear />
+                    <a-input
+                      v-model:value="systemConfigFormData.downLoadSetting.url"
+                      :placeholder="t('TXT_CODE_977d5a70')"
+                      allowClear
+                    />
                   </a-form-item>
                   <a-form-item name="username">
                     <a-typography-title :level="5">
                       {{ t('TXT_CODE_72f1dfa8') }}
                     </a-typography-title>
-                    <a-input v-model:value="systemConfigFormData.downLoadSetting.username"
-                             :placeholder="t('TXT_CODE_72f1dfa8')"
-                             allowClear />
+                    <a-input
+                      v-model:value="systemConfigFormData.downLoadSetting.username"
+                      :placeholder="t('TXT_CODE_72f1dfa8')"
+                      allowClear
+                    />
                   </a-form-item>
                   <a-form-item name="password">
                     <a-typography-title :level="5">
                       {{ t('TXT_CODE_aac3ac9d') }}
                     </a-typography-title>
-                    <a-input v-model:value="systemConfigFormData.downLoadSetting.password"
-                             :placeholder="t('TXT_CODE_aac3ac9d')"
-                             allowClear />
+                    <a-input
+                      v-model:value="systemConfigFormData.downLoadSetting.password"
+                      :placeholder="t('TXT_CODE_aac3ac9d')"
+                      allowClear
+                    />
                   </a-form-item>
                   <a-form-item name="savePath">
                     <a-typography-title :level="5">
                       {{ t('TXT_CODE_196c9daa') }}
                     </a-typography-title>
-                    <a-input v-model:value="systemConfigFormData.downLoadSetting.savePath"
-                             :placeholder="t('TXT_CODE_196c9daa')"
-                             allowClear />
+                    <a-input
+                      v-model:value="systemConfigFormData.downLoadSetting.savePath"
+                      :placeholder="t('TXT_CODE_196c9daa')"
+                      allowClear
+                    />
                   </a-form-item>
                   <a-form-item name="ssl">
-                    <a-typography-title :level="5">
-                      SSL
-                    </a-typography-title>
+                    <a-typography-title :level="5"> SSL </a-typography-title>
                     <a-typography-paragraph>
                       <p>
                         {{ t('TXT_CODE_c6db1586') }}
                         <a-tag>SSL</a-tag>
                       </p>
                     </a-typography-paragraph>
-                    <a-switch v-model:checked="systemConfigFormData.downLoadSetting.ssl"
-                              disabled
-                              :checked-value="true"
-                              :un-checked-value="false"
-                              :checked-children="t('TXT_CODE_DICT_YES')"
-                              :un-checked-children="t('TXT_CODE_DICT_NO')" />
+                    <a-switch
+                      v-model:checked="systemConfigFormData.downLoadSetting.ssl"
+                      :checked-children="t('TXT_CODE_DICT_YES')"
+                      :checked-value="true"
+                      :un-checked-children="t('TXT_CODE_DICT_NO')"
+                      :un-checked-value="false"
+                      disabled
+                    />
                   </a-form-item>
                   <div class="button">
-                    <a-button type="primary" :loading="loading"
-                              @click="handleSubmitDownLoadSetting">
+                    <a-button :loading="loading" type="primary" @click="handleSubmitDownLoadSetting">
                       {{ t('TXT_CODE_BUTTON_DESC_SAVE') }}
                     </a-button>
                   </div>
@@ -705,10 +714,12 @@ onMounted(() => initUserConfig());
                 {{ t('TXT_CODE_6b826a0e') }}
               </a-typography-title>
               <div style="text-align: left">
-                <a-form :model="systemConfigFormData.mcsManageSetting"
-                        :rules="mcsManageRules"
-                        ref="mcsManageRuleFormRef"
-                        layout="vertical">
+                <a-form
+                  ref="mcsManageRuleFormRef"
+                  :model="systemConfigFormData.mcsManageSetting"
+                  :rules="mcsManageRules"
+                  layout="vertical"
+                >
                   <a-typography-title :level="5">
                     {{ t('TXT_CODE_bc823422') }}
                   </a-typography-title>
@@ -716,7 +727,8 @@ onMounted(() => initUserConfig());
                     <a-typography-text type="secondary">
                       <a
                         href="https://docs.mcsmanager.com/zh_cn/apis/api_instance.html#%E5%AE%9E%E4%BE%8B%E8%AF%A6%E6%83%85"
-                        target="_blank">
+                        target="_blank"
+                      >
                         <a-button>
                           <MediumOutlined />
                           {{ t('TXT_CODE_af89b8f0') }}
@@ -728,37 +740,44 @@ onMounted(() => initUserConfig());
                     <a-typography-title :level="5">
                       {{ t('TXT_CODE_8556fd2c') }}
                     </a-typography-title>
-                    <a-input v-model:value="systemConfigFormData.mcsManageSetting.url"
-                             placeholder="http://localhost:24444"
-                             allowClear />
+                    <a-input
+                      v-model:value="systemConfigFormData.mcsManageSetting.url"
+                      allowClear
+                      placeholder="http://localhost:24444"
+                    />
                   </a-form-item>
                   <a-form-item name="mcsManageKey">
                     <a-typography-title :level="5">
                       {{ t('TXT_CODE_05e1cdd3') }}
                     </a-typography-title>
-                    <a-input v-model:value="systemConfigFormData.mcsManageSetting.mcsManageKey"
-                             :placeholder="t('TXT_CODE_a559c48a')"
-                             allowClear />
+                    <a-input
+                      v-model:value="systemConfigFormData.mcsManageSetting.mcsManageKey"
+                      :placeholder="t('TXT_CODE_a559c48a')"
+                      allowClear
+                    />
                   </a-form-item>
                   <a-form-item name="daemonId">
                     <a-typography-title :level="5">
                       {{ t('TXT_CODE_bb0a7e2f') }}
                     </a-typography-title>
-                    <a-input v-model:value="systemConfigFormData.mcsManageSetting.daemonId"
-                             :placeholder="t('TXT_CODE_200b9b9f')"
-                             allowClear />
+                    <a-input
+                      v-model:value="systemConfigFormData.mcsManageSetting.daemonId"
+                      :placeholder="t('TXT_CODE_200b9b9f')"
+                      allowClear
+                    />
                   </a-form-item>
                   <a-form-item name="instanceId">
                     <a-typography-title :level="5">
                       {{ t('TXT_CODE_b19b8a1e') }}
                     </a-typography-title>
-                    <a-input v-model:value="systemConfigFormData.mcsManageSetting.instanceId"
-                             :placeholder="t('TXT_CODE_0ee7f317')"
-                             allowClear />
+                    <a-input
+                      v-model:value="systemConfigFormData.mcsManageSetting.instanceId"
+                      :placeholder="t('TXT_CODE_0ee7f317')"
+                      allowClear
+                    />
                   </a-form-item>
                   <div class="button">
-                    <a-button type="primary" :loading="loading"
-                              @click="handleSubmitMcsManageSetting">
+                    <a-button :loading="loading" type="primary" @click="handleSubmitMcsManageSetting">
                       {{ t('TXT_CODE_BUTTON_DESC_SAVE') }}
                     </a-button>
                   </div>
@@ -772,10 +791,7 @@ onMounted(() => initUserConfig());
                 {{ t('TXT_CODE_6473ffdd') }}
               </a-typography-title>
               <div style="text-align: left">
-                <a-form :model="securityFormData"
-                        :rules="securityRules"
-                        ref="securityRuleFormRef"
-                        layout="vertical">
+                <a-form ref="securityRuleFormRef" :model="securityFormData" :rules="securityRules" layout="vertical">
                   <a-typography-title :level="5">
                     {{ t('TXT_CODE_48360885') }}
                   </a-typography-title>
@@ -797,22 +813,19 @@ onMounted(() => initUserConfig());
                     <a-typography-title :level="5">
                       {{ t('TXT_CODE_72f1dfa8') }}
                     </a-typography-title>
-                    <a-input v-model:value="securityFormData.username" :placeholder="t('TXT_CODE_5e81d097')"
-                             allowClear />
+                    <a-input v-model:value="securityFormData.username" :placeholder="t('TXT_CODE_5e81d097')" allowClear />
                   </a-form-item>
                   <a-form-item name="password">
                     <a-typography-title :level="5">
-                      {{t('TXT_CODE_e771fa8a')}}
+                      {{ t('TXT_CODE_e771fa8a') }}
                     </a-typography-title>
-                    <a-input v-model:value="securityFormData.password" :placeholder="t('TXT_CODE_9e3efb9f')"
-                             allowClear />
+                    <a-input v-model:value="securityFormData.password" :placeholder="t('TXT_CODE_9e3efb9f')" allowClear />
                   </a-form-item>
                   <a-form-item name="newPwdConfirm">
                     <a-typography-title :level="5">
                       {{ t('TXT_CODE_579ef006') }}
                     </a-typography-title>
-                    <a-input v-model:value="securityFormData.newPwdConfirm" :placeholder="t('TXT_CODE_579ef006')"
-                             allowClear />
+                    <a-input v-model:value="securityFormData.newPwdConfirm" :placeholder="t('TXT_CODE_579ef006')" allowClear />
                   </a-form-item>
                   <div class="button">
                     <a-button type="primary" :loading="loading" @click="handleSubmitPassword">
@@ -830,11 +843,23 @@ onMounted(() => initUserConfig());
               </a-typography-title>
               <a-typography-paragraph>
                 <p>
-                  {{t('TXT_CODE_1b5f5536')}}
+                  {{ t('TXT_CODE_1b5f5536') }}
                 </p>
               </a-typography-paragraph>
               <div class="pb-4 flex">
                 <a-flex gap="small" wrap="wrap">
+                  <div>
+                    <a-button>
+                      <CloudOutlined />
+                      {{ systemConfigFormData.systemInfo.version }}
+                    </a-button>
+                  </div>
+                  <div>
+                    <a-button>
+                      <UngroupOutlined />
+                      {{ systemConfigFormData.systemInfo.buildTime }}
+                    </a-button>
+                  </div>
                   <div v-for="item in aboutLinks" :key="item.url">
                     <a :href="item.url" target="_blank">
                       <a-button>

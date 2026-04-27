@@ -7,13 +7,7 @@ import { createRssManage, findRssManageDetail, updateRssManage } from '@/api/mod
 import type { RSS, RssManage } from '@/api/types/rss/rssManage.ts';
 import { getRandomId } from '@/utils/randId.ts';
 import { analysisMikan } from '@/api/modules/analysis.ts';
-import {
-  ArrowDownOutlined,
-  ArrowUpOutlined,
-  ClearOutlined,
-  PlusOutlined,
-  QuestionCircleOutlined
-} from '@ant-design/icons-vue';
+import { ArrowDownOutlined, ArrowUpOutlined, ClearOutlined, PlusOutlined, QuestionCircleOutlined } from '@ant-design/icons-vue';
 import { type DictOptions, RSS_TYPE_MAP, WEEK_MAP } from '@/types/dict.ts';
 import { useScreen } from '@/hooks/useScreen.ts';
 import { t } from '@/lang/i18n.ts';
@@ -150,7 +144,8 @@ const addRss = () => {
     sort: paramsProps.value.rssList.length,
     status: '1',
     type: 'Mikan',
-    subGroupId: ''
+    subGroupId: '',
+    offset: 0
   });
 };
 
@@ -192,7 +187,8 @@ const resetSort = () => {
 
 const handleSubmit = () => {
   loading.value = true;
-  ruleFormRef.value?.validate()
+  ruleFormRef.value
+    ?.validate()
     .then(async () => {
       let id = paramsProps.value.id;
       if (id) {
@@ -250,7 +246,7 @@ const analysisRss = async (rss: RSS) => {
         if (isEmpty(rss.rss)) {
           return;
         }
-        const { data } = await analysisMikan(rss.rss, isEmpty(paramsProps.value.id));
+        const { data } = await analysisMikan(rss.rss);
         rss.subGroupId = data.subGroupId;
         rss.translationGroup = data.translationGroup;
         if (isEmpty(paramsProps.value.id)) {
@@ -282,17 +278,10 @@ defineExpose({
   acceptParams
 });
 //endregion
-
 </script>
 
 <template>
-  <a-drawer
-    v-model:open="visible"
-    :title="dialogTitle"
-    :mask-closable="false"
-    destroy-on-close
-    :width="isPhone?'100%':'80%'"
-  >
+  <a-drawer v-model:open="visible" :mask-closable="false" :title="dialogTitle" :width="isPhone ? '100%' : '80%'" destroy-on-close>
     <a-spin :spinning="loading">
       <a-form
         ref="ruleFormRef"
@@ -303,25 +292,16 @@ defineExpose({
         :wrapperCol="wrapperCol"
       >
         <a-form-item name="officialTitle">
-          <template #label>
-            {{ t('TXT_CODE_b992ba89') }} CN
-          </template>
-          <a-input v-model:value="paramsProps.officialTitle" :placeholder="t('TXT_CODE_b5e7f231')"
-                   allowClear />
+          <template #label> {{ t('TXT_CODE_b992ba89') }} CN </template>
+          <a-input v-model:value="paramsProps.officialTitle" :placeholder="t('TXT_CODE_b5e7f231')" allowClear />
         </a-form-item>
         <a-form-item name="officialTitleEn">
-          <template #label>
-            {{ t('TXT_CODE_b992ba89') }} EN
-          </template>
-          <a-input v-model:value="paramsProps.officialTitleEn" :placeholder="t('TXT_CODE_b5e7f231')"
-                   allowClear />
+          <template #label> {{ t('TXT_CODE_b992ba89') }} EN </template>
+          <a-input v-model:value="paramsProps.officialTitleEn" :placeholder="t('TXT_CODE_b5e7f231')" allowClear />
         </a-form-item>
         <a-form-item name="officialTitleJp">
-          <template #label>
-            {{ t('TXT_CODE_b992ba89') }} JP
-          </template>
-          <a-input v-model:value="paramsProps.officialTitleJp" :placeholder="t('TXT_CODE_b5e7f231')"
-                   allowClear />
+          <template #label> {{ t('TXT_CODE_b992ba89') }} JP </template>
+          <a-input v-model:value="paramsProps.officialTitleJp" :placeholder="t('TXT_CODE_b5e7f231')" allowClear />
         </a-form-item>
 
         <a-form-item :label="t('TXT_CODE_70a588d7')" name="season">
@@ -330,8 +310,7 @@ defineExpose({
               <QuestionCircleOutlined />
             </a-tooltip>
           </template>
-          <a-input
-            v-model:value="paramsProps.season" allowClear />
+          <a-input v-model:value="paramsProps.season" allowClear />
         </a-form-item>
 
         <a-form-item :label="t('TXT_CODE_708351ce')" name="status">
@@ -352,20 +331,14 @@ defineExpose({
             {{ t('TXT_CODE_ff0e598f') }}
           </a-button>
           <div style="margin-top: 8px">
-            <a-tag
-              v-for="(item, index) in paramsProps.filter"
-              :key="item"
-              closable
-              @close="delFilter(index)"
-            >
+            <a-tag v-for="(item, index) in paramsProps.filter" :key="item" closable @close="delFilter(index)">
               {{ item }}
             </a-tag>
           </div>
         </a-form-item>
 
         <a-form-item :label="t('TXT_CODE_196c9daa')" name="savePath">
-          <a-input v-model:value="paramsProps.savePath" :placeholder="t('TXT_CODE_fece9cd9')"
-                   allowClear />
+          <a-input v-model:value="paramsProps.savePath" :placeholder="t('TXT_CODE_fece9cd9')" allowClear />
         </a-form-item>
 
         <a-form-item :label="t('TXT_CODE_8f72f0f1')" name="complete">
@@ -379,10 +352,9 @@ defineExpose({
         </a-form-item>
 
         <a-form-item :label="t('TXT_CODE_eefeb8c4')" name="updateWeek">
-          <a-select v-model:value="paramsProps.updateWeek" allowClear
-                    :placeholder="t('TXT_CODE_eefeb8c4')">
+          <a-select v-model:value="paramsProps.updateWeek" :placeholder="t('TXT_CODE_eefeb8c4')" allowClear>
             <a-select-option
-              v-for="([key,item]) in Object.entries(WEEK_MAP) as [string, DictOptions][]"
+              v-for="[key, item] in Object.entries(WEEK_MAP) as [string, DictOptions][]"
               :key="key"
               :value="Number(key)"
               :title="item.text"
@@ -393,20 +365,15 @@ defineExpose({
         </a-form-item>
 
         <a-form-item :label="t('TXT_CODE_b1ffe778')" name="sendDate">
-          <a-input v-model:value="paramsProps.sendDate" :placeholder="t('TXT_CODE_d7cf7d70')"
-                   allowClear />
+          <a-input v-model:value="paramsProps.sendDate" :placeholder="t('TXT_CODE_d7cf7d70')" allowClear />
         </a-form-item>
 
         <a-form-item :label="t('TXT_CODE_7df39b03')" name="config.totalEpisode">
-          <a-input v-model:value="paramsProps.config.totalEpisode"
-                   :placeholder="t('TXT_CODE_7df39b03')"
-                   allowClear />
+          <a-input v-model:value="paramsProps.config.totalEpisode" :placeholder="t('TXT_CODE_7df39b03')" allowClear />
         </a-form-item>
 
         <a-form-item :label="t('TXT_CODE_18ad2c30')" name="config.latestEpisode">
-          <a-input v-model:value="paramsProps.config.latestEpisode"
-                   :placeholder="t('TXT_CODE_18ad2c30')"
-                   allowClear />
+          <a-input v-model:value="paramsProps.config.latestEpisode" :placeholder="t('TXT_CODE_18ad2c30')" allowClear />
         </a-form-item>
 
         <a-form-item :label="t('TXT_CODE_f032059f')">
@@ -420,35 +387,44 @@ defineExpose({
       </a-form>
       <!-- rssList 子表单 -->
       <a-space direction="vertical" :size="5" style="width: 100%">
-        <a-row class="rss-list-container" :gutter="[8,8]"
-               justify="start" align="middle"
-               v-for="(rss, index) in paramsProps.rssList" :key="index">
+        <a-row
+          v-for="(rss, index) in paramsProps.rssList"
+          :key="index"
+          :gutter="[8, 8]"
+          align="middle"
+          class="rss-list-container"
+          justify="start"
+        >
           <a-col :xs="24" :sm="24" :md="3">
-            <div :style="{textAlign:isPhone?'left':'right'}">
+            <div :style="{ textAlign: isPhone ? 'left' : 'right' }">
               {{ t('TXT_CODE_e7a601ef', { num: index + 1 }) }}
             </div>
           </a-col>
           <a-col :xs="24" :sm="24" :md="21">
-            <a-form :model="rss"
-                    class="rss-items-form"
-                    :rules="rssRules"
-                    :layout="isPhone?'vertical':'inline'"
-            >
+            <a-form :layout="isPhone ? 'vertical' : 'inline'" :model="rss" :rules="rssRules" class="rss-items-form">
               <a-form-item name="rss">
                 <a-tooltip>
                   <template #title>{{ rss.rss || t('TXT_CODE_2c1fca48') }}</template>
-                  <a-input v-model:value="rss.rss" @change="analysisRss(rss)"
-                           :placeholder="t('TXT_CODE_f032059f')"
-                           allowClear />
+                  <a-input v-model:value="rss.rss" :placeholder="t('TXT_CODE_f032059f')" allowClear @change="analysisRss(rss)" />
                 </a-tooltip>
               </a-form-item>
               <a-form-item name="subGroupId">
-                <a-input v-model:value="rss.subGroupId" :placeholder="t('TXT_CODE_b9a788e3')"
-                         allowClear />
+                <a-input v-model:value="rss.subGroupId" :placeholder="t('TXT_CODE_b9a788e3')" allowClear />
               </a-form-item>
               <a-form-item name="translationGroup">
-                <a-input v-model:value="rss.translationGroup" :placeholder="t('TXT_CODE_66d9a5b0')"
-                         allowClear />
+                <a-input v-model:value="rss.translationGroup" :placeholder="t('TXT_CODE_66d9a5b0')" allowClear />
+              </a-form-item>
+              <a-form-item name="offset">
+                <a-tooltip>
+                  <template #title>{{ t('TXT_CODE_66d9a5b1') }}</template>
+                  <a-icon><QuestionCircleOutlined /></a-icon>
+                </a-tooltip>
+                <a-input-number
+                  v-model:value="rss.offset"
+                  :placeholder="t('TXT_CODE_66d9a5b1')"
+                  allowClear
+                  style="margin-left: 2px"
+                />
               </a-form-item>
               <a-form-item name="status">
                 <a-switch
@@ -460,10 +436,9 @@ defineExpose({
                 />
               </a-form-item>
               <a-form-item name="type">
-                <a-select v-model:value="rss.type" style="width: 100%"
-                          :placeholder="t('TXT_CODE_9d565011')">
+                <a-select v-model:value="rss.type" :placeholder="t('TXT_CODE_9d565011')" style="width: 100%">
                   <a-select-option
-                    v-for="([key,item]) in Object.entries(RSS_TYPE_MAP) as [string, DictOptions][]"
+                    v-for="[key, item] in Object.entries(RSS_TYPE_MAP) as [string, DictOptions][]"
                     :key="key"
                     :value="key"
                     :title="item.text"
@@ -474,14 +449,12 @@ defineExpose({
               </a-form-item>
               <a-form-item style="flex: 1">
                 <a-flex gap="small" wrap="wrap">
-                  <a-button v-show="rss.sort > 0 && paramsProps.rssList.length >=2" type="primary"
-                            @click="upLevel(rss)">
+                  <a-button v-show="rss.sort > 0 && paramsProps.rssList.length >= 2" type="primary" @click="upLevel(rss)">
                     <template #icon>
                       <ArrowUpOutlined />
                     </template>
                   </a-button>
-                  <a-button v-show="paramsProps.rssList.length >=2" type="default"
-                            @click="downLevel(rss)">
+                  <a-button v-show="paramsProps.rssList.length >= 2" type="default" @click="downLevel(rss)">
                     <template #icon>
                       <ArrowDownOutlined />
                     </template>
@@ -499,10 +472,7 @@ defineExpose({
       </a-space>
     </a-spin>
     <template #extra>
-      <a-button type="primary" @click="handleSubmit">{{
-          t('TXT_CODE_BUTTON_DESC_SUBMIT')
-        }}
-      </a-button>
+      <a-button type="primary" @click="handleSubmit">{{ t('TXT_CODE_BUTTON_DESC_SUBMIT') }} </a-button>
     </template>
   </a-drawer>
 </template>

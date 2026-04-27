@@ -45,4 +45,12 @@ public class Rss {
      * 番剧 - 翻译分组？
      */
     private String subGroupId;
+
+    /**
+     * 剧集偏移量 +-数量
+     * 例如：+1  标识原剧集10变成11
+     * 例如：-1  标识原剧集10变成9
+     * 0 表示不偏移
+     */
+    private Integer offset;
 }

@@ -1,5 +1,6 @@
 package auto.bangumi.admin.service.impl;
 
+import auto.bangumi.AutoBangumiApplication;
 import auto.bangumi.admin.mapper.UserMapper;
 import auto.bangumi.admin.model.UserConfig;
 import auto.bangumi.admin.model.dto.LoginDTO;
@@ -59,6 +60,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             UserConfig parsed = JSON.parseObject(config, UserConfig.class);
             BeanUtils.copyProperties(parsed, userConfig);
         }
+
+        UserConfig.SystemInfo systemInfo = new UserConfig.SystemInfo();
+        systemInfo.setVersion(AutoBangumiApplication.getVersion());
+        systemInfo.setBuildTime(AutoBangumiApplication.getBuildTimeStatic());
+        userConfig.setSystemInfo(systemInfo);
         return userConfig;
     }
 

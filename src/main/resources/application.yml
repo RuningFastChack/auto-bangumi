@@ -2,6 +2,11 @@ spring:
   profiles:
     active: dev
 
+app:
+  name: @project.name@
+  version: @project.version@
+  build-time: @package-time@
+
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: auto.bangumi.*.model.entity

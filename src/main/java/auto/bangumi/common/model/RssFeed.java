@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * RSS订阅模型 XML 转 JavaBean
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

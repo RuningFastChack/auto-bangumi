@@ -111,6 +111,7 @@
   "TXT_CODE_b9a788e3": "Subtitle Group ID",
   "TXT_CODE_4427cb2f": "Please fill in the subtitle group ID",
   "TXT_CODE_66d9a5b0": "Subtitle Group",
+  "TXT_CODE_66d9a5b1": "Offset (0 means no offset, +1 means 1 episode offset, -1 means 1 episode offset backwards)",
   "TXT_CODE_9fe7189c": "Please fill in the subtitle group",
   "TXT_CODE_47fcc538": "Please select link type",
   "TXT_CODE_cf656d4b": "Finished",

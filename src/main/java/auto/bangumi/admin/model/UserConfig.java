@@ -27,6 +27,8 @@ public class UserConfig {
     
     private PlayerSetting playerSetting;
 
+    private SystemInfo systemInfo;
+
     @Getter
     @Setter
     @Builder
@@ -171,5 +173,21 @@ public class UserConfig {
          * 播放地址
          */
         private String url;
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class SystemInfo {
+        /**
+         * 系统名称
+         */
+        private String version;
+        /**
+         * 构建时间
+         */
+        private String buildTime;
     }
 }

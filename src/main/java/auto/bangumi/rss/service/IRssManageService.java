@@ -12,56 +12,70 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * RSS管理
+ */
 public interface IRssManageService extends IService<RssManage> {
 
     /**
      * 分页
      *
-     * @param dto
-     * @return
+     * @param dto 分页查询参数
+     * @return 分页结果
      */
     PageResult<RssManageListVO> findRssManagePage(RssManageListDTO dto);
 
     /**
      * 日历模式
      *
-     * @return
+     * @return 日历结果
      */
     HashMap<Integer, List<RssManageCalendarVO>> findRssManageCalendar();
 
     /**
-     * 需要更新的番剧
+     * 需要更新的番剧，仅查询启用且未完结的番剧
      *
-     * @return
+     * @return 需要更新的番剧列表
      */
     List<RssManageVO> findRequiredUpdateRssManage();
 
     /**
      * 详情
      *
-     * @param id
-     * @return
+     * @param id 主键
+     * @return 详情
      */
     RssManageVO findRssManageDetailById(Integer id);
 
     /**
      * 创建
      *
-     * @param dto
+     * @param dto 创建参数
      */
     void createRssManage(RssManageDTO dto);
 
     /**
      * 编辑
-     *
-     * @param dto
+     * 更改状态时，是否启用状态status会和RssList以及RssItem进行联动更新。
+     * 仅适合禁用状态，因为我不想启动的是将所有Rss订阅都启动。
+     * @param dto 更新参数
      */
     void updateRssManage(RssManageDTO dto);
 
     /**
+     * 更新状态
+     * 更改状态时，是否启用状态status会和RssList以及RssItem进行联动更新。
+     * 仅适合禁用状态，因为我不想启动的是将所有Rss订阅都启动。
+     *
+     * @param id     主键
+     * @param status 状态码
+     */
+    void updateRssManageStatus(Integer id, String status);
+
+    /**
      * 删除
      *
-     * @param id
+     * @param id 主键
      */
     void removeRssManage(Integer id);
 }

@@ -10,6 +10,7 @@ export type UserConfig = {
   filterSetting: FilterSetting;
   downLoadSetting: DownLoadSetting;
   mcsManageSetting: McsManageSetting;
+  systemInfo: SystemInfo;
 };
 
 export type McsManageSetting = {
@@ -39,4 +40,9 @@ export type DownLoadSetting = {
   password: string;
   savePath: string;
   ssl: boolean;
+};
+
+export type SystemInfo = {
+  version: string;
+  buildTime: string;
 };

@@ -3,6 +3,10 @@ package auto.bangumi.rss.model.entity;
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.*;
 
+/**
+ * RSS剧集
+ */
+@Data
 @Getter
 @Setter
 @Builder

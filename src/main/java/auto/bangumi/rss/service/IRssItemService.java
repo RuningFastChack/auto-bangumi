@@ -9,35 +9,37 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
+/**
+ * RSS剧集
+ */
 public interface IRssItemService extends IService<RssItem> {
 
     /**
      * 查询记录
      *
-     * @param dto
-     * @return
+     * @param dto 查询参数
+     * @return 分页结果
      */
     PageResult<RssItemListVO> findRssItemPage(RssItemListDTO dto);
 
     /**
      * 保存记录
      *
-     * @param saveBatchList
-     * @return
+     * @param saveBatchList 保存参数
      */
-    List<RssItemDTO> saveBatchRssItemList(List<RssItemDTO> saveBatchList);
+    void saveBatchRssItemList(List<RssItemDTO> saveBatchList);
 
     /**
      * 修改
      *
-     * @param dto
+     * @param dto 更新参数
      */
     void updateRssItemById(RssItemDTO dto);
 
     /**
      * 删除
      *
-     * @param torrentCodes
+     * @param torrentCodes 删除参数
      */
     void removeRssItemByTorrentCodes(List<String> torrentCodes);
 }
