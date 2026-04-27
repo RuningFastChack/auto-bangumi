@@ -185,7 +185,7 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
                 checkCodes.clear();
             }
         }
-        if (!checkCodes.isEmpty()){
+        if (!checkCodes.isEmpty()) {
             checkRssItem(checkCodes);
         }
     }
@@ -232,7 +232,7 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
      *
      * @param torrentCodes 磁力链接列表
      */
-    private void checkRssItem(List<String> torrentCodes){
+    private void checkRssItem(List<String> torrentCodes) {
         List<String> successCodes = qBittorrentApi.CheckTorrentState(torrentCodes);
         if (!successCodes.isEmpty()) {
             iRssItemService.update(new LambdaUpdateWrapper<RssItem>()
@@ -543,35 +543,34 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
      * @param item 磁力链接数据
      */
     private void pushTorrent(RssItemDTO item) {
-        //开线程推送，
-        AsyncManager.me().execute(new TimerTask() {
-            @Override
-            public void run() {
-                Boolean isPush = qBittorrentApi.CreateTorrents(item);
-                if (isPush) {
-                    //推送成功
-                    iRssItemService.update(new LambdaUpdateWrapper<RssItem>()
-                            .eq(RssItem::getTorrentCode, item.getTorrentCode())
-                            .set(RssItem::getPushed, SysYesNo.YES.getCode())
-                    );
-                    //刷新最新剧集
-                    RssManageVO rssManage = iRssManageService.findRssManageDetailById(item.getRssManageId());
-                    if (rssManage != null && rssManage.getConfig() != null) {
-                        RssManage updateInfo = RssManage.builder().id(rssManage.getId()).build();
+        Boolean isPush = qBittorrentApi.CreateTorrents(item);
+        if (isPush) {
+            //推送成功
+            iRssItemService.update(new LambdaUpdateWrapper<RssItem>()
+                    .eq(RssItem::getTorrentCode, item.getTorrentCode())
+                    .set(RssItem::getPushed, SysYesNo.YES.getCode())
+            );
+            //刷新最新剧集
+            RssManageVO rssManage = iRssManageService.findRssManageDetailById(item.getRssManageId());
 
-                        RssManageConfigVO config = rssManage.getConfig();
-                        BigDecimal pushEpisodeNum = new BigDecimal(Optional.ofNullable(item.getEpisodeNum()).orElse("0"));
-                        BigDecimal configEpisodeNum = new BigDecimal(Optional.ofNullable(config.getLatestEpisode()).orElse("0"));
+            if (rssManage != null && rssManage.getConfig() != null) {
+                RssManageConfigVO config = rssManage.getConfig();
 
-                        //更新最新集数
-                        if (pushEpisodeNum.compareTo(configEpisodeNum) > 0) {
-                            config.setLatestEpisode(item.getEpisodeNum());
-                            updateInfo.setConfig(JSON.toJSONString(config));
-                            iRssManageService.updateById(updateInfo);
-                        }
-                    }
+                RssManage updateInfo = RssManage.builder()
+                        .id(rssManage.getId())
+                        .build();
+                //推送的最新集数
+                BigDecimal pushEpisodeNum = new BigDecimal(Optional.ofNullable(item.getEpisodeNum()).orElse("0"));
+                //配置的最新集数
+                BigDecimal configEpisodeNum = new BigDecimal(Optional.ofNullable(config.getLatestEpisode()).orElse("0"));
+
+                //更新最新集数
+                if (pushEpisodeNum.compareTo(configEpisodeNum) > 0) {
+                    config.setLatestEpisode(JSON.toJSONString(pushEpisodeNum));
+                    updateInfo.setConfig(JSON.toJSONString(config));
+                    iRssManageService.updateById(updateInfo);
                 }
             }
-        });
+        }
     }
 }
