@@ -19,7 +19,7 @@
 
     <properties>
         <java.version>17</java.version>
-        <revision>1.4.0-beta</revision>
+        <revision>1.4.1-beta</revision>
         <package-time>${maven.build.timestamp}</package-time>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>

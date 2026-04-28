@@ -98,7 +98,7 @@ public class RssManageController {
         if (Objects.isNull(dto.getId())) {
             return ApiResult.error(CommonResponseEnum.VALID_ERROR);
         }
-        iRssManageService.updateRssManageStatus(dto.getId(), dto.getStatus());
+        iRssManageService.updateRssManageStatusOrComplete(dto);
         return ApiResult.success();
     }
 

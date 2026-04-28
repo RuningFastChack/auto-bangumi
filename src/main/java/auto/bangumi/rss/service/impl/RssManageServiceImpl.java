@@ -57,8 +57,8 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
         Page<RssManage> selectedPage = baseMapper.selectPage(PageUtils.getPage(dto), new LambdaQueryWrapper<RssManage>()
                 .and(StringUtils.isNotBlank(dto.getOfficialTitle()),
                         item -> item.like(StringUtils.isNotBlank(dto.getOfficialTitle()), RssManage::getOfficialTitle, dto.getOfficialTitle()).or()
-                        .like(StringUtils.isNotBlank(dto.getOfficialTitle()), RssManage::getOfficialTitleEn, dto.getOfficialTitle()).or()
-                        .like(StringUtils.isNotBlank(dto.getOfficialTitle()), RssManage::getOfficialTitleJp, dto.getOfficialTitle()))
+                                .like(StringUtils.isNotBlank(dto.getOfficialTitle()), RssManage::getOfficialTitleEn, dto.getOfficialTitle()).or()
+                                .like(StringUtils.isNotBlank(dto.getOfficialTitle()), RssManage::getOfficialTitleJp, dto.getOfficialTitle()))
                 .eq(StringUtils.isNotBlank(dto.getSeason()), RssManage::getSeason, dto.getSeason())
                 .eq(StringUtils.isNotBlank(dto.getStatus()), RssManage::getStatus, dto.getStatus())
                 .eq(StringUtils.isNotBlank(dto.getComplete()), RssManage::getComplete, dto.getComplete())
@@ -109,8 +109,8 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
     @Override
     public List<RssManageVO> findRequiredUpdateRssManage() {
         return Optional.ofNullable(baseMapper.selectList(new LambdaQueryWrapper<RssManage>()
-                .eq(RssManage::getStatus, SysYesNo.YES.getCode())
-                .eq(RssManage::getComplete, SysYesNo.NO.getCode())
+                        .eq(RssManage::getStatus, SysYesNo.YES.getCode())
+                        .eq(RssManage::getComplete, SysYesNo.NO.getCode())
                 )).orElse(new ArrayList<>())
                 .stream().map(RssManageVO::copy).toList();
     }
@@ -199,7 +199,7 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
         }
 
         RssManage saveInfo = RssManage.builder().build();
-        BeanUtil.copyProperties(dto, saveInfo, CopyOptions.create().setIgnoreProperties("filter", "rssList","config"));
+        BeanUtil.copyProperties(dto, saveInfo, CopyOptions.create().setIgnoreProperties("filter", "rssList", "config"));
         saveInfo.setFilter(Objects.nonNull(dto.getFilter()) && !dto.getFilter().isEmpty() ? String.join(",", dto.getFilter()) : "");
         saveInfo.setRssList(!uniqueRssList.isEmpty() ? JSON.toJSONString(uniqueRssList) : JSON.toJSONString(new ArrayList<>()));
         saveInfo.setConfig(Objects.nonNull(dto.getConfig()) ? JSON.toJSONString(dto.getConfig()) : JSON.toJSONString(new RssManageDTO()));
@@ -225,15 +225,23 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
      * 更改状态时，是否启用状态status会和RssList以及RssItem进行联动更新。
      * 仅适合禁用状态，因为我不想启动的是将所有Rss订阅都启动。
      *
-     * @param id     主键
-     * @param status 状态码
+     * @param dto 更新参数
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void updateRssManageStatus(Integer id, String status) {
+    public void updateRssManageStatusOrComplete(RssManageDTO dto) {
+        Integer id = dto.getId();
+        String status = dto.getStatus();
+        String complete = dto.getComplete();
+
         RssManage selectedOne = baseMapper.selectById(id);
         RssResponseEnum.RSS_MANAGE_EXISTS.assertNull(selectedOne);
-        RssManage updateInfo = RssManage.builder().id(id).status(status).build();
+        RssManage updateInfo = RssManage.builder()
+                .id(id)
+                .status(status)
+                .complete(complete)
+                .build();
+
         if (SysYesNo.NO.getCode().equals(status)) {
             String rssList = selectedOne.getRssList();
             List<Rss> rssListCopy = JSON.parseArray(rssList, Rss.class);
