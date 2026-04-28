@@ -1,4 +1,4 @@
-package auto.bangumi.rss.factory.defray;
+package auto.bangumi.rss.factory.strategy;
 
 import auto.bangumi.admin.model.UserConfig;
 import auto.bangumi.common.enums.RssTypeEnum;
@@ -40,7 +40,7 @@ import java.util.Objects;
 @Slf4j
 @Component
 @RssMethod(method = RssTypeEnum.Mikan)
-public class MikanDefray implements RssAnalysisService {
+public class MikanStrategy implements RssAnalysisService {
     @Resource
     private ConfigCatch configCatch;
 
@@ -64,6 +64,8 @@ public class MikanDefray implements RssAnalysisService {
         try {
             Document doc = Jsoup.connect(homePage)
                     .userAgent("Mozilla/5.0")
+                    .timeout(30000)
+                    .ignoreContentType(true)
                     .get();
 
             Element poster = doc.selectFirst(".bangumi-poster");
@@ -107,6 +109,8 @@ public class MikanDefray implements RssAnalysisService {
         try {
             Document doc = Jsoup.connect(homePage)
                     .userAgent("Mozilla/5.0")
+                    .timeout(30000)
+                    .ignoreContentType(true)
                     .get();
 
             String totalEpisode = doc.select("p.bangumi-info:contains(总集数)").text();
@@ -149,6 +153,8 @@ public class MikanDefray implements RssAnalysisService {
         try {
             Document doc = Jsoup.connect(homePage)
                     .userAgent("Mozilla/5.0")
+                    .timeout(30000)
+                    .ignoreContentType(true)
                     .get();
 
             String weekText = doc.select("p.bangumi-info:contains(放送日期)").text();
@@ -173,26 +179,22 @@ public class MikanDefray implements RssAnalysisService {
         //endregion
 
         // region 通过XML解析
-        try {
-            String sendGet = HttpClientUtil.sendGet(rssPath);
-            if (StringUtils.isNotBlank(sendGet)) {
-                JAXBContext context = JAXBContext.newInstance(RssFeed.class);
-                Unmarshaller unmarshaller = context.createUnmarshaller();
-                RssFeed rssFeed = (RssFeed) unmarshaller.unmarshal(new StringReader(sendGet));
-                List<RssFeed.Item> itemList = rssFeed.getChannel().getItems();
-
-                if (Objects.nonNull(itemList) && !itemList.isEmpty()) {
-                    RssFeed.Item item = itemList.get(0);
-                    String xmlLink = item.getLink();
-
-                    Document doc = Jsoup.connect(xmlLink)
-                            .userAgent("Mozilla/5.0")
-                            .get();
-
-                    String translationGroup = doc.select("p.bangumi-info:contains(字幕组)").text();
-                    result.setTranslationGroup(translationGroup.replace("字幕组：", ""));
-
-                }
+        RssFeed rssFeed = parseRssFeed(rssPath);
+        if (Objects.nonNull(rssFeed) &&
+                Objects.nonNull(rssFeed.getChannel()) &&
+                Objects.nonNull(rssFeed.getChannel().getItems()) &&
+                !rssFeed.getChannel().getItems().isEmpty()) {
+            List<RssFeed.Item> itemList = rssFeed.getChannel().getItems();
+            RssFeed.Item item = itemList.get(0);
+            String xmlLink = item.getLink();
+            try {
+                Document doc = Jsoup.connect(xmlLink)
+                        .userAgent("Mozilla/5.0")
+                        .timeout(30000)
+                        .ignoreContentType(true)
+                        .get();
+                String translationGroup = doc.select("p.bangumi-info:contains(字幕组)").text();
+                result.setTranslationGroup(translationGroup.replace("字幕组：", ""));
                 String title = rssFeed.getChannel().getItems().get(0).getTitle();
                 Episode parse = RawParser.parse(title);
                 result.setSeason(String.valueOf(parse.getSeason()));
@@ -209,12 +211,9 @@ public class MikanDefray implements RssAnalysisService {
                             .replace("{season}", result.getSeason());
                     result.setSavePath(savePath);
                 }
-
-            } else {
-                log.error("Mikan 解析RSS失败，解析XML为空。RSS：{}", rssPath);
+            } catch (IOException e) {
+                log.error("Mikan 解析RSS失败，解析字幕组页面错误。RSS：{}，原因：{}", rssPath, e.getMessage());
             }
-        } catch (Exception e) {
-            log.error("Mikan 解析RSS失败，解析XML异常。RSS：{}，原因：{}", rssPath, e.getMessage());
         }
         // endregion
 
