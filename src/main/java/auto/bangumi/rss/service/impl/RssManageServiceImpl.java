@@ -170,8 +170,6 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
 
     /**
      * 编辑
-     * 更改状态时，是否启用状态status会和RssList以及RssItem进行联动更新。
-     * 仅适合禁用状态，因为我不想启动的是将所有Rss订阅都启动。
      *
      * @param dto 更新参数
      */
@@ -191,12 +189,6 @@ public class RssManageServiceImpl extends ServiceImpl<RssManageMapper, RssManage
                         (existing, replacement) -> existing // 如果有重复的 rss，保留第一个
                 ))
                 .values()).stream().sorted(Comparator.comparingInt(r -> r.getSort() != null ? r.getSort() : 0)).toList();
-
-        if (SysYesNo.NO.getCode().equals(dto.getStatus())) {
-            for (Rss rss : uniqueRssList) {
-                rss.setStatus(SysYesNo.NO.getCode());
-            }
-        }
 
         RssManage saveInfo = RssManage.builder().build();
         BeanUtil.copyProperties(dto, saveInfo, CopyOptions.create().setIgnoreProperties("filter", "rssList", "config"));

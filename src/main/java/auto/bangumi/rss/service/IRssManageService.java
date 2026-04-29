@@ -56,8 +56,7 @@ public interface IRssManageService extends IService<RssManage> {
 
     /**
      * 编辑
-     * 更改状态时，是否启用状态status会和RssList以及RssItem进行联动更新。
-     * 仅适合禁用状态，因为我不想启动的是将所有Rss订阅都启动。
+     *
      * @param dto 更新参数
      */
     void updateRssManage(RssManageDTO dto);
