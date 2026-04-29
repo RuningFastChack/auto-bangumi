@@ -65,11 +65,6 @@ public class RssManageDTO {
     private List<String> filter;
 
     /**
-     * 是否已读
-     */
-    private String readed;
-
-    /**
      * 图片路径
      */
     private String posterLink;

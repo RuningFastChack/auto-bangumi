@@ -492,7 +492,6 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
                                             .name(SeriesName)
                                             .url(item.getEnclosure().getUrl())
                                             .homepage(item.getLink())
-                                            .readed(SysYesNo.NO.getCode())
                                             .status(SysYesNo.YES.getCode())
                                             .downloaded(SysYesNo.NO.getCode())
                                             .pushed(SysYesNo.NO.getCode())

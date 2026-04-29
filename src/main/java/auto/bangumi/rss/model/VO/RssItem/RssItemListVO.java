@@ -35,11 +35,6 @@ public class RssItemListVO {
     private String translationGroup;
 
     /**
-     * 是否已读
-     */
-    private String readed;
-
-    /**
      * 保存路径
      */
     private String savePath;

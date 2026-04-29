@@ -53,11 +53,6 @@ public class RssManageVO {
     private List<String> filter;
 
     /**
-     * 是否已读
-     */
-    private String readed;
-
-    /**
      * 图片路径
      */
     private String posterLink;
@@ -102,7 +97,6 @@ public class RssManageVO {
                 .officialTitleEn(rssManage.getOfficialTitleEn())
                 .officialTitleJp(rssManage.getOfficialTitleJp())
                 .season(rssManage.getSeason())
-                .readed(rssManage.getReaded())
                 .status(rssManage.getStatus())
                 .filter(StringUtils.isNotBlank(rssManage.getFilter()) ? Arrays.asList(rssManage.getFilter().split(",")) : new ArrayList<>())
                 .posterLink(rssManage.getPosterLink())

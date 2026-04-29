@@ -45,11 +45,6 @@ public class RssManageListVO {
     private String status;
 
     /**
-     * 是否已读
-     */
-    private String readed;
-
-    /**
      * 保存路径
      */
     private String savePath;
@@ -86,7 +81,6 @@ public class RssManageListVO {
                 .officialTitleEn(rssManage.getOfficialTitleEn())
                 .officialTitleJp(rssManage.getOfficialTitleJp())
                 .season(rssManage.getSeason())
-                .readed(rssManage.getReaded())
                 .status(rssManage.getStatus())
                 .savePath(rssManage.getSavePath())
                 .complete(rssManage.getComplete())

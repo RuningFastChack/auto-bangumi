@@ -1,7 +1,6 @@
 package auto.bangumi.admin.model;
 
 import auto.bangumi.common.enums.DownUtilEnum;
-import auto.bangumi.common.enums.PlayerEnums;
 import lombok.*;
 
 import java.util.List;
@@ -24,8 +23,6 @@ public class UserConfig {
     private DownLoadSetting downLoadSetting;
 
     private McsManageSetting mcsManageSetting;
-    
-    private PlayerSetting playerSetting;
 
     private SystemInfo systemInfo;
 
@@ -141,38 +138,6 @@ public class UserConfig {
          * 是否启用SSL
          */
         private Boolean ssl;
-    }
-
-    @Getter
-    @Setter
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class PlayerSetting {
-        /**
-         * 播放器枚举
-         */
-        private PlayerEnums playerEnums;
-
-        /**
-         * 用户ID
-         */
-        private String userId;
-
-        /**
-         * 应用Key
-         */
-        private String appKey;
-
-        /**
-         * 基础路径
-         */
-        private String basePath;
-
-        /**
-         * 播放地址
-         */
-        private String url;
     }
 
     @Getter

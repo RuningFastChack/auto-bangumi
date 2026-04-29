@@ -5,6 +5,7 @@ package auto.bangumi.common.enums;
  */
 public enum CommonResponseEnum implements ResponseEnumTemplate<CommonResponseEnum> {
 
+
     // @formatter:off
     VALID_ERROR(100, "参数校验异常"),
 

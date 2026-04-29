@@ -57,12 +57,6 @@ public class RssManage {
     private String filter;
 
     /**
-     * 是否已读
-     */
-    @TableField(value = "readed")
-    private String readed;
-
-    /**
      * 图片路径
      */
     @TableField(value = "poster_link")

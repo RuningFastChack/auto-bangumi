@@ -1,6 +1,5 @@
 package auto.bangumi.rss.model.DTO.RssItem;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.*;
 
 /**
@@ -50,11 +49,6 @@ public class RssItemDTO {
      * 番剧 - 字幕组ID？
      */
     private String subGroupId;
-
-    /**
-     * 是否已读
-     */
-    private String readed;
 
     /**
      * torrent的原始标题
