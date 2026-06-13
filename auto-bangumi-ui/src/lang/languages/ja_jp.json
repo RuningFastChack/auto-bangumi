@@ -1084,5 +1084,6 @@
   "TXT_CODE_k2l3m4n5": "AIモデルプロバイダー",
   "TXT_CODE_o6p7q8r9": "APIキー",
   "TXT_CODE_s1t2u3v4": "モデル名",
-  "TXT_CODE_w5x6y7z8": "デフォルト: deepseek-v4-flash"
+  "TXT_CODE_a9b0c1d2": "カスタム API ベースURL",
+  "TXT_CODE_e3f4g5h6": "空欄でクラウドAPIを使用。ローカルURL（例: http://localhost:11434/v1）を設定するとローカルモデルを使用します。"
 }

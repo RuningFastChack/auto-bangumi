@@ -20,31 +20,25 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
- * DeepSeek AI 标题解析器
+ * Ollama 本地 AI 标题解析器
  *
  * @author sakura
  */
 @Slf4j
 @Component
-@ParserMethod(model = AiModelEnum.DEEPSEEK)
-public class DeepSeekParser implements TitleParser {
+@ParserMethod(model = AiModelEnum.OLLAMA)
+public class OllamaParser implements TitleParser {
 
-    private static final String DEFAULT_API_URL = "https://api.deepseek.com/chat/completions";
+    private static final String DEFAULT_MODEL = "deepseek-r1:1.5b";
 
-    private static final String DEFAULT_MODEL = "deepseek-v4-flash";
-
-    private static final int TIMEOUT_MS = 60000;
+    private static final int TIMEOUT_MS = 120000;
 
     /**
-     * 根据配置获取 API URL。如果配置了 baseUrl 则拼接 /chat/completions，
-     * 否则使用默认的 DeepSeek 云端地址
+     * 必须配置 baseUrl，例如 http://192.168.50.11:11434/v1
      */
     private static String getApiUrl(UserConfig.AiParseSetting setting) {
-        if (setting != null && StringUtils.isNotBlank(setting.getBaseUrl())) {
-            String base = setting.getBaseUrl().replaceAll("/+$", "");
-            return base + "/chat/completions";
-        }
-        return DEFAULT_API_URL;
+        String base = setting.getBaseUrl().replaceAll("/+$", "");
+        return base + "/chat/completions";
     }
 
     /**
@@ -89,24 +83,22 @@ public class DeepSeekParser implements TitleParser {
         userMsg.put("content", userPrompt);
 
         body.put("messages", new JSONObject[]{systemMsg, userMsg});
+        body.put("stream", false);
 
+        // 禁用推理模型的思考链，避免超长等待（如 DeepSeek-R1）
         JSONObject thinking = new JSONObject();
         thinking.put("type", "disabled");
         body.put("thinking", thinking);
 
-        // 强制 JSON 输出格式
-        body.put("response_format", JSON.parseObject("{\"type\":\"json_object\"}"));
-        body.put("stream", false);
         return body.toJSONString();
     }
 
-    private static String callApi(String apiUrl, String apiKey, String requestBody) throws Exception {
+    private static String callApi(String apiUrl, String requestBody) throws Exception {
         HttpURLConnection conn = (HttpURLConnection) URI.create(apiUrl).toURL().openConnection();
         conn.setRequestMethod("POST");
         conn.setConnectTimeout(TIMEOUT_MS);
         conn.setReadTimeout(TIMEOUT_MS);
         conn.setRequestProperty("Content-Type", "application/json");
-        conn.setRequestProperty("Authorization", "Bearer " + apiKey);
         conn.setDoOutput(true);
 
         try (OutputStream os = conn.getOutputStream()) {
@@ -119,7 +111,7 @@ public class DeepSeekParser implements TitleParser {
             String errorBody = new String(conn.getErrorStream() != null
                     ? conn.getErrorStream().readAllBytes()
                     : conn.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
-            throw new RuntimeException("DeepSeek API 返回错误码: " + responseCode + ", body: " + errorBody);
+            throw new RuntimeException("Ollama API 返回错误码: " + responseCode + ", body: " + errorBody);
         }
 
         return new String(conn.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
@@ -134,7 +126,7 @@ public class DeepSeekParser implements TitleParser {
                     .getString("content");
 
             if (StringUtils.isBlank(content)) {
-                log.warn("DeepSeek 返回内容为空，title: {}", rawTitle);
+                log.warn("Ollama 返回内容为空，title: {}", rawTitle);
                 return null;
             }
 
@@ -160,7 +152,7 @@ public class DeepSeekParser implements TitleParser {
 
             return episode;
         } catch (Exception e) {
-            log.warn("DeepSeek 响应解析失败，title: {}, 原因: {}", rawTitle, e.getMessage());
+            log.warn("Ollama 响应解析失败，title: {}, 原因: {}", rawTitle, e.getMessage());
             return null;
         }
     }
@@ -179,8 +171,8 @@ public class DeepSeekParser implements TitleParser {
     @Override
     public Episode parse(String rawTitle) {
         UserConfig.AiParseSetting setting = getAiSetting();
-        if (setting == null || StringUtils.isBlank(setting.getApiKey())) {
-            log.warn("DeepSeek 未配置 API Key");
+        if (setting == null || StringUtils.isBlank(setting.getBaseUrl())) {
+            log.warn("Ollama 未配置 API 地址");
             return null;
         }
 
@@ -190,15 +182,15 @@ public class DeepSeekParser implements TitleParser {
         try {
             String userPrompt = buildUserPrompt(rawTitle);
             String requestBody = buildRequestBody(model, userPrompt);
-            String responseJson = callApi(apiUrl, setting.getApiKey(), requestBody);
+            String responseJson = callApi(apiUrl, requestBody);
             Episode result = parseResponse(responseJson, rawTitle);
 
             if (result != null && StringUtils.isNotBlank(result.getEpisode())) {
-                log.info("DeepSeek 解析标题成功: {} -> episode={}, season={}", rawTitle, result.getEpisode(), result.getSeason());
+                log.info("Ollama 解析标题成功: {} -> episode={}, season={}", rawTitle, result.getEpisode(), result.getSeason());
                 return result;
             }
         } catch (Exception e) {
-            log.warn("DeepSeek 解析标题失败: {}, 原因: {}", rawTitle, e.getMessage());
+            log.warn("Ollama 解析标题失败: {}, 原因: {}", rawTitle, e.getMessage());
         }
 
         return null;

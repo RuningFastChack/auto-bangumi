@@ -72,11 +72,17 @@ public class TitleParserHandler extends AbstractSparrowAnnotationBeanMap<ParserM
 
     /**
      * 判断 AI 解析是否启用
+     * 本地模式（配置了 baseUrl）不需要 API Key，云端模式需要 API Key
      */
     private static boolean isAiEnabled(UserConfig.AiParseSetting setting) {
         if (setting == null || !Boolean.TRUE.equals(setting.getEnabled())) {
             return false;
         }
+        // 配置了自定义地址（本地模型）不需要 API Key
+        if (StringUtilsNoneBlank(setting.getBaseUrl())) {
+            return true;
+        }
+        // 云端模式需要 API Key
         return StringUtilsNoneBlank(setting.getApiKey());
     }
 

@@ -161,14 +161,20 @@ public class UserConfig {
         private AiModelEnum provider;
 
         /**
-         * DeepSeek API Key（也作为通用 API Key 使用）
+         * API Key（云端服务使用）
          */
         private String apiKey;
 
         /**
-         * DeepSeek 模型名称，默认 deepseek-v4-flash
+         * 模型名称，例如 deepseek-v4-flash、deepseek-r1:1.5b
          */
         private String model;
+
+        /**
+         * 自定义 API 地址
+         * 为空时使用各供应商默认的云端 API 地址
+         */
+        private String baseUrl;
     }
 
     @Getter

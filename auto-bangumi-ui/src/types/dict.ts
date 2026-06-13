@@ -30,7 +30,7 @@ export const DOWN_UTIL_MAP: Record<string, DictOptions> = {
 
 export const AI_MODEL_MAP: Record<string, DictOptions> = {
   DEEPSEEK: { text: 'DeepSeek', color: 'blue' },
-  OPENAI: { text: 'OpenAI', color: 'green' }
+  OLLAMA: { text: 'Ollama', color: 'purple' }
 };
 
 export const QB_STATUS_MAP: Record<string, DictOptions> = {

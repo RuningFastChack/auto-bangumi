@@ -1084,5 +1084,6 @@
   "TXT_CODE_k2l3m4n5": "AI 模型供應商",
   "TXT_CODE_o6p7q8r9": "API Key",
   "TXT_CODE_s1t2u3v4": "模型名稱",
-  "TXT_CODE_w5x6y7z8": "預設：deepseek-v4-flash"
+  "TXT_CODE_a9b0c1d2": "自訂 API 位址",
+  "TXT_CODE_e3f4g5h6": "留空使用雲端 API。設定本地位址（如 http://localhost:11434/v1）則使用本地模型。"
 }

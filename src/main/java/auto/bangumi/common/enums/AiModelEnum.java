@@ -7,5 +7,5 @@ package auto.bangumi.common.enums;
  */
 public enum AiModelEnum {
     DEEPSEEK,
-    OPENAI
+    OLLAMA
 }

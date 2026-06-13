@@ -4,6 +4,7 @@ import { updateConfig } from '@/api/modules/user.ts';
 import type { UserConfig } from '@/api/types/user.ts';
 import { AI_MODEL_MAP, type DictOptions } from '@/types/dict.ts';
 import { t } from '@/lang/i18n.ts';
+import { watch } from 'vue';
 
 const props = defineProps<{
   config: UserConfig;
@@ -13,6 +14,17 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'update'): void;
 }>();
+
+// 切换模型供应商时清空不相关的字段
+watch(
+  () => props.config.aiParseSetting?.provider,
+  (newVal, oldVal) => {
+    if (!newVal || !oldVal || newVal === oldVal) return;
+    props.config.aiParseSetting.baseUrl = '';
+    props.config.aiParseSetting.model = '';
+    props.config.aiParseSetting.apiKey = '';
+  }
+);
 
 const handleSubmit = async () => {
   try {
@@ -64,23 +76,39 @@ const handleSubmit = async () => {
             </a-select-option>
           </a-select>
         </a-form-item>
-        <a-form-item name="apiKey">
-          <a-typography-title :level="5">
-            {{ t('TXT_CODE_o6p7q8r9') }}
-          </a-typography-title>
-          <a-input-password v-model:value="config.aiParseSetting.apiKey" :placeholder="t('TXT_CODE_o6p7q8r9')" allowClear />
-        </a-form-item>
-        <a-form-item name="model">
-          <a-typography-title :level="5">
-            {{ t('TXT_CODE_s1t2u3v4') }}
-          </a-typography-title>
-          <a-typography-paragraph>
-            <p>
-              {{ t('TXT_CODE_w5x6y7z8') }}
-            </p>
-          </a-typography-paragraph>
-          <a-input v-model:value="config.aiParseSetting.model" allowClear placeholder="deepseek-v4-flash" />
-        </a-form-item>
+        <template v-if="config.aiParseSetting.provider === 'OLLAMA'">
+          <a-form-item name="baseUrl">
+            <a-typography-title :level="5">
+              {{ t('TXT_CODE_a9b0c1d2') }}
+            </a-typography-title>
+            <a-typography-paragraph>
+              <p>
+                {{ t('TXT_CODE_e3f4g5h6') }}
+              </p>
+            </a-typography-paragraph>
+            <a-input v-model:value="config.aiParseSetting.baseUrl" allowClear placeholder="http://localhost:11434/v1" />
+          </a-form-item>
+          <a-form-item name="model">
+            <a-typography-title :level="5">
+              {{ t('TXT_CODE_s1t2u3v4') }}
+            </a-typography-title>
+            <a-input v-model:value="config.aiParseSetting.model" :placeholder="t('TXT_CODE_s1t2u3v4')" allowClear />
+          </a-form-item>
+        </template>
+        <template v-else>
+          <a-form-item name="apiKey">
+            <a-typography-title :level="5">
+              {{ t('TXT_CODE_o6p7q8r9') }}
+            </a-typography-title>
+            <a-input-password v-model:value="config.aiParseSetting.apiKey" :placeholder="t('TXT_CODE_o6p7q8r9')" allowClear />
+          </a-form-item>
+          <a-form-item name="model">
+            <a-typography-title :level="5">
+              {{ t('TXT_CODE_s1t2u3v4') }}
+            </a-typography-title>
+            <a-input v-model:value="config.aiParseSetting.model" :placeholder="t('TXT_CODE_s1t2u3v4')" allowClear />
+          </a-form-item>
+        </template>
         <div class="button">
           <a-button :loading="loading" type="primary" @click="handleSubmit">
             {{ t('TXT_CODE_BUTTON_DESC_SAVE') }}

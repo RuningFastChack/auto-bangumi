@@ -16,9 +16,10 @@ export type UserConfig = {
 
 export type AiParseSetting = {
   enabled: boolean;
-  provider: 'DEEPSEEK' | 'OPENAI';
+  provider: 'DEEPSEEK' | 'OLLAMA';
   apiKey: string;
   model: string;
+  baseUrl: string;
 };
 
 export type McsManageSetting = {
