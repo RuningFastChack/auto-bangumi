@@ -1,5 +1,6 @@
 package auto.bangumi.common.parser;
 
+import auto.bangumi.common.constant.AutoBangumiConstant;
 import auto.bangumi.common.model.parser.Episode;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,10 +16,6 @@ import java.util.regex.Pattern;
  */
 @Slf4j
 public abstract class RawParser {
-
-    public static final Pattern EPISODE_INTEGER = Pattern.compile("\\d+");
-
-    public static final Pattern EPISODE_DOUBLE = Pattern.compile("\\d+\\.\\d+");
 
     public static final Pattern TITLE_RE = Pattern.compile(
             "(.*|\\[.*])" +
@@ -71,12 +68,12 @@ public abstract class RawParser {
 
         String episode = String.valueOf(Integer.MAX_VALUE);
 
-        Matcher isInteger = EPISODE_INTEGER.matcher(episodeInfo);
+        Matcher isInteger = AutoBangumiConstant.EPISODE_INTEGER.matcher(episodeInfo);
         if (isInteger.find()) {
             episode = String.valueOf(Integer.parseInt(isInteger.group()));
         }
 
-        Matcher isDouble = EPISODE_DOUBLE.matcher(episodeInfo);
+        Matcher isDouble = AutoBangumiConstant.EPISODE_DOUBLE.matcher(episodeInfo);
         if (isDouble.find()) {
             episode = String.valueOf(Double.valueOf(isDouble.group()));
         }

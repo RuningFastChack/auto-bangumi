@@ -1077,5 +1077,12 @@
   "TXT_CODE_549a1e25": "",
   "TXT_CODE_260dcd2e": "",
   "TXT_CODE_49243477": "",
-  "TXT_CODE_a092779e": ""
+  "TXT_CODE_a092779e": "",
+  "TXT_CODE_b6a1c2f3": "AI Parse Settings",
+  "TXT_CODE_c4d5e6f7": "Enable AI Title Parsing",
+  "TXT_CODE_g8h9i0j1": "When enabled, AI model will parse anime titles for better compatibility with non-standard formats. Disabled will use the original regex parser.",
+  "TXT_CODE_k2l3m4n5": "AI Model Provider",
+  "TXT_CODE_o6p7q8r9": "API Key",
+  "TXT_CODE_s1t2u3v4": "Model Name",
+  "TXT_CODE_w5x6y7z8": "Default: deepseek-v4-flash"
 }

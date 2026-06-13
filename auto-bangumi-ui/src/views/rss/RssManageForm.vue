@@ -417,7 +417,7 @@ defineExpose({
               <a-form-item name="offset">
                 <a-tooltip>
                   <template #title>{{ t('TXT_CODE_66d9a5b1') }}</template>
-                  <a-icon><QuestionCircleOutlined /></a-icon>
+                  <QuestionCircleOutlined />
                 </a-tooltip>
                 <a-input-number
                   v-model:value="rss.offset"

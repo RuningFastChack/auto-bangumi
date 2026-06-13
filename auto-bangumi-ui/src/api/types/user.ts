@@ -10,7 +10,15 @@ export type UserConfig = {
   filterSetting: FilterSetting;
   downLoadSetting: DownLoadSetting;
   mcsManageSetting: McsManageSetting;
+  aiParseSetting: AiParseSetting;
   systemInfo: SystemInfo;
+};
+
+export type AiParseSetting = {
+  enabled: boolean;
+  provider: 'DEEPSEEK' | 'OPENAI';
+  apiKey: string;
+  model: string;
 };
 
 export type McsManageSetting = {

@@ -1077,5 +1077,12 @@
   "TXT_CODE_549a1e25": "",
   "TXT_CODE_260dcd2e": "",
   "TXT_CODE_49243477": "",
-  "TXT_CODE_a092779e": ""
+  "TXT_CODE_a092779e": "",
+  "TXT_CODE_b6a1c2f3": "AI 解析设置",
+  "TXT_CODE_c4d5e6f7": "启用 AI 标题解析",
+  "TXT_CODE_g8h9i0j1": "开启后将使用 AI 模型解析番剧标题，对非常规格式有更好的兼容性。关闭则使用原始正则解析。",
+  "TXT_CODE_k2l3m4n5": "AI 模型供应商",
+  "TXT_CODE_o6p7q8r9": "API Key",
+  "TXT_CODE_s1t2u3v4": "模型名称",
+  "TXT_CODE_w5x6y7z8": "默认：deepseek-v4-flash"
 }

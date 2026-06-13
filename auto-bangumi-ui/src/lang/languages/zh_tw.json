@@ -1077,5 +1077,12 @@
   "TXT_CODE_549a1e25": "",
   "TXT_CODE_260dcd2e": "",
   "TXT_CODE_49243477": "",
-  "TXT_CODE_a092779e": ""
+  "TXT_CODE_a092779e": "",
+  "TXT_CODE_b6a1c2f3": "AI解析設定",
+  "TXT_CODE_c4d5e6f7": "啟用 AI 標題解析",
+  "TXT_CODE_g8h9i0j1": "啟用後將使用 AI 模型解析番劇標題，對非常規格式有更好的兼容性。關閉則使用原始正則解析。",
+  "TXT_CODE_k2l3m4n5": "AI 模型供應商",
+  "TXT_CODE_o6p7q8r9": "API Key",
+  "TXT_CODE_s1t2u3v4": "模型名稱",
+  "TXT_CODE_w5x6y7z8": "預設：deepseek-v4-flash"
 }

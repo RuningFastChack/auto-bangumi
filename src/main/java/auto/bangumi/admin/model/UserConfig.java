@@ -1,5 +1,6 @@
 package auto.bangumi.admin.model;
 
+import auto.bangumi.common.enums.AiModelEnum;
 import auto.bangumi.common.enums.DownUtilEnum;
 import lombok.*;
 
@@ -23,6 +24,8 @@ public class UserConfig {
     private DownLoadSetting downLoadSetting;
 
     private McsManageSetting mcsManageSetting;
+
+    private AiParseSetting aiParseSetting;
 
     private SystemInfo systemInfo;
 
@@ -138,6 +141,34 @@ public class UserConfig {
          * 是否启用SSL
          */
         private Boolean ssl;
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class AiParseSetting {
+
+        /**
+         * AI 解析开关，关闭则使用原始正则解析
+         */
+        private Boolean enabled;
+
+        /**
+         * AI 模型供应商，默认 DEEPSEEK
+         */
+        private AiModelEnum provider;
+
+        /**
+         * DeepSeek API Key（也作为通用 API Key 使用）
+         */
+        private String apiKey;
+
+        /**
+         * DeepSeek 模型名称，默认 deepseek-v4-flash
+         */
+        private String model;
     }
 
     @Getter

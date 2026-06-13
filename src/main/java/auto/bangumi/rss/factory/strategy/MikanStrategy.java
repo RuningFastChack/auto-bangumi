@@ -5,7 +5,7 @@ import auto.bangumi.common.enums.RssTypeEnum;
 import auto.bangumi.common.model.RssFeed;
 import auto.bangumi.common.model.parser.Episode;
 import auto.bangumi.common.model.parser.PosterDTO;
-import auto.bangumi.common.parser.RawParser;
+import auto.bangumi.common.parser.AiParser;
 import auto.bangumi.common.utils.AutoBangumiUtil;
 import auto.bangumi.common.utils.ConfigCatch;
 import auto.bangumi.common.utils.HttpClientUtil;
@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.Semaphore;
 
 /**
  * Mikan订阅分析服务实现
@@ -43,6 +44,62 @@ import java.util.Objects;
 public class MikanStrategy implements RssAnalysisService {
     @Resource
     private ConfigCatch configCatch;
+
+    /**
+     * 并发控制信号量，限制同时最多 2 个请求访问 Mikan，避免超时
+     */
+    private final Semaphore mikanSemaphore = new Semaphore(2);
+
+    /**
+     * 获取 Mikan 首页页面文档（带并发控制和重试）
+     */
+    private Document fetchDocument(String url) throws IOException {
+        return executeRequest(url);
+    }
+
+    /**
+     * 执行 Mikan 页面请求（带并发控制和重试），不限于 bangumi 首页
+     */
+    private Document executeRequest(String url) throws IOException {
+        try {
+            mikanSemaphore.acquire();
+        } catch (InterruptedException ie) {
+            Thread.currentThread().interrupt();
+            throw new IOException("请求被中断", ie);
+        }
+
+        try {
+            int maxRetries = 2;
+            int timeoutMs = 60000;
+            IOException lastException = null;
+
+            for (int attempt = 0; attempt <= maxRetries; attempt++) {
+                try {
+                    return Jsoup.connect(url)
+                            .userAgent("Mozilla/5.0")
+                            .timeout(timeoutMs)
+                            .ignoreContentType(true)
+                            .get();
+                } catch (IOException e) {
+                    lastException = e;
+                    if (attempt < maxRetries) {
+                        long backoff = (attempt + 1L) * 2000L;
+                        log.warn("Mikan 请求失败，{}s 后重试 ({}/{})。URL：{}，原因：{}",
+                                backoff / 1000, attempt + 1, maxRetries, url, e.getMessage());
+                        try {
+                            Thread.sleep(backoff);
+                        } catch (InterruptedException ie) {
+                            Thread.currentThread().interrupt();
+                            throw new IOException("请求被中断", ie);
+                        }
+                    }
+                }
+            }
+            throw lastException;
+        } finally {
+            mikanSemaphore.release();
+        }
+    }
 
     /**
      * 获取海报下载路径
@@ -62,11 +119,7 @@ public class MikanStrategy implements RssAnalysisService {
         String homePage = StrUtil.format("{}/Home/Bangumi/{}", baseURL, bangumiId);
 
         try {
-            Document doc = Jsoup.connect(homePage)
-                    .userAgent("Mozilla/5.0")
-                    .timeout(30000)
-                    .ignoreContentType(true)
-                    .get();
+            Document doc = fetchDocument(homePage);
 
             Element poster = doc.selectFirst(".bangumi-poster");
 
@@ -107,11 +160,7 @@ public class MikanStrategy implements RssAnalysisService {
         String homePage = StrUtil.format("{}/Home/Bangumi/{}", baseURL, bangumiId);
 
         try {
-            Document doc = Jsoup.connect(homePage)
-                    .userAgent("Mozilla/5.0")
-                    .timeout(30000)
-                    .ignoreContentType(true)
-                    .get();
+            Document doc = fetchDocument(homePage);
 
             String totalEpisode = doc.select("p.bangumi-info:contains(总集数)").text();
             String total = MikanUtil.parseTotalEpisode(totalEpisode);
@@ -151,11 +200,7 @@ public class MikanStrategy implements RssAnalysisService {
 
         //region 通过页面解析
         try {
-            Document doc = Jsoup.connect(homePage)
-                    .userAgent("Mozilla/5.0")
-                    .timeout(30000)
-                    .ignoreContentType(true)
-                    .get();
+            Document doc = fetchDocument(homePage);
 
             String weekText = doc.select("p.bangumi-info:contains(放送日期)").text();
             int week = AutoBangumiUtil.parseWeek(weekText);
@@ -188,15 +233,11 @@ public class MikanStrategy implements RssAnalysisService {
             RssFeed.Item item = itemList.get(0);
             String xmlLink = item.getLink();
             try {
-                Document doc = Jsoup.connect(xmlLink)
-                        .userAgent("Mozilla/5.0")
-                        .timeout(30000)
-                        .ignoreContentType(true)
-                        .get();
+                Document doc = executeRequest(xmlLink);
                 String translationGroup = doc.select("p.bangumi-info:contains(字幕组)").text();
                 result.setTranslationGroup(translationGroup.replace("字幕组：", ""));
                 String title = rssFeed.getChannel().getItems().get(0).getTitle();
-                Episode parse = RawParser.parse(title);
+                Episode parse = AiParser.parse(title);
                 result.setSeason(String.valueOf(parse.getSeason()));
                 result.setTitleEn(StringUtils.isNotBlank(parse.getNameEn()) ? parse.getNameEn() : result.getTitle());
                 result.setTitleJp(StringUtils.isNotBlank(parse.getNameJp()) ? parse.getNameEn() : result.getTitle());

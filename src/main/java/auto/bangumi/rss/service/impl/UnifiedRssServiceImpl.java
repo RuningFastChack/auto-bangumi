@@ -1,11 +1,12 @@
 package auto.bangumi.rss.service.impl;
 
 import auto.bangumi.admin.model.UserConfig;
+import auto.bangumi.common.constant.AutoBangumiConstant;
 import auto.bangumi.common.enums.SysYesNo;
 import auto.bangumi.common.model.RssFeed;
 import auto.bangumi.common.model.parser.Episode;
 import auto.bangumi.common.model.parser.PosterDTO;
-import auto.bangumi.common.parser.RawParser;
+import auto.bangumi.common.parser.AiParser;
 import auto.bangumi.common.utils.AsyncManager;
 import auto.bangumi.common.utils.AutoBangumiUtil;
 import auto.bangumi.common.utils.ConfigCatch;
@@ -442,11 +443,11 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
 
                                     String episodeNumStr = "ENN";
 
-                                    Episode episode = RawParser.parse(SeriesName);
+                                    Episode episode = AiParser.parse(SeriesName);
 
                                     if (Objects.nonNull(episode) && StringUtils.isNotBlank(episode.getEpisode())) {
                                         String rawEpisode = episode.getEpisode();
-                                        Matcher intMatcher = RawParser.EPISODE_INTEGER.matcher(rawEpisode);
+                                        Matcher intMatcher = AutoBangumiConstant.EPISODE_INTEGER.matcher(rawEpisode);
                                         if (intMatcher.matches()) {
                                             Integer value = Integer.parseInt(rawEpisode);
                                             Integer adjusted = value + offset;
@@ -454,7 +455,7 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
                                             episodeNum = String.valueOf(adjusted);
                                             episodeNumStr = adjusted < 10 ? String.format("E0%d", adjusted) : String.format("E%d", adjusted);
                                         } else {
-                                            Matcher isDouble = RawParser.EPISODE_DOUBLE.matcher(episode.getEpisode());
+                                            Matcher isDouble = AutoBangumiConstant.EPISODE_DOUBLE.matcher(episode.getEpisode());
                                             if (isDouble.matches()) {
                                                 Double value = Double.parseDouble(rawEpisode);
                                                 Double adjusted = value + offset;
