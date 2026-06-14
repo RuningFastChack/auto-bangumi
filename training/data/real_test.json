@@ -1,0 +1,978 @@
+[
+  {
+    "input": "[桜都字幕组] 魔王的女儿太温柔了！！ / Maou no Musume wa Yasashi Sugiru!! [06][1080p][繁体内嵌]",
+    "output": "{\"episode\": \"06\", \"season\": 1, \"nameEn\": \"Yasashi Sugiru\", \"nameJp\": \"\", \"nameZh\": \"魔王的女儿太温柔了！！ / Maou no Musume wa Yasashi Sugiru!!\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi] Blue Miburo S02 /  青之壬生浪 第二季 芹泽暗杀篇 - 10 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"10\", \"season\": 2, \"nameEn\": \"Blue Miburo\", \"nameJp\": \"\", \"nameZh\": \"Blue Miburo S02 /  青之壬生浪 第二季 芹泽暗杀篇 - 10\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi]  青春猪头少年不会梦到圣诞服女郎 - 11 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"11\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"青春猪头少年不会梦到圣诞服女郎 - 11\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 末世二轮之旅 / Shuumatsu Touring - 04 (Baha 1920x1080 AVC AAC MP4)",
+    "output": "{\"episode\": \"04\", \"season\": 1, \"nameEn\": \"Shuumatsu Touring\", \"nameJp\": \"\", \"nameZh\": \"末世二轮之旅 / Shuumatsu Touring - 04\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"Baha\", \"group\": \"\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 不中用的前辈。 / Bukiyou na Senpai. - 11 (ABEMA 1920x1080 AVC AAC MP4)",
+    "output": "{\"episode\": \"11\", \"season\": 1, \"nameEn\": \"Bukiyou\", \"nameJp\": \"\", \"nameZh\": \"不中用的前辈。 / Bukiyou na Senpai. - 11\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[桜都字幕组] 定孕成婚 / Deki Chau Made Kon [01-08 Fin][1080p][简繁日内封]",
+    "output": "{\"episode\": \"01\", \"season\": 1, \"nameEn\": \"Deki Chau Made Kon\", \"nameJp\": \"\", \"nameZh\": \"定孕成婚 / Deki Chau Made Kon\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[桜都字幕组][租借女友/Kanojo Okarishimasu][02][WebRip][HEVC-10Bit][1080P][简繁内封字幕]",
+    "output": "{\"episode\": \"02\", \"season\": 1, \"nameEn\": \"Kanojo Okarishimasu\", \"nameJp\": \"\", \"nameZh\": \"[桜都字幕组]\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi]  「凭妳也想讨伐魔王？」被勇者小队逐出队伍，只好在王都自在过活 - 03 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"03\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"「凭妳也想讨伐魔王？」被勇者小队逐出队伍，只好在王都自在过活 - 03\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[LoliHouse] 安闲领主的愉快领地防卫 / Okiraku Ryoushu no Tanoshii Ryouchi Bouei - 04 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕]",
+    "output": "{\"episode\": \"04\", \"season\": 1, \"nameEn\": \"Okiraku Ryoushu\", \"nameJp\": \"\", \"nameZh\": \"安闲领主的愉快领地防卫 / Okiraku Ryoushu no Tanoshii Ryouchi Bouei - 04\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"LoliHouse\"}"
+  },
+  {
+    "input": "[ANi] Private Tutor to the Dukes Daughter /  公爵千金的家庭教师 - 11 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"11\", \"season\": 1, \"nameEn\": \"Private Tutor\", \"nameJp\": \"\", \"nameZh\": \"Private Tutor to the Dukes Daughter /  公爵千金的家庭教师 - 11\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi]  被驱逐出勇者队伍的白魔导师，被 S 级冒险者捡到 - 12 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"12\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"被驱逐出勇者队伍的白魔导师，被 S 级冒险者捡到 - 12\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[绿茶字幕组] 金牌得主 第二季 / Medalist S2 [19][WebRip][1080p][简日内嵌]",
+    "output": "{\"episode\": \"19\", \"season\": 2, \"nameEn\": \"Medalist\", \"nameJp\": \"\", \"nameZh\": \"金牌得主 第二季 / Medalist S2\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"\"}"
+  },
+  {
+    "input": "【喵萌奶茶屋】★07月新番★[薰香花朵凛然绽放 / Kaoru Hana wa Rin to Saku][08][1080p][繁日双语]",
+    "output": "{\"episode\": \"07\", \"season\": 1, \"nameEn\": \"Kaoru Hana\", \"nameJp\": \"\", \"nameZh\": \"喵萌奶茶屋\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"喵萌奶茶屋\"}"
+  },
+  {
+    "input": "[ANi]  关于我在无意间被隔壁的天使变成废柴这件事 2 - 10 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"2\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"关于我在无意间被隔壁的天使变成废柴这件事 2 - 10\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[桜都字幕组] 罪恶之渊 / Guilty Hole [07][1080p][简繁内封]",
+    "output": "{\"episode\": \"07\", \"season\": 1, \"nameEn\": \"Guilty Hole\", \"nameJp\": \"\", \"nameZh\": \"罪恶之渊 / Guilty Hole\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[桜都字幕组] 草莓哀歌~散漫嚣张的妹妹与无法释怀的哥哥~ / Ichigo Aika： Zatsu de Namaiki na Imouto to Warikirenai Ani [11][1080P][简繁内封]",
+    "output": "{\"episode\": \"11\", \"season\": 1, \"nameEn\": \"Ichigo Aika\", \"nameJp\": \"\", \"nameZh\": \"草莓哀歌~散漫嚣张的妹妹与无法释怀的哥哥~ / Ichigo Aika： Zatsu de Namaiki na Imouto to Warikirenai Ani\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi]  魔法药水救救我 - 06 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"06\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"魔法药水救救我 - 06\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi]  打工仔的拷问日常 - 11 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"11\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"打工仔的拷问日常 - 11\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi]  淫狱团地 [年龄限制版] - 01 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"01\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"淫狱团地\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "【喵萌奶茶屋】★07月新番★[薰香花朵凛然绽放 / Kaoru Hana wa Rin to Saku][07][1080p][简日双语]",
+    "output": "{\"episode\": \"07\", \"season\": 1, \"nameEn\": \"Kaoru Hana\", \"nameJp\": \"\", \"nameZh\": \"喵萌奶茶屋\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"喵萌奶茶屋\"}"
+  },
+  {
+    "input": "[桜都字幕组] 租借女友 第三季 / Kanojo, Okarishimasu (2023) [04][1080p][简繁内封]",
+    "output": "{\"episode\": \"04\", \"season\": 1, \"nameEn\": \"Kanojo\", \"nameJp\": \"\", \"nameZh\": \"租借女友 第三季 / Kanojo, Okarishimasu\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 转生后的我成了英雄爸爸和精灵妈妈的女儿 / Hahanoha - 03 (CR 1920x1080 AVC AAC MKV)",
+    "output": "{\"episode\": \"03\", \"season\": 1, \"nameEn\": \"Hahanoha\", \"nameJp\": \"\", \"nameZh\": \"转生后的我成了英雄爸爸和精灵妈妈的女儿 / Hahanoha - 03\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[Skymoon-Raws] 间谍过家家 第3期 / SPY×FAMILY Season 3 - 40 [ViuTV][WEB-DL][CHT][1080p][AVC AAC] (间谍家家酒 Season 3)",
+    "output": "{\"episode\": \"3\", \"season\": 3, \"nameEn\": \"Skymoon\", \"nameJp\": \"\", \"nameZh\": \"间谍过家家 第3期 / SPY×FAMILY Season 3 - 40\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"WEB\", \"group\": \"\"}"
+  },
+  {
+    "input": "[ANi] Dead Account /  死亡帐号 - 04 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"04\", \"season\": 1, \"nameEn\": \"Dead Account\", \"nameJp\": \"\", \"nameZh\": \"Dead Account /  死亡帐号 - 04\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi] High School Kimengumi /  高校！奇面组 - 03 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"03\", \"season\": 1, \"nameEn\": \"High School Kimengumi\", \"nameJp\": \"\", \"nameZh\": \"High School Kimengumi /  高校！奇面组 - 03\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi] Ruri Rocks /  琉璃的宝石 - 05 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"05\", \"season\": 1, \"nameEn\": \"Ruri Rocks\", \"nameJp\": \"\", \"nameZh\": \"Ruri Rocks /  琉璃的宝石 - 05\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[LoliHouse] 厄里斯的圣杯 / Eris no Seihai - 10 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕]",
+    "output": "{\"episode\": \"10\", \"season\": 1, \"nameEn\": \"LoliHouse\", \"nameJp\": \"\", \"nameZh\": \"厄里斯的圣杯 / Eris no Seihai - 10\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"LoliHouse\"}"
+  },
+  {
+    "input": "[ANi]  无职转生～到了异世界就拿出真本事 第二季 - 12 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"12\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"无职转生～到了异世界就拿出真本事 第二季 - 12\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[桜都字幕组] 弹珠汽水瓶里的千岁同学 / Chitose-kun wa Ramune Bin no Naka [06][1080p][简体内嵌]",
+    "output": "{\"episode\": \"06\", \"season\": 1, \"nameEn\": \"Ramune Bin\", \"nameJp\": \"\", \"nameZh\": \"弹珠汽水瓶里的千岁同学 / Chitose-kun wa Ramune Bin no Naka\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi] Blue Miburo S02 /  青之壬生浪 第二季 芹泽暗杀篇 - 05 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"05\", \"season\": 2, \"nameEn\": \"Blue Miburo\", \"nameJp\": \"\", \"nameZh\": \"Blue Miburo S02 /  青之壬生浪 第二季 芹泽暗杀篇 - 05\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[Skymoon-Raws] 间谍过家家 第3期 / SPY×FAMILY Season 3 - 44 [ViuTV][WEB-DL][CHT][1080p][AVC AAC] (间谍家家酒 Season 3)",
+    "output": "{\"episode\": \"3\", \"season\": 3, \"nameEn\": \"Skymoon\", \"nameJp\": \"\", \"nameZh\": \"间谍过家家 第3期 / SPY×FAMILY Season 3 - 44\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"WEB\", \"group\": \"\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 转生后的我成了英雄爸爸和精灵妈妈的女儿 / Hahanoha - 06 (ABEMA 1920x1080 AVC AAC MP4)",
+    "output": "{\"episode\": \"06\", \"season\": 1, \"nameEn\": \"Hahanoha\", \"nameJp\": \"\", \"nameZh\": \"转生后的我成了英雄爸爸和精灵妈妈的女儿 / Hahanoha - 06\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[LoliHouse] 渡君的XX即将崩坏 / Watari-kun no xx ga Houkai Sunzen - 11 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕]",
+    "output": "{\"episode\": \"11\", \"season\": 1, \"nameEn\": \"Houkai Sunzen\", \"nameJp\": \"\", \"nameZh\": \"渡君的XX即将崩坏 / Watari-kun no xx ga Houkai Sunzen - 11\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"LoliHouse\"}"
+  },
+  {
+    "input": "[桜都字幕组] 非人学生与厌世教师 / Jingai Kyoushitsu no Ningengirai Kyoushi [01][1080p][繁体内嵌]",
+    "output": "{\"episode\": \"01\", \"season\": 1, \"nameEn\": \"Jingai Kyoushitsu\", \"nameJp\": \"\", \"nameZh\": \"非人学生与厌世教师 / Jingai Kyoushitsu no Ningengirai Kyoushi\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi] Champignon Witch /  蘑菇魔女 - 05 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"05\", \"season\": 1, \"nameEn\": \"Champignon Witch\", \"nameJp\": \"\", \"nameZh\": \"Champignon Witch /  蘑菇魔女 - 05\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[桜都字幕组] 数码宝贝大冒险 / Digimon Adventure [34][1080p][简体内嵌]",
+    "output": "{\"episode\": \"34\", \"season\": 1, \"nameEn\": \"Digimon Adventure\", \"nameJp\": \"\", \"nameZh\": \"数码宝贝大冒险 / Digimon Adventure\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi]  无职转生～到了异世界就拿出真本事 第二季 - 09 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"09\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"无职转生～到了异世界就拿出真本事 第二季 - 09\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 对我垂涎欲滴的非人少女 / Watashi wo Tabetai, Hitodenashi - 06 (Baha 1920x1080 AVC AAC MP4)",
+    "output": "{\"episode\": \"06\", \"season\": 1, \"nameEn\": \"Watashi\", \"nameJp\": \"\", \"nameZh\": \"对我垂涎欲滴的非人少女 / Watashi wo Tabetai, Hitodenashi - 06\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"Baha\", \"group\": \"\"}"
+  },
+  {
+    "input": "[桜都字幕组] 租借女友 第三季 / Kanojo, Okarishimasu (2023) [03][1080p][繁体内嵌]",
+    "output": "{\"episode\": \"03\", \"season\": 1, \"nameEn\": \"Kanojo\", \"nameJp\": \"\", \"nameZh\": \"租借女友 第三季 / Kanojo, Okarishimasu\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[桜都字幕组] 魔王的女儿太温柔了！！ / Maou no Musume wa Yasashi Sugiru!! [11][1080P][简体内嵌]",
+    "output": "{\"episode\": \"11\", \"season\": 1, \"nameEn\": \"Yasashi Sugiru\", \"nameJp\": \"\", \"nameZh\": \"魔王的女儿太温柔了！！ / Maou no Musume wa Yasashi Sugiru!!\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[三明治摆烂组&Pre-S] 与游戏中心的少女异文化交流的故事 / Game Center Shoujo to Ibunka Kouryuu - 09 - [繁日内嵌][H264 8bit 1080P](检索：游乐场少女的异文化交流)",
+    "output": "{\"episode\": \"09\", \"season\": 1, \"nameEn\": \"Game Center Shoujo\", \"nameJp\": \"\", \"nameZh\": \"与游戏中心的少女异文化交流的故事 / Game Center Shoujo to Ibunka Kouryuu - 09 -\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[ANi]  关于我在无意间被隔壁的天使变成废柴这件事 2 - 03 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"2\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"关于我在无意间被隔壁的天使变成废柴这件事 2 - 03\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[桜都字幕组][租借女友/Kanojo Okarishimasu][05][GB][1080P]",
+    "output": "{\"episode\": \"05\", \"season\": 1, \"nameEn\": \"Kanojo Okarishimasu\", \"nameJp\": \"\", \"nameZh\": \"[桜都字幕组]\", \"sub\": \"\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 转生后的我成了英雄爸爸和精灵妈妈的女儿。 / Hahanoha - 03 (B-Global 1920x1080 HEVC AAC MKV)",
+    "output": "{\"episode\": \"03\", \"season\": 1, \"nameEn\": \"Hahanoha\", \"nameJp\": \"\", \"nameZh\": \"转生后的我成了英雄爸爸和精灵妈妈的女儿。 / Hahanoha - 03\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[ANi] Tune In to the Midnight Heart /  午夜的倾心旋律 - 02 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"02\", \"season\": 1, \"nameEn\": \"Tune In\", \"nameJp\": \"\", \"nameZh\": \"Tune In to the Midnight Heart /  午夜的倾心旋律 - 02\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi]  无职转生～到了异世界就拿出真本事 第二季 - 13 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"13\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"无职转生～到了异世界就拿出真本事 第二季 - 13\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[LoliHouse] 厄里斯的圣杯 / Eris no Seihai - 09 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕]",
+    "output": "{\"episode\": \"09\", \"season\": 1, \"nameEn\": \"LoliHouse\", \"nameJp\": \"\", \"nameZh\": \"厄里斯的圣杯 / Eris no Seihai - 09\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"LoliHouse\"}"
+  },
+  {
+    "input": "[桜都字幕组] 草莓哀歌~散漫嚣张的妹妹与无法释怀的哥哥~ / Ichigo Aika： Zatsu de Namaiki na Imouto to Warikirenai Ani [07][1080P][简体内嵌]",
+    "output": "{\"episode\": \"07\", \"season\": 1, \"nameEn\": \"Ichigo Aika\", \"nameJp\": \"\", \"nameZh\": \"草莓哀歌~散漫嚣张的妹妹与无法释怀的哥哥~ / Ichigo Aika： Zatsu de Namaiki na Imouto to Warikirenai Ani\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[桜都字幕组] 数码宝贝大冒险 / Digimon Adventure [55][1080p][繁体内嵌]",
+    "output": "{\"episode\": \"55\", \"season\": 1, \"nameEn\": \"Digimon Adventure\", \"nameJp\": \"\", \"nameZh\": \"数码宝贝大冒险 / Digimon Adventure\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 人形机器人玛丽 / Kikaijikake no Marie - 04 (B-Global 1920x1080 HEVC AAC MKV)",
+    "output": "{\"episode\": \"04\", \"season\": 1, \"nameEn\": \"Kikaijikake\", \"nameJp\": \"\", \"nameZh\": \"人形机器人玛丽 / Kikaijikake no Marie - 04\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 阿尔涅事件簿 / Arne no Jikenbo - 01 (CR 1920x1080 AVC AAC MKV)",
+    "output": "{\"episode\": \"01\", \"season\": 1, \"nameEn\": \"Arne\", \"nameJp\": \"\", \"nameZh\": \"阿尔涅事件簿 / Arne no Jikenbo - 01\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[❀拨雪寻春❀] 花开凛凛满薰香 / 薫る花は凛と咲く / Kaoru Hana wa Rin to Saku - 13 [WebRip][HEVC-10bit 1080p][简繁日内封]（检索用：薰香花朵凛然绽放）",
+    "output": "{\"episode\": \"13\", \"season\": 1, \"nameEn\": \"Kaoru Hana\", \"nameJp\": \"\", \"nameZh\": \"花开凛凛满薰香 / 薫る花は凛と咲く / Kaoru Hana wa Rin to Saku - 13\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"\"}"
+  },
+  {
+    "input": "[桜都字幕组][租借女友/Kanojo Okarishimasu][05][BIG5][1080P]",
+    "output": "{\"episode\": \"05\", \"season\": 1, \"nameEn\": \"Kanojo Okarishimasu\", \"nameJp\": \"\", \"nameZh\": \"[桜都字幕组]\", \"sub\": \"\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi]  转生后的我成了英雄爸爸和精灵妈妈的女儿 - 01 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"01\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"转生后的我成了英雄爸爸和精灵妈妈的女儿 - 01\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi] Private Tutor to the Dukes Daughter /  公爵千金的家庭教师 - 10 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"10\", \"season\": 1, \"nameEn\": \"Private Tutor\", \"nameJp\": \"\", \"nameZh\": \"Private Tutor to the Dukes Daughter /  公爵千金的家庭教师 - 10\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 转生后的我成了英雄爸爸和精灵妈妈的女儿 / Hahanoha - 01 (ABEMA 1920x1080 AVC AAC MP4)",
+    "output": "{\"episode\": \"01\", \"season\": 1, \"nameEn\": \"Hahanoha\", \"nameJp\": \"\", \"nameZh\": \"转生后的我成了英雄爸爸和精灵妈妈的女儿 / Hahanoha - 01\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[桜都字幕组] 数码宝贝大冒险 / Digimon Adventure [33][1080p][简体内嵌]",
+    "output": "{\"episode\": \"33\", \"season\": 1, \"nameEn\": \"Digimon Adventure\", \"nameJp\": \"\", \"nameZh\": \"数码宝贝大冒险 / Digimon Adventure\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi] Yowayowa Sensei /  弱弱老师 - 03 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"03\", \"season\": 1, \"nameEn\": \"Yowayowa Sensei\", \"nameJp\": \"\", \"nameZh\": \"Yowayowa Sensei /  弱弱老师 - 03\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi] Dead Account /  死亡帐号 - 05 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"05\", \"season\": 1, \"nameEn\": \"Dead Account\", \"nameJp\": \"\", \"nameZh\": \"Dead Account /  死亡帐号 - 05\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[桜都字幕组] 魔王的女儿太温柔了！！ / Maou no Musume wa Yasashi Sugiru!! [11][1080P][简繁内封]",
+    "output": "{\"episode\": \"11\", \"season\": 1, \"nameEn\": \"Yasashi Sugiru\", \"nameJp\": \"\", \"nameZh\": \"魔王的女儿太温柔了！！ / Maou no Musume wa Yasashi Sugiru!!\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "【幻樱字幕组】【10月新番】【不擅吸血的吸血鬼 Chanto Suenai Kyuuketsuki-chan】【12】【GB_MP4】【1920X1080】",
+    "output": "{\"episode\": \"10\", \"season\": 1, \"nameEn\": \"Chanto Suenai Kyuuketsuki\", \"nameJp\": \"\", \"nameZh\": \"幻樱字幕组\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"幻樱字幕组\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 末世二轮之旅 / Shuumatsu Touring - 05 (ABEMA 1920x1080 AVC AAC MP4)",
+    "output": "{\"episode\": \"05\", \"season\": 1, \"nameEn\": \"Shuumatsu Touring\", \"nameJp\": \"\", \"nameZh\": \"末世二轮之旅 / Shuumatsu Touring - 05\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[绿茶字幕组] 金牌得主 第二季 / Medalist S2 [14][WebRip][1080p][简日内嵌]",
+    "output": "{\"episode\": \"14\", \"season\": 2, \"nameEn\": \"Medalist\", \"nameJp\": \"\", \"nameZh\": \"金牌得主 第二季 / Medalist S2\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"\"}"
+  },
+  {
+    "input": "[桜都字幕组] 数码宝贝大冒险 / Digimon Adventure [43][1080p][繁体内嵌]",
+    "output": "{\"episode\": \"43\", \"season\": 1, \"nameEn\": \"Digimon Adventure\", \"nameJp\": \"\", \"nameZh\": \"数码宝贝大冒险 / Digimon Adventure\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi] GNOSIA /  GNOSIA - 08 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"08\", \"season\": 1, \"nameEn\": \"GNOSIA /  GNOSIA - 08\", \"nameJp\": \"\", \"nameZh\": \"\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[❀拨雪寻春❀] 花开凛凛满薰香 / 薫る花は凛と咲く / Kaoru Hana wa Rin to Saku - 10 [WebRip][HEVC-10bit 1080p][简繁日内封]（检索用：薰香花朵凛然绽放）",
+    "output": "{\"episode\": \"10\", \"season\": 1, \"nameEn\": \"Kaoru Hana\", \"nameJp\": \"\", \"nameZh\": \"花开凛凛满薰香 / 薫る花は凛と咲く / Kaoru Hana wa Rin to Saku - 10\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 不中用的前辈。 / Bukiyou na Senpai. - 12 (ABEMA 1920x1080 AVC AAC MP4)",
+    "output": "{\"episode\": \"12\", \"season\": 1, \"nameEn\": \"Bukiyou\", \"nameJp\": \"\", \"nameZh\": \"不中用的前辈。 / Bukiyou na Senpai. - 12\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[LoliHouse] 数码宝贝BEATBREAK / DIGIMON BEATBREAK - 04 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕]",
+    "output": "{\"episode\": \"04\", \"season\": 1, \"nameEn\": \"LoliHouse\", \"nameJp\": \"\", \"nameZh\": \"数码宝贝BEATBREAK / DIGIMON BEATBREAK - 04\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"LoliHouse\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 强者的新传说 / Tsuyokute New Saga - 05 (ABEMA 1920x1080 AVC AAC MP4)",
+    "output": "{\"episode\": \"05\", \"season\": 1, \"nameEn\": \"Tsuyokute New Saga\", \"nameJp\": \"\", \"nameZh\": \"强者的新传说 / Tsuyokute New Saga - 05\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[ANi]  Re：从零开始的异世界生活 第四季 - 01 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"01\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"Re：从零开始的异世界生活 第四季 - 01\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[NC-Raws] 更衣人偶坠入爱河 / Sono Bisque Doll wa Koi wo Suru - 01 [BDRip][1]",
+    "output": "{\"episode\": \"01\", \"season\": 1, \"nameEn\": \"Sono Bisque Doll\", \"nameJp\": \"\", \"nameZh\": \"更衣人偶坠入爱河 / Sono Bisque Doll wa Koi wo Suru - 01\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"BDRip\", \"group\": \"NC-Raws\"}"
+  },
+  {
+    "input": "[ANi]  春夏秋冬代行者 春之舞 - 04 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"04\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"春夏秋冬代行者 春之舞 - 04\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi] Champignon Witch /  蘑菇魔女 - 10 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"10\", \"season\": 1, \"nameEn\": \"Champignon Witch\", \"nameJp\": \"\", \"nameZh\": \"Champignon Witch /  蘑菇魔女 - 10\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[桜都字幕组] 罪恶之渊 / Guilty Hole [06][1080p][繁体内嵌]",
+    "output": "{\"episode\": \"06\", \"season\": 1, \"nameEn\": \"Guilty Hole\", \"nameJp\": \"\", \"nameZh\": \"罪恶之渊 / Guilty Hole\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[LoliHouse] 保龄球少女！ / Turkey! - 08 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕]",
+    "output": "{\"episode\": \"08\", \"season\": 1, \"nameEn\": \"LoliHouse\", \"nameJp\": \"\", \"nameZh\": \"保龄球少女！ / Turkey! - 08\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"LoliHouse\"}"
+  },
+  {
+    "input": "[桜都字幕组] 草莓哀歌~散漫嚣张的妹妹与无法释怀的哥哥~ / Ichigo Aika： Zatsu de Namaiki na Imouto to Warikirenai Ani [01][1080p][简体内嵌]",
+    "output": "{\"episode\": \"01\", \"season\": 1, \"nameEn\": \"Ichigo Aika\", \"nameJp\": \"\", \"nameZh\": \"草莓哀歌~散漫嚣张的妹妹与无法释怀的哥哥~ / Ichigo Aika： Zatsu de Namaiki na Imouto to Warikirenai Ani\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi] Bad Girl /  Bad Girl 不良少女 - 03 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"03\", \"season\": 1, \"nameEn\": \"Bad Girl\", \"nameJp\": \"\", \"nameZh\": \"Bad Girl /  Bad Girl 不良少女 - 03\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi]  和机器人啪啪啪能算在经验人数里吗？？ [年龄限制版] - 02 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"02\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"和机器人啪啪啪能算在经验人数里吗？？\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi] GNOSIA /  GNOSIA - 03 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"03\", \"season\": 1, \"nameEn\": \"GNOSIA /  GNOSIA - 03\", \"nameJp\": \"\", \"nameZh\": \"\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "【喵萌奶茶屋】★07月新番★[薰香花朵凛然绽放 / Kaoru Hana wa Rin to Saku][02][1080p][简日双语]",
+    "output": "{\"episode\": \"07\", \"season\": 1, \"nameEn\": \"Kaoru Hana\", \"nameJp\": \"\", \"nameZh\": \"喵萌奶茶屋\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"喵萌奶茶屋\"}"
+  },
+  {
+    "input": "【今晚月色真美】[没有辣妹会对阿宅温柔！？ / オタクに优しいギャルはいない!? / Otaku ni Yasashii Gal wa Inai!?][04][WEBrip][1080P][简日内嵌]",
+    "output": "{\"episode\": \"04\", \"season\": 1, \"nameEn\": \"Yasashii Gal\", \"nameJp\": \"\", \"nameZh\": \"今晚月色真美\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"\"}"
+  },
+  {
+    "input": "[LoliHouse] 废渊战鬼 / Gachiakuta / ガチアクタ - 02 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕]",
+    "output": "{\"episode\": \"02\", \"season\": 1, \"nameEn\": \"LoliHouse\", \"nameJp\": \"\", \"nameZh\": \"废渊战鬼 / Gachiakuta / ガチアクタ - 02\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"LoliHouse\"}"
+  },
+  {
+    "input": "[ANi] Welcome to the Outcasts Restaurant /  欢迎光临流放者食堂！ - 10 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"10\", \"season\": 1, \"nameEn\": \"Outcasts Restaurant\", \"nameJp\": \"\", \"nameZh\": \"Welcome to the Outcasts Restaurant /  欢迎光临流放者食堂！ - 10\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[LoliHouse] 矢野同学的普通日常 / 矢野くんの普通の日々 / Yano-kun's Ordinary Days / Yano-kun no Futsuu no Hibi - 08 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕]",
+    "output": "{\"episode\": \"08\", \"season\": 1, \"nameEn\": \"Ordinary Days\", \"nameJp\": \"\", \"nameZh\": \"矢野同学的普通日常 / 矢野くんの普通の日々 / Yano-kun's Ordinary Days / Yano-kun no Futsuu no Hibi - 08\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"LoliHouse\"}"
+  },
+  {
+    "input": "[桜都字幕组] 人妻的嘴唇尝起来有罐装沙瓦的味道 / Hitozuma no Kuchibiru wa Kan Chuuhai no Aji ga Shite [02][1080p][繁日内嵌]",
+    "output": "{\"episode\": \"02\", \"season\": 1, \"nameEn\": \"Kan Chuuhai\", \"nameJp\": \"\", \"nameZh\": \"人妻的嘴唇尝起来有罐装沙瓦的味道 / Hitozuma no Kuchibiru wa Kan Chuuhai no Aji ga Shite\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[绿茶字幕组] 金牌得主 第二季 / Medalist S2 [14][WebRip][1080p][简繁日内封]",
+    "output": "{\"episode\": \"14\", \"season\": 2, \"nameEn\": \"Medalist\", \"nameJp\": \"\", \"nameZh\": \"金牌得主 第二季 / Medalist S2\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"\"}"
+  },
+  {
+    "input": "[❀拨雪寻春❀] 花开凛凛满薰香 / 薫る花は凛と咲く / Kaoru Hana wa Rin to Saku - 04 [WebRip][HEVC-10bit 1080p][简日内嵌]（检索用：薰香花朵凛然绽放）",
+    "output": "{\"episode\": \"04\", \"season\": 1, \"nameEn\": \"Kaoru Hana\", \"nameJp\": \"\", \"nameZh\": \"花开凛凛满薰香 / 薫る花は凛と咲く / Kaoru Hana wa Rin to Saku - 04\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"\"}"
+  },
+  {
+    "input": "[桜都字幕组] 数码宝贝大冒险 / Digimon Adventure [28][1080p][简体内嵌]",
+    "output": "{\"episode\": \"28\", \"season\": 1, \"nameEn\": \"Digimon Adventure\", \"nameJp\": \"\", \"nameZh\": \"数码宝贝大冒险 / Digimon Adventure\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi]  青春猪头少年不会梦到圣诞服女郎 - 05 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"05\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"青春猪头少年不会梦到圣诞服女郎 - 05\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 异世界的处置依社畜而定 / Isekai no Sata wa Shachiku Shidai - 07 (ABEMA 1920x1080 AVC AAC MP4)",
+    "output": "{\"episode\": \"07\", \"season\": 1, \"nameEn\": \"Shachiku Shidai\", \"nameJp\": \"\", \"nameZh\": \"异世界的处置依社畜而定 / Isekai no Sata wa Shachiku Shidai - 07\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[奶²&LoliHouse] 陛下请忘记我吧 / Heika Watashi wo Wasurete Kudasai - 05 [WebRip 1080p HEVC-10bit AAC][简日内封字幕]",
+    "output": "{\"episode\": \"05\", \"season\": 1, \"nameEn\": \"Heika Watashi\", \"nameJp\": \"\", \"nameZh\": \"陛下请忘记我吧 / Heika Watashi wo Wasurete Kudasai - 05\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"LoliHouse\"}"
+  },
+  {
+    "input": "【动漫国&桜都字幕组】★07月新番[Silent Witch 沉默魔女的秘密][02][1080P][简体][MP4]",
+    "output": "{\"episode\": \"07\", \"season\": 1, \"nameEn\": \"Silent Witch\", \"nameJp\": \"\", \"nameZh\": \"动漫国&桜都字幕组\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[桜都字幕组] 无职转生～到了异世界就拿出真本事～ / Mushoku Tensei Isekai Ittara Honki Dasu [21][1080p][简繁内封]",
+    "output": "{\"episode\": \"21\", \"season\": 1, \"nameEn\": \"Mushoku Tensei Isekai Ittara Honki Dasu\", \"nameJp\": \"\", \"nameZh\": \"无职转生～到了异世界就拿出真本事～ / Mushoku Tensei Isekai Ittara Honki Dasu\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[桜都字幕组] 人妻的嘴唇尝起来有罐装沙瓦的味道 / Hitozuma no Kuchibiru wa Kan Chuuhai no Aji ga Shite [02][1080p][简日内嵌]",
+    "output": "{\"episode\": \"02\", \"season\": 1, \"nameEn\": \"Kan Chuuhai\", \"nameJp\": \"\", \"nameZh\": \"人妻的嘴唇尝起来有罐装沙瓦的味道 / Hitozuma no Kuchibiru wa Kan Chuuhai no Aji ga Shite\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi] Chitose Is in the Ramune Bottle /  弹珠汽水瓶里的千岁同学 - 03 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"03\", \"season\": 1, \"nameEn\": \"Chitose Is\", \"nameJp\": \"\", \"nameZh\": \"Chitose Is in the Ramune Bottle /  弹珠汽水瓶里的千岁同学 - 03\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[LoliHouse] 达尔文事变 / Darwin Jihen - 10 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕]",
+    "output": "{\"episode\": \"10\", \"season\": 1, \"nameEn\": \"Darwin Jihen\", \"nameJp\": \"\", \"nameZh\": \"达尔文事变 / Darwin Jihen - 10\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"LoliHouse\"}"
+  },
+  {
+    "input": "[LoliHouse] 安闲领主的愉快领地防卫 / Okiraku Ryoushu no Tanoshii Ryouchi Bouei - 06 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕]",
+    "output": "{\"episode\": \"06\", \"season\": 1, \"nameEn\": \"Okiraku Ryoushu\", \"nameJp\": \"\", \"nameZh\": \"安闲领主的愉快领地防卫 / Okiraku Ryoushu no Tanoshii Ryouchi Bouei - 06\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"LoliHouse\"}"
+  },
+  {
+    "input": "[ANi]  靠死亡游戏混饭吃。 - 04 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"04\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"靠死亡游戏混饭吃。 - 04\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi] Uchūjin MūMū /  外星人姆姆 - 23 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"23\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"Uchūjin MūMū /  外星人姆姆 - 23\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 末世二轮之旅 / Shuumatsu Touring - 07 (CR 1920x1080 AVC AAC MKV)",
+    "output": "{\"episode\": \"07\", \"season\": 1, \"nameEn\": \"Shuumatsu Touring\", \"nameJp\": \"\", \"nameZh\": \"末世二轮之旅 / Shuumatsu Touring - 07\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[桜都字幕组] 非人学生与厌世教师 / Jingai Kyoushitsu no Ningengirai Kyoushi [09][1080P][简体内嵌]",
+    "output": "{\"episode\": \"09\", \"season\": 1, \"nameEn\": \"Jingai Kyoushitsu\", \"nameJp\": \"\", \"nameZh\": \"非人学生与厌世教师 / Jingai Kyoushitsu no Ningengirai Kyoushi\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[桜都字幕组] 非人学生与厌世教师 / Jingai Kyoushitsu no Ningengirai Kyoushi [06][1080P][简繁内封]",
+    "output": "{\"episode\": \"06\", \"season\": 1, \"nameEn\": \"Jingai Kyoushitsu\", \"nameJp\": \"\", \"nameZh\": \"非人学生与厌世教师 / Jingai Kyoushitsu no Ningengirai Kyoushi\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[桜都字幕组] 无职转生～到了异世界就拿出真本事～ / Mushoku Tensei Isekai Ittara Honki Dasu [15][1080p@60FPS][繁体内嵌]",
+    "output": "{\"episode\": \"15\", \"season\": 1, \"nameEn\": \"Mushoku Tensei Isekai Ittara Honki Dasu\", \"nameJp\": \"\", \"nameZh\": \"无职转生～到了异世界就拿出真本事～ / Mushoku Tensei Isekai Ittara Honki Dasu\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 魔法药水救救我 / Potion, Wagami wo Tasukeru - 08 (Baha 1920x1080 AVC AAC MP4)",
+    "output": "{\"episode\": \"08\", \"season\": 1, \"nameEn\": \"Potion\", \"nameJp\": \"\", \"nameZh\": \"魔法药水救救我 / Potion, Wagami wo Tasukeru - 08\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"Baha\", \"group\": \"\"}"
+  },
+  {
+    "input": "[桜都字幕组] 无职转生～到了异世界就拿出真本事～ / Mushoku Tensei Isekai Ittara Honki Dasu [17v2][1080p@60FPS][简体内嵌]",
+    "output": "{\"episode\": \"17\", \"season\": 1, \"nameEn\": \"Mushoku Tensei Isekai Ittara Honki Dasu\", \"nameJp\": \"\", \"nameZh\": \"无职转生～到了异世界就拿出真本事～ / Mushoku Tensei Isekai Ittara Honki Dasu\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[桜都字幕组] 无职转生～到了异世界就拿出真本事～ S2 / Mushoku Tensei S2 [00][1080P@60FPS][简体内嵌]",
+    "output": "{\"episode\": \"00\", \"season\": 2, \"nameEn\": \"Mushoku Tensei\", \"nameJp\": \"\", \"nameZh\": \"无职转生～到了异世界就拿出真本事～ S2 / Mushoku Tensei S2\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi]  异世界默示录麦诺格拉～从毁灭文明开始征服世界～ - 09 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"09\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"异世界默示录麦诺格拉～从毁灭文明开始征服世界～ - 09\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi] The Case Book of Arne /  阿尔涅事件簿 - 04 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"04\", \"season\": 1, \"nameEn\": \"The Case Book\", \"nameJp\": \"\", \"nameZh\": \"The Case Book of Arne /  阿尔涅事件簿 - 04\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[漫猫字幕组][7月新番][GRAND BLUE碧蓝之海][Grand Blue S2][04][1080p][MP4][繁中]",
+    "output": "{\"episode\": \"7\", \"season\": 2, \"nameEn\": \"GRAND\", \"nameJp\": \"\", \"nameZh\": \"[漫猫字幕组]\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"漫猫字幕组\"}"
+  },
+  {
+    "input": "[桜都字幕组][租借女友/Kanojo Okarishimasu][01][BIG5][1080P]",
+    "output": "{\"episode\": \"01\", \"season\": 1, \"nameEn\": \"Kanojo Okarishimasu\", \"nameJp\": \"\", \"nameZh\": \"[桜都字幕组]\", \"sub\": \"\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "【动漫国&桜都字幕组】★07月新番[Silent Witch 沉默魔女的秘密][10][1080P][繁体][MP4]",
+    "output": "{\"episode\": \"07\", \"season\": 1, \"nameEn\": \"Silent Witch\", \"nameJp\": \"\", \"nameZh\": \"动漫国&桜都字幕组\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[桜都字幕组][租借女友/Kanojo Okarishimasu][01-12END][HEVC-10Bit-2160P AAC][外挂GB/BIG5][WEB-Rip][MKV+ass]",
+    "output": "{\"episode\": \"01\", \"season\": 1, \"nameEn\": \"Kanojo Okarishimasu\", \"nameJp\": \"\", \"nameZh\": \"[桜都字幕组]\", \"sub\": \"\", \"dpi\": \"2160\", \"source\": \"WEB\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[三明治摆烂组&Pre-S] 与游戏中心的少女异文化交流的故事 / Game Center Shoujo to Ibunka Kouryuu - 10 - [简日内嵌][H264 8bit 1080P](检索：游乐场少女的异文化交流)",
+    "output": "{\"episode\": \"10\", \"season\": 1, \"nameEn\": \"Game Center Shoujo\", \"nameJp\": \"\", \"nameZh\": \"与游戏中心的少女异文化交流的故事 / Game Center Shoujo to Ibunka Kouryuu - 10 -\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[ANi]  Silent Witch 沉默魔女的秘密 - 10 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"10\", \"season\": 1, \"nameEn\": \"Silent Witch\", \"nameJp\": \"\", \"nameZh\": \"Silent Witch 沉默魔女的秘密 - 10\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi]  转生之后的我变成了龙蛋～目标是世界最强～ - 04 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"04\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"转生之后的我变成了龙蛋～目标是世界最强～ - 04\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[LoliHouse] 数码宝贝BEATBREAK / DIGIMON BEATBREAK - 33 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕]",
+    "output": "{\"episode\": \"33\", \"season\": 1, \"nameEn\": \"LoliHouse\", \"nameJp\": \"\", \"nameZh\": \"数码宝贝BEATBREAK / DIGIMON BEATBREAK - 33\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"LoliHouse\"}"
+  },
+  {
+    "input": "[ANi] You and I Are Polar Opposites /  相反的你和我 - 03 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"03\", \"season\": 1, \"nameEn\": \"Are Polar Opposites\", \"nameJp\": \"\", \"nameZh\": \"You and I Are Polar Opposites /  相反的你和我 - 03\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[桜都字幕组] 人妻的嘴唇尝起来有罐装沙瓦的味道 / Hitozuma no Kuchibiru wa Kan Chuuhai no Aji ga Shite [08][1080p][繁日内嵌]",
+    "output": "{\"episode\": \"08\", \"season\": 1, \"nameEn\": \"Kan Chuuhai\", \"nameJp\": \"\", \"nameZh\": \"人妻的嘴唇尝起来有罐装沙瓦的味道 / Hitozuma no Kuchibiru wa Kan Chuuhai no Aji ga Shite\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[桜都字幕组] 无职转生～到了异世界就拿出真本事～ S2 / Mushoku Tensei S2 [05][1080P@60FPS][简体内嵌]",
+    "output": "{\"episode\": \"05\", \"season\": 2, \"nameEn\": \"Mushoku Tensei\", \"nameJp\": \"\", \"nameZh\": \"无职转生～到了异世界就拿出真本事～ S2 / Mushoku Tensei S2\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[桜都字幕组] 这样高大的女孩子你喜欢吗？ / Ookii Onnanoko wa Suki Desuka？ [09][1080P][简繁内封]",
+    "output": "{\"episode\": \"09\", \"season\": 1, \"nameEn\": \"Ookii Onnanoko\", \"nameJp\": \"\", \"nameZh\": \"这样高大的女孩子你喜欢吗？ / Ookii Onnanoko wa Suki Desuka？\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[桜都字幕组] 数码宝贝大冒险 / Digimon Adventure [57][1080p][简体内嵌]",
+    "output": "{\"episode\": \"57\", \"season\": 1, \"nameEn\": \"Digimon Adventure\", \"nameJp\": \"\", \"nameZh\": \"数码宝贝大冒险 / Digimon Adventure\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 异世界的安泰全看社畜 / Isekai no Sata wa Shachiku Shidai - 08 (B-Global 1920x1080 HEVC AAC MKV)",
+    "output": "{\"episode\": \"08\", \"season\": 1, \"nameEn\": \"Shachiku Shidai\", \"nameJp\": \"\", \"nameZh\": \"异世界的安泰全看社畜 / Isekai no Sata wa Shachiku Shidai - 08\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 魔法药水救救我 / Potion, Wagami wo Tasukeru - 04 (ABEMA 1920x1080 AVC AAC MP4)",
+    "output": "{\"episode\": \"04\", \"season\": 1, \"nameEn\": \"Potion\", \"nameJp\": \"\", \"nameZh\": \"魔法药水救救我 / Potion, Wagami wo Tasukeru - 04\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[桜都字幕组] 无职转生～到了异世界就拿出真本事～ S2 / Mushoku Tensei S2 [03][1080P@60FPS][简体内嵌]",
+    "output": "{\"episode\": \"03\", \"season\": 2, \"nameEn\": \"Mushoku Tensei\", \"nameJp\": \"\", \"nameZh\": \"无职转生～到了异世界就拿出真本事～ S2 / Mushoku Tensei S2\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi] Tojima Wants to Be a Kamen Rider /  东岛丹三郎想成为假面骑士 - 15 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"15\", \"season\": 1, \"nameEn\": \"Tojima Wants\", \"nameJp\": \"\", \"nameZh\": \"Tojima Wants to Be a Kamen Rider /  东岛丹三郎想成为假面骑士 - 15\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi]  淫狱团地 [年龄限制版] - 04 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"04\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"淫狱团地\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi] You and I Are Polar Opposites /  相反的你和我 - 06 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"06\", \"season\": 1, \"nameEn\": \"Are Polar Opposites\", \"nameJp\": \"\", \"nameZh\": \"You and I Are Polar Opposites /  相反的你和我 - 06\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "【动漫国&桜都字幕组】★07月新番[Silent Witch 沉默魔女的秘密][05][1080P][简体][MP4]",
+    "output": "{\"episode\": \"07\", \"season\": 1, \"nameEn\": \"Silent Witch\", \"nameJp\": \"\", \"nameZh\": \"动漫国&桜都字幕组\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[爱恋&漫猫字幕组][1月新番][无职转生～到了异世界就拿出真本事～][Mushoku Tensei Isekai Ittara Honki Dasu][03][1080p][MP4][GB][简中]",
+    "output": "{\"episode\": \"1\", \"season\": 1, \"nameEn\": \"Tensei Isekai Ittara Honki Dasu\", \"nameJp\": \"\", \"nameZh\": \"[爱恋&漫猫字幕组]\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"漫猫字幕组\"}"
+  },
+  {
+    "input": "[桜都字幕组] 草莓哀歌~散漫嚣张的妹妹与无法释怀的哥哥~ / Ichigo Aika： Zatsu de Namaiki na Imouto to Warikirenai Ani [07][1080P][繁体内嵌]",
+    "output": "{\"episode\": \"07\", \"season\": 1, \"nameEn\": \"Ichigo Aika\", \"nameJp\": \"\", \"nameZh\": \"草莓哀歌~散漫嚣张的妹妹与无法释怀的哥哥~ / Ichigo Aika： Zatsu de Namaiki na Imouto to Warikirenai Ani\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi]  气绝勇者与暗杀公主 - 02 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"02\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"气绝勇者与暗杀公主 - 02\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[LoliHouse] 数码宝贝BEATBREAK / DIGIMON BEATBREAK - 22 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕]",
+    "output": "{\"episode\": \"22\", \"season\": 1, \"nameEn\": \"LoliHouse\", \"nameJp\": \"\", \"nameZh\": \"数码宝贝BEATBREAK / DIGIMON BEATBREAK - 22\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"LoliHouse\"}"
+  },
+  {
+    "input": "[桜都字幕组] 魔王的女儿太温柔了！！ / Maou no Musume wa Yasashi Sugiru!! [03][1080p][简体内嵌]",
+    "output": "{\"episode\": \"03\", \"season\": 1, \"nameEn\": \"Yasashi Sugiru\", \"nameJp\": \"\", \"nameZh\": \"魔王的女儿太温柔了！！ / Maou no Musume wa Yasashi Sugiru!!\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi]  青梅竹马的恋爱喜剧无法成立 - 05 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"05\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"青梅竹马的恋爱喜剧无法成立 - 05\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi]  我和班上第二可爱的女生成为朋友 - 03 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"03\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"我和班上第二可爱的女生成为朋友 - 03\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi] The Case Book of Arne /  阿尔涅事件簿 - 10 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"10\", \"season\": 1, \"nameEn\": \"The Case Book\", \"nameJp\": \"\", \"nameZh\": \"The Case Book of Arne /  阿尔涅事件簿 - 10\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi]  被驱逐出勇者队伍的白魔导师，被 S 级冒险者捡到 - 02 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"02\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"被驱逐出勇者队伍的白魔导师，被 S 级冒险者捡到 - 02\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi]  优雅贵族的休假指南。 - 02 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"02\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"优雅贵族的休假指南。 - 02\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi]  身为魔族的我 想向勇者小队的可爱女孩告白 - 08 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"08\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"身为魔族的我 想向勇者小队的可爱女孩告白 - 08\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[桜都字幕组] 无职转生～到了异世界就拿出真本事～ / Mushoku Tensei Isekai Ittara Honki Dasu [19][1080p@60FPS][简体内嵌]",
+    "output": "{\"episode\": \"19\", \"season\": 1, \"nameEn\": \"Mushoku Tensei Isekai Ittara Honki Dasu\", \"nameJp\": \"\", \"nameZh\": \"无职转生～到了异世界就拿出真本事～ / Mushoku Tensei Isekai Ittara Honki Dasu\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[桜都字幕组] 草莓哀歌~散漫嚣张的妹妹与无法释怀的哥哥~ / Ichigo Aika： Zatsu de Namaiki na Imouto to Warikirenai Ani [09][1080P][简繁内封]",
+    "output": "{\"episode\": \"09\", \"season\": 1, \"nameEn\": \"Ichigo Aika\", \"nameJp\": \"\", \"nameZh\": \"草莓哀歌~散漫嚣张的妹妹与无法释怀的哥哥~ / Ichigo Aika： Zatsu de Namaiki na Imouto to Warikirenai Ani\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi] High School Kimengumi /  高校！奇面组 - 02 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"02\", \"season\": 1, \"nameEn\": \"High School Kimengumi\", \"nameJp\": \"\", \"nameZh\": \"High School Kimengumi /  高校！奇面组 - 02\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[桜都字幕组] 数码宝贝大冒险 / Digimon Adventure [29][1080p][简体内嵌]",
+    "output": "{\"episode\": \"29\", \"season\": 1, \"nameEn\": \"Digimon Adventure\", \"nameJp\": \"\", \"nameZh\": \"数码宝贝大冒险 / Digimon Adventure\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[桜都字幕组] 无职转生～到了异世界就拿出真本事～ / Mushoku Tensei Isekai Ittara Honki Dasu [23][1080p@60FPS][简体内嵌]",
+    "output": "{\"episode\": \"23\", \"season\": 1, \"nameEn\": \"Mushoku Tensei Isekai Ittara Honki Dasu\", \"nameJp\": \"\", \"nameZh\": \"无职转生～到了异世界就拿出真本事～ / Mushoku Tensei Isekai Ittara Honki Dasu\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi] The Food Diary of Miss Maid /  女仆小姐的贪吃日常 - 05 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"05\", \"season\": 1, \"nameEn\": \"The Food Diary\", \"nameJp\": \"\", \"nameZh\": \"The Food Diary of Miss Maid /  女仆小姐的贪吃日常 - 05\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[LoliHouse] 数码宝贝BEATBREAK / DIGIMON BEATBREAK - 17 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕]",
+    "output": "{\"episode\": \"17\", \"season\": 1, \"nameEn\": \"LoliHouse\", \"nameJp\": \"\", \"nameZh\": \"数码宝贝BEATBREAK / DIGIMON BEATBREAK - 17\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"LoliHouse\"}"
+  },
+  {
+    "input": "[桜都字幕组] 魔王的女儿太温柔了！！ / Maou no Musume wa Yasashi Sugiru!! [07][1080P][简体内嵌]",
+    "output": "{\"episode\": \"07\", \"season\": 1, \"nameEn\": \"Yasashi Sugiru\", \"nameJp\": \"\", \"nameZh\": \"魔王的女儿太温柔了！！ / Maou no Musume wa Yasashi Sugiru!!\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi] RentaGirlfriend S05 /  出租女友 第五季 - 02 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"02\", \"season\": 5, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"RentaGirlfriend S05 /  出租女友 第五季 - 02\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[桜都字幕组] 弹珠汽水瓶里的千岁同学 / Chitose-kun wa Ramune Bin no Naka [10][1080p][繁体内嵌]",
+    "output": "{\"episode\": \"10\", \"season\": 1, \"nameEn\": \"Ramune Bin\", \"nameJp\": \"\", \"nameZh\": \"弹珠汽水瓶里的千岁同学 / Chitose-kun wa Ramune Bin no Naka\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "【喵萌奶茶屋】★07月新番★[和雨和你 / 雨天遇见狸 / Ame to Kimi to][08][1080p][简日双语]",
+    "output": "{\"episode\": \"07\", \"season\": 1, \"nameEn\": \"Ame\", \"nameJp\": \"\", \"nameZh\": \"喵萌奶茶屋\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"喵萌奶茶屋\"}"
+  },
+  {
+    "input": "[桜都字幕组] 魔王的女儿太温柔了！！ / Maou no Musume wa Yasashi Sugiru!! [06][1080p][简体内嵌]",
+    "output": "{\"episode\": \"06\", \"season\": 1, \"nameEn\": \"Yasashi Sugiru\", \"nameJp\": \"\", \"nameZh\": \"魔王的女儿太温柔了！！ / Maou no Musume wa Yasashi Sugiru!!\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi] The Water Magician /  水属性的魔法师 - 11 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"11\", \"season\": 1, \"nameEn\": \"The Water Magician\", \"nameJp\": \"\", \"nameZh\": \"The Water Magician /  水属性的魔法师 - 11\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[漫猫字幕组][7月新番][碧蓝之海第二季][Grand Blue S2][02][720p][MP4][简中]",
+    "output": "{\"episode\": \"7\", \"season\": 2, \"nameEn\": \"Grand Blue\", \"nameJp\": \"\", \"nameZh\": \"[漫猫字幕组]\", \"sub\": \"简\", \"dpi\": \"720\", \"source\": \"\", \"group\": \"漫猫字幕组\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 机械女仆‧玛丽 / Kikaijikake no Marie - 04 (Baha 1920x1080 AVC AAC MP4)",
+    "output": "{\"episode\": \"04\", \"season\": 1, \"nameEn\": \"Kikaijikake\", \"nameJp\": \"\", \"nameZh\": \"机械女仆‧玛丽 / Kikaijikake no Marie - 04\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"Baha\", \"group\": \"\"}"
+  },
+  {
+    "input": "【幻樱字幕组】【10月新番】【不擅吸血的吸血鬼 Chanto Suenai Kyuuketsuki-chan】【02】【GB_MP4】【1920X1080】",
+    "output": "{\"episode\": \"10\", \"season\": 1, \"nameEn\": \"Chanto Suenai Kyuuketsuki\", \"nameJp\": \"\", \"nameZh\": \"幻樱字幕组\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"幻樱字幕组\"}"
+  },
+  {
+    "input": "[ANi] Scum of the Brave /  勇者之渣 - 04 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"04\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"Scum of the Brave /  勇者之渣 - 04\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[桜都字幕组] 人妻的嘴唇尝起来有罐装沙瓦的味道 / Hitozuma no Kuchibiru wa Kan Chuuhai no Aji ga Shite [03][1080p][简繁日内封]",
+    "output": "{\"episode\": \"03\", \"season\": 1, \"nameEn\": \"Kan Chuuhai\", \"nameJp\": \"\", \"nameZh\": \"人妻的嘴唇尝起来有罐装沙瓦的味道 / Hitozuma no Kuchibiru wa Kan Chuuhai no Aji ga Shite\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[三明治摆烂组&Pre-S] 与游戏中心的少女异文化交流的故事 / Game Center Shoujo to Ibunka Kouryuu - 10 - [简繁日内封][H265 10bit 1080P](检索：游乐场少女的异文化交流)",
+    "output": "{\"episode\": \"10\", \"season\": 1, \"nameEn\": \"Game Center Shoujo\", \"nameJp\": \"\", \"nameZh\": \"与游戏中心的少女异文化交流的故事 / Game Center Shoujo to Ibunka Kouryuu - 10 -\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[ANi] Fatestrange Fake /  Fate／strange Fake - 12 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"12\", \"season\": 1, \"nameEn\": \"Fatestrange Fake /  Fate／strange Fake - 12\", \"nameJp\": \"\", \"nameZh\": \"\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[桜都字幕组] 无职转生～到了异世界就拿出真本事～ S2 / Mushoku Tensei S2 [02][1080P][简体内嵌]",
+    "output": "{\"episode\": \"02\", \"season\": 2, \"nameEn\": \"Mushoku Tensei\", \"nameJp\": \"\", \"nameZh\": \"无职转生～到了异世界就拿出真本事～ S2 / Mushoku Tensei S2\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 不中用的前辈。 / Bukiyou na Senpai. - 08 (CR 1920x1080 AVC AAC MKV)",
+    "output": "{\"episode\": \"08\", \"season\": 1, \"nameEn\": \"Bukiyou\", \"nameJp\": \"\", \"nameZh\": \"不中用的前辈。 / Bukiyou na Senpai. - 08\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[奶²&LoliHouse] 陛下请忘记我吧 / Heika Watashi wo Wasurete Kudasai - 11 [WebRip 1080p HEVC-10bit AAC][简日内封字幕]",
+    "output": "{\"episode\": \"11\", \"season\": 1, \"nameEn\": \"Heika Watashi\", \"nameJp\": \"\", \"nameZh\": \"陛下请忘记我吧 / Heika Watashi wo Wasurete Kudasai - 11\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"LoliHouse\"}"
+  },
+  {
+    "input": "[ANi] 9nine Rulers Crown /  9-nine- 支配者的王冠 - 04 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"9\", \"season\": 1, \"nameEn\": \"Rulers Crown\", \"nameJp\": \"\", \"nameZh\": \"9nine Rulers Crown /  9-nine- 支配者的王冠 - 04\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi] Marikas Love Meter Malfunction /  茉莉花同学的好感度坏得很彻底 - 05 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"05\", \"season\": 1, \"nameEn\": \"Marikas Love Meter Malfunction\", \"nameJp\": \"\", \"nameZh\": \"Marikas Love Meter Malfunction /  茉莉花同学的好感度坏得很彻底 - 05\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[桜都字幕组] 魔王的女儿太温柔了！！ / Maou no Musume wa Yasashi Sugiru!! [02][1080p][繁体内嵌]",
+    "output": "{\"episode\": \"02\", \"season\": 1, \"nameEn\": \"Yasashi Sugiru\", \"nameJp\": \"\", \"nameZh\": \"魔王的女儿太温柔了！！ / Maou no Musume wa Yasashi Sugiru!!\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi] Utagoe Ha MilleFeuille /  歌声是法式千层酥 - 06 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"06\", \"season\": 1, \"nameEn\": \"Utagoe Ha\", \"nameJp\": \"\", \"nameZh\": \"Utagoe Ha MilleFeuille /  歌声是法式千层酥 - 06\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[桜都字幕组] 数码宝贝大冒险 / Digimon Adventure [46][1080p][简体内嵌]",
+    "output": "{\"episode\": \"46\", \"season\": 1, \"nameEn\": \"Digimon Adventure\", \"nameJp\": \"\", \"nameZh\": \"数码宝贝大冒险 / Digimon Adventure\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 末世二轮之旅 / Shuumatsu Touring - 03 (Baha 1920x1080 AVC AAC MP4)",
+    "output": "{\"episode\": \"03\", \"season\": 1, \"nameEn\": \"Shuumatsu Touring\", \"nameJp\": \"\", \"nameZh\": \"末世二轮之旅 / Shuumatsu Touring - 03\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"Baha\", \"group\": \"\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 对我垂涎欲滴的非人少女 / Watashi wo Tabetai, Hitodenashi - 03 (CR 1920x1080 AVC AAC MKV)",
+    "output": "{\"episode\": \"03\", \"season\": 1, \"nameEn\": \"Watashi\", \"nameJp\": \"\", \"nameZh\": \"对我垂涎欲滴的非人少女 / Watashi wo Tabetai, Hitodenashi - 03\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[ANi]  无职转生～到了异世界就拿出真本事 第二季 - 24 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"24\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"无职转生～到了异世界就拿出真本事 第二季 - 24\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 转生后的我成了英雄爸爸和精灵妈妈的女儿。 / Hahanoha - 01 (B-Global 1920x1080 HEVC AAC MKV)",
+    "output": "{\"episode\": \"01\", \"season\": 1, \"nameEn\": \"Hahanoha\", \"nameJp\": \"\", \"nameZh\": \"转生后的我成了英雄爸爸和精灵妈妈的女儿。 / Hahanoha - 01\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[ANi]  魔法药水救救我 - 03 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"03\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"魔法药水救救我 - 03\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "【动漫国&桜都字幕组】★07月新番[Silent Witch 沉默魔女的秘密][12][1080P][繁体][MP4]",
+    "output": "{\"episode\": \"07\", \"season\": 1, \"nameEn\": \"Silent Witch\", \"nameJp\": \"\", \"nameZh\": \"动漫国&桜都字幕组\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 异世界的处置依社畜而定 / Isekai no Sata wa Shachiku Shidai - 09 (CR 1920x1080 AVC AAC MKV)",
+    "output": "{\"episode\": \"09\", \"season\": 1, \"nameEn\": \"Shachiku Shidai\", \"nameJp\": \"\", \"nameZh\": \"异世界的处置依社畜而定 / Isekai no Sata wa Shachiku Shidai - 09\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 永远的黄昏 / Towa no Yuugure - 06 (Baha 1920x1080 AVC AAC MP4)",
+    "output": "{\"episode\": \"06\", \"season\": 1, \"nameEn\": \"Towa\", \"nameJp\": \"\", \"nameZh\": \"永远的黄昏 / Towa no Yuugure - 06\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"Baha\", \"group\": \"\"}"
+  },
+  {
+    "input": "[ANi]  打工仔的拷问日常 - 05 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"05\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"打工仔的拷问日常 - 05\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi]  转生后的我成了英雄爸爸和精灵妈妈的女儿 - 02 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"02\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"转生后的我成了英雄爸爸和精灵妈妈的女儿 - 02\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[桜都字幕组][租借女友/Kanojo Okarishimasu][06][GB][1080P]",
+    "output": "{\"episode\": \"06\", \"season\": 1, \"nameEn\": \"Kanojo Okarishimasu\", \"nameJp\": \"\", \"nameZh\": \"[桜都字幕组]\", \"sub\": \"\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[桜都字幕组] 无职转生～到了异世界就拿出真本事～ S2 / Mushoku Tensei S2  [07][1080P@60FPS][繁体内嵌]",
+    "output": "{\"episode\": \"07\", \"season\": 2, \"nameEn\": \"Mushoku Tensei\", \"nameJp\": \"\", \"nameZh\": \"无职转生～到了异世界就拿出真本事～ S2 / Mushoku Tensei S2\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[喵萌奶茶屋&LoliHouse] 青春猪头少年不会梦到圣诞服女郎 / Seishun Buta Yarou wa Santa Claus no Yume wo Minai - 02 [WebRip 1080p HEVC-10bit AAC][简繁日内封字幕]",
+    "output": "{\"episode\": \"02\", \"season\": 1, \"nameEn\": \"Seishun Buta Yarou\", \"nameJp\": \"\", \"nameZh\": \"青春猪头少年不会梦到圣诞服女郎 / Seishun Buta Yarou wa Santa Claus no Yume wo Minai - 02\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"喵萌奶茶屋\"}"
+  },
+  {
+    "input": "[ANi]  靠死亡游戏混饭吃。 - 10 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"10\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"靠死亡游戏混饭吃。 - 10\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[桜都字幕组] 魔王的女儿太温柔了！！ / Maou no Musume wa Yasashi Sugiru!! [05][1080p][简繁内封]",
+    "output": "{\"episode\": \"05\", \"season\": 1, \"nameEn\": \"Yasashi Sugiru\", \"nameJp\": \"\", \"nameZh\": \"魔王的女儿太温柔了！！ / Maou no Musume wa Yasashi Sugiru!!\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[桜都字幕组] 无职转生～到了异世界就拿出真本事～ / Mushoku Tensei Isekai Ittara Honki Dasu [23][1080p][繁体内嵌]",
+    "output": "{\"episode\": \"23\", \"season\": 1, \"nameEn\": \"Mushoku Tensei Isekai Ittara Honki Dasu\", \"nameJp\": \"\", \"nameZh\": \"无职转生～到了异世界就拿出真本事～ / Mushoku Tensei Isekai Ittara Honki Dasu\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi]  身为魔族的我 想向勇者小队的可爱女孩告白 - 05 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"05\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"身为魔族的我 想向勇者小队的可爱女孩告白 - 05\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[LoliHouse] 光死去的夏天 / 光逝去的夏天 / Hikaru ga Shinda Natsu - 12 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕][END]",
+    "output": "{\"episode\": \"12\", \"season\": 1, \"nameEn\": \"Shinda Natsu\", \"nameJp\": \"\", \"nameZh\": \"光死去的夏天 / 光逝去的夏天 / Hikaru ga Shinda Natsu - 12\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"LoliHouse\"}"
+  },
+  {
+    "input": "[桜都字幕组] 租借女友 第三季 / Kanojo, Okarishimasu (2023) [12][1080p][简繁内封]",
+    "output": "{\"episode\": \"12\", \"season\": 1, \"nameEn\": \"Kanojo\", \"nameJp\": \"\", \"nameZh\": \"租借女友 第三季 / Kanojo, Okarishimasu\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[桜都字幕组] 草莓哀歌~散漫嚣张的妹妹与无法释怀的哥哥~ / Ichigo Aika： Zatsu de Namaiki na Imouto to Warikirenai Ani [09][1080P][简体内嵌]",
+    "output": "{\"episode\": \"09\", \"season\": 1, \"nameEn\": \"Ichigo Aika\", \"nameJp\": \"\", \"nameZh\": \"草莓哀歌~散漫嚣张的妹妹与无法释怀的哥哥~ / Ichigo Aika： Zatsu de Namaiki na Imouto to Warikirenai Ani\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 数码宝贝 BEATBREAK / Digimon Beatbreak - 02 (CR 1920x1080 AVC AAC MKV)",
+    "output": "{\"episode\": \"02\", \"season\": 1, \"nameEn\": \"Digimon Beatbreak\", \"nameJp\": \"\", \"nameZh\": \"数码宝贝 BEATBREAK / Digimon Beatbreak - 02\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 对我垂涎欲滴的非人少女 / Watashi wo Tabetai, Hitodenashi - 10 (Baha 1920x1080 AVC AAC MP4)",
+    "output": "{\"episode\": \"10\", \"season\": 1, \"nameEn\": \"Watashi\", \"nameJp\": \"\", \"nameZh\": \"对我垂涎欲滴的非人少女 / Watashi wo Tabetai, Hitodenashi - 10\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"Baha\", \"group\": \"\"}"
+  },
+  {
+    "input": "[LoliHouse] 光死去的夏天 / 光逝去的夏天 / Hikaru ga Shinda Natsu - 09 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕]",
+    "output": "{\"episode\": \"09\", \"season\": 1, \"nameEn\": \"Shinda Natsu\", \"nameJp\": \"\", \"nameZh\": \"光死去的夏天 / 光逝去的夏天 / Hikaru ga Shinda Natsu - 09\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"LoliHouse\"}"
+  },
+  {
+    "input": "[黑白字幕组]可以帮忙洗干净吗？ / Kirei ni Shitemoraemasu ka [02] [webRip] [HEVC-8bit 1080P AAC] [繁日内嵌](检索:能帮我弄干净吗？/大姐姐的绮丽日常)",
+    "output": "{\"episode\": \"02\", \"season\": 1, \"nameEn\": \"Kirei\", \"nameJp\": \"\", \"nameZh\": \"可以帮忙洗干净吗？ / Kirei ni Shitemoraemasu ka\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"\"}"
+  },
+  {
+    "input": "[ANi]  打工仔的拷问日常 - 07 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"07\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"打工仔的拷问日常 - 07\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[桜都字幕组] 无职转生～到了异世界就拿出真本事～ / Mushoku Tensei Isekai Ittara Honki Dasu [23][1080p@60FPS][繁体内嵌]",
+    "output": "{\"episode\": \"23\", \"season\": 1, \"nameEn\": \"Mushoku Tensei Isekai Ittara Honki Dasu\", \"nameJp\": \"\", \"nameZh\": \"无职转生～到了异世界就拿出真本事～ / Mushoku Tensei Isekai Ittara Honki Dasu\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi] Sentenced to Be a Hero /  判处勇者刑 - 05 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"05\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"Sentenced to Be a Hero /  判处勇者刑 - 05\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 机械女仆‧玛丽 / Kikaijikake no Marie - 07 (Baha 1920x1080 AVC AAC MP4)",
+    "output": "{\"episode\": \"07\", \"season\": 1, \"nameEn\": \"Kikaijikake\", \"nameJp\": \"\", \"nameZh\": \"机械女仆‧玛丽 / Kikaijikake no Marie - 07\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"Baha\", \"group\": \"\"}"
+  },
+  {
+    "input": "[ANi]  被驱逐出勇者队伍的白魔导师，被 S 级冒险者捡到 - 10 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"10\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"被驱逐出勇者队伍的白魔导师，被 S 级冒险者捡到 - 10\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[漫猫字幕组][7月新番][GRAND BLUE碧蓝之海][Grand Blue S2][04][720p][MP4][繁中]",
+    "output": "{\"episode\": \"7\", \"season\": 2, \"nameEn\": \"GRAND\", \"nameJp\": \"\", \"nameZh\": \"[漫猫字幕组]\", \"sub\": \"繁\", \"dpi\": \"720\", \"source\": \"\", \"group\": \"漫猫字幕组\"}"
+  },
+  {
+    "input": "[ANi] Blue Miburo S02 /  青之壬生浪 第二季 芹泽暗杀篇 - 14 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"14\", \"season\": 2, \"nameEn\": \"Blue Miburo\", \"nameJp\": \"\", \"nameZh\": \"Blue Miburo S02 /  青之壬生浪 第二季 芹泽暗杀篇 - 14\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 魔法药水救救我 / Potion, Wagami wo Tasukeru - 03 (ABEMA 1920x1080 AVC AAC MP4)",
+    "output": "{\"episode\": \"03\", \"season\": 1, \"nameEn\": \"Potion\", \"nameJp\": \"\", \"nameZh\": \"魔法药水救救我 / Potion, Wagami wo Tasukeru - 03\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[桜都字幕组][租借女友/Kanojo Okarishimasu][12][WebRip][HEVC-10Bit][1080P][简繁内封字幕]",
+    "output": "{\"episode\": \"12\", \"season\": 1, \"nameEn\": \"Kanojo Okarishimasu\", \"nameJp\": \"\", \"nameZh\": \"[桜都字幕组]\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[LoliHouse] 厄里斯的圣杯 / Eris no Seihai - 01 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕]",
+    "output": "{\"episode\": \"01\", \"season\": 1, \"nameEn\": \"LoliHouse\", \"nameJp\": \"\", \"nameZh\": \"厄里斯的圣杯 / Eris no Seihai - 01\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"LoliHouse\"}"
+  },
+  {
+    "input": "[桜都字幕组] 无职转生～到了异世界就拿出真本事～ S2 / Mushoku Tensei S2  [08][1080P@60FPS][繁体内嵌]",
+    "output": "{\"episode\": \"08\", \"season\": 2, \"nameEn\": \"Mushoku Tensei\", \"nameJp\": \"\", \"nameZh\": \"无职转生～到了异世界就拿出真本事～ S2 / Mushoku Tensei S2\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 不中用的前辈。 / Bukiyou na Senpai. - 05 (Baha 1920x1080 AVC AAC MP4)",
+    "output": "{\"episode\": \"05\", \"season\": 1, \"nameEn\": \"Bukiyou\", \"nameJp\": \"\", \"nameZh\": \"不中用的前辈。 / Bukiyou na Senpai. - 05\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"Baha\", \"group\": \"\"}"
+  },
+  {
+    "input": "[ANi]  身为魔族的我 想向勇者小队的可爱女孩告白 - 07 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"07\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"身为魔族的我 想向勇者小队的可爱女孩告白 - 07\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi]  优雅贵族的休假指南。 - 12 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"12\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"优雅贵族的休假指南。 - 12\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi]  Silent Witch 沉默魔女的秘密 - 07 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"07\", \"season\": 1, \"nameEn\": \"Silent Witch\", \"nameJp\": \"\", \"nameZh\": \"Silent Witch 沉默魔女的秘密 - 07\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[北宇治] 五等分的花嫁 ∬ / 5-toubun no Hanayome ∬ - 01 [Baha][1080p][2]",
+    "output": "{\"episode\": \"5\", \"season\": 1, \"nameEn\": \"Hanayome\", \"nameJp\": \"\", \"nameZh\": \"五等分的花嫁 ∬ / 5-toubun no Hanayome ∬ - 01\", \"sub\": \"\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"\"}"
+  },
+  {
+    "input": "[桜都字幕组] 弹珠汽水瓶里的千岁同学 / Chitose-kun wa Ramune Bin no Naka [07][1080p][简体内嵌]",
+    "output": "{\"episode\": \"07\", \"season\": 1, \"nameEn\": \"Ramune Bin\", \"nameJp\": \"\", \"nameZh\": \"弹珠汽水瓶里的千岁同学 / Chitose-kun wa Ramune Bin no Naka\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi]  无职英雄：技能什么的毫无用处 - 11 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"11\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"无职英雄：技能什么的毫无用处 - 11\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[LoliHouse] 数码宝贝BEATBREAK / DIGIMON BEATBREAK - 25 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕]",
+    "output": "{\"episode\": \"25\", \"season\": 1, \"nameEn\": \"LoliHouse\", \"nameJp\": \"\", \"nameZh\": \"数码宝贝BEATBREAK / DIGIMON BEATBREAK - 25\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"LoliHouse\"}"
+  },
+  {
+    "input": "[ANi] TRIGUN STAMPEDE /  TRIGUN STARGAZE - 04 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"04\", \"season\": 1, \"nameEn\": \"TRIGUN STAMPEDE /  TRIGUN STARGAZE - 04\", \"nameJp\": \"\", \"nameZh\": \"\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[桜都字幕组] 数码宝贝大冒险 / Digimon Adventure [61][1080p][繁体内嵌]",
+    "output": "{\"episode\": \"61\", \"season\": 1, \"nameEn\": \"Digimon Adventure\", \"nameJp\": \"\", \"nameZh\": \"数码宝贝大冒险 / Digimon Adventure\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi] Champignon Witch /  蘑菇魔女 - 03 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"03\", \"season\": 1, \"nameEn\": \"Champignon Witch\", \"nameJp\": \"\", \"nameZh\": \"Champignon Witch /  蘑菇魔女 - 03\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 转生后的我成了英雄爸爸和精灵妈妈的女儿。 / Hahanoha - 09 (B-Global 1920x1080 HEVC AAC MKV)",
+    "output": "{\"episode\": \"09\", \"season\": 1, \"nameEn\": \"Hahanoha\", \"nameJp\": \"\", \"nameZh\": \"转生后的我成了英雄爸爸和精灵妈妈的女儿。 / Hahanoha - 09\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[桜都字幕组] 非人学生与厌世教师 / Jingai Kyoushitsu no Ningengirai Kyoushi [01][1080p][简体内嵌]",
+    "output": "{\"episode\": \"01\", \"season\": 1, \"nameEn\": \"Jingai Kyoushitsu\", \"nameJp\": \"\", \"nameZh\": \"非人学生与厌世教师 / Jingai Kyoushitsu no Ningengirai Kyoushi\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[桜都字幕组] 有栖川炼原来是女孩子啊。 / Arisugawa Ren tte Honto wa Onna Nanda yo ne. [01][1080p][简繁内封]",
+    "output": "{\"episode\": \"01\", \"season\": 1, \"nameEn\": \"Arisugawa Ren\", \"nameJp\": \"\", \"nameZh\": \"有栖川炼原来是女孩子啊。 / Arisugawa Ren tte Honto wa Onna Nanda yo ne.\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[极彩花梦] 和机器人的性爱算在经验人数里吗？ / Android wa Keiken Ninzuu ni Hairimasu ka [02][1080P][WEBRip][AVC 8bit AAC][CHS_JPN]",
+    "output": "{\"episode\": \"02\", \"season\": 1, \"nameEn\": \"Keiken Ninzuu\", \"nameJp\": \"\", \"nameZh\": \"和机器人的性爱算在经验人数里吗？ / Android wa Keiken Ninzuu ni Hairimasu ka\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"\"}"
+  },
+  {
+    "input": "[Skymoon-Raws] Re：从零开始的异世界生活 第三季 / Re：Zero kara Hajimeru Isekai Seikatsu 3rd Season - 01 [ViuTV][WEB-DL][1080p][AVC AAC]",
+    "output": "{\"episode\": \"01\", \"season\": 1, \"nameEn\": \"Hajimeru Isekai Seikatsu\", \"nameJp\": \"\", \"nameZh\": \"Re：从零开始的异世界生活 第三季 / Re：Zero kara Hajimeru Isekai Seikatsu 3rd Season - 01\", \"sub\": \"\", \"dpi\": \"1080\", \"source\": \"WEB\", \"group\": \"\"}"
+  },
+  {
+    "input": "[ANi]  转生为白猪贵族的我，运用前世记忆养育雏鸟般的弟弟 - 05 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"05\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"转生为白猪贵族的我，运用前世记忆养育雏鸟般的弟弟 - 05\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi] Kunon the Sorcerer Can See /  魔术师库诺看得见一切 - 06 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"06\", \"season\": 1, \"nameEn\": \"Sorcerer Can See\", \"nameJp\": \"\", \"nameZh\": \"Kunon the Sorcerer Can See /  魔术师库诺看得见一切 - 06\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 对我垂涎欲滴的非人少女 / Watashi wo Tabetai, Hitodenashi - 02 (Baha 1920x1080 AVC AAC MP4)",
+    "output": "{\"episode\": \"02\", \"season\": 1, \"nameEn\": \"Watashi\", \"nameJp\": \"\", \"nameZh\": \"对我垂涎欲滴的非人少女 / Watashi wo Tabetai, Hitodenashi - 02\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"Baha\", \"group\": \"\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 对我垂涎欲滴的非人少女 / Watashi wo Tabetai, Hitodenashi - 12 (ABEMA 1920x1080 AVC AAC MP4)",
+    "output": "{\"episode\": \"12\", \"season\": 1, \"nameEn\": \"Watashi\", \"nameJp\": \"\", \"nameZh\": \"对我垂涎欲滴的非人少女 / Watashi wo Tabetai, Hitodenashi - 12\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[桜都字幕组] 数码宝贝大冒险 / Digimon Adventure [58][1080p][简体内嵌]",
+    "output": "{\"episode\": \"58\", \"season\": 1, \"nameEn\": \"Digimon Adventure\", \"nameJp\": \"\", \"nameZh\": \"数码宝贝大冒险 / Digimon Adventure\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "【喵萌奶茶屋】★07月新番★[薰香花朵凛然绽放 / Kaoru Hana wa Rin to Saku][05][1080p][繁日双语]",
+    "output": "{\"episode\": \"07\", \"season\": 1, \"nameEn\": \"Kaoru Hana\", \"nameJp\": \"\", \"nameZh\": \"喵萌奶茶屋\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"喵萌奶茶屋\"}"
+  },
+  {
+    "input": "[桜都字幕组] 无职转生～到了异世界就拿出真本事～ S2 / Mushoku Tensei S2 [09][1080p][简繁内封]",
+    "output": "{\"episode\": \"09\", \"season\": 2, \"nameEn\": \"Mushoku Tensei\", \"nameJp\": \"\", \"nameZh\": \"无职转生～到了异世界就拿出真本事～ S2 / Mushoku Tensei S2\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi] Lets Go Karaoke /  去唱卡拉 OK 吧！ - 02 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"02\", \"season\": 1, \"nameEn\": \"Lets Go Karaoke\", \"nameJp\": \"\", \"nameZh\": \"Lets Go Karaoke /  去唱卡拉 OK 吧！ - 02\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi]  帝乃三姊妹意外地容易相处。 - 06 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"06\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"帝乃三姊妹意外地容易相处。 - 06\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[奶²&LoliHouse] 陛下请忘记我吧 / Heika Watashi wo Wasurete Kudasai - 12 [WebRip 1080p HEVC-10bit AAC][简日内封字幕][END]",
+    "output": "{\"episode\": \"12\", \"season\": 1, \"nameEn\": \"Heika Watashi\", \"nameJp\": \"\", \"nameZh\": \"陛下请忘记我吧 / Heika Watashi wo Wasurete Kudasai - 12\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"LoliHouse\"}"
+  },
+  {
+    "input": "[Moozzi2] 间谍过家家 S2 / Spy x Family - 02 [Bilibili][1080p AVC][简繁内嵌]",
+    "output": "{\"episode\": \"02\", \"season\": 2, \"nameEn\": \"Spy\", \"nameJp\": \"\", \"nameZh\": \"间谍过家家 S2 / Spy x Family - 02\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Bilibili\", \"group\": \"Moozzi2\"}"
+  },
+  {
+    "input": "[桜都字幕组] 数码宝贝大冒险 / Digimon Adventure [36][1080p][简体内嵌]",
+    "output": "{\"episode\": \"36\", \"season\": 1, \"nameEn\": \"Digimon Adventure\", \"nameJp\": \"\", \"nameZh\": \"数码宝贝大冒险 / Digimon Adventure\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[ANi] SIVIS The Sound of Heroes /  SI-VIS：英雄之声 - 14 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"14\", \"season\": 1, \"nameEn\": \"The Sound\", \"nameJp\": \"\", \"nameZh\": \"SIVIS The Sound of Heroes /  SI-VIS：英雄之声 - 14\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[桜都字幕组] 人妻的嘴唇尝起来有罐装沙瓦的味道 / Hitozuma no Kuchibiru wa Kan Chuuhai no Aji ga Shite [06][1080p][简日内嵌]",
+    "output": "{\"episode\": \"06\", \"season\": 1, \"nameEn\": \"Kan Chuuhai\", \"nameJp\": \"\", \"nameZh\": \"人妻的嘴唇尝起来有罐装沙瓦的味道 / Hitozuma no Kuchibiru wa Kan Chuuhai no Aji ga Shite\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"桜都字幕组\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 对我垂涎欲滴的非人少女 / Watashi wo Tabetai, Hitodenashi - 01 (CR 1920x1080 AVC AAC MKV)",
+    "output": "{\"episode\": \"01\", \"season\": 1, \"nameEn\": \"Watashi\", \"nameJp\": \"\", \"nameZh\": \"对我垂涎欲滴的非人少女 / Watashi wo Tabetai, Hitodenashi - 01\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[三明治摆烂组&Pre-S] 与游戏中心的少女异文化交流的故事 / Game Center Shoujo to Ibunka Kouryuu - 05 - [繁日内嵌][H264 8bit 1080P](检索：游乐场少女的异文化交流)",
+    "output": "{\"episode\": \"05\", \"season\": 1, \"nameEn\": \"Game Center Shoujo\", \"nameJp\": \"\", \"nameZh\": \"与游戏中心的少女异文化交流的故事 / Game Center Shoujo to Ibunka Kouryuu - 05 -\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[奶²&LoliHouse] 陛下请忘记我吧 / Heika Watashi wo Wasurete Kudasai - 07 [WebRip 1080p HEVC-10bit AAC][简日内封字幕]",
+    "output": "{\"episode\": \"07\", \"season\": 1, \"nameEn\": \"Heika Watashi\", \"nameJp\": \"\", \"nameZh\": \"陛下请忘记我吧 / Heika Watashi wo Wasurete Kudasai - 07\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"LoliHouse\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 对我垂涎欲滴的非人少女 / Watashi wo Tabetai, Hitodenashi - 13 (CR 1920x1080 AVC AAC MKV)",
+    "output": "{\"episode\": \"13\", \"season\": 1, \"nameEn\": \"Watashi\", \"nameJp\": \"\", \"nameZh\": \"对我垂涎欲滴的非人少女 / Watashi wo Tabetai, Hitodenashi - 13\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 永远的黄昏 / Towa no Yuugure - 08 (ABEMA 1920x1080 AVC AAC MP4)",
+    "output": "{\"episode\": \"08\", \"season\": 1, \"nameEn\": \"Towa\", \"nameJp\": \"\", \"nameZh\": \"永远的黄昏 / Towa no Yuugure - 08\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"\", \"group\": \"\"}"
+  },
+  {
+    "input": "[ANi] Uchūjin MūMū /  外星人姆姆 - 21 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"21\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"Uchūjin MūMū /  外星人姆姆 - 21\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[ANi] GNOSIA /  GNOSIA - 16 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"16\", \"season\": 1, \"nameEn\": \"GNOSIA /  GNOSIA - 16\", \"nameJp\": \"\", \"nameZh\": \"\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[桜都] 灵能百分百 S3 / Mob Psycho - 02 [BDRip 1080p][简繁内嵌]",
+    "output": "{\"episode\": \"02\", \"season\": 3, \"nameEn\": \"Mob Psycho\", \"nameJp\": \"\", \"nameZh\": \"灵能百分百 S3 / Mob Psycho - 02\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"BDRip\", \"group\": \"\"}"
+  },
+  {
+    "input": "[ANi]  无职转生～到了异世界就拿出真本事 第二季 - 14 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]",
+    "output": "{\"episode\": \"14\", \"season\": 1, \"nameEn\": \"ANi\", \"nameJp\": \"\", \"nameZh\": \"无职转生～到了异世界就拿出真本事 第二季 - 14\", \"sub\": \"繁\", \"dpi\": \"1080\", \"source\": \"Baha\", \"group\": \"ANi\"}"
+  },
+  {
+    "input": "[LoliHouse] 渡君的XX即将崩坏 / Watari-kun no xx ga Houkai Sunzen - 02 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕]",
+    "output": "{\"episode\": \"02\", \"season\": 1, \"nameEn\": \"Houkai Sunzen\", \"nameJp\": \"\", \"nameZh\": \"渡君的XX即将崩坏 / Watari-kun no xx ga Houkai Sunzen - 02\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"Web\", \"group\": \"LoliHouse\"}"
+  },
+  {
+    "input": "[漫猫字幕组][7月新番][碧蓝之海第二季][Grand Blue S2][06][1080p][MP4][简中]",
+    "output": "{\"episode\": \"7\", \"season\": 2, \"nameEn\": \"Grand Blue\", \"nameJp\": \"\", \"nameZh\": \"[漫猫字幕组]\", \"sub\": \"简\", \"dpi\": \"1080\", \"source\": \"\", \"group\": \"漫猫字幕组\"}"
+  },
+  {
+    "input": "[黒ネズミたち] 末世二轮之旅 / Shuumatsu Touring - 11 (Baha 1920x1080 AVC AAC MP4)",
+    "output": "{\"episode\": \"11\", \"season\": 1, \"nameEn\": \"Shuumatsu Touring\", \"nameJp\": \"\", \"nameZh\": \"末世二轮之旅 / Shuumatsu Touring - 11\", \"sub\": \"\", \"dpi\": \"\", \"source\": \"Baha\", \"group\": \"\"}"
+  }
+]

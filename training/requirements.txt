@@ -1,0 +1,10 @@
+# PAI-DSW 训练依赖（镜像内置 PyTorch 2.11 + CUDA 12.6）
+# pai_train.py 会自动安装，无需手动 pip install
+modelscope
+transformers
+peft
+datasets
+accelerate
+trl
+sentencepiece
+bitsandbytes
