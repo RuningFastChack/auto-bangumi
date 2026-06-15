@@ -6,5 +6,4 @@ peft
 datasets
 accelerate
 trl
-sentencepiece
 bitsandbytes

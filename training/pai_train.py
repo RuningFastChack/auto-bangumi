@@ -3,8 +3,8 @@
 PAI-DSW 云端训练脚本
 镜像: torcheasyrec:1.2.0-pytorch2.11.0-gpu-py311-cu126-ubuntu22.04
 
-一键运行（数据已上传到 /mnt/workspace/training/）:
-  cd /mnt/workspace/training/training
+一键运行（数据已上传到 /mnt/workspace/）:
+  cd /mnt/workspace/training
   python pai_train.py
 
 产生:
@@ -18,7 +18,7 @@ from pathlib import Path
 BASE = Path(__file__).parent
 DATA_DIR = BASE / "data"
 OUT_DIR = BASE / "output"
-MIRROR = "https://mirrors.aliyun.com/pypi/simple"
+MIRROR = "https://mirrors.cloud.aliyuncs.com/pypi/simple"
 
 
 # ════════════════════════════════════════════════════════
@@ -36,12 +36,11 @@ def setup():
         "datasets",
         "accelerate",
         "trl",
-        "sentencepiece",
         "bitsandbytes",         # QLoRA 4bit
     ]
     sp.run(
-        [sys.executable, "-m", "pip", "install", "-q",
-         "-i", MIRROR, "--trusted-host", "mirrors.aliyun.com"] + pkgs,
+        [sys.executable, "-m", "pip", "install",
+         "-i", MIRROR, "--trusted-host", "mirrors.cloud.aliyuncs.com"] + pkgs,
         check=True,
     )
     print("OK\n")
@@ -147,14 +146,20 @@ def train(model, tokenizer, lora_config, data):
         "season(季数整数,未识别1), nameEn, nameJp, nameZh, sub, dpi, source, group。"
     )
 
-    def fmt(item):
-        return {"messages": [
-            {"role": "system", "content": SYS},
-            {"role": "user", "content": f"请解析以下番剧标题：\n{item['input']}"},
-            {"role": "assistant", "content": item["output"]},
-        ]}
+    # 显式拼 Qwen2.5 chat 格式，不依赖 tokenizer.chat_template
+    # 格式: <|im_start|>system\n...<|im_end|>\n<|im_start|>user\n...<|im_end|>\n<|im_start|>assistant\n...<|im_end|>\n
+    def formatting_func(samples):
+        texts = []
+        for i in range(len(samples["input"])):
+            text = (
+                f"<|im_start|>system\n{SYS}<|im_end|>\n"
+                f"<|im_start|>user\n请解析以下番剧标题：\n{samples['input'][i]}<|im_end|>\n"
+                f"<|im_start|>assistant\n{samples['output'][i]}<|im_end|>\n"
+            )
+            texts.append(text)
+        return texts
 
-    ds = Dataset.from_list([fmt(d) for d in data])
+    ds = Dataset.from_list([{"input": d["input"], "output": d["output"]} for d in data])
     ds = ds.train_test_split(test_size=0.1, seed=42)
     print(f"  训练集: {len(ds['train'])}  验证集: {len(ds['test'])}")
 
@@ -182,7 +187,6 @@ def train(model, tokenizer, lora_config, data):
         fp16=False,
         bf16=False,
         report_to="none",
-        dataset_text_field="messages",
         packing=False,
         seed=42,
     )
@@ -193,6 +197,7 @@ def train(model, tokenizer, lora_config, data):
         train_dataset=ds["train"],
         eval_dataset=ds["test"],
         processing_class=tokenizer,
+        formatting_func=formatting_func,
         peft_config=lora_config,
     )
 
@@ -228,7 +233,23 @@ def merge(adapter_path):
 
     out = str(OUT_DIR / "merged")
     m.save_pretrained(out, safe_serialization=True)
-    AutoTokenizer.from_pretrained(adapter_path).save_pretrained(out)
+    out_tok = AutoTokenizer.from_pretrained(adapter_path)
+    out_tok.save_pretrained(out)
+
+    # 注入 chat_template 到 tokenizer_config.json（Ollama 需要）
+    # Qwen2.5 将其存为独立 chat_template.jinja 文件，Ollama 不识别
+    from pathlib import Path as P
+    jinja_file = P(out) / "chat_template.jinja"
+    tok_cfg_file = P(out) / "tokenizer_config.json"
+    if jinja_file.exists():
+        with open(jinja_file, encoding="utf-8") as f:
+            cht = f.read()
+        with open(tok_cfg_file, encoding="utf-8") as f:
+            cfg = json.load(f)
+        cfg["chat_template"] = cht
+        with open(tok_cfg_file, "w", encoding="utf-8") as f:
+            json.dump(cfg, f, indent=2, ensure_ascii=False)
+        print("  chat_template 已注入 tokenizer_config.json")
 
     print(f"  合并模型: {out}")
     print("=" * 55)

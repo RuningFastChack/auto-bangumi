@@ -12,11 +12,12 @@ from pathlib import Path
 BASE = Path(__file__).parent
 SRC_DATA = BASE.parent / "training" / "data"
 DATA_DIR = BASE / "data"
-MODEL_DIR = Path("F:/Download/cache/modelscope")
-OUT_DIR = Path("F:/Download/cache/training_output")
-HF_CACHE = Path("F:/Download/cache/huggingface")
-PIP_CACHE = Path("F:/Download/cache/pip")
-DS_CACHE = Path("F:/Download/cache/datasets")
+CACHE_BASE = Path("D:/Users/90396/Downloads/cache")
+MODEL_DIR = CACHE_BASE / "modelscope"
+OUT_DIR = CACHE_BASE / "training_output"
+HF_CACHE = CACHE_BASE / "huggingface"
+PIP_CACHE = CACHE_BASE / "pip"
+DS_CACHE = CACHE_BASE / "datasets"
 
 # 全局设备: "cpu" 或 dml 设备对象
 _DEVICE = None
@@ -36,7 +37,7 @@ def step0_setup():
         if "proxy" in k.lower():
             del os.environ[k]
 
-    # 所有缓存目录指向 F 盘
+    # 所有缓存目录指向项目内 cache/
     for d in [MODEL_DIR, OUT_DIR, HF_CACHE, PIP_CACHE, DS_CACHE, DATA_DIR]:
         d.mkdir(parents=True, exist_ok=True)
     os.environ["HF_HOME"] = str(HF_CACHE)
@@ -191,11 +192,13 @@ def step3_train(model_path, data):
     print("=" * 55)
 
     # 模型加载: DML 不能直接用 device_map，先 load 到 cpu 再 .to()
+    # 核显共享内存，启用 low_cpu_mem_usage 减少峰值内存占用
     if is_dml:
         model = AutoModelForCausalLM.from_pretrained(
             model_path,
             torch_dtype=torch.float32,
             trust_remote_code=True,
+            low_cpu_mem_usage=True,
         )
         model = model.to(device)
     else:
@@ -222,6 +225,11 @@ def step3_train(model_path, data):
     )
     model = get_peft_model(model, lora)
     model = model.to(device)  # LoRA 新参数也移到 DML
+
+    # 启用梯度检查点 — 以时间换空间，核显/CPU 必开
+    model.enable_input_require_grads()
+    model.gradient_checkpointing_enable()
+
     model.print_trainable_parameters()
 
     # ── 格式化 ──
@@ -252,6 +260,7 @@ def step3_train(model_path, data):
         per_device_train_batch_size=1,
         per_device_eval_batch_size=1,
         gradient_accumulation_steps=8,
+        max_grad_norm=1.0,
         warmup_ratio=0.05,
         learning_rate=2e-4,
         lr_scheduler_type="cosine",
@@ -271,6 +280,8 @@ def step3_train(model_path, data):
         packing=False,
         seed=42,
         use_cpu=is_cpu,
+        dataloader_num_workers=0 if (is_cpu or is_dml) else 2,
+        dataloader_pin_memory=not is_dml,
     )
 
     trainer = SFTTrainer(
@@ -285,9 +296,10 @@ def step3_train(model_path, data):
     if is_cpu:
         dev_name = "CPU (~2-3 小时)"
     elif is_dml:
-        dev_name = "DirectML / AMD GPU (~20-40 分钟)"
+        mem_gb = round(torch.cuda.get_device_properties(0).total_memory / (1024**3), 1) \
+            if hasattr(torch, "cuda") and torch.cuda.is_available() else "共享"
+        dev_name = f"DirectML / AMD GPU | 可用内存: {mem_gb}GB (~40-60 分钟)"
     else:
-        # CUDA GPU
         gpu_name = torch.cuda.get_device_name(0) if torch.cuda.is_available() else "GPU"
         dev_name = f"CUDA / {gpu_name} (~20-40 分钟)"
     print(f"Step 4: 开始训练 ({dev_name})")
@@ -320,6 +332,7 @@ def step4_merge(model_path, adapter_path):
         base = AutoModelForCausalLM.from_pretrained(
             model_path, torch_dtype=torch.float32,
             trust_remote_code=True,
+            low_cpu_mem_usage=True,
         )
         base = base.to(device)
     else:
