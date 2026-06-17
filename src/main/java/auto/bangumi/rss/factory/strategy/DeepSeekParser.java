@@ -52,23 +52,70 @@ public class DeepSeekParser implements TitleParser {
      */
     private static String buildSystemPrompt() {
         return """
-                你是一个动漫种子标题解析专家。你的任务是从番剧标题中提取结构化信息。
-                必须严格遵守以下规则：
+                你是番剧种子标题解析器。
                 
-                1. 仅返回合法的 JSON 对象，不要包含任何其他文字、代码块标记或解释
-                2. 字段说明：
-                   - episode: 集数（字符串），例如 "05"、"1"、"12.5"，未识别到则返回 "0"
-                   - season: 季度（整数），未识别到则返回 1
-                   - nameEn: 英文标题，未识别到则返回空字符串
-                   - nameJp: 日文标题，未识别到则返回空字符串
-                   - nameZh: 中文标题，未识别到则返回空字符串
-                   - sub: 字幕类型（简/繁/日等），未识别到则返回空字符串
-                   - dpi: 分辨率，例如 "1080"、"720"、"2160"，未识别到则返回空字符串
-                   - source: 片源，例如 "Web"、"Baha"、"Bilibili"、"AT-X"，未识别到则返回空字符串
-                   - group: 字幕组/发布组名称，未识别到则返回空字符串
+                任务：
+                从标题中提取信息并返回 JSON。
                 
-                3. 如果标题包含明确的季数信息（如 S1、第二季、Season 2 等）请正确提取，否则默认为 1
-                4. 集数可能是整数（如 1、05）或小数（如 12.5），请原样返回
+                严格要求：
+                
+                1. 只允许返回 JSON
+                2. 不允许返回 markdown
+                3. 不允许返回解释
+                4. 不允许返回注释
+                5. 不允许返回代码块
+                
+                返回格式：
+                
+                {"episode":"","season":1,"nameEn":"","nameJp":"","nameZh":"","sub":"","dpi":"","source":"","group":""}
+                
+                规则：
+                
+                - season 默认 1
+                - episode 未识别返回 "0"
+                - 保留集数原格式，例如：
+                  01
+                  11
+                  12.5
+                
+                - dpi 只保留数字：
+                  1080P -> 1080
+                  720P -> 720
+                  2160P -> 2160
+                
+                - source 常见值：
+                  Baha
+                  Bilibili
+                  Web
+                  Netflix
+                  Crunchyroll
+                  AT-X
+                
+                - group 为最前面的发布组
+                
+                - nameEn 为英文标题
+                - nameJp 为日文标题
+                - nameZh 为中文标题
+                
+                示例：
+                
+                输入：
+                
+                [ANi] 9nine Rulers Crown / 9-nine- 支配者的王冠 - 11 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]
+                
+                输出：
+                
+                {
+                  "episode":"11",
+                  "season":1,
+                  "nameEn":"9nine Rulers Crown",
+                  "nameJp":"",
+                  "nameZh":"9-nine- 支配者的王冠",
+                  "sub":"CHT",
+                  "dpi":"1080",
+                  "source":"Baha",
+                  "group":"ANi"
+                }
                 """;
     }
 
@@ -79,24 +126,25 @@ public class DeepSeekParser implements TitleParser {
     private static String buildRequestBody(String model, String userPrompt) {
         JSONObject body = new JSONObject();
         body.put("model", model);
-
-        JSONObject systemMsg = new JSONObject();
-        systemMsg.put("role", "system");
-        systemMsg.put("content", buildSystemPrompt());
-
-        JSONObject userMsg = new JSONObject();
-        userMsg.put("role", "user");
-        userMsg.put("content", userPrompt);
-
-        body.put("messages", new JSONObject[]{systemMsg, userMsg});
-
+        body.put("stream", false);
+        // 结构化抽取推荐
+        body.put("temperature", 0);
+        JSONObject responseFormat = new JSONObject();
+        responseFormat.put("type", "json_object");
+        body.put("response_format", responseFormat);
         JSONObject thinking = new JSONObject();
         thinking.put("type", "disabled");
         body.put("thinking", thinking);
-
-        // 强制 JSON 输出格式
-        body.put("response_format", JSON.parseObject("{\"type\":\"json_object\"}"));
-        body.put("stream", false);
+        JSONObject systemMsg = new JSONObject();
+        systemMsg.put("role", "system");
+        systemMsg.put("content", buildSystemPrompt());
+        JSONObject userMsg = new JSONObject();
+        userMsg.put("role", "user");
+        userMsg.put("content", userPrompt);
+        body.put("messages", new Object[]{
+                systemMsg,
+                userMsg
+        });
         return body.toJSONString();
     }
 
@@ -141,6 +189,7 @@ public class DeepSeekParser implements TitleParser {
             JSONObject result = JSON.parseObject(content);
 
             Episode episode = Episode.builder()
+                    .group(result.getString("group"))
                     .name(result.getString("nameZh"))
                     .nameEn(result.getString("nameEn"))
                     .nameJp(result.getString("nameJp"))

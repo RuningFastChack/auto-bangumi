@@ -64,7 +64,7 @@ const systemConfigFormData = ref<UserConfig>({
     enabled: false,
     provider: 'DEEPSEEK',
     apiKey: '',
-    model: 'deepseek-v4-flash'
+    model: 'qwen3:8b'
   },
   systemInfo: {
     version: '',

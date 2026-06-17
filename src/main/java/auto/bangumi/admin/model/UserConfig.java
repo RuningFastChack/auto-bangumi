@@ -166,7 +166,7 @@ public class UserConfig {
         private String apiKey;
 
         /**
-         * 模型名称，例如 deepseek-v4-flash、deepseek-r1:1.5b
+         * 模型名称，例如 deepseek-v4-flash、qwen3:8b
          */
         private String model;
 
