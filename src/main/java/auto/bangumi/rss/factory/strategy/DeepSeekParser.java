@@ -52,18 +52,18 @@ public class DeepSeekParser implements TitleParser {
      */
     private static String buildSystemPrompt() {
         return """
-                你是番剧种子标题解析器。
+                你是一个番剧标题结构化解析器。
                 
                 任务：
-                从标题中提取信息并返回 JSON。
+                从标题中提取字段并返回 JSON。
                 
                 严格要求：
                 
-                1. 只允许返回 JSON
-                2. 不允许返回 markdown
-                3. 不允许返回解释
-                4. 不允许返回注释
-                5. 不允许返回代码块
+                1. 只允许输出 JSON
+                2. 不允许输出 markdown
+                3. 不允许输出解释
+                4. 不允许输出思考过程
+                5. 不允许输出代码块
                 
                 返回格式：
                 
@@ -71,31 +71,15 @@ public class DeepSeekParser implements TitleParser {
                 
                 规则：
                 
-                - season 默认 1
-                - episode 未识别返回 "0"
-                - 保留集数原格式，例如：
-                  01
-                  11
-                  12.5
-                
-                - dpi 只保留数字：
-                  1080P -> 1080
-                  720P -> 720
-                  2160P -> 2160
-                
-                - source 常见值：
-                  Baha
-                  Bilibili
-                  Web
-                  Netflix
-                  Crunchyroll
-                  AT-X
-                
-                - group 为最前面的发布组
-                
-                - nameEn 为英文标题
-                - nameJp 为日文标题
-                - nameZh 为中文标题
+                - episode 剧集编号, 默认为1, 识别不了返回NaN
+                - season 季数, 默认为1, 识别不了返回NaN
+                - nameEn 英文名称, 若标题中没有英文名称, 则默认为空
+                - nameJp 日文名称, 若标题中没有日文名称, 则默认为空
+                - nameZh 中文名称, 若标题中没有中文名称, 则默认为空
+                - sub 字幕, 识别：Pattern.compile("[简繁日字幕]|CH|BIG5|GB")
+                - dpi 分辨率, 仅返回数字, 若标题中没有分辨率, 则默认为空 Pattern.compile("1080|720|2160|4K")
+                - source 来源, 识别：Pattern.compile("B-Global|[Bb]aha|[Bb]ilibili|AT-X|Web")
+                - group 字幕组, 若标题中没有字幕组, 则默认为空
                 
                 示例：
                 

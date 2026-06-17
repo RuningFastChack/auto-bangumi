@@ -62,12 +62,15 @@ public class OllamaParser implements TitleParser {
                 
                 规则：
                 
-                - episode 保留原格式, 剧集编号
-                - season 默认 1, 除非标题中明确指定第几季
-                - dpi 仅返回数字, 若标题中没有分辨率, 则默认为空 Pattern.compile("1080|720|2160|4K")
-                - source 识别：Pattern.compile("B-Global|[Bb]aha|[Bb]ilibili|AT-X|Web")
-                - group 为字幕组, 若标题中没有字幕组, 则默认为空
-                - sub 字幕识别：Pattern.compile("[简繁日字幕]|CH|BIG5|GB")
+                - episode 剧集编号, 默认为1, 识别不了返回NaN
+                - season 季数, 默认为1, 识别不了返回NaN
+                - nameEn 英文名称, 若标题中没有英文名称, 则默认为空
+                - nameJp 日文名称, 若标题中没有日文名称, 则默认为空
+                - nameZh 中文名称, 若标题中没有中文名称, 则默认为空
+                - sub 字幕, 识别：Pattern.compile("[简繁日字幕]|CH|BIG5|GB")
+                - dpi 分辨率, 仅返回数字, 若标题中没有分辨率, 则默认为空 Pattern.compile("1080|720|2160|4K")
+                - source 来源, 识别：Pattern.compile("B-Global|[Bb]aha|[Bb]ilibili|AT-X|Web")
+                - group 字幕组, 若标题中没有字幕组, 则默认为空
                 
                 示例：
                 
