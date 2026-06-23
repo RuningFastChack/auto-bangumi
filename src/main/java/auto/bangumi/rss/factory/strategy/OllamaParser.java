@@ -38,8 +38,9 @@ public class OllamaParser implements TitleParser {
     private static final int TIMEOUT_MS = 120000;
 
     private static String getApiUrl(UserConfig.AiParseSetting setting) {
-        String base = setting.getBaseUrl().replaceAll("/+$", "");
-        return base + "/chat/completions";
+        String base = StringUtils.trimToEmpty(setting.getBaseUrl()).replaceAll("/+$", "");
+        base = base.replaceAll("/v1$", "").replaceAll("/api$", "");
+        return base + "/api/chat";
     }
 
     /**
@@ -47,54 +48,11 @@ public class OllamaParser implements TitleParser {
      */
     private static String buildSystemPrompt() {
         return """
-                你是一个番剧标题结构化解析器。
-                
-                任务：
-                从标题中提取字段并返回 JSON。
-                
-                严格要求：
-                
-                1. 只允许输出 JSON
-                2. 不允许输出 markdown
-                3. 不允许输出解释
-                4. 不允许输出思考过程
-                5. 不允许输出代码块
-                
-                返回格式：
-                
+                You are a bangumi title JSON parser.
+                Output exactly one JSON object. Do not output explanations, markdown, code fences, or thinking.
+                Schema:
                 {"episode":"","season":1,"nameEn":"","nameJp":"","nameZh":"","sub":"","dpi":"","source":"","group":""}
-                
-                规则：
-                
-                - episode 剧集编号, 默认为1, 识别不了返回NaN
-                - season 季数, 默认为1, 识别不了返回NaN
-                - nameEn 英文名称, 若标题中没有英文名称, 则默认为空
-                - nameJp 日文名称, 若标题中没有日文名称, 则默认为空
-                - nameZh 中文名称, 若标题中没有中文名称, 则默认为空
-                - sub 字幕, 识别：Pattern.compile("[简繁日字幕]|CH|BIG5|GB")
-                - dpi 分辨率, 仅返回数字, 若标题中没有分辨率, 则默认为空 Pattern.compile("1080|720|2160|4K")
-                - source 来源, 识别：Pattern.compile("B-Global|[Bb]aha|[Bb]ilibili|AT-X|Web")
-                - group 字幕组, 若标题中没有字幕组, 则默认为空
-                
-                示例：
-                
-                输入：
-                
-                [ANi] 9nine Rulers Crown / 9-nine- 支配者的王冠 - 11 [1080P][Baha][WEB-DL][AAC AVC][CHT][MP4]
-                
-                输出：
-                
-                {
-                  "episode":"11",
-                  "season":1,
-                  "nameEn":"9nine Rulers Crown",
-                  "nameJp":"",
-                  "nameZh":"9-nine- 支配者的王冠",
-                  "sub":"CHT",
-                  "dpi":"1080",
-                  "source":"Baha",
-                  "group":"ANi"
-                }
+                Use empty strings for missing string fields, default season to 1, and use "NaN" when episode cannot be recognized.
                 """;
     }
 
@@ -116,14 +74,14 @@ public class OllamaParser implements TitleParser {
 
         body.put("messages", new JSONObject[]{systemMsg, userMsg});
         body.put("stream", false);
-        body.put("temperature", 0);
-        body.put("top_p", 0.9);
         body.put("think", false);
         body.put("format", "json");
 
-        JSONObject responseFormat = new JSONObject();
-        responseFormat.put("type", "json_object");
-        body.put("response_format", responseFormat);
+        JSONObject options = new JSONObject();
+        options.put("temperature", 0);
+        options.put("top_p", 0.9);
+        options.put("num_predict", 256);
+        body.put("options", options);
 
         // 禁用推理模型的思考链，避免超长等待（如 DeepSeek-R1）
         JSONObject thinking = new JSONObject();
@@ -180,10 +138,15 @@ public class OllamaParser implements TitleParser {
     private static Episode parseResponse(String responseJson, String rawTitle) {
         try {
             JSONObject root = JSON.parseObject(responseJson);
-            String content = root.getJSONArray("choices")
-                    .getJSONObject(0)
-                    .getJSONObject("message")
-                    .getString("content");
+            String content;
+            if (root.containsKey("message")) {
+                content = root.getJSONObject("message").getString("content");
+            } else {
+                content = root.getJSONArray("choices")
+                        .getJSONObject(0)
+                        .getJSONObject("message")
+                        .getString("content");
+            }
 
             if (StringUtils.isBlank(content)) {
                 log.warn("Ollama 返回内容为空，title: {}", rawTitle);
@@ -238,7 +201,7 @@ public class OllamaParser implements TitleParser {
         }
 
         String apiUrl = getApiUrl(setting);
-        String model = StringUtils.defaultIfBlank(setting.getModel(), DEFAULT_MODEL);
+        String model = StringUtils.defaultIfBlank(StringUtils.trimToEmpty(setting.getModel()), DEFAULT_MODEL);
 
         try {
             String userPrompt = buildUserPrompt(rawTitle);
