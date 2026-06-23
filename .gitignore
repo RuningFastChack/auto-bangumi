@@ -27,3 +27,13 @@ target
 *.zip
 *.tar.gz
 *.rar
+
+# Python training workspace
+traning/.venv/
+traning/__pycache__/
+traning/data/
+traning/models/
+traning/tmp/
+traning/llama.cpp/
+traning/*.gguf
+traning/*.zip

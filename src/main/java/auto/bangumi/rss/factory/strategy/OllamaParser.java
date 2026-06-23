@@ -29,7 +29,11 @@ import java.util.Objects;
 @ParserMethod(model = AiModelEnum.OLLAMA)
 public class OllamaParser implements TitleParser {
 
-    private static final String DEFAULT_MODEL = "qwen3:8b";
+    /**
+     * 默认模型名称，使用微调后的 bangumi-parser 模型
+     * 该模型已内置 30 个 Few-shot 示例，可直接从番剧标题提取结构化信息
+     */
+    private static final String DEFAULT_MODEL = "bangumi-parser";
 
     private static final int TIMEOUT_MS = 120000;
 
@@ -100,27 +104,32 @@ public class OllamaParser implements TitleParser {
 
     private static String buildRequestBody(String model, String userPrompt) {
         JSONObject body = new JSONObject();
-
         body.put("model", model);
+
+        JSONObject systemMsg = new JSONObject();
+        systemMsg.put("role", "system");
+        systemMsg.put("content", buildSystemPrompt());
+
+        JSONObject userMsg = new JSONObject();
+        userMsg.put("role", "user");
+        userMsg.put("content", userPrompt);
+
+        body.put("messages", new JSONObject[]{systemMsg, userMsg});
         body.put("stream", false);
+        body.put("temperature", 0);
+        body.put("top_p", 0.9);
+        body.put("think", false);
+        body.put("format", "json");
 
         JSONObject responseFormat = new JSONObject();
         responseFormat.put("type", "json_object");
         body.put("response_format", responseFormat);
 
-        JSONObject options = new JSONObject();
-        options.put("temperature", 0);
-        body.put("options", options);
-        JSONObject systemMsg = new JSONObject();
-        systemMsg.put("role", "system");
-        systemMsg.put("content", buildSystemPrompt());
-        JSONObject userMsg = new JSONObject();
-        userMsg.put("role", "user");
-        userMsg.put("content", userPrompt);
-        body.put("messages", new JSONObject[]{
-                systemMsg,
-                userMsg
-        });
+        // 禁用推理模型的思考链，避免超长等待（如 DeepSeek-R1）
+        JSONObject thinking = new JSONObject();
+        thinking.put("type", "disabled");
+        body.put("thinking", thinking);
+
         return body.toJSONString();
     }
 
@@ -148,6 +157,19 @@ public class OllamaParser implements TitleParser {
         return new String(conn.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
     }
 
+    private static String extractJsonObject(String content) {
+        if (StringUtils.isBlank(content)) {
+            return content;
+        }
+        String trimmed = content.trim();
+        int start = trimmed.indexOf('{');
+        int end = trimmed.lastIndexOf('}');
+        if (start >= 0 && end > start) {
+            return trimmed.substring(start, end + 1);
+        }
+        return trimmed;
+    }
+
     private static Episode parseResponse(String responseJson, String rawTitle) {
         try {
             JSONObject root = JSON.parseObject(responseJson);
@@ -161,18 +183,18 @@ public class OllamaParser implements TitleParser {
                 return null;
             }
 
-            JSONObject result = JSON.parseObject(content);
+            JSONObject result = JSON.parseObject(extractJsonObject(content));
 
             Episode episode = Episode.builder()
-                    .group(result.getString("group"))
-                    .name(result.getString("nameZh"))
-                    .nameEn(result.getString("nameEn"))
-                    .nameJp(result.getString("nameJp"))
+                    .name(result.getString("nameZh").trim())
+                    .nameEn(result.getString("nameEn").trim())
+                    .nameJp(result.getString("nameJp").trim())
                     .season(result.getIntValue("season"))
-                    .episode(result.getString("episode"))
-                    .sub(result.getString("sub"))
-                    .dpi(result.getString("dpi"))
-                    .source(result.getString("source"))
+                    .episode(result.getString("episode").trim())
+                    .sub(result.getString("sub").trim())
+                    .dpi(result.getString("dpi").trim())
+                    .source(result.getString("source").trim())
+                    .group(result.getString("group").trim())
                     .build();
 
             if (episode.getSeason() <= 0) {
