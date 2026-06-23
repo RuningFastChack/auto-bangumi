@@ -170,6 +170,13 @@ public class OllamaParser implements TitleParser {
         return trimmed;
     }
 
+    private static String cleanResultText(String value) {
+        if (StringUtils.isBlank(value)) {
+            return "";
+        }
+        return value.replace("\r", "").replace("\n", "").trim();
+    }
+
     private static Episode parseResponse(String responseJson, String rawTitle) {
         try {
             JSONObject root = JSON.parseObject(responseJson);
@@ -186,15 +193,15 @@ public class OllamaParser implements TitleParser {
             JSONObject result = JSON.parseObject(extractJsonObject(content));
 
             Episode episode = Episode.builder()
-                    .name(result.getString("nameZh").trim())
-                    .nameEn(result.getString("nameEn").trim())
-                    .nameJp(result.getString("nameJp").trim())
+                    .name(cleanResultText(result.getString("nameZh")))
+                    .nameEn(cleanResultText(result.getString("nameEn")))
+                    .nameJp(cleanResultText(result.getString("nameJp")))
                     .season(result.getIntValue("season"))
-                    .episode(result.getString("episode").trim())
-                    .sub(result.getString("sub").trim())
-                    .dpi(result.getString("dpi").trim())
-                    .source(result.getString("source").trim())
-                    .group(result.getString("group").trim())
+                    .episode(cleanResultText(result.getString("episode")))
+                    .sub(cleanResultText(result.getString("sub")))
+                    .dpi(cleanResultText(result.getString("dpi")))
+                    .source(cleanResultText(result.getString("source")))
+                    .group(cleanResultText(result.getString("group")))
                     .build();
 
             if (episode.getSeason() <= 0) {
