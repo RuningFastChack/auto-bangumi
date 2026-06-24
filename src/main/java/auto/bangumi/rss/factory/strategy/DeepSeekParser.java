@@ -227,7 +227,8 @@ public class DeepSeekParser implements TitleParser {
             Episode result = parseResponse(responseJson, rawTitle);
 
             if (result != null && StringUtils.isNotBlank(result.getEpisode())) {
-                log.info("DeepSeek 解析标题成功: {} -> episode={}, season={}", rawTitle, result.getEpisode(), result.getSeason());
+                log.info("DeepSeek 解析标题成功：{} -> title:{}, episode:{}, season:{}",
+                        rawTitle, result.getName(), result.getEpisode(), result.getSeason());
                 return result;
             }
         } catch (Exception e) {

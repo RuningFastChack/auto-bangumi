@@ -192,6 +192,7 @@ public class OllamaParser implements TitleParser {
         }
     }
 
+
     @Override
     public Episode parse(String rawTitle) {
         UserConfig.AiParseSetting setting = getAiSetting();
@@ -208,9 +209,12 @@ public class OllamaParser implements TitleParser {
             String requestBody = buildRequestBody(model, userPrompt);
             String responseJson = callApi(apiUrl, requestBody);
             Episode result = parseResponse(responseJson, rawTitle);
-
             if (result != null && StringUtils.isNotBlank(result.getEpisode())) {
-                log.info("Ollama 解析标题成功: {} -> episode={}, season={}", rawTitle, result.getEpisode(), result.getSeason());
+                log.info("Ollama 解析标题成功：{} -> title:{}, episode:{}, season:{}",
+                        rawTitle,
+                        result.getName(),
+                        result.getEpisode(),
+                        result.getSeason());
                 return result;
             }
         } catch (Exception e) {

@@ -51,14 +51,16 @@ public class McsFileServiceImpl implements IMcsFileService {
             return new PageResult<>();
         }
 
-        McsManageResponse<FileManageListResponse> response = JSON.parseObject(result, new TypeReference<>() {
+        // 先按 String 解析 data，避免 data 为错误字符串时 FastJSON 泛型解析失败
+        McsManageResponse<String> response = JSON.parseObject(result, new TypeReference<>() {
         });
 
         McsResponseEnum.MCS_REQUEST_ERROR.assertFalse(McsManageConstant.SUCCESS.equals(response.getStatus()));
 
+        McsManageResponse<FileManageListResponse> typedResponse = JSON.parseObject(result, new TypeReference<>() {
+        });
 
-
-        FileManageListResponse fileManageListResponse = response.getData();
+        FileManageListResponse fileManageListResponse = typedResponse.getData();
 
         return PageUtils.getPageResult(fileManageListResponse.getPage(),
                 fileManageListResponse.getPageSize(),
@@ -76,6 +78,8 @@ public class McsFileServiceImpl implements IMcsFileService {
         try {
             Map<String, Object> body = request.toMap();
             HttpResponse httpResponse = McsHttpUtil.sendJSONPut(McsManagePathConstant.FILES, new HashMap<>(), body);
+
+            McsResponseEnum.MCS_REQUEST_ERROR.assertNull(httpResponse);
 
             String result = EntityUtils.toString(httpResponse.getEntity(), StandardCharsets.UTF_8);
 
@@ -134,13 +138,15 @@ public class McsFileServiceImpl implements IMcsFileService {
 
             String result = EntityUtils.toString(httpResponse.getEntity(), StandardCharsets.UTF_8);
 
+            // 先按 String 解析 data，避免 data 为错误字符串时 FastJSON 泛型解析失败
             McsManageResponse<String> response = JSON.parseObject(result, new TypeReference<>() {
             });
 
             McsResponseEnum.FILES_OPERATE_DOWNLOAD_ERROR.message(response.getData()).assertFalse(McsManageConstant.SUCCESS.equals(response.getStatus()));
 
-            return JSON.parseObject(result, new TypeReference<McsManageResponse<FileDownloadResponse>>() {
-            }).getData();
+            McsManageResponse<FileDownloadResponse> typedResponse = JSON.parseObject(result, new TypeReference<>() {
+            });
+            return typedResponse.getData();
         } catch (Exception e) {
             log.error("获取下载文件配置异常：{}", e.getMessage());
             throw new BusinessException(McsResponseEnum.FILES_OPERATE_DOWNLOAD_ERROR, new Object[]{request}, e.getMessage());
@@ -163,13 +169,15 @@ public class McsFileServiceImpl implements IMcsFileService {
 
             String result = EntityUtils.toString(httpResponse.getEntity(), StandardCharsets.UTF_8);
 
+            // 先按 String 解析 data，避免 data 为错误字符串时 FastJSON 泛型解析失败
             McsManageResponse<String> response = JSON.parseObject(result, new TypeReference<>() {
             });
 
             McsResponseEnum.FILES_OPERATE_UPLOADED_ERROR.message(response.getData()).assertFalse(McsManageConstant.SUCCESS.equals(response.getStatus()));
 
-            return JSON.parseObject(result, new TypeReference<McsManageResponse<FileUploadResponse>>() {
-            }).getData();
+            McsManageResponse<FileUploadResponse> typedResponse = JSON.parseObject(result, new TypeReference<>() {
+            });
+            return typedResponse.getData();
         } catch (Exception e) {
             log.error("获取上传文件配置异常：{}", e.getMessage());
             throw new BusinessException(McsResponseEnum.FILES_OPERATE_UPLOADED_ERROR, new Object[]{request}, e.getMessage());
@@ -189,12 +197,15 @@ public class McsFileServiceImpl implements IMcsFileService {
             return new FileStatusResponse();
         }
 
-        McsManageResponse<FileStatusResponse> response = JSON.parseObject(result, new TypeReference<>() {
+        // 先按 String 解析 data，避免 data 为错误字符串时 FastJSON 泛型解析失败
+        McsManageResponse<String> response = JSON.parseObject(result, new TypeReference<>() {
         });
 
         McsResponseEnum.MCS_REQUEST_ERROR.assertFalse(McsManageConstant.SUCCESS.equals(response.getStatus()));
 
-        return response.getData();
+        McsManageResponse<FileStatusResponse> typedResponse = JSON.parseObject(result, new TypeReference<>() {
+        });
+        return typedResponse.getData();
     }
 
     /**
@@ -207,6 +218,8 @@ public class McsFileServiceImpl implements IMcsFileService {
         try {
             Map<String, Object> body = request.toMap();
             HttpResponse httpResponse = McsHttpUtil.sendJSONPut(McsManagePathConstant.FILES_CHANGE_CHMOD, new HashMap<>(), body);
+
+            McsResponseEnum.FILES_OPERATE_CHANGE_CHMOD_ERROR.assertNull(httpResponse);
 
             String result = EntityUtils.toString(httpResponse.getEntity(), StandardCharsets.UTF_8);
 

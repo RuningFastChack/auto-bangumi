@@ -60,7 +60,8 @@ public class TitleParserHandler extends AbstractSparrowAnnotationBeanMap<ParserM
         try {
             Episode result = parser.parse(rawTitle);
             if (result != null && Objects.nonNull(result.getEpisode()) && !"0".equals(result.getEpisode())) {
-                log.debug("AI 解析标题成功: {} -> episode={}, season={}", rawTitle, result.getEpisode(), result.getSeason());
+                log.debug("AI 解析标题成功：{} -> title:{}, episode:{}, season:{}",
+                        rawTitle, result.getName(), result.getEpisode(), result.getSeason());
                 return result;
             }
         } catch (Exception e) {

@@ -38,9 +38,7 @@ const handleSubmit = () => {
 
 <template>
   <div class="content-box">
-    <a-typography-title :level="4" class="mb-24">
-      {{ t('TXT_CODE_6b826a0e') }}
-    </a-typography-title>
+    <a-typography-title :level="4" class="mb-24"> {{ t('TXT_CODE_6b826a0e') }} V10.16.2 </a-typography-title>
     <div style="text-align: left">
       <a-form ref="mcsManageRuleFormRef" :model="config.mcsManageSetting" :rules="mcsManageRules" layout="vertical">
         <a-typography-title :level="5">

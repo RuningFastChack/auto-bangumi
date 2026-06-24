@@ -1,5 +1,6 @@
 package auto.bangumi.mcs.service.imp;
 
+import auto.bangumi.mcs.constant.McsManageConstant;
 import auto.bangumi.mcs.constant.McsManagePathConstant;
 import auto.bangumi.mcs.model.McsManageResponse;
 import auto.bangumi.mcs.model.Request.ProtectedInstanceRequest;
@@ -77,6 +78,10 @@ public class ProtectedInstanceServiceImpl implements IProtectedInstanceService {
         }
         McsManageResponse<String> response = JSON.parseObject(responseJSON, new TypeReference<>() {
         });
+        if (!McsManageConstant.SUCCESS.equals(response.getStatus())) {
+            log.error("获取实例输出日志失败：{}", response.getData());
+            return "";
+        }
         return response.getData();
     }
 
@@ -92,9 +97,17 @@ public class ProtectedInstanceServiceImpl implements IProtectedInstanceService {
         try {
             String result = EntityUtils.toString(httpResponse.getEntity(), StandardCharsets.UTF_8);
 
-            McsManageResponse<StreamChannelResponse> response = JSON.parseObject(result, new TypeReference<>() {
+            // 先按 String 解析 data，避免 data 为错误字符串时 FastJSON 泛型解析失败
+            McsManageResponse<String> response = JSON.parseObject(result, new TypeReference<>() {
             });
-            return response.getData();
+            if (!McsManageConstant.SUCCESS.equals(response.getStatus())) {
+                log.error("设置终端流通道失败：{}", response.getData());
+                return StreamChannelResponse.builder().build();
+            }
+
+            McsManageResponse<StreamChannelResponse> typedResponse = JSON.parseObject(result, new TypeReference<>() {
+            });
+            return typedResponse.getData();
         } catch (Exception e) {
             log.error("设置终端流通道异常：{}", e.getMessage());
         }
