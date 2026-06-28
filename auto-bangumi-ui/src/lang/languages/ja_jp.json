@@ -1098,5 +1098,8 @@
   "TXT_CODE_MESSAGE_PUSH_PASSWORD": "パスワード",
   "TXT_CODE_MESSAGE_PUSH_SESSION_KEY": "Session Key",
   "TXT_CODE_MESSAGE_PUSH_DELIVERY": "Delivery JSON",
-  "TXT_CODE_MESSAGE_PUSH_DELIVERY_DESC": "任意。OpenClaw の delivery コンテキストを設定し、セッションメッセージを WeChat などの対象チャンネルへ配信します。"
+  "TXT_CODE_MESSAGE_PUSH_DELIVERY_DESC": "任意。OpenClaw の delivery コンテキストを設定し、セッションメッセージを WeChat などの対象チャンネルへ配信します。",
+  "TXT_CODE_MESSAGE_PUSH_TEST": "テストプッシュ",
+  "TXT_CODE_MESSAGE_PUSH_TEST_SUCCESS": "テストプッシュを送信しました。",
+  "TXT_CODE_MESSAGE_PUSH_TEST_FAILED": "テストプッシュに失敗しました。OpenClaw 設定を確認してください。"
 }

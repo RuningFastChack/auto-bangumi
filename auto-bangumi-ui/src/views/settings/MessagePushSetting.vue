@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import { message } from 'ant-design-vue';
-import { updateConfig } from '@/api/modules/user.ts';
+import { testMessagePush, updateConfig } from '@/api/modules/user.ts';
 import type { UserConfig } from '@/api/types/user.ts';
 import { type DictOptions, MESSAGE_PUSH_TYPE_MAP, OPEN_CLAW_AUTH_TYPE_MAP } from '@/types/dict.ts';
 import { t } from '@/lang/i18n.ts';
+import { ref } from 'vue';
 
 const props = defineProps<{
   config: UserConfig;
@@ -14,6 +15,8 @@ const emit = defineEmits<{
   (e: 'update'): void;
 }>();
 
+const testLoading = ref(false);
+
 const handleSubmit = async () => {
   try {
     await updateConfig(props.config);
@@ -21,6 +24,24 @@ const handleSubmit = async () => {
     message.success(t('TXT_CODE_f5ed98cf'));
   } catch (e) {
     // error handled by interceptor
+  }
+};
+
+const handleTestPush = async () => {
+  testLoading.value = true;
+  try {
+    await updateConfig(props.config);
+    const { data } = await testMessagePush();
+    if (data) {
+      message.success(t('TXT_CODE_MESSAGE_PUSH_TEST_SUCCESS'));
+    } else {
+      message.error(t('TXT_CODE_MESSAGE_PUSH_TEST_FAILED'));
+    }
+    emit('update');
+  } catch (e) {
+    // error handled by interceptor
+  } finally {
+    testLoading.value = false;
   }
 };
 </script>
@@ -140,6 +161,9 @@ const handleSubmit = async () => {
         <div class="button">
           <a-button :loading="loading" type="primary" @click="handleSubmit">
             {{ t('TXT_CODE_BUTTON_DESC_SAVE') }}
+          </a-button>
+          <a-button :loading="testLoading" style="margin-left: 8px" @click="handleTestPush">
+            {{ t('TXT_CODE_MESSAGE_PUSH_TEST') }}
           </a-button>
         </div>
       </a-form>

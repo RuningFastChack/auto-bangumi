@@ -27,24 +27,33 @@ public class MessagePushHandler extends AbstractSparrowAnnotationBeanMap<Message
     private static final Map<MessagePushType, MessagePusher> PUSHER_MAP = new HashMap<>();
 
     public static void pushDownloadCompleted(String episodeName) {
+        String name = StringUtils.defaultIfBlank(episodeName, "番剧");
+        String message = String.format("📥 番剧下载完成%n%s ", name);
+        pushMessage(message, true);
+    }
+
+    public static boolean pushTestMessage() {
+        return pushMessage("🔔 Auto Bangumi 测试推送\n消息推送配置已生效。", false);
+    }
+
+    private static boolean pushMessage(String message, boolean requireEnabled) {
         UserConfig.MessageConfig messageConfig = getMessageConfig();
-        if (!isEnabled(messageConfig)) {
-            return;
+        if (requireEnabled && !isEnabled(messageConfig)) {
+            return false;
         }
 
         MessagePushType pushType = getPushType(messageConfig);
         MessagePusher pusher = PUSHER_MAP.get(pushType);
         if (pusher == null) {
             log.warn("Message pusher not found: {}", pushType);
-            return;
+            return false;
         }
 
-        String name = StringUtils.defaultIfBlank(episodeName, "番剧");
-        String message = String.format("📥 番剧下载完成%n%s ", name);
         try {
-            pusher.push(message);
+            return pusher.push(message);
         } catch (Exception e) {
-            log.warn("Push download completed message failed: {}", e.getMessage(), e);
+            log.warn("Push message failed: {}", e.getMessage(), e);
+            return false;
         }
     }
 

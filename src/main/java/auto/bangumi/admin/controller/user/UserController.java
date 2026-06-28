@@ -5,6 +5,7 @@ import auto.bangumi.admin.model.dto.LoginDTO;
 import auto.bangumi.admin.service.IUserService;
 import auto.bangumi.common.model.dto.ApiResult;
 import auto.bangumi.common.valid.Query;
+import auto.bangumi.message.factory.handler.MessagePushHandler;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -28,6 +29,11 @@ public class UserController {
     public ApiResult<Void> updateConfig(@RequestBody UserConfig config) {
         iUserService.updateUserConfig(config);
         return ApiResult.success();
+    }
+
+    @PostMapping("message/test")
+    public ApiResult<Boolean> testMessagePush() {
+        return ApiResult.success(MessagePushHandler.pushTestMessage());
     }
 
     @PostMapping("update/login/info")

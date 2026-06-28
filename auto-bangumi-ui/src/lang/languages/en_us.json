@@ -1098,5 +1098,8 @@
   "TXT_CODE_MESSAGE_PUSH_PASSWORD": "Password",
   "TXT_CODE_MESSAGE_PUSH_SESSION_KEY": "Session Key",
   "TXT_CODE_MESSAGE_PUSH_DELIVERY": "Delivery JSON",
-  "TXT_CODE_MESSAGE_PUSH_DELIVERY_DESC": "Optional. Configure OpenClaw delivery context for pushing the session message to a target channel such as WeChat."
+  "TXT_CODE_MESSAGE_PUSH_DELIVERY_DESC": "Optional. Configure OpenClaw delivery context for pushing the session message to a target channel such as WeChat.",
+  "TXT_CODE_MESSAGE_PUSH_TEST": "Test Push",
+  "TXT_CODE_MESSAGE_PUSH_TEST_SUCCESS": "Test push sent successfully.",
+  "TXT_CODE_MESSAGE_PUSH_TEST_FAILED": "Test push failed. Check the OpenClaw configuration."
 }

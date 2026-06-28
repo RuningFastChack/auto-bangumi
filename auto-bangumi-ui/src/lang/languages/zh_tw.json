@@ -1098,5 +1098,8 @@
   "TXT_CODE_MESSAGE_PUSH_PASSWORD": "密碼",
   "TXT_CODE_MESSAGE_PUSH_SESSION_KEY": "Session Key",
   "TXT_CODE_MESSAGE_PUSH_DELIVERY": "Delivery JSON",
-  "TXT_CODE_MESSAGE_PUSH_DELIVERY_DESC": "可選。設定 OpenClaw delivery 上下文，用於將會話訊息投遞到微信等目標通道。"
+  "TXT_CODE_MESSAGE_PUSH_DELIVERY_DESC": "可選。設定 OpenClaw delivery 上下文，用於將會話訊息投遞到微信等目標通道。",
+  "TXT_CODE_MESSAGE_PUSH_TEST": "測試推送",
+  "TXT_CODE_MESSAGE_PUSH_TEST_SUCCESS": "測試推送發送成功。",
+  "TXT_CODE_MESSAGE_PUSH_TEST_FAILED": "測試推送失敗，請檢查 OpenClaw 設定。"
 }
