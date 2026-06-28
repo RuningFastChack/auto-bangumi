@@ -11,6 +11,7 @@ export type UserConfig = {
   downLoadSetting: DownLoadSetting;
   mcsManageSetting: McsManageSetting;
   aiParseSetting: AiParseSetting;
+  messageConfig: MessageConfig;
   systemInfo: SystemInfo;
 };
 
@@ -20,6 +21,21 @@ export type AiParseSetting = {
   apiKey: string;
   model: string;
   baseUrl: string;
+};
+
+export type MessageConfig = {
+  enabled: boolean;
+  pushType: 'OPEN_CLAW';
+  config: Record<string, any>;
+};
+
+export type OpenClawMessageConfig = {
+  gatewayUrl: string;
+  authType: 'TOKEN' | 'PASSWORD';
+  token: string;
+  password: string;
+  sessionKey: string;
+  delivery: Record<string, any> | string;
 };
 
 export type McsManageSetting = {

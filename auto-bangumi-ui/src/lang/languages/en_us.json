@@ -1085,5 +1085,18 @@
   "TXT_CODE_o6p7q8r9": "API Key",
   "TXT_CODE_s1t2u3v4": "Model Name",
   "TXT_CODE_a9b0c1d2": "Custom API Base URL",
-  "TXT_CODE_e3f4g5h6": "Leave empty to use cloud API. Set a local URL (e.g. http://localhost:11434/v1) to use a local model."
+  "TXT_CODE_e3f4g5h6": "Leave empty to use cloud API. Set a local URL (e.g. http://localhost:11434/v1) to use a local model.",
+  "TXT_CODE_MESSAGE_PUSH_SETTING": "Message Push Settings",
+  "TXT_CODE_MESSAGE_PUSH_ENABLE": "Enable Download Completion Push",
+  "TXT_CODE_MESSAGE_PUSH_ENABLE_DESC": "When enabled, a message will be pushed after an episode download is completed.",
+  "TXT_CODE_MESSAGE_PUSH_TYPE": "Push Type",
+  "TXT_CODE_MESSAGE_PUSH_API_URL": "OpenClaw Gateway URL",
+  "TXT_CODE_MESSAGE_PUSH_AUTH_TYPE": "Gateway Auth Type",
+  "TXT_CODE_MESSAGE_PUSH_AUTH_TOKEN": "Token",
+  "TXT_CODE_MESSAGE_PUSH_AUTH_PASSWORD": "Password",
+  "TXT_CODE_MESSAGE_PUSH_TOKEN": "Token",
+  "TXT_CODE_MESSAGE_PUSH_PASSWORD": "Password",
+  "TXT_CODE_MESSAGE_PUSH_SESSION_KEY": "Session Key",
+  "TXT_CODE_MESSAGE_PUSH_DELIVERY": "Delivery JSON",
+  "TXT_CODE_MESSAGE_PUSH_DELIVERY_DESC": "Optional. Configure OpenClaw delivery context for pushing the session message to a target channel such as WeChat."
 }

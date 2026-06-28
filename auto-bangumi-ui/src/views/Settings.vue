@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue';
 import { arrayFilter } from '@/utils/array.ts';
 import {
   BarsOutlined,
+  BellOutlined,
   BulbOutlined,
   ControlOutlined,
   LockOutlined,
@@ -21,6 +22,7 @@ import FilterSetting from './settings/FilterSetting.vue';
 import DownloadSetting from './settings/DownloadSetting.vue';
 import McsManageSetting from './settings/McsManageSetting.vue';
 import AiParseSetting from './settings/AiParseSetting.vue';
+import MessagePushSetting from './settings/MessagePushSetting.vue';
 import SecuritySetting from './settings/SecuritySetting.vue';
 import AboutSetting from './settings/AboutSetting.vue';
 
@@ -64,7 +66,13 @@ const systemConfigFormData = ref<UserConfig>({
     enabled: false,
     provider: 'DEEPSEEK',
     apiKey: '',
-    model: 'qwen3:8b'
+    model: 'qwen3:8b',
+    baseUrl: ''
+  },
+  messageConfig: {
+    enabled: false,
+    pushType: 'OPEN_CLAW',
+    config: {}
   },
   systemInfo: {
     version: '',
@@ -77,6 +85,7 @@ const menus = arrayFilter([
   { title: t('TXT_CODE_dea81dc5'), key: 'rules', icon: BarsOutlined },
   { title: t('TXT_CODE_ebf8d5c7'), key: 'downloader', icon: ControlOutlined },
   { title: t('TXT_CODE_b6a1c2f3'), key: 'aiParse', icon: BulbOutlined },
+  { title: t('TXT_CODE_MESSAGE_PUSH_SETTING'), key: 'messagePush', icon: BellOutlined },
   { title: t('TXT_CODE_61448c38'), key: 'mcsManage', icon: MediumOutlined },
   { title: t('TXT_CODE_6473ffdd'), key: 'security', icon: LockOutlined },
   { title: t('TXT_CODE_1deef431'), key: 'about', icon: QuestionCircleOutlined }
@@ -86,12 +95,39 @@ const menus = arrayFilter([
 //region methods
 const changeMenus = () => {};
 
+const normalizeOpenClawConfig = (config: Record<string, any> = {}) => {
+  const normalized = { ...config };
+  if (!normalized.gatewayUrl && normalized.apiUrl) {
+    normalized.gatewayUrl = normalized.apiUrl;
+  }
+  if (!normalized.token && normalized.authorization) {
+    normalized.token = normalized.authorization.replace(/^Bearer\s+/i, '');
+  }
+  if (!normalized.authType) {
+    normalized.authType = normalized.password ? 'PASSWORD' : 'TOKEN';
+  }
+  if (normalized.delivery && typeof normalized.delivery !== 'string') {
+    normalized.delivery = JSON.stringify(normalized.delivery, null, 2);
+  }
+  delete normalized.apiUrl;
+  delete normalized.authorization;
+  return normalized;
+};
+
 const initUserConfig = async () => {
   loading.value = true;
   try {
     const { data } = await findUserConfig();
     Object.assign(systemConfigFormData.value, data || {});
-    userStore.updateUserInfo({ config: data });
+    const messageConfig = systemConfigFormData.value.messageConfig as UserConfig['messageConfig'] & {
+      openClawMessageConfig?: Record<string, any>;
+    };
+    systemConfigFormData.value.messageConfig = {
+      enabled: messageConfig?.enabled ?? false,
+      pushType: messageConfig?.pushType ?? 'OPEN_CLAW',
+      config: normalizeOpenClawConfig(messageConfig?.config ?? messageConfig?.openClawMessageConfig ?? {})
+    };
+    userStore.updateUserInfo({ config: systemConfigFormData.value });
   } finally {
     loading.value = false;
   }
@@ -123,6 +159,9 @@ defineOptions({ name: 'Settings' });
           </template>
           <template #aiParse>
             <AiParseSetting :config="systemConfigFormData" :loading="loading" @update="handleUpdate" />
+          </template>
+          <template #messagePush>
+            <MessagePushSetting :config="systemConfigFormData" :loading="loading" @update="handleUpdate" />
           </template>
           <template #mcsManage>
             <McsManageSetting :config="systemConfigFormData" :loading="loading" @update="handleUpdate" />
