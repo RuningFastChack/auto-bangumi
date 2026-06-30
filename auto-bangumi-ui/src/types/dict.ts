@@ -33,15 +33,6 @@ export const AI_MODEL_MAP: Record<string, DictOptions> = {
   OLLAMA: { text: 'Ollama', color: 'purple' }
 };
 
-export const MESSAGE_PUSH_TYPE_MAP: Record<string, DictOptions> = {
-  OPEN_CLAW: { text: 'OpenClaw', color: 'blue' }
-};
-
-export const OPEN_CLAW_AUTH_TYPE_MAP: Record<string, DictOptions> = {
-  TOKEN: { text: t('TXT_CODE_MESSAGE_PUSH_AUTH_TOKEN'), color: 'blue' },
-  PASSWORD: { text: t('TXT_CODE_MESSAGE_PUSH_AUTH_PASSWORD'), color: 'green' }
-};
-
 export const QB_STATUS_MAP: Record<string, DictOptions> = {
   all: { text: t('TXT_CODE_DICT_QB_ALL'), color: '' },
   downloading: { text: t('TXT_CODE_DICT_QB_DOWNLOADING'), color: '' },

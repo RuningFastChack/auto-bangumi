@@ -1085,21 +1085,5 @@
   "TXT_CODE_o6p7q8r9": "APIキー",
   "TXT_CODE_s1t2u3v4": "モデル名",
   "TXT_CODE_a9b0c1d2": "カスタム API ベースURL",
-  "TXT_CODE_e3f4g5h6": "空欄でクラウドAPIを使用。ローカルURL（例: http://localhost:11434/v1）を設定するとローカルモデルを使用します。",
-  "TXT_CODE_MESSAGE_PUSH_SETTING": "メッセージプッシュ設定",
-  "TXT_CODE_MESSAGE_PUSH_ENABLE": "ダウンロード完了通知を有効にする",
-  "TXT_CODE_MESSAGE_PUSH_ENABLE_DESC": "有効にすると、番組のダウンロード完了時に通知メッセージを送信します。",
-  "TXT_CODE_MESSAGE_PUSH_TYPE": "プッシュタイプ",
-  "TXT_CODE_MESSAGE_PUSH_API_URL": "OpenClaw ゲートウェイURL",
-  "TXT_CODE_MESSAGE_PUSH_AUTH_TYPE": "ゲートウェイ認証方式",
-  "TXT_CODE_MESSAGE_PUSH_AUTH_TOKEN": "Token",
-  "TXT_CODE_MESSAGE_PUSH_AUTH_PASSWORD": "パスワード",
-  "TXT_CODE_MESSAGE_PUSH_TOKEN": "Token",
-  "TXT_CODE_MESSAGE_PUSH_PASSWORD": "パスワード",
-  "TXT_CODE_MESSAGE_PUSH_SESSION_KEY": "Session Key",
-  "TXT_CODE_MESSAGE_PUSH_DELIVERY": "Delivery JSON",
-  "TXT_CODE_MESSAGE_PUSH_DELIVERY_DESC": "任意。OpenClaw の delivery コンテキストを設定し、セッションメッセージを WeChat などの対象チャンネルへ配信します。",
-  "TXT_CODE_MESSAGE_PUSH_TEST": "テストプッシュ",
-  "TXT_CODE_MESSAGE_PUSH_TEST_SUCCESS": "テストプッシュを送信しました。",
-  "TXT_CODE_MESSAGE_PUSH_TEST_FAILED": "テストプッシュに失敗しました。OpenClaw 設定を確認してください。"
+  "TXT_CODE_e3f4g5h6": "空欄でクラウドAPIを使用。ローカルURL（例: http://localhost:11434/v1）を設定するとローカルモデルを使用します。"
 }

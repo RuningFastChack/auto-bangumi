@@ -1085,21 +1085,5 @@
   "TXT_CODE_o6p7q8r9": "API Key",
   "TXT_CODE_s1t2u3v4": "模型名稱",
   "TXT_CODE_a9b0c1d2": "自訂 API 位址",
-  "TXT_CODE_e3f4g5h6": "留空使用雲端 API。設定本地位址（如 http://localhost:11434/v1）則使用本地模型。",
-  "TXT_CODE_MESSAGE_PUSH_SETTING": "訊息推送設定",
-  "TXT_CODE_MESSAGE_PUSH_ENABLE": "開啟下載完成推送",
-  "TXT_CODE_MESSAGE_PUSH_ENABLE_DESC": "開啟後，番劇下載完成時會發送一則推送訊息。",
-  "TXT_CODE_MESSAGE_PUSH_TYPE": "推送類型",
-  "TXT_CODE_MESSAGE_PUSH_API_URL": "OpenClaw 閘道位址",
-  "TXT_CODE_MESSAGE_PUSH_AUTH_TYPE": "閘道認證方式",
-  "TXT_CODE_MESSAGE_PUSH_AUTH_TOKEN": "Token",
-  "TXT_CODE_MESSAGE_PUSH_AUTH_PASSWORD": "密碼",
-  "TXT_CODE_MESSAGE_PUSH_TOKEN": "Token",
-  "TXT_CODE_MESSAGE_PUSH_PASSWORD": "密碼",
-  "TXT_CODE_MESSAGE_PUSH_SESSION_KEY": "Session Key",
-  "TXT_CODE_MESSAGE_PUSH_DELIVERY": "Delivery JSON",
-  "TXT_CODE_MESSAGE_PUSH_DELIVERY_DESC": "可選。設定 OpenClaw delivery 上下文，用於將會話訊息投遞到微信等目標通道。",
-  "TXT_CODE_MESSAGE_PUSH_TEST": "測試推送",
-  "TXT_CODE_MESSAGE_PUSH_TEST_SUCCESS": "測試推送發送成功。",
-  "TXT_CODE_MESSAGE_PUSH_TEST_FAILED": "測試推送失敗，請檢查 OpenClaw 設定。"
+  "TXT_CODE_e3f4g5h6": "留空使用雲端 API。設定本地位址（如 http://localhost:11434/v1）則使用本地模型。"
 }

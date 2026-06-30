@@ -3,7 +3,6 @@ import { onMounted, ref } from 'vue';
 import { arrayFilter } from '@/utils/array.ts';
 import {
   BarsOutlined,
-  BellOutlined,
   BulbOutlined,
   ControlOutlined,
   LockOutlined,
@@ -22,7 +21,6 @@ import FilterSetting from './settings/FilterSetting.vue';
 import DownloadSetting from './settings/DownloadSetting.vue';
 import McsManageSetting from './settings/McsManageSetting.vue';
 import AiParseSetting from './settings/AiParseSetting.vue';
-import MessagePushSetting from './settings/MessagePushSetting.vue';
 import SecuritySetting from './settings/SecuritySetting.vue';
 import AboutSetting from './settings/AboutSetting.vue';
 
@@ -85,7 +83,6 @@ const menus = arrayFilter([
   { title: t('TXT_CODE_dea81dc5'), key: 'rules', icon: BarsOutlined },
   { title: t('TXT_CODE_ebf8d5c7'), key: 'downloader', icon: ControlOutlined },
   { title: t('TXT_CODE_b6a1c2f3'), key: 'aiParse', icon: BulbOutlined },
-  { title: t('TXT_CODE_MESSAGE_PUSH_SETTING'), key: 'messagePush', icon: BellOutlined },
   { title: t('TXT_CODE_61448c38'), key: 'mcsManage', icon: MediumOutlined },
   { title: t('TXT_CODE_6473ffdd'), key: 'security', icon: LockOutlined },
   { title: t('TXT_CODE_1deef431'), key: 'about', icon: QuestionCircleOutlined }
@@ -114,6 +111,22 @@ const normalizeOpenClawConfig = (config: Record<string, any> = {}) => {
   return normalized;
 };
 
+const normalizeServerChanConfig = (config: Record<string, any> = {}) => ({
+  sendKey: config.sendKey ?? config.sendkey ?? '',
+  apiUrl: config.apiUrl ?? 'https://sctapi.ftqq.com/{sendKey}.send',
+  title: config.title ?? 'Auto Bangumi'
+});
+
+const normalizeMessagePushConfig = (
+  pushType: UserConfig['messageConfig']['pushType'] = 'OPEN_CLAW',
+  config: Record<string, any> = {}
+) => {
+  if (pushType === 'SERVER_CHAN') {
+    return normalizeServerChanConfig(config);
+  }
+  return normalizeOpenClawConfig(config);
+};
+
 const initUserConfig = async () => {
   loading.value = true;
   try {
@@ -125,7 +138,10 @@ const initUserConfig = async () => {
     systemConfigFormData.value.messageConfig = {
       enabled: messageConfig?.enabled ?? false,
       pushType: messageConfig?.pushType ?? 'OPEN_CLAW',
-      config: normalizeOpenClawConfig(messageConfig?.config ?? messageConfig?.openClawMessageConfig ?? {})
+      config: normalizeMessagePushConfig(
+        messageConfig?.pushType ?? 'OPEN_CLAW',
+        messageConfig?.config ?? messageConfig?.openClawMessageConfig ?? {}
+      )
     };
     userStore.updateUserInfo({ config: systemConfigFormData.value });
   } finally {
@@ -159,9 +175,6 @@ defineOptions({ name: 'Settings' });
           </template>
           <template #aiParse>
             <AiParseSetting :config="systemConfigFormData" :loading="loading" @update="handleUpdate" />
-          </template>
-          <template #messagePush>
-            <MessagePushSetting :config="systemConfigFormData" :loading="loading" @update="handleUpdate" />
           </template>
           <template #mcsManage>
             <McsManageSetting :config="systemConfigFormData" :loading="loading" @update="handleUpdate" />

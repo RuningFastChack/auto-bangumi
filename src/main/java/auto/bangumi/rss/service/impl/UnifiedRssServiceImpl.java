@@ -10,7 +10,6 @@ import auto.bangumi.common.parser.AiParser;
 import auto.bangumi.common.utils.AsyncManager;
 import auto.bangumi.common.utils.AutoBangumiUtil;
 import auto.bangumi.common.utils.ConfigCatch;
-import auto.bangumi.message.factory.handler.MessagePushHandler;
 import auto.bangumi.qBittorrent.service.QBittorrentApi;
 import auto.bangumi.rss.factory.handler.RssHandler;
 import auto.bangumi.rss.factory.utils.MikanUtil;
@@ -249,12 +248,6 @@ public class UnifiedRssServiceImpl implements IUnifiedRssService {
                         RssItemDTO build = RssItemDTO.builder().build();
                         BeanUtil.copyProperties(item, build);
                         qBittorrentApi.RenameFile(build);
-                    }
-                });
-                AsyncManager.me().execute(new TimerTask() {
-                    @Override
-                    public void run() {
-                        MessagePushHandler.pushDownloadCompleted(item.getName());
                     }
                 });
             }

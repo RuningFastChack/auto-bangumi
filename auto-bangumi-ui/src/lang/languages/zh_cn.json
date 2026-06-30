@@ -1085,21 +1085,5 @@
   "TXT_CODE_o6p7q8r9": "API Key",
   "TXT_CODE_s1t2u3v4": "模型名称",
   "TXT_CODE_a9b0c1d2": "自定义 API 地址",
-  "TXT_CODE_e3f4g5h6": "留空使用云端 API。配置本地地址（如 http://localhost:11434/v1）则使用本地模型。",
-  "TXT_CODE_MESSAGE_PUSH_SETTING": "消息推送设置",
-  "TXT_CODE_MESSAGE_PUSH_ENABLE": "开启下载完成推送",
-  "TXT_CODE_MESSAGE_PUSH_ENABLE_DESC": "开启后，番剧下载完成时会发送一条推送消息。",
-  "TXT_CODE_MESSAGE_PUSH_TYPE": "推送类型",
-  "TXT_CODE_MESSAGE_PUSH_API_URL": "OpenClaw 网关地址",
-  "TXT_CODE_MESSAGE_PUSH_AUTH_TYPE": "网关认证方式",
-  "TXT_CODE_MESSAGE_PUSH_AUTH_TOKEN": "Token",
-  "TXT_CODE_MESSAGE_PUSH_AUTH_PASSWORD": "密码",
-  "TXT_CODE_MESSAGE_PUSH_TOKEN": "Token",
-  "TXT_CODE_MESSAGE_PUSH_PASSWORD": "密码",
-  "TXT_CODE_MESSAGE_PUSH_SESSION_KEY": "Session Key",
-  "TXT_CODE_MESSAGE_PUSH_DELIVERY": "Delivery JSON",
-  "TXT_CODE_MESSAGE_PUSH_DELIVERY_DESC": "可选。配置 OpenClaw delivery 上下文，用于把会话消息投递到微信等目标通道。",
-  "TXT_CODE_MESSAGE_PUSH_TEST": "测试推送",
-  "TXT_CODE_MESSAGE_PUSH_TEST_SUCCESS": "测试推送发送成功。",
-  "TXT_CODE_MESSAGE_PUSH_TEST_FAILED": "测试推送失败，请检查 OpenClaw 配置。"
+  "TXT_CODE_e3f4g5h6": "留空使用云端 API。配置本地地址（如 http://localhost:11434/v1）则使用本地模型。"
 }

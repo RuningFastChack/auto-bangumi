@@ -7,10 +7,6 @@ export const updateConfig = (params: UserConfig) => {
   return http.put(ADMIN_MODULE + 'v1/user', params);
 };
 
-export const testMessagePush = () => {
-  return http.post<boolean>(ADMIN_MODULE + 'v1/user/message/test');
-};
-
 export const updateLoginInfo = (params: LoginDTO) => {
   return http.post(ADMIN_MODULE + 'v1/user/update/login/info', params);
 };

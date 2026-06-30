@@ -2,7 +2,6 @@ package auto.bangumi.admin.model;
 
 import auto.bangumi.common.enums.AiModelEnum;
 import auto.bangumi.common.enums.DownUtilEnum;
-import auto.bangumi.message.enums.MessagePushType;
 import lombok.*;
 
 import java.util.List;
@@ -27,8 +26,6 @@ public class UserConfig {
     private McsManageSetting mcsManageSetting;
 
     private AiParseSetting aiParseSetting;
-
-    private MessageConfig messageConfig;
 
     private SystemInfo systemInfo;
 
@@ -178,20 +175,6 @@ public class UserConfig {
          * 为空时使用各供应商默认的云端 API 地址
          */
         private String baseUrl;
-    }
-
-    @Getter
-    @Setter
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class MessageConfig {
-
-        private Boolean enabled;
-
-        private MessagePushType pushType;
-
-        private Object config;
     }
 
     @Getter

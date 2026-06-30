@@ -18,6 +18,8 @@ public enum ErrorPrefixEnum {
 
     QB("Q", "QB异常"),
 
+    MESSAGE("M", "消息异常"),
+
     // ...其他业务模块的异常前缀
     ;
     // @formatter:on
